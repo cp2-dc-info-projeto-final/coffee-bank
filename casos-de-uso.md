@@ -2,15 +2,14 @@
 
 ## Lista dos Casos de Uso
 
- - [CDU 01](#CDU-01): Quisque id neque a erat imperdiet dictum et ut mauris.
+ - [CDU 01](#CDU-01): Criação de contas.
  - [CDU 02](#CDU-02): Morbi fringilla dolor at mattis vestibulum.
  - [CDU 03](#CDU-03): Duis nec orci quis velit faucibus hendrerit tempus vel libero.
 
 
 ## Lista dos Atores
 
- - Cras tempor
- - Donec a lorem
+ - User
 
 ## Diagrama de Casos de Uso
 
@@ -20,7 +19,7 @@
 
 ### CDU 01
 
-Quisque id neque a erat imperdiet dictum et ut mauris.
+Criação de contas.
 
 #### Atores
 
@@ -28,11 +27,16 @@ Quisque id neque a erat imperdiet dictum et ut mauris.
 2. Donec a lorem
 
 #### Fluxo Principal
+O usuário poderá criar novas contas para ele, desde que seu CPF não esteja atrelado a outra conta, utilizar na hora do login.
+Uma vez criada o login, o usuário poderá usar esse usuário e senha para logar e fazer as transações entre as contas.
+Para a criação da conta, será necessário a atrelação a seu CPF/RG.
+Em caso de conta para menor de idade deverá haver a atrelação do CPF/RG do responsável legal juntamente ao do menor de idade.
 
-1. Vivamus nec velit id risus sodales fermentum ut a mi.
-2. Nunc a ligula ac libero pellentesque auctor ornare at sem.
-3. In quis ante scelerisque felis luctus malesuada.
-4. Pellentesque mattis dui quis eleifend accumsan.
+1. O site fornece um formulário de criação de contas.
+2. O usuário precisará fornecer o seu CPF/RG, uma senha de 5 digitos e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
+3. O usuário apertará em enviar e mandará a requisição.
+4. Os dados serão verificados pelo frontend e caso seja aceito os dados serão enviados para o backend.
+5. Os dados serão verificados para o backend e caso seja aceito será criado a conta e retornada o Id da conta o usuário.
 
 **Diagrama de sequência XX**
 
