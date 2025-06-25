@@ -1,16 +1,4 @@
-# Fluxos de Usuário 
-## Depósitos
-Uma vez possuindo uma conta, o usuário precisará depositar a sua semente de café pelo ponto físico do banco.
-Após o depósito, todos os usuário receberam uma notificação de depósito realizado via SMS/Email.
-
-## Extrato
-O usuário poderá vizualizar as informações do fluxo de dinheiro da sua conta.
-Uma vez solicitada a visualização do extrato bancário, serão mostrados todos os depósitos, transferências, saques e investimentos realizados.
-
-## Cadastro de investimentos pelos donos de cafezais
-O agricultor poderá ir a uma agência e solicitar a um gerente o cadastramento de um novo investimento de fundo imobiliário atrelado a sua fazenda.
-Ocorrerá logo em seguida a verificação de seus dados, se o dono de cafezal possuir pagamentos de investimentos pendentes, todo o seu lote dividido em fundos, pagamentos de dividados atrasados ou uma movimentação bancária de menos de 1000000 CFS ele não poderá cadastrar um investimento.
-Serão requisitado os dados do número da conta do produtor, o intervalo de pagamento, quantos ativos serão, e qual a área que será dividida entre os fundos imobiçiários.
+# Fluxos de Usuário .
 
 ## Investimentos em cafezais
 Os investimentos em fazendas serão pautados em fundos imobiliários cadastrados por donos de fazendas de café através do sistema do banco.

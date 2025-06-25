@@ -5,6 +5,8 @@
  - [CDU 01](#CDU-01): Criação de contas.
  - [CDU 02](#CDU-02): Login
  - [CDU 03](#CDU-03): Transferências
+ - [CDU 04](#CDU-04): Vizualização de Extrato
+ - [CDU 05](#CDU-05): Cadastro de investimentos
 
 
 ## Lista dos Atores
@@ -109,17 +111,21 @@ Transferências
 
 ### CDU 04
 
-Duis nec orci quis velit faucibus hendrerit tempus vel libero.
+Vizualização de Extrato
 
 #### Atores
 
-1. Donec a lorem
+User
 
 #### Fluxo Principal
 
-1. Praesent interdum lectus sit amet augue tincidunt imperdiet.
-2. Duis ac dolor vel nisi imperdiet vehicula et non sem.
-3. Nunc imperdiet tortor consequat, lobortis purus non, interdum risus.
+1. O sistema fornecerá um botão para consulta do extrato
+2. O usuário clicará no botão
+3. O usuário será redirecionado para a página de saldo
+4. O frontend enviará o número da conta para o backend
+5. O backend usará o numero da conta para buscar todas as transferências bancárias que ocorreram
+6. O backend retornará essas transferências
+7. O sistema exibirá esse histórico de transferêncas
 
 #### Fluxo Alternativo A
 
@@ -128,3 +134,40 @@ Duis nec orci quis velit faucibus hendrerit tempus vel libero.
 3. Mauris sed purus sit amet lectus efficitur placerat et eu diam.
 4. Aenean ullamcorper tellus quis nibh porttitor congue.
 5. Phasellus laoreet erat eget condimentum dictum.
+
+### CDU 05
+
+Cadastro de investimentos
+
+#### Atores
+
+Admin
+
+#### Fluxo Principal
+
+1. O usuário irá até a agência conversar com o gerente.
+2. O sitema providenciará um botão com o redirencionamento para a pagina de cadastro de investimentos localizada na pagina principal de usuários admin.
+3. O Admin(gerente) clicará no botão para ir para o formulário.
+4. O admin será redirecionado a página de login.
+5. O frontend fornerá um login com as informações de
+    - CPF do dono do investimento.
+    - O valor de cada fundo imobiliário.
+    - O tamanho da propiedade.
+    - O tamanho a ser dividido entre os fundos.
+    - O numero de fundos imobiliários a serem negociados na bolsa.
+    - O aluguel em percentual que será pago aos investidores.
+    - O nome da propiedade.
+    - O numero da conta para a qual o valor será transferido.
+    - O nome do fundo.
+    - Nome do propietário
+    - O distrito federal que se localiza a fazenda
+6. O admin preencherá o formulário com os dados do propietário.
+7. O frontend fornecerá um botão de confirmar ao fim do formulário.
+8. O usuário apertará esse botão de confirmar
+9. O frontend validará os dados
+10. O frontend enviará os dados para o backend
+11. O Backend validará os dados
+12. O backend verificará se o propietário pode pedir um investimento
+13. O backend registrará o investimento
+14. O backend retornará que o cadastro foi bem sucedido.
+15. A mensagem será exibida pelo frontend
