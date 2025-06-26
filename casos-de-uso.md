@@ -18,6 +18,7 @@
  - [CDU 14](#cdu-14): criação de automatização de pagamentos
  - [CDU 15](#cdu-15): Supervisionamento do saldo
  - [CDU 17](#cdu-17): Categorização da unidade monetária
+ - [CDU 18](#cdu-18): Investimentos
 ## Lista dos Atores
 
  - User
@@ -535,3 +536,33 @@ Categorização da unidade monetária
 10. O frontend requisitará as categorias que aquele usuário criou
 11. O backend enviará todas as categorias cadastradas no banco de dados.
 12. O frontend exibirá esses dados em formato de gráfico de pizza.
+
+### CDU-18
+
+Investimentos em cafezais
+
+#### Atores
+- User
+
+#### Fluxo Principal
+1. O frontend fornecerá um botão de investimentos na página principal.
+2. O usuário apertará no botão.
+3. O frontend requisitará ao backend uma busca por investimentos atualmente disponiveis.
+4. O backend fará a busca
+5. O backend mandará os investimentos encontrados de volta para o frontend.
+6. O frontend ajeitará essas informações na página de investimentos. 
+7. O usuário será redirecionado a página de investimentos com todos os investimentos possíveis dele realizar.
+8. O usuário selecionará um investimento.
+9. O usuário será redirecionado a página do investimento selecionado onde haverá:
+    - O valor de cada fundo imobiliário.
+    - O tamanho da propriedade.
+    - O tamanho a ser dividido entre os fundos.
+    - O aluguel em percentual que será pago aos investidores.
+    - O nome da propiedade.
+    - O numero da conta para a qual o valor será transferido.
+    - O nome do fundo.
+    - Nome do propietário
+    - O distrito federal que se localiza a fazenda
+    -Um botão de investir.
+10. O usuário apertará no botão.
+11. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
