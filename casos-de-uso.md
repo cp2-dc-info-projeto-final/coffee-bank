@@ -458,6 +458,61 @@ Supervisionamento do saldo
 12. O frontend organizará a exibição em um gráfico
 13. O frontend exibirá o gráfico
 
+### CDU 16
+- Empréstimo
+
+#### Atores
+- User
+
+#### Fluxo Principal  
+1. Usuário acessa a seção de empréstimos 
+   - No app/internet banking, seleciona "Empréstimos" → "Novo Empréstimo"  
+   - Sistema exibe opções disponíveis (pessoal, consignado, CDC)  
+
+2. Seleção e simulação 
+   - Usuário escolhe o tipo de empréstimo e preenche:  
+     - Valor solicitado  
+     - Número de parcelas  
+   - Sistema calcula e mostra em tempo real:  
+     - Valor da parcela  
+     - CET (Custo Efetivo Total)  
+     - Data prevista de quitação  
+
+3. Formalização da proposta  
+   - Usuário confirma os dados  
+   - Sistema solicita:  
+     - Finalidade do empréstimo (menu dropdown)  
+     - Confirmação de renda (com upload opcional de holerite)  
+     - Aceite dos termos legais  
+
+4. Análise automática 
+   - BackEnd verifica em tempo real:  
+     - Score de crédito  
+     - Limite disponível  
+     - Compatibilidade renda/parcela (regra: parcela ≤ 30% da renda)  
+   - Sistema gera pré-aprovação imediata (ou negação com justificativa)  
+
+5. Validação e contratação  
+   - Se aprovado:  
+     - Sistema exibe contrato digital com assinatura eletrônica  
+     - Usuário confirma com senha/2FA  
+     - BackEnd registra operação e dispara notificação (CDU 12):  
+       *"Empréstimo contratado! R$X,XX creditados em conta em até 2h"*  
+   - Se reprovado:  
+     - Sistema sugere alternativas (valor menor, mais parcelas)  
+
+6. Liberação de recursos 
+   - Crédito disponibilizado na conta corrente vinculada  
+   - Sistema atualiza extrato com evento:  
+     "Crédito - Empréstimo Pessoal [protocolo]" 
+
+### Pós-Contratação 
+- Usuário pode:  
+  - Consultar débitos restantes  
+  - Antecipar parcelas (com desconto)  
+  - Baixar cópia do contrato  
+> ✅ Compliance: Todas as etapas registradas em audit trail (data/hora, IP, versão de contrato).  
+
 ### CDU 17
 
 Categorização da unidade monetária
