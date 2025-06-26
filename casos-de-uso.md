@@ -7,7 +7,8 @@
  - [CDU 03](#CDU-03): Transferências
  - [CDU 04](#CDU-04): Vizualização de Extrato
  - [CDU 05](#CDU-05): Cadastro de investimentos
-
+ - [CDU 06](#CDU-06): Cancelamento de senhas
+ - [CDU 07](#CDU-06): Cadastramento de admins
 
 ## Lista dos Atores
 
@@ -37,23 +38,6 @@ Criação de contas.
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
 
-#### Fluxo Alternativo A
-
-1. Pellentesque id mauris id ex fringilla iaculis.
-2. Maecenas ut dui at sapien rhoncus porttitor in sed turpis.
-3. Maecenas fringilla augue id sodales volutpat.
-4. Nulla vehicula lectus eu eros faucibus porta.
-5. Morbi non sem in diam dictum aliquet sit amet at metus.
-6. Aenean dictum diam in tempus ornare.
-
-#### Fluxo Alternativo B
-
-1. Ut elementum dolor id lorem elementum, et condimentum eros laoreet.
-2. Nulla sollicitudin arcu nec suscipit volutpat.
-3. Aliquam mattis sapien nec ornare faucibus.
-4. Sed eu massa nec enim condimentum commodo at eget ligula.
-5. Nam ultricies velit nec erat feugiat condimentum.
-6. Nam vitae lacus porttitor, sodales orci vel, lobortis arcu.
 
 ### CDU-02
 
@@ -72,6 +56,7 @@ Login
 7. O frontend enviará os dados para o Backend.
 8. O backend fará a verificação se os dados correspondem a uma conta.
 9. O backend retornará o nome, saldo e numero da conta
+10. O frontend redirecionarà o usuário para a pagina principal de seu respectivo tipo de agente.
 
 ### CDU-03
 
@@ -79,35 +64,27 @@ Transferências
 
 #### Atores
 
- - User
+- User
 
 #### Fluxo Principal
 
-1. Primeiro o usuário precisará logar na sua conta.
-2. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
-3. O usuário clicará no botão.
-4. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
-5. O usuário digitará o valor da transferência e chave pix a qual deseja trasnferir o dinheiro.
-6. Os dados serão verificados no frontend.
-7. Os dados serão enviados ao backend.
-8. Os dados serão checados e validados no backend.
-9. A validação dos dados será retornada ao frontend
-10.O usuário será redirecionado a uma outra página com o nome do remente e destinatário, chave pix e valor da transferência.
-11. O sistema terá o botão verde com o texto confirmar embaixo da tela.
-12. O usuário digitará a senha de sete dígitos.
-13. O frontend validará a senha.
-14. Os dados serão envidados ao backend.
-15. Os dados sofrerão a verificação
-16. O backend realiza a transferência da quantia.
-17. O backend retorna que a operação foi bem sucedida.
-18. O usuário é redirecionado a tela principal e recebe o pop up de operação sucedida.
-#### Fluxo Alternativo A
-
-1. Nulla elementum diam eu elementum rutrum.
-2. Aenean scelerisque est at nunc ornare, ac condimentum justo sollicitudin.
-3. Quisque eget risus ut est lacinia sollicitudin ac non diam.
-4. Quisque ac nulla convallis, lobortis nibh ac, tristique enim.
-5. Nulla ultricies metus nec risus mollis, interdum ultrices justo malesuada.
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja trasnferir o dinheiro.
+5. Os dados serão verificados no frontend.
+6. Os dados serão enviados ao backend.
+7. Os dados serão checados e validados no backend.
+8. A validação dos dados será retornada ao frontend
+9. O usuário será redirecionado a uma outra página com o nome do remente e destinatário, chave pix e valor da transferência.
+10. O sistema terá o botão verde com o texto confirmar embaixo da tela.
+11. O usuário digitará a senha de sete dígitos.
+12. O frontend validará a senha.
+13. Os dados serão envidados ao backend.
+14. Os dados sofrerão a verificação
+15. O backend realiza a transferência da quantia.
+16. O backend retorna que a operação foi bem sucedida.
+17. O usuário é redirecionado a tela principal e recebe o pop up de operação sucedida.
 
 ### CDU 04
 
@@ -115,7 +92,7 @@ Vizualização de Extrato
 
 #### Atores
 
-User
+- User
 
 #### Fluxo Principal
 
@@ -127,21 +104,13 @@ User
 6. O backend retornará essas transferências
 7. O sistema exibirá esse histórico de transferêncas
 
-#### Fluxo Alternativo A
-
-1. Aliquam efficitur arcu ac fermentum egestas.
-2. Pellentesque ac diam vitae erat bibendum hendrerit.
-3. Mauris sed purus sit amet lectus efficitur placerat et eu diam.
-4. Aenean ullamcorper tellus quis nibh porttitor congue.
-5. Phasellus laoreet erat eget condimentum dictum.
-
 ### CDU 05
 
 Cadastro de investimentos
 
 #### Atores
 
-Admin
+- Admin
 
 #### Fluxo Principal
 
@@ -171,3 +140,101 @@ Admin
 13. O backend registrará o investimento
 14. O backend retornará que o cadastro foi bem sucedido.
 15. A mensagem será exibida pelo frontend
+
+### CDU 06
+
+cancelamento de contas
+
+#### Atores
+
+- Admin
+
+#### Fluxo Principal
+1. O sistema oferecerá um botão de gerenciamento de usuário.
+2. O admin clicará no botão de gerenciamento de usuário.
+3. O sitema pedirá a confirmação via senha de admin de 12 dígitos.
+4. O admin fornecerá a senha
+5. O frontend verificará a senha.
+6. O frontend enviará a senha para o frontend
+7. O backend verificará a senha
+8. O backend retornará que a senha está correta
+9. O sistema redirecionará o admin à página de gerenciamento de usuário.
+10. O frontend requisitará todos os usuários para o backend.
+11. Aparecerá todos os usuário com um botão para excluir o usuário logo a direita.
+12. O admin apertará no botão de excluir.
+13. O sistema requisitára a senha de 12 caractéres do usuário.
+14. O admin fornecerá a senha
+15. O frontend verificará a senha fornecida.
+16. O frontend mandará os dados para o backend
+17. O backend verificará a senha
+18. O backend excluirá o usuário do banco de dados
+19. O backend retornará que a senha está coreta.
+20. O frontend exibirá que o usuário foi excluido.
+
+### CDU 07
+
+cadastramento de admins
+
+#### Atores
+
+- Admin
+
+#### Fluxo Principal
+
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin.
+4. O admin digitará a senha..
+5. O frontend verificará a senha.
+6. O frontend enviará os dados para o backend.
+7. O backend validará a senha.
+8. O backend retornará que a senha está correta.
+9. O frontend redirecionará o usuário para a página de cadastro de usuários.
+10. O sistema fornecerá um formulário com os campos:
+    - nome do novo admin
+    - numero da conta do novo admin
+    - cpf do novo admin
+11. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+12. O sistema fornecerá um botão de confirmar cadastro.
+13. O admin clicará no botão de confirmar cadastro.
+14. O sistema pedirá a senha de 12 dígitos.
+15. O admin digitará a senha de 12 dígitos.
+16. O frontend validará a senha.
+17. O frontend manda os dados para o backend.
+18. O backend validará os dados.
+19. O backend criará uma senha de 12 dígitos aleatórios para aquele admin.
+20. O backend criará o novo admin.
+21. O backend retornará que o usuário foi criado e a senha correspondente aquele usuário.
+22. o frontend exibirá que o usuário foi criado e qual é a sua senha respectiva.
+
+### CDU 07
+
+excluir admin
+
+#### Atores
+
+- Admin
+
+#### Fluxo Principal
+
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin escreverá a senha.
+5. O frontend validará a senha.
+6. O frontend enviará a senha para o frontend.
+7. O backend validará a senha
+8. O backend enviará que a senha está correta.
+9. O frontend redirecionará o usuário para a página de gerenciamento de admins.
+10. O frontend requisitára ao backend os dados dos admins
+11. O backend retornará os dados para o frontend
+12. O frontend exibirá todos os admins com o botão apagar admin.
+13. O admin clicará no botão de apagar admin.
+14. O sistema requisitará a senha de 12 dígitos
+15. O admin escreverá sua senha.
+16. O frontend validará a senha.
+17. O frontend enviará a senha para o backend.
+18. O backend validará a senha.
+19. O backend excluirá o admin do banco de dados.
+20. O backend retornará que a operação foi um sucesso.
+21. O frontend exibirá que a operação foi um sucesso.
