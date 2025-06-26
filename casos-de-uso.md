@@ -264,10 +264,6 @@ excluir admin
    - FrontEnd Envia Pacote De Atualização Para BackEnd;
    - BackEnd Verifica Os Dados E A Senha;
    - BackEnd Aplica Alterações E Retorna, Dizendo Que Foi Um Sucesso
-<<<<<<< HEAD
-   
-=======
-
 ### CDU 10
 
 alterar senha
@@ -299,4 +295,26 @@ alterar senha
 16. O backend retorna que o código é valido
 17. O front redireciona o usuário para a página de login
 18. O frontend exibe que a senha foi alterada
->>>>>>> cd933c91e79c80e8b0b2cfb2316d7fa60c28f7af
+
+### CDU 11
+
+Buscar e consultar usuários
+
+#### Atores
+
+- Admin
+
+#### Fluxo Principal
+
+1. O sistema fornecerá um botão de gerenciamento de usuário
+2. O Admin clicará no botão de gerenciamento
+3. O sistema requisitará a senha de 12 caracteres
+4. O Admin digitará a senha
+5. O frontend verificará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha
+8. O backend retornará que a senha está errada
+9. O frontend redicionara o admin para a página de gerenciamento de usuários
+10. O frontend requisitará os dados ao backend
+11. O backend enviará os dados dos usuários
+12. O frontend exibirá os dados
