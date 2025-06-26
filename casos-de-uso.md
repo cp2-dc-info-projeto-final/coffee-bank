@@ -17,7 +17,7 @@
  - [CDU 13](#cdu-13): Desconto Automático de Imposto
  - [CDU 14](#cdu-14): criação de automatização de pagamentos
  - [CDU 15](#cdu-15): Supervisionamento do saldo
-
+ - [CDU 17](#cdu-17): Categorização da unidade monetária
 ## Lista dos Atores
 
  - User
@@ -377,8 +377,8 @@ Buscar e consultar usuários
 ### Exemplo de Implementação  
 - Evento: Usuário cancela conta poupança  
 Notificação gerada: 
-> "Olá, [Nome]! Conta poupança 5678 foi encerrada em 27/06/2025 às 14:30.  
-> *Comprovante anexado neste e-mail.* Caso não tenha solicitado, contate nosso SAC: 0800-XXX-XXXX"  
+> "Olá, [Nome]! Infelizmente o seu café da tarde foi cancelado!
+> *Comprovante anexado neste e-mail.* Caso não tenha solicitado, marque um cafezinho com o gerente: 0800-XXX-XXXX"  
 
 ### CDU 13
 
@@ -457,3 +457,26 @@ Supervisionamento do saldo
 11. O backend retornará as transações feitas nos ultimos 12 meses pára o frontend
 12. O frontend organizará a exibição em um gráfico
 13. O frontend exibirá o gráfico
+
+### CDU 17
+
+Categorização da unidade monetária
+
+#### Atores
+
+- User
+
+#### Fluxo Principal
+
+1. O sistema irá fornecer um botão de categorização da unidade monetária
+2. O usuário irá clicar nesse botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará  a senha
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha 
+8. O backend enviará que a senha está correta
+9. O frontend redirecionará o usuário para a página de categorização monetária
+10. O frontend requisitará as categorias que aquele usuário criou
+11. O backend enviará todas as categorias cadastradas no banco de dados.
+12. O frontend exibirá esses dados em formato de gráfico de pizza.
