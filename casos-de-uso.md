@@ -239,6 +239,7 @@ excluir admin
 19. O backend excluirá o admin do banco de dados.
 20. O backend retornará que a operação foi um sucesso.
 21. O frontend exibirá que a operação foi um sucesso.
+
 ### CDU 09 - Editar Administradores
 
 ### Atores
@@ -263,7 +264,7 @@ excluir admin
    - FrontEnd Envia Pacote De Atualização Para BackEnd;
    - BackEnd Verifica Os Dados E A Senha;
    - BackEnd Aplica Alterações E Retorna, Dizendo Que Foi Um Sucesso
-   
+
 ### CDU 10
 
 alterar senha
