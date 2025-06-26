@@ -264,3 +264,4 @@ excluir admin
    - FrontEnd Envia Pacote De Atualização Para BackEnd;
    - BackEnd Verifica Os Dados E A Senha;
    - BackEnd Aplica Alterações E Retorna, Dizendo Que Foi Um Sucesso
+   
