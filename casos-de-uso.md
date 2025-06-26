@@ -319,6 +319,59 @@ Buscar e consultar usuários
 11. O backend enviará os dados dos usuários
 12. O frontend exibirá os dados
 
+### CDU 12
+- Notificação Via Usuário
+
+### Atores
+- User/Sistema
+
+#### Fluxo Principal  
+1. Evento disparador ocorre (Exemplo: usuário edita dados cadastrais, cancela conta, realiza transação relevante)  
+   - Sistema identifica o tipo de evento e o usuário afetado  
+
+2. Sistema gera notificação  
+   - Monta mensagem padronizada conforme o evento:  
+     - Exemplo 1 (edição): "Seus dados foram atualizados em [data/hora]"  
+     - Exemplo 2 (cancelamento): "Conta encerrada com sucesso. Código: [protocolo]"  
+   - Adiciona metadados: timestamp, criticidade (baixa/média/alta)  
+
+3. Sistema envia notificação
+   - Canais prioritários (configuráveis pelo usuário):  
+     - Push notification (app)  
+     - E-mail  
+     - SMS  
+   - Regra de multi-canal: Eventos críticos disparam em ≥ 2 canais  
+
+4. Registro e confirmação 
+   - BackEnd registra no banco de dados:  
+     ```json
+     {
+       "user_id": "12345",
+       "tipo": "conta_cancelada",
+       "canais": ["app", "email"],
+       "status": "entregue"
+     }
+     ```
+   - Sistema atualiza histórico de notificações do usuário  
+
+5. Usuário recebe e visualiza 
+   - Notificação aparece no painel do usuário (app/web)  
+   - Sistema marca como "lida" quando aberta  
+
+### Regras de Negócio  
+| Contexto                     | Regra                                                                 |
+|------------------------------|-----------------------------------------------------------------------|
+| **Tempo de entrega**         | Notificações críticas: ≤ 1 minuto; Demais: ≤ 15 minutos              |
+| **Personalização**           | Incluir nome do usuário e últimos 4 dígitos da conta                  |
+| **Cancelamento de conta**    | Notificação obrigatória + comprovante em PDF anexado via e-mail       |
+| **Edição de dados sensíveis**| Notificação imediata com opção "Reverter alteração" (link válido 1h)  |
+
+### Exemplo de Implementação  
+- Evento: Usuário cancela conta poupança  
+Notificação gerada: 
+> "Olá, [Nome]! Conta poupança 5678 foi encerrada em 27/06/2025 às 14:30.  
+> *Comprovante anexado neste e-mail.* Caso não tenha solicitado, contate nosso SAC: 0800-XXX-XXXX"  
+
 ### CDU 13
 
 Desconto automático de imposto
