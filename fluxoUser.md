@@ -1,7 +1,7 @@
 # Fluxos de Usuário .
 
 ## Gerenciamento de senhas
-O usuário poderá pedir a alteração de sua senha, desde que esteja cadastrado com a conta em seu celular.
+O usuário poderá pedir a , desde que esteja cadastrado com a conta em seu celular.
 Será requisitado a agência e o número da conta que quer ser alterada.
 E por fim, será requisitado, qual senha o usuário quer alterar junto com a nova senha e sua reescrita para a confirmação da senha.
 

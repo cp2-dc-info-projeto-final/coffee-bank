@@ -7,7 +7,7 @@
  - [CDU 03](#CDU-03): Transferências
  - [CDU 04](#CDU-04): Vizualização de Extrato
  - [CDU 05](#CDU-05): Cadastro de investimentos
- - [CDU 06](#CDU-06): Cancelamento de senhas
+ - [CDU 06](#CDU-06): Cancelamento de contas
  - [CDU 07](#CDU-07): Cadastramento de admins
  - [CDU 08](#CDU-08): exclusão de admins
 
@@ -264,4 +264,39 @@ excluir admin
    - FrontEnd Envia Pacote De Atualização Para BackEnd;
    - BackEnd Verifica Os Dados E A Senha;
    - BackEnd Aplica Alterações E Retorna, Dizendo Que Foi Um Sucesso
+<<<<<<< HEAD
    
+=======
+
+### CDU 10
+
+alterar senha
+
+#### Atores
+
+- User
+
+#### Fluxo Principal
+1. O sistema fornecerá o botão de alterar senha
+2. O usuário apertará no botão de alterar senha
+3. O frontend redirecionará o usuário para a pagina de alteração de senha 
+4. O frontend mostra um formulário com 3 campos:
+    - id da conta
+    - senha nova
+    - confirmação da nova senha
+5. O front verifica se a conta e senha é valida
+6. O front envia os dados para o backend
+7. O backend valida os dados
+8. O backend retorna que a conta é válida 
+
+9. O frontend envia a solicitação do envio de um código para o email
+10. O backend sorteia um código de 6 caracteres
+11. O backend envia o código sorteado para o email
+12. O usuário digita o código
+13. O front valido o código
+14. O front envia o código para o backend
+15. O backend verifica se o código é o mesmo
+16. O backend retorna que o código é valido
+17. O front redireciona o usuário para a página de login
+18. O frontend exibe que a senha foi alterada
+>>>>>>> cd933c91e79c80e8b0b2cfb2316d7fa60c28f7af
