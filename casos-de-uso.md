@@ -29,7 +29,7 @@
 
 ## Descrição dos Casos de Uso
 
-### CDU-01
+### CDU 01
 
 Criação de contas.
 
@@ -47,7 +47,7 @@ Criação de contas.
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
 
 
-### CDU-02
+### CDU 02
 
 Login
 
@@ -66,7 +66,7 @@ Login
 9. O backend retornará o nome, saldo e numero da conta
 10. O frontend redirecionarà o usuário para a pagina principal de seu respectivo tipo de agente.
 
-### CDU-03
+### CDU 03
 
 Transferências
 
