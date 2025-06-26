@@ -10,6 +10,11 @@
  - [CDU 06](#CDU-06): Cancelamento de contas
  - [CDU 07](#CDU-07): Cadastramento de admins
  - [CDU 08](#CDU-08): exclusão de admins
+ - [CDU 09](#CDU-09): Editar Administradores
+ - [CDU 10](#cdu-10): Alterar Senha
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários
+ - [CDU 12](#cdu-12): Notificação Via Usuário
+ - [CDU 13](#cdu-13): Desconto Automático de Imposto
 
 ## Lista dos Atores
 
@@ -240,7 +245,8 @@ excluir admin
 20. O backend retornará que a operação foi um sucesso.
 21. O frontend exibirá que a operação foi um sucesso.
 
-### CDU 09 - Editar Administradores
+### CDU 09 
+- Editar Administradores
 
 ### Atores
 - Admin
@@ -268,7 +274,7 @@ excluir admin
 
 alterar senha
 
-#### Atores
+### Atores
 
 - User
 
@@ -322,7 +328,7 @@ Buscar e consultar usuários
 ### CDU 12
 - Notificação Via Usuário
 
-### Atores
+#### Atores
 - User/Sistema
 
 #### Fluxo Principal  
