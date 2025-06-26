@@ -8,7 +8,8 @@
  - [CDU 04](#CDU-04): Vizualização de Extrato
  - [CDU 05](#CDU-05): Cadastro de investimentos
  - [CDU 06](#CDU-06): Cancelamento de senhas
- - [CDU 07](#CDU-06): Cadastramento de admins
+ - [CDU 07](#CDU-08): Cadastramento de admins
+ - [CDU 08](#CDU-08): exclusão de admins
 
 ## Lista dos Atores
 
@@ -207,7 +208,7 @@ cadastramento de admins
 21. O backend retornará que o usuário foi criado e a senha correspondente aquele usuário.
 22. o frontend exibirá que o usuário foi criado e qual é a sua senha respectiva.
 
-### CDU 07
+### CDU 08
 
 excluir admin
 
