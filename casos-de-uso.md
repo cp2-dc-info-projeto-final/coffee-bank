@@ -330,4 +330,45 @@ Desconto automático de imposto
 #### Fluxo Principal
 1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 10% para o governo
 2. O sistema descontará (lim x->∞ Σ i=0->i=x 9/(10**i))% do dinheiro como taxa do banco
-3. O sistemaa computará o pagamento
+3. O sistema computará o pagamento
+
+### CDU 14
+
+criação de automatização de pagamentos
+
+#### Atores
+
+- User
+
+#### Fluxo Principal
+
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha
+8. O backend confirmará que a senha está correta
+9. O frontend redirecionará o usuário para a página de automatização de pagamentos
+10. O frontend requisitará as automatizações já cadastradas do usuário
+11. O backend retornará todas as automatizações do caso
+12. O frontend exibirá todos os dados pegos do backend
+13. O sistema fornecerá um botão para cadastrar novos pagamentos automáticos
+14. O usuário clicará no botão
+15. O fornecerá um formulário com os campos:
+    - destinatário
+    - valor
+    - dia do mês
+14. O usuário completará o formulário
+15. O sistema fornecerá um botão de confirmação
+16. O usuário clicará no botão de confirmação
+17. O sistema requisitára a senha de 7 dígitos do usuário
+18. O usuário digitará a senha
+19. O frontend validará a senha
+20. O frontend enviará os dados para o backend
+21. O backend verificará os dados
+22. O backend cadastrará o pagamento automático
+23. O backend retornará que a operação foi um sucesso
+24. O frontend exibirá que a operação foi um sucesso
+25. Toda a meia noite o backend realizará todas as transferências cadastradas para aquele dia do mês

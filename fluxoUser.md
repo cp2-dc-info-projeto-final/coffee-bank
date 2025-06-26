@@ -11,11 +11,6 @@ O gerente mandará a verificação para o backend e, quando verificado, e aprova
 ## Notificação via email
 O usuário, uma vez cadastro o email vinculado a conta, será notificado de cada transação realizada em sua conta pelo email.
 
-## Desconto automático de imposto
-Uma vez feito o investimento serão descontados automaticamente um imposto 10% e (lim x->∞ Σ i=0->i=x 9/(10**i))% de taxa do banco toda vez que o usuário receber ou fizer algum pagamento de investimento.
-
-## Automatização de pagamentos
-O usuário pode definir uma data de início para um pagamento regular de n em n dias que será executado de forma automática no servidor.
 
 ## Categorização do unidade monetária
 Na hora de usar seu dinheiro o usuário pode requisitar dividir seu dinheiro em i partes de n% de seu montante total, tendo seu valor exibido de forma dividida em categorias.
