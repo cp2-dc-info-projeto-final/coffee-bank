@@ -239,7 +239,31 @@ excluir admin
 19. O backend excluirá o admin do banco de dados.
 20. O backend retornará que a operação foi um sucesso.
 21. O frontend exibirá que a operação foi um sucesso.
+### CDU 09 - Editar Administradores
 
+### Atores
+- Admin
+
+#### Fluxo Principal
+
+1. Na página de gerenciamento, cada admin listado tem botão "Editar"
+
+2. Ao clicar, sistema exibe modal/formulário com:
+   - Campos editáveis (nome, conta);
+   - Usuário Digita Campos Editáveis;
+   - Admin Preenche Formulário;
+   - Sistema Oferece Botão De Confirmar
+
+3. Admin faz alterações necessárias
+
+4. Ao confirmar (BackEnd e FrontEnd):
+   - Sistema Exige Senha;
+   - A Senha É Digitada Pelo Admin;
+   - FrontEnd Envia Os Dados Para O BackEnd;
+   - FrontEnd Envia Pacote De Atualização Para BackEnd;
+   - BackEnd Verifica Os Dados E A Senha;
+   - BackEnd Aplica Alterações E Retorna, Dizendo Que Foi Um Sucesso
+   
 ### CDU 10
 
 alterar senha
