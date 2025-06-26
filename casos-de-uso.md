@@ -15,6 +15,8 @@
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
  - [CDU 12](#cdu-12): Notificação Via Usuário
  - [CDU 13](#cdu-13): Desconto Automático de Imposto
+ - [CDU 14](#cdu-14): criação de automatização de pagamentos
+ - [CDU 14](#cdu-15): Supervisionamento do saldo
 
 ## Lista dos Atores
 
@@ -431,3 +433,27 @@ criação de automatização de pagamentos
 23. O backend retornará que a operação foi um sucesso
 24. O frontend exibirá que a operação foi um sucesso
 25. Toda a meia noite o backend realizará todas as transferências cadastradas para aquele dia do mês
+
+### CDU 15
+
+Supervisionamento do saldo
+
+#### Atores
+
+- User
+
+#### Fluxo Principal
+
+1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+2. O usuário clicará nesse botão.
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a senha
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha
+8. O backend retornará que a senha está correta
+9. O frontend redirecionará o usuário para a página de vizualização de extrato
+10. O frontend requisitará as transações feitas nos ultimos 12 meses
+11. O backend retornará as transações feitas nos ultimos 12 meses pára o frontend
+12. O frontend organizará a exibição em um gráfico
+13. O frontend exibirá o gráfico
