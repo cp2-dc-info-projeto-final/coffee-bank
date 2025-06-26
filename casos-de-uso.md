@@ -318,3 +318,16 @@ Buscar e consultar usuários
 10. O frontend requisitará os dados ao backend
 11. O backend enviará os dados dos usuários
 12. O frontend exibirá os dados
+
+### CDU 13
+
+Desconto automático de imposto
+
+#### Atores
+
+- User
+
+#### Fluxo Principal
+1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 10% para o governo
+2. O sistema descontará (lim x->∞ Σ i=0->i=x 9/(10**i))% do dinheiro como taxa do banco
+3. O sistemaa computará o pagamento

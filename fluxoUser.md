@@ -1,9 +1,5 @@
 # Fluxos de Usuário .
 
-## Buscar e consultar usuários
-O gerente poderá buscar e visualizar as informações dos usuário.
-O gerente pesquisará por agência, numero de conta, nome, nível de movimento bancário e/ou CPF, mostrando então todos os usuário com aquelas características.
-
 ## Supervisionamento do saldo de café
 O usuário poderá requisitar a visualização de seu saldo ao longo do tempo filtrando por tempo, valor, destinatário ou remetente.
 Uma vez requisitado o saldo o usuário será exibido em gráfico de acordo com os dados requisitados pelo usuário.
