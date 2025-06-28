@@ -599,4 +599,42 @@ Investimentos em cafezais
    23. O frontend requisitará novamente as categorias cadastradas por aquele usuário
    24. O backend retornará as categorias daquele usuário
    25. O frontend reorganizará esses dados.
+
 ### CDU 22
+   editar categoria de unidade monetária
+
+#### Atores
+   - User
+
+#### Fluxo Principal
+   1. O sistema irá fornecer um botão de categorização da unidade monetária
+   2. O usuário irá clicar nesse botão
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará  a senha
+   5. O frontend validará a senha
+   6. O frontend enviará a senha para o backend
+   7. O backend validará a senha 
+   8. O backend enviará que a senha está correta
+   9. O frontend redirecionará o usuário para a página de categorização monetária
+   10. O frontend requisitará as categorias que aquele usuário criou
+   11. O backend enviará todas as categorias cadastradas no banco de dados.
+   12. O frontend exibirá esses dados em formato de gráfico de pizza.
+   13. O sistema fornecerá um botão de gerenciar categorias
+   14. O usuário clicará nesse botão
+   15. O usuário será redirecionado para a página de gerenciamento de categorias
+   16. O frontend requisitará as categorias monetárias desse usuário
+   17. O backend retornará as categorias monetárias criadas
+   18. O frontend exibirá as categorias em lista com um botão de editar
+   19. O usuário clicará no botão de editar
+   20. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria
+      - porcentual que ela representa
+   21. O usuário preencherá o formulário
+   22. O Sistema fornecerá o botão de confimar.
+   23. O usuário clicará no botão
+   24. O frontend requisitará a edição para o backend
+   25. O backend editará da categoria no banco de dados
+   26. O backend retornará que a categoria foi excluida com sucesso
+   27. O frontend requisitará novamente as categorias cadastradas por aquele usuário
+   28. O backend retornará as categorias daquele usuário
+   29. O frontend reorganizará esses dados.
