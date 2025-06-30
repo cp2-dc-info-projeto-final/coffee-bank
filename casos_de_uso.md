@@ -81,7 +81,8 @@ Transferências
 5. O sistema validará os dados e redicionará o usuário a outra página.
 6. O sistema terá o botão verde com o texto confirmar embaixo da tela.
 7. O usuário digitará a senha de sete dígitos.
-8. O sistema validará os dados
+8. O sistema validará os dados e fará a transferência.
+9. O usuário é redirecionado a tela principal e recebe o pop up de operação sucedida.
 ### CDU 04
 
 Vizualização de Extrato
@@ -91,7 +92,10 @@ Vizualização de Extrato
 - User
 
 #### Fluxo Principal
-
+1. O sistema fornecerá um botão para consulta do extrato
+2. O usuário clicará no botão
+3. O usuário será redirecionado para a página de saldo
+4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
 ### CDU 05
 
 Cadastro de investimentos
