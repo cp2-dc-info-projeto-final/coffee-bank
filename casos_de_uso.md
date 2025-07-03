@@ -20,8 +20,8 @@
  - [CDU 16](#cdu-16): Realização de emprestimos
  - [CDU 17](#cdu-17): Vizualização de Categoria da unidade monetária
  - [CDU 18](#cdu-18): Investimentos
- - [CDU 21](#cdu-21): Excluir categoria de unidade monetária
- - [CDU 22](#cdu-22): Editar categoria de unidade monetária
+ - [CDU 19](#cdu-19): Excluir categoria de unidade monetária
+ - [CDU 20](#cdu-20): Editar categoria de unidade monetária
 
 ## Lista dos Atores
 
@@ -325,7 +325,7 @@ Investimentos em cafezais
 
 #### Fluxo Principal
 
-### CDU 21
+### CDU 19
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -345,7 +345,8 @@ Investimentos em cafezais
    11. O usuário clicará no botão de excluir.
    12. O sistema excluirá aquela automatização.
    13. O sistema exibirá os dados cadastrados.
-### CDU 22
+
+### CDU 20
    editar categoria de unidade monetária
 
 #### Atores
@@ -371,3 +372,7 @@ Investimentos em cafezais
    15. O usuário clicará no botão.
    16. O sistema fará as alterações
    17. O sistema voltará a lista de categorias.
+
+
+### CDU 22
+
