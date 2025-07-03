@@ -234,6 +234,13 @@ Buscar e consultar usuários
 - Admin
 
 #### Fluxo Principal
+1. O sistema fornecerá um botão de gerenciamento de usuário
+2. O Admin clicará no botão de gerenciamento
+3. O sistema requisitará a senha de 12 caracteres
+4. O Admin digitará a senha
+5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
+6. O admin digitará o nome do usuário que ele deseja achar.
+7. O sistema validará os dados e exibirá ás informações desse usuário.
 
 ### CDU 12
 - Notificação Via Usuário
