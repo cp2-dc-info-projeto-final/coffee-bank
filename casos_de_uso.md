@@ -41,8 +41,15 @@ Criação de contas.
 #### Atores
  - User
 #### Fluxo Principal
-1. O sistema fornece um formulário de criação de contas.
-2. O usuário precisará fornecer o seu CPF/RG, uma senha de 5 digitos e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
+1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+2. O usuário preencherá o formulário.
 3. O usuário apertará em enviar e mandará a requisição.
 4. O sistema o validará a senha
 5. Os dados serão validados e salvos
@@ -51,13 +58,27 @@ Criação de contas.
 ### Dados incorretos
 
 1. dados incompletos
-   1. O sistema fornece um formulário de criação de contas.
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
    2. O usuário não coloca alguma informação
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
    5. O sistema falará que os dados estão incompletos e quais campos estão nulos
 2. dados incorretos
-   1. O sistema fornece um formulário de criação de contas.
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
    2. O usuário coloca alguma informação inválida.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha.
@@ -69,10 +90,12 @@ Criação de contas.
       - confirmação senha de 5 digitos
       - senha de 7 digitos
       - confirmação senha de 7 dígitos
-   2. O usuário precisará fornecer o seu , uma  e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
+      - data de nascimento 
+      - nome
+   2. O usuário preencherá o formulário com as senhas de 5 ou 7 dígitos diferentes nos campos de senha e confirmação.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
-5  . Os dados serão validados e salvos
+   5. Os dados serão validados e salvos
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
