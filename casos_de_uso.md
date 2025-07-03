@@ -13,8 +13,6 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 12](#cdu-12): Notificação Via Usuário
- - [CDU 13](#cdu-13): Desconto Automático de Imposto
  - [CDU 14](#cdu-14): criação de automatização de pagamentos
  - [CDU 15](#cdu-15): Supervisionamento do saldo
  - [CDU 16](#cdu-16): Realização de emprestimos
@@ -206,7 +204,42 @@ Vizualização de Extrato
 2. O usuário clicará no botão
 3. O usuário será redirecionado para a página de saldo
 4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
-
+#### fluxo alternativo
+##### CFA-1: Alteração de exibição
+###### FA-1: filtragem de transferências
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de filtragens de transferências
+   6. O usuário clicará no botão
+   7. O sistema abrirá o campo de filtragem
+   8. O usuário filtrará quais transferências quer ou não visualizar pelos filtros de:
+      - Remetente
+      - Destinatário
+      - Recorte temporal
+      - Valor
+      - Categoria monetária usada na transferência
+      - Rebido ou enviado
+   9. Os dados seram mostrados de acordo com o filtro do usuário
+##### CFA-2: Alteração de rota
+###### FA-1: cancelamento de vizaulização de extrato
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de voltar
+   6. O usuário clicará no botão de voltar
+   7. O sistema redirecionará o usuário para a pagina principal
+###### FA-2:Cancelamento de filtragem de transferências
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de filtragens de transferências
+   6. O usuário clicará no botão
+   7. O sistema abrirá o campo de filtragem exibirá o campo de cancelar filtragem
+   8. o sistema fechará o campo de filtragem
 ### CDU 05
 
 Cadastro de investimentos
@@ -350,26 +383,6 @@ Buscar e consultar usuários
 5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
 6. O admin digitará o nome do usuário que ele deseja achar.
 7. O sistema validará os dados e exibirá ás informações desse usuário.
-
-### CDU 12
-- Notificação Via Usuário
-
-#### Atores
-- User/Sistema
-
-#### Fluxo Principal 
-
-### CDU 13
-
-Desconto automático de imposto
-
-#### Atores
-
-- Sistema
-
-#### Fluxo Principal
-1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 11% de taxa
-2. O sistema computará o pagamento
 
 ### CDU 14
 
