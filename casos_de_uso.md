@@ -201,7 +201,7 @@ Excluir Admin
 1. O sistem fornecerá, na página de gerenciamento um botão "Editar" ao lado de cada admin listado.  
 2. Ao clicar, o sistema exigirá a senha de 12 digítos do administrador. 
 3. O Admin colocará sua senha.
-4.O sistema irá validar a senha do administrador, e  imediatamente exibirá um modal/formulário com campos para nome e conta.
+4. O sistema irá validar a senha do administrador, e  imediatamente exibirá um modal/formulário com campos para nome e conta.
 5. O Admin preencherá o formulário com ás mudanças desejadas.
 6. O sistema validará ás alterações, e aplica ás edições feitas, relatando ao administrador que as mudanças foram realizadas com sucesso.
 
@@ -259,9 +259,8 @@ Desconto automático de imposto
 - Sistema
 
 #### Fluxo Principal
-1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 10% para o governo
-2. O sistema descontará (lim x->∞ Σ i=0->i=x 9/(10**i))% do dinheiro como taxa do banco
-3. O sistema computará o pagamento
+1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 11% de taxa
+2. O sistema computará o pagamento
 
 ### CDU 14
 
@@ -332,3 +331,22 @@ Investimentos em cafezais
    - User
 
 #### Fluxo Principal
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário.
+   14. O Sistema fornecerá o botão de confimar.
+   15. O usuário clicará no botão.
+   16. O sistema fará as alterações
+   17. O sistema voltará a lista de categorias.
