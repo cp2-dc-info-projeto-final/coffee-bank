@@ -305,7 +305,6 @@ Criação de automatização de pagamentos
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
 ### CDU 15
-
 Supervisionamento do saldo
 
 #### Atores
@@ -328,14 +327,22 @@ Supervisionamento do saldo
 #### Fluxo Principal  
 
 ### CDU 17
-
 Vizualização de Categoria da unidade monetária
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
+1. O sistema exibe um botão de Categorização da Unidade Monetária na interface.
+2. O usuário clica no botão de Categorização da Unidade Monetária.
+   - O sistema solicita a senha de 5 dígitos para autenticação.
+3. O usuário digita a senha.
+   - O sistema valida a senha.
+4. O sistema redireciona o usuário para a página de categorização monetária.
+   - O sistema exibe um botão de Gerenciar Categorias.
+   - O usuário clica no botão de Gerenciar Categorias.
+5. O sistema redireciona o usuário para a página de gerenciamento de categorias.
+   - O sistema lista todas as categorias cadastradas, exibindo detalhes como nome, descrição, e data de criação.
 
 ### CDU-18
 
