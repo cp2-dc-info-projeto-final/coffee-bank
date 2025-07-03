@@ -214,6 +214,16 @@ Alterar senha
 - User
 
 #### Fluxo Principal
+1. O sistema fornecerá o botão de alterar senha
+2. O usuário apertará no botão de alterar senha
+3. O sistema redirecionará o usuário para a página de alteração de senha.
+4. O sistema exibirá um formulário com 3 campos:
+    - id da conta
+    - senha nova
+    - confirmação da nova senha
+5. O sistema validará os dados e enviará uma mensagem ao e-mail do usuário contendo um código de 6 caracteres, além de exibir um campo para o usuário inserir o código.
+6. O usuário digitará o código.
+7. O sistema validará o código, e mudará a senha da conta do usuário pela nova senha, além de exibir ao usuário uma mensagem de alteração realizada com sucesso, redirecionando usuário á página de login.
 
 ### CDU 11
 
