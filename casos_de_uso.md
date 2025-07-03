@@ -198,9 +198,16 @@ Excluir Admin
 
 #### Fluxo Principal
 
+1. O sistem fornecerá, na página de gerenciamento um botão "Editar" ao lado de cada admin listado.  
+2. Ao clicar, o sistema exigirá a senha de 12 digítos do administrador. 
+3. O Admin colocará sua senha.
+4.O sistema irá validar a senha do administrador, e  imediatamente exibirá um modal/formulário com campos para nome e conta.
+5. O Admin preencherá o formulário com ás mudanças desejadas.
+6. O sistema validará ás alterações, e aplica ás edições feitas, relatando ao administrador que as mudanças foram realizadas com sucesso.
+
 ### CDU 10
 
-alterar senha
+Alterar senha
 
 ### Atores
 
