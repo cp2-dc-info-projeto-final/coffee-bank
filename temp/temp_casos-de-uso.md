@@ -542,7 +542,31 @@ Vizualização de Categoria da unidade monetária
 
 #### Fluxos Alternativos
 
+## CFA-1
+Erro de Autenticação
 
+# FA-1
+   Senha Incorreta
+
+1. O sistema exibe a mensagem: "Senha incorreta. Tente novamente."
+2. O usuário pode reinserir a senha (retornando ao passo 3) ou cancelar a ação.
+
+# CFA-2
+Ausência de Categoria
+
+# FA-1
+Nenhuma Categoria Cadastrada
+
+1. O sistema exibe a mensagem: "Nenhuma categoria encontrada."
+2. O usuário pode retornar à página anterior ou sair.
+
+## CFA-3
+Acesso cancelado pelo usuário
+
+# FA-1
+Quaisquer Cancelamento Pelo Usuário
+
+1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
 ### CDU-18
 Investimentos em cafezais
