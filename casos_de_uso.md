@@ -58,10 +58,21 @@ Criação de contas.
    5. O sistema falará que os dados estão incompletos e quais campos estão nulos
 2. dados incorretos
    1. O sistema fornece um formulário de criação de contas.
-   2. O usuário coloca alguma informação
+   2. O usuário coloca alguma informação inválida.
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha.
+   5. O sistema falará que os dados estão inválidos e quais campos estão inválidos.
+3. Senhas diferentes
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+   2. O usuário precisará fornecer o seu , uma  e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
-   5. O sistema falará que os dados estão incompletos e quais campos estão nulos
+5  . Os dados serão validados e salvos
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
