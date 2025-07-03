@@ -20,8 +20,8 @@
  - [CDU 16](#cdu-16): Realização de emprestimos
  - [CDU 17](#cdu-17): Vizualização de Categoria da unidade monetária
  - [CDU 18](#cdu-18): Investimentos
- - [CDU 21](#cdu-21): Excluir categoria de unidade monetária
- - [CDU 22](#cdu-22): Editar categoria de unidade monetária
+ - [CDU 21](#cdu-19): Excluir categoria de unidade monetária
+ - [CDU 22](#cdu-20): Editar categoria de unidade monetária
 ## Lista dos Atores
 
  - User
@@ -570,7 +570,7 @@ Investimentos em cafezais
 10. O usuário apertará no botão.
 11. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 
-### CDU 21
+### CDU 19
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -603,7 +603,7 @@ Investimentos em cafezais
    24. O backend retornará as categorias daquele usuário.
    25. O frontend reorganizará esses dados.
 
-### CDU 22
+### CDU 20
    editar categoria de unidade monetária
 
 #### Atores
