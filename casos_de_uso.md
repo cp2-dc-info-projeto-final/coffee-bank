@@ -286,26 +286,35 @@ Cadastro de investimentos
 - Admin
 
 #### Fluxo Principal
-1. O usuário irá até a agência conversar com o gerente.
-2. O sitema providenciará um botão com o redirecionamento para a pagina de cadastro de investimentos localizada na pagina principal de usuários admin.
-3. O Admin(gerente) clicará no botão para ir para o formulário.
-4. O admin será redirecionado a página de login.
-5. O sistema fornerá um login com as informações de
-    - CPF do dono do investimento.
-    - O valor de cada fundo imobiliário.
-    - O tamanho da propiedade.
-    - O tamanho a ser dividido entre os fundos.
-    - O numero de fundos imobiliários a serem negociados na bolsa.
-    - O aluguel em percentual que será pago aos investidores.
-    - O nome da propiedade.
-    - O numero da conta para a qual o valor será transferido.
-    - O nome do fundo.
-    - Nome do propietário
-    - O distrito federal que se localiza a fazenda
-6. O admin preencherá o formulário com os dados do propietário.
-7. O sistema fornecerá um botão de confirmar ao fim do formulário.
-8. O usuário apertará esse botão de confirmar
-9. O sistema validará os dados, registrará o investimento e exibirá uma mensagem de sucesso
+O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+O usuário clica no botão.
+O sistema redireciona o usuário para a página de login.
+O sistema exibe campos para CPF do usuário e senha.
+O usuário insere suas credenciais e clica em "Entrar".
+O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
+   - Credenciais são verificas no banco de dados e confirmado se o login é válido.
+
+O sistema redireciona o usuário para a página de cadastro de investimentos.
+O sistema exibe um formulário com os campos:
+CPF do dono do investimento
+Valor de cada fundo imobiliário
+Tamanho da propriedade
+Tamanho a ser dividido entre os fundos
+Número de fundos imobiliários para negociação
+Percentual de aluguel para investidores
+Nome da propriedade
+Número da conta para transferência
+Nome do fundo
+Nome do proprietário
+Distrito Federal da propriedade
+O usuário preenche todos os campos com os dados do proprietário.
+O usuário clica no botão "Confirmar Cadastro".
+O frontend valida os dados (ex.: campos obrigatórios, valores numéricos válidos).
+O frontend envia os dados para o backend.
+O backend valida a consistência dos dados (ex.: CPF existente, valores positivos).
+O backend salva o investimento no banco de dados.
+O backend envia uma confirmação de cadastro bem-sucedido.
+O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o admin para a página inicial.
 
 ### CDU 06
 
