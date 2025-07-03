@@ -13,8 +13,6 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 12](#cdu-12): Notificação Via Usuário
- - [CDU 13](#cdu-13): Desconto Automático de Imposto
  - [CDU 14](#cdu-14): criação de automatização de pagamentos
  - [CDU 15](#cdu-15): Supervisionamento do saldo
  - [CDU 16](#cdu-16): Realização de emprestimos
