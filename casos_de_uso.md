@@ -55,10 +55,10 @@ Criação de contas.
 5. Os dados serão validados e salvos
 
 #### fluxo alternativo
-### CFA-1
+##### CFA-1
 Dados incorretos
 
-# FA-1 dados incompletos
+###### FA-1 dados incompletos
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -71,7 +71,7 @@ Dados incorretos
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
    5. O sistema falará que os dados estão incompletos e quais campos estão nulos
-# FA-2 dados incorretos
+###### FA-2 dados incorretos
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -84,7 +84,7 @@ Dados incorretos
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha.
    5. O sistema falará que os dados estão inválidos e quais campos estão inválidos.
-# FA-3 Senhas diferentes
+###### FA-3 Senhas diferentes
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
