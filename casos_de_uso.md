@@ -184,12 +184,49 @@ Transferências
 1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
 2. O usuário clicará no botão.
 3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
-4. O usuário digitará o valor da transferência e chave pix a qual deseja trasnferir o dinheiro.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja transferir o dinheiro.
 5. O sistema validará os dados e redicionará o usuário a outra página.
-6. O sistema terá o botão verde com o texto confirmar embaixo da tela.
-7. O usuário digitará a senha de sete dígitos.
-8. O sistema validará os dados e fará a transferência.
-9. O usuário é redirecionado a tela principal e recebe o pop up de operação sucedida.
+6. O sistema terá um botão para confirmar ou cancelar a operação embaixo da tela.
+7. O usuário clicará no botão de confirmar.
+8. O sistema pedirá a senha de 7 dígitos.
+9. O usuário digitará a senha de sete dígitos.
+10. O sistema validará os dados e fará a transferência.
+11. O usuário é redirecionado a tela principal e recebe o pop up de operação sucedida.
+
+#### Fluxo alternativo
+
+##### CFA-1: Dados errados
+
+###### FA-1: Senha diferente da cadastrada
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e redicionará o usuário a outra página.
+6. O sistema terá um botão para confirmar ou cancelar a operação embaixo da tela.
+7. O usuário clicará no botão confirmar.
+8. O sistema pedirá a senha de 7 dígitos.
+9. O usuário digitará uma senha de sete digítos diferente da do usuário.
+10. O sistema validará os dados e requisitará ao usuário colocar a senha correta.
+
+###### FA-2: Campo pix vazio
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário não colocará o pix a qual deseja transferir o dinheiro nos campos.
+5. O sistema perceberá a ausência de dados requisitará que o usuário digite o pix de um usuário.
+
+##### CFA-2: Alteração de rota
+###### FA-1: Cancelamento de operação
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e redicionará o usuário a outra página.
+6. O sistema terá um botão para confirmar ou cancelar a operação embaixo da tela.
+7. O usuário clicará no botão cancelar.
+8. O sistema encerrará a operação, redirecionando o usuário á página inicial.
+
 
 ### CDU 04
 
