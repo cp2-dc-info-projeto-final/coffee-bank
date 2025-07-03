@@ -332,7 +332,19 @@ Investimentos em cafezais
    - User
 
 #### Fluxo Principal
-
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de excluir.
+   11. O usuário clicará no botão de excluir.
+   12. O sistema excluirá aquela automatização.
+   13. O sistema exibirá os dados cadastrados.
 ### CDU 22
    editar categoria de unidade monetária
 
