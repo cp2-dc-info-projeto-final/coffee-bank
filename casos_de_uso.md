@@ -280,9 +280,9 @@ Criação de automatização de pagamentos
    -Um botão para cadastrar novos pagamentos automáticos.
 6. O usuário clicará no botão.
 7. O sistema fornecerá um formulário com os campos:
-    - destinatário
-    - valor
-    - dia do mês
+   - destinatário
+   - valor
+   - dia do mês
 8. O usuário completará o formulário.
 9. O sistema validará os dados e requiistará a senha de 7 digítos do usuário.
 10. O usuário digitará a senha.
@@ -310,6 +310,27 @@ Supervisionamento do saldo
 - User
 
 #### Fluxo Principal  
+1. O sistema fornecerá um botão para realização de empréstimos.
+2. O usuário clicará no botão.
+3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+4. O usuário escolherá um empréstimo.
+5. O sistema exibirá um modal/ formulário com os seguintes campos:
+  - Valor solicitado  
+  - Número de parcelas   
+6. O usuário  preencherá esses campos.
+7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+   - Valor da parcela  
+   - CET (Custo Efetivo Total)  
+   - Data prevista de quitação 
+8. O usuário apertará o botão.
+9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+   - Um dropdown que determina o tipo de empréstimo.
+   - Confirmação de renda.
+   - Aceitação dos termos legais
+10. O usuário preencherá esse modal.
+11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+12. O usuário digitará sua senha.
+13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 
 ### CDU 17
 
