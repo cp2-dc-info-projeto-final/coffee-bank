@@ -278,7 +278,16 @@ Criação de automatização de pagamentos
 4. O usuário digitará a sua senha de 5 dígitos
 5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
    -Todas as automaizações feitas previamente.
-   -Um
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+    - destinatário
+    - valor
+    - dia do mês
+8. O usuário completará o formulário.
+9. O sistema validará os dados e requiistará a senha de 7 digítos do usuário.
+10. O usuário digitará a senha.
+11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
 ### CDU 15
 
