@@ -44,8 +44,24 @@ Criação de contas.
 1. O sistema fornece um formulário de criação de contas.
 2. O usuário precisará fornecer o seu CPF/RG, uma senha de 5 digitos e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
 3. O usuário apertará em enviar e mandará a requisição.
-4. Os dados serão validados e salvos
+4. O sistema o validará a senha
+5. Os dados serão validados e salvos
 
+#### fluxo alternativo
+### Dados incorretos
+
+1. dados incompletos
+   1. O sistema fornece um formulário de criação de contas.
+   2. O usuário não coloca alguma informação
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha
+   5. O sistema falará que os dados estão incompletos e quais campos estão nulos
+2. dados incorretos
+   1. O sistema fornece um formulário de criação de contas.
+   2. O usuário coloca alguma informação
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha
+   5. O sistema falará que os dados estão incompletos e quais campos estão nulos
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
@@ -396,6 +412,3 @@ Investimentos em cafezais
    15. O usuário clicará no botão.
    16. O sistema fará as alterações
    17. O sistema voltará a lista de categorias.
-
-
-### CDU 21
