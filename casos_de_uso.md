@@ -55,10 +55,9 @@ Criação de contas.
 5. Os dados serão validados e salvos
 
 #### fluxo alternativo
-##### CFA-1
-Dados incorretos
+##### CFA-1: Dados incorretos
 
-###### FA-1 dados incompletos
+###### FA-1: dados incompletos
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -71,7 +70,7 @@ Dados incorretos
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
    5. O sistema falará que os dados estão incompletos e quais campos estão nulos
-###### FA-2 dados incorretos
+###### FA-2: dados incorretos
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -84,7 +83,7 @@ Dados incorretos
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha.
    5. O sistema falará que os dados estão inválidos e quais campos estão inválidos.
-###### FA-3 Senhas diferentes
+###### FA-3: Senhas diferentes
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -96,7 +95,20 @@ Dados incorretos
    2. O usuário preencherá o formulário com as senhas de 5 ou 7 dígitos diferentes nos campos de senha e confirmação.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
-   5. Os dados serão validados e salvos
+   5. O sistema informará que as senhas estão diferentes
+###### FA-4: CPF/RG já cadastrado
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+   2. O usuário preencherá o formulário um RG/CPF que já está cadastrado no sistema.
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará o CPF
+   5. O sistema informará que o CPF já está cadastrado
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
@@ -110,12 +122,16 @@ Login
 - User
 
 #### Fluxo Principal
-1. O sistema fornece formulário de criação de contas
-2. O usuário precisará fornecer o seu CPF/RG, uma senha de 5 digitos e sua confimação, uma 
-senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
-3. O usuário apertará em enviar e mandará a requisição.
-4. Os dados serão validados e será criado a conta do usuário.
- 
+1. O sistema fornece formulário de login de contas com os campos:
+   - senha de cinco digitos
+   - numero da conta
+2. O usuário preencherá os campos.
+3. Os dados serão validados no sistema.
+4. O usuário será redirecionado a página principal logado em sua conta.
+
+#### fluxo alternativo
+##### CFA-1: dados errados
+###### FA-1: Senha diferente da cadastrada
 ### CDU 03
 
 Transferências
