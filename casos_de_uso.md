@@ -324,6 +324,25 @@ Investimentos em cafezais
 - User
 
 #### Fluxo Principal
+1. O sistema fornecerá um botão de investimentos na página principal.
+2. O usuário apertará no botão.
+3. O sistema ajeitará essas informações na página de investimentos. 
+4. O usuário será redirecionado a página de investimentos com todos os investimentos possíveis dele realizar.
+5. O usuário selecionará um investimento.
+6. O usuário será redirecionado a página do investimento selecionado onde haverá:
+    - O valor de cada fundo imobiliário.
+    - O tamanho da propriedade.
+    - O tamanho a ser dividido entre os fundos.
+    - O aluguel em percentual que será pago aos investidores.
+    - O nome da propiedade.
+    - O numero da conta para a qual o valor será transferido.
+    - O nome do fundo.
+    - Nome do propietário
+    - O distrito federal que se localiza a fazenda
+    - Um botão de investir.
+7. O usuário apertará no botão.
+8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
+9. O usuário fornecerá a senha
 
 ### CDU 19
    Excluir categoria de unidade monetária
@@ -374,5 +393,4 @@ Investimentos em cafezais
    17. O sistema voltará a lista de categorias.
 
 
-### CDU 22
-
+### CDU 21
