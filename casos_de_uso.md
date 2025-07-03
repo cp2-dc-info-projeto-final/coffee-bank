@@ -347,9 +347,9 @@ Criação de automatização de pagamentos
    -Um botão para cadastrar novos pagamentos automáticos.
 6. O usuário clicará no botão.
 7. O sistema fornecerá um formulário com os campos:
-    - destinatário
-    - valor
-    - dia do mês
+   - destinatário
+   - valor
+   - dia do mês
 8. O usuário completará o formulário.
 9. O sistema validará os dados e requiistará a senha de 7 digítos do usuário.
 10. O usuário digitará a senha.
@@ -376,6 +376,27 @@ Supervisionamento do saldo
 - User
 
 #### Fluxo Principal  
+1. O sistema fornecerá um botão para realização de empréstimos.
+2. O usuário clicará no botão.
+3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+4. O usuário escolherá um empréstimo.
+5. O sistema exibirá um modal/ formulário com os seguintes campos:
+  - Valor solicitado  
+  - Número de parcelas   
+6. O usuário  preencherá esses campos.
+7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+   - Valor da parcela  
+   - CET (Custo Efetivo Total)  
+   - Data prevista de quitação 
+8. O usuário apertará o botão.
+9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+   - Um dropdown que determina o tipo de empréstimo.
+   - Confirmação de renda.
+   - Aceitação dos termos legais
+10. O usuário preencherá esse modal.
+11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+12. O usuário digitará sua senha.
+13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 
 ### CDU 17
 Vizualização de Categoria da unidade monetária
@@ -384,15 +405,46 @@ Vizualização de Categoria da unidade monetária
 - User
 
 #### Fluxo Principal
-1. O sistema exibe um botão de Categorização da Unidade Monetária na interface.
-2. O usuário clica no botão de Categorização da Unidade Monetária.
-3. O sistema solicita a senha de 5 dígitos para autenticação.
-4. O usuário digita a senha.
-5.  O sistema valida a senha.
-6. O sistema redireciona o usuário para a página de categorização monetária com o botão de Gerenciar Categorias.
-7. O usuário clica no botão de Gerenciar Categorias.
-8. O sistema redireciona o usuário para a página de gerenciamento de categorias.
-9. O sistema lista todas as categorias cadastradas, exibindo detalhes como nome, descrição, e data de criação.
+1. O sistema irá fornecer um botão de categorização da unidade monetária
+2. O usuário irá clicar nesse botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará  a senha
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha 
+8. O backend enviará que a senha está correta
+9. O frontend redirecionará o usuário para a página de categorização monetária
+10. O frontend requisitará as categorias que aquele usuário criou
+11. O backend enviará todas as categorias cadastradas no banco de dados.
+12. O frontend exibirá esses dados em formato de gráfico de pizza.
+
+#### Fluxos Alternativos
+
+## CFA-1
+Erro de Autenticação
+
+# FA-1
+   Senha Incorreta
+
+1. O sistema exibe a mensagem: "Senha incorreta. Tente novamente."
+2. O usuário pode reinserir a senha (retornando ao passo 3) ou cancelar a ação.
+
+# CFA-2
+Ausência de Categoria
+
+# FA-1
+Nenhuma Categoria Cadastrada
+
+1. O sistema exibe a mensagem: "Nenhuma categoria encontrada."
+2. O usuário pode retornar à página anterior ou sair.
+
+## CFA-3
+Acesso cancelado pelo usuário
+
+# FA-1
+Quaisquer Cancelamento Pelo Usuário
+
+1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
 ### CDU-18
 
