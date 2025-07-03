@@ -54,7 +54,7 @@ Criação de contas.
 4. O sistema o validará a senha
 5. Os dados serão validados e salvos
 
-#### fluxo alternativo
+#### Fluxo alternativo
 ##### CFA-1: Dados incorretos
 
 ###### FA-1: dados incompletos
@@ -70,7 +70,7 @@ Criação de contas.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará a senha
    5. O sistema falará que os dados estão incompletos e quais campos estão nulos
-###### FA-2: dados incorretos
+###### FA-2: Dados incorretos
    1. O sistema fornece um formulário de criação de contas com 
       - CPF/RG
       - senha de 5 digitos
@@ -142,8 +142,8 @@ Login
 3. Os dados serão validados no sistema.
 4. O usuário será redirecionado a página principal logado em sua conta.
 
-#### fluxo alternativo
-##### CFA-1: dados errados
+#### Fluxo alternativo
+##### CFA-1: Dados incorretos
 ###### FA-1: Senha diferente da cadastrada
 1. O sistema fornece formulário de login de contas com os campos:
    - senha de cinco digitos
@@ -167,7 +167,7 @@ Login
 4. O usuário será avisado que o campo de conta está com um valor que não está cadastrado.
 
 ##### CFA-2: Alteração de rota
-###### FA-1: cancelamento
+###### FA-1: Cancelamento
 1. O sistema fornece formulário de login de contas com os campos:
    - senha de cinco digitos
    - numero da conta
@@ -197,7 +197,7 @@ Transferências
 
 #### Fluxo alternativo
 
-##### CFA-1: Dados errados
+##### CFA-1: Dados incorretos
 
 ###### FA-1: Senha diferente da cadastrada
 1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
@@ -217,6 +217,20 @@ Transferências
 3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
 4. O usuário não colocará o pix a qual deseja transferir o dinheiro nos campos.
 5. O sistema perceberá a ausência de dados requisitará que o usuário digite o pix de um usuário.
+
+###### FA-3: Dinheiro insuficiente
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência, que será acima do que ele tem atualmente na conta e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e avisará ao usuário que a quantia monetária selecionada excede os recursos disponíveis na conta.
+
+###### FA-4: Remetente inexistente
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário colocará um pix inexistente e o valor monetário desejado.
+5. O sistema validará os dados, e requisitará que o usuário digite o pix de um usuário existente.
 
 ##### CFA-2: Alteração de rota
 ###### FA-1: Cancelamento de operação
@@ -285,13 +299,37 @@ Cancelamento de Contas
 #### Fluxo Principal
 1. O sistema oferecerá um botão de gerenciamento de usuário.
 2. O admin clicará no botão de gerenciamento de usuário.
-3. O sitema pedirá a confirmação via senha de admin de 12 dígitos.
+3. O sistema pedirá a confirmação via senha de admin de 12 dígitos.
 4. O admin fornecerá a senha
 5. O sistema validará a senha e redirecionará o admin à página de gerenciamento de usuário, além de exibir todas as contas do sistema com um botão de deletar ao lado.
-6. O admin apertará no botão de excluir.
-7. O sistema requisitára a senha de 12 caractéres do usuário.
+6. O admin apertará no botão de excluir do usuário desejado.
+7. O sistema requisitára a senha de 12 caractéres do admin.
 8. O admin fornecerá a senha.
 9. O sistema validará a senha e cancelará a conta do usuário, e exibirá uma mensagem de terminação concluída.
+
+#### Fluxo alternativo
+##### CFA-1: Dados errados
+
+###### FA-1: Senha diferente da do admin
+1. O sistema oferecerá um botão de gerenciamento de usuário.
+2. O admin clicará no botão de gerenciamento de usuário.
+3. O sistema pedirá a confirmação via senha de admin de 12 dígitos.
+4. O admin fornecerá a senha errada
+5. O sistema validará os dados e requisitará que o admin digite a senha de 12 digítos correta.
+
+##### CFA-2: Alteração de rota
+###### FA-1: Cancelamento
+1. O sistema oferecerá um botão de gerenciamento de usuário.
+2. O admin clicará no botão de gerenciamento de usuário.
+3. O sistema pedirá a confirmação via senha de admin de 12 dígitos.
+4. O admin fornecerá a senha
+5. O sistema validará a senha e redirecionará o admin à página de gerenciamento de usuário, além de exibir todas as contas do sistema com um botão de deletar ao lado.
+6. O admin apertará no botão de excluir do usuário desejado.
+7. O sistema requisitára a senha de 12 caractéres do admin.
+8. O admin abortará a operação ao clicar no botão de cancelar. 
+9. O sistema redirecionará o admin á página de gerenciamento de usuário.
+
+
 
 ### CDU 07
 
