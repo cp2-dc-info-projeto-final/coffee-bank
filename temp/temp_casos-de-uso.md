@@ -335,7 +335,7 @@ Buscar e consultar usuários
 - Notificação Via Usuário
 
 #### Atores
-- User/Sistema
+- Sistema
 
 #### Fluxo Principal  
 1. Evento disparador ocorre (Exemplo: usuário edita dados cadastrais, cancela conta, realiza transação relevante)  
@@ -518,15 +518,12 @@ Supervisionamento do saldo
 > ✅ Compliance: Todas as etapas registradas em audit trail (data/hora, IP, versão de contrato).  
 
 ### CDU 17
-
 Vizualização de Categoria da unidade monetária
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
-
 1. O sistema irá fornecer um botão de categorização da unidade monetária
 2. O usuário irá clicar nesse botão
 3. O sistema requisitará a senha de 5 dígitos

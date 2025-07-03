@@ -13,8 +13,6 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 12](#cdu-12): Notificação Via Usuário
- - [CDU 13](#cdu-13): Desconto Automático de Imposto
  - [CDU 14](#cdu-14): criação de automatização de pagamentos
  - [CDU 15](#cdu-15): Supervisionamento do saldo
  - [CDU 16](#cdu-16): Realização de emprestimos
@@ -257,7 +255,42 @@ Vizualização de Extrato
 2. O usuário clicará no botão
 3. O usuário será redirecionado para a página de saldo
 4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
-
+#### fluxo alternativo
+##### CFA-1: Alteração de exibição
+###### FA-1: filtragem de transferências
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de filtragens de transferências
+   6. O usuário clicará no botão
+   7. O sistema abrirá o campo de filtragem
+   8. O usuário filtrará quais transferências quer ou não visualizar pelos filtros de:
+      - Remetente
+      - Destinatário
+      - Recorte temporal
+      - Valor
+      - Categoria monetária usada na transferência
+      - Rebido ou enviado
+   9. Os dados seram mostrados de acordo com o filtro do usuário
+##### CFA-2: Alteração de rota
+###### FA-1: cancelamento de vizaulização de extrato
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de voltar
+   6. O usuário clicará no botão de voltar
+   7. O sistema redirecionará o usuário para a pagina principal
+###### FA-2:Cancelamento de filtragem de transferências
+   1. O sistema fornecerá um botão para consulta do extrato
+   2. O usuário clicará no botão
+   3. O usuário será redirecionado para a página de saldo
+   4. O sistema buscará ás transferências realizadas e exibirá essas informações ao usuário.
+   5. O sistema fornecerá o botão de filtragens de transferências
+   6. O usuário clicará no botão
+   7. O sistema abrirá o campo de filtragem exibirá o campo de cancelar filtragem
+   8. o sistema fechará o campo de filtragem
 ### CDU 05
 
 Cadastro de investimentos
@@ -267,26 +300,35 @@ Cadastro de investimentos
 - Admin
 
 #### Fluxo Principal
-1. O usuário irá até a agência conversar com o gerente.
-2. O sitema providenciará um botão com o redirecionamento para a pagina de cadastro de investimentos localizada na pagina principal de usuários admin.
-3. O Admin(gerente) clicará no botão para ir para o formulário.
-4. O admin será redirecionado a página de login.
-5. O sistema fornerá um login com as informações de
-    - CPF do dono do investimento.
-    - O valor de cada fundo imobiliário.
-    - O tamanho da propiedade.
-    - O tamanho a ser dividido entre os fundos.
-    - O numero de fundos imobiliários a serem negociados na bolsa.
-    - O aluguel em percentual que será pago aos investidores.
-    - O nome da propiedade.
-    - O numero da conta para a qual o valor será transferido.
-    - O nome do fundo.
-    - Nome do propietário
-    - O distrito federal que se localiza a fazenda
-6. O admin preencherá o formulário com os dados do propietário.
-7. O sistema fornecerá um botão de confirmar ao fim do formulário.
-8. O usuário apertará esse botão de confirmar
-9. O sistema validará os dados, registrará o investimento e exibirá uma mensagem de sucesso
+O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+O usuário clica no botão.
+O sistema redireciona o usuário para a página de login.
+O sistema exibe campos para CPF do usuário e senha.
+O usuário insere suas credenciais e clica em "Entrar".
+O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
+   - Credenciais são verificas no banco de dados e confirmado se o login é válido.
+
+O sistema redireciona o usuário para a página de cadastro de investimentos.
+O sistema exibe um formulário com os campos:
+CPF do dono do investimento
+Valor de cada fundo imobiliário
+Tamanho da propriedade
+Tamanho a ser dividido entre os fundos
+Número de fundos imobiliários para negociação
+Percentual de aluguel para investidores
+Nome da propriedade
+Número da conta para transferência
+Nome do fundo
+Nome do proprietário
+Distrito Federal da propriedade
+O usuário preenche todos os campos com os dados do proprietário.
+O usuário clica no botão "Confirmar Cadastro".
+O frontend valida os dados (ex.: campos obrigatórios, valores numéricos válidos).
+O frontend envia os dados para o backend.
+O backend valida a consistência dos dados (ex.: CPF existente, valores positivos).
+O backend salva o investimento no banco de dados.
+O backend envia uma confirmação de cadastro bem-sucedido.
+O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o admin para a página inicial.
 
 ### CDU 06
 
@@ -354,7 +396,24 @@ Cadastramento de Admins
 9. O sistema pedirá a senha de 12 dígitos.
 10. O admin digitará a senha de 12 dígitos.
 11. O sistema validará a senha e gerará uma senha de 12 digítos aleatória para o novo admin, além de exibi-lá ao admin.
-
+#### fluxo alternativo
+##### CFA-1: Alteração de Rotas
+   ###### FA-1: cancelamento cadastro de admin
+   1. O sistema providenciará um botão para cadastro de novos admins.
+   2. O admin clicará no botão para cadastrar outros admins.
+   3. O sistema exigirá a senha de 12 caracteres do admin.
+   4. O admin digitará a senha.
+   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
+   6. O usuário clicará no botão
+   7. O sistema redirecionará o usuário para a página principal de admins
+   ###### FA-2: Cancelamento da senha para acessar o cancelamento
+   1. O sistema providenciará um botão para cadastro de novos admins.
+   2. O admin clicará no botão para cadastrar outros admins.
+   3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
+   4. O usuário clicará no botão
+   5. O sistema redirecionará o usuário para a pagina principal de admins
+##### CFA-2: Erro de dados
+###### FA-1: filtragem de transferências
 ### CDU 08
 
 Excluir Admin
@@ -425,26 +484,6 @@ Buscar e consultar usuários
 5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
 6. O admin digitará o nome do usuário que ele deseja achar.
 7. O sistema validará os dados e exibirá ás informações desse usuário.
-
-### CDU 12
-- Notificação Via Usuário
-
-#### Atores
-- User/Sistema
-
-#### Fluxo Principal 
-
-### CDU 13
-
-Desconto automático de imposto
-
-#### Atores
-
-- Sistema
-
-#### Fluxo Principal
-1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 11% de taxa
-2. O sistema computará o pagamento
 
 ### CDU 14
 
