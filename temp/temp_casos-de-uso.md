@@ -539,9 +539,7 @@ Vizualização de Categoria da unidade monetária
 10. O frontend requisitará as categorias que aquele usuário criou
 11. O backend enviará todas as categorias cadastradas no banco de dados.
 12. O frontend exibirá esses dados em formato de gráfico de pizza.
-
 ### CDU-18
-
 Investimentos em cafezais
 
 #### Atores

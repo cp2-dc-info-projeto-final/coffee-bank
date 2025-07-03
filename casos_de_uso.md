@@ -41,11 +41,62 @@ Criação de contas.
 #### Atores
  - User
 #### Fluxo Principal
-1. O sistema fornece um formulário de criação de contas.
-2. O usuário precisará fornecer o seu CPF/RG, uma senha de 5 digitos e sua confimação, uma senha de 7 digitos e sua confimação, sua data de nascimento e o seu nome.
+1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+2. O usuário preencherá o formulário.
 3. O usuário apertará em enviar e mandará a requisição.
-4. Os dados serão validados e salvos
+4. O sistema o validará a senha
+5. Os dados serão validados e salvos
 
+#### fluxo alternativo
+##### CFA-1
+Dados incorretos
+
+###### FA-1 dados incompletos
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+   2. O usuário não coloca alguma informação
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha
+   5. O sistema falará que os dados estão incompletos e quais campos estão nulos
+###### FA-2 dados incorretos
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+   2. O usuário coloca alguma informação inválida.
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha.
+   5. O sistema falará que os dados estão inválidos e quais campos estão inválidos.
+###### FA-3 Senhas diferentes
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+   2. O usuário preencherá o formulário com as senhas de 5 ou 7 dígitos diferentes nos campos de senha e confirmação.
+   3. O usuário apertará em enviar e mandará a requisição.
+   4. O sistema o validará a senha
+   5. Os dados serão validados e salvos
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
@@ -289,7 +340,6 @@ Criação de automatização de pagamentos
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
 ### CDU 15
-
 Supervisionamento do saldo
 
 #### Atores
@@ -333,14 +383,52 @@ Supervisionamento do saldo
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 
 ### CDU 17
-
 Vizualização de Categoria da unidade monetária
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
+1. O sistema irá fornecer um botão de categorização da unidade monetária
+2. O usuário irá clicar nesse botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará  a senha
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha 
+8. O backend enviará que a senha está correta
+9. O frontend redirecionará o usuário para a página de categorização monetária
+10. O frontend requisitará as categorias que aquele usuário criou
+11. O backend enviará todas as categorias cadastradas no banco de dados.
+12. O frontend exibirá esses dados em formato de gráfico de pizza.
+
+#### Fluxos Alternativos
+
+## CFA-1
+Erro de Autenticação
+
+# FA-1
+   Senha Incorreta
+
+1. O sistema exibe a mensagem: "Senha incorreta. Tente novamente."
+2. O usuário pode reinserir a senha (retornando ao passo 3) ou cancelar a ação.
+
+# CFA-2
+Ausência de Categoria
+
+# FA-1
+Nenhuma Categoria Cadastrada
+
+1. O sistema exibe a mensagem: "Nenhuma categoria encontrada."
+2. O usuário pode retornar à página anterior ou sair.
+
+## CFA-3
+Acesso cancelado pelo usuário
+
+# FA-1
+Quaisquer Cancelamento Pelo Usuário
+
+1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
 ### CDU-18
 
@@ -350,6 +438,25 @@ Investimentos em cafezais
 - User
 
 #### Fluxo Principal
+1. O sistema fornecerá um botão de investimentos na página principal.
+2. O usuário apertará no botão.
+3. O sistema ajeitará essas informações na página de investimentos. 
+4. O usuário será redirecionado a página de investimentos com todos os investimentos possíveis dele realizar.
+5. O usuário selecionará um investimento.
+6. O usuário será redirecionado a página do investimento selecionado onde haverá:
+    - O valor de cada fundo imobiliário.
+    - O tamanho da propriedade.
+    - O tamanho a ser dividido entre os fundos.
+    - O aluguel em percentual que será pago aos investidores.
+    - O nome da propiedade.
+    - O numero da conta para a qual o valor será transferido.
+    - O nome do fundo.
+    - Nome do propietário
+    - O distrito federal que se localiza a fazenda
+    - Um botão de investir.
+7. O usuário apertará no botão.
+8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
+9. O usuário fornecerá a senha
 
 ### CDU 19
    Excluir categoria de unidade monetária
@@ -398,7 +505,3 @@ Investimentos em cafezais
    15. O usuário clicará no botão.
    16. O sistema fará as alterações
    17. O sistema voltará a lista de categorias.
-
-
-### CDU 22
-
