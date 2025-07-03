@@ -367,16 +367,33 @@ Vizualização de Categoria da unidade monetária
 #### Atores
 - User
 
-#### Fluxo Principal
-1. O sistema exibe um botão de Categorização da Unidade Monetária na interface.
-2. O usuário clica no botão de Categorização da Unidade Monetária.
-3. O sistema solicita a senha de 5 dígitos para autenticação.
-4. O usuário digita a senha.
-5.  O sistema valida a senha.
-6. O sistema redireciona o usuário para a página de categorização monetária com o botão de Gerenciar Categorias.
-7. O usuário clica no botão de Gerenciar Categorias.
-8. O sistema redireciona o usuário para a página de gerenciamento de categorias.
-9. O sistema lista todas as categorias cadastradas, exibindo detalhes como nome, descrição, e data de criação.
+#### Fluxos Alternativos
+
+## CFA-1
+Erro de Autenticação
+
+# FA-1
+   Senha Incorreta
+
+1. O sistema exibe a mensagem: "Senha incorreta. Tente novamente."
+2. O usuário pode reinserir a senha (retornando ao passo 3) ou cancelar a ação.
+
+# CFA-2
+Ausência de Categoria
+
+# FA-1
+Nenhuma Categoria Cadastrada
+
+1. O sistema exibe a mensagem: "Nenhuma categoria encontrada."
+2. O usuário pode retornar à página anterior ou sair.
+
+## CFA-3
+Acesso cancelado pelo usuário
+
+# FA-1
+Quaisquer Cancelamento Pelo Usuário
+
+1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
 ### CDU-18
 
