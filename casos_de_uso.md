@@ -367,6 +367,20 @@ Vizualização de Categoria da unidade monetária
 #### Atores
 - User
 
+#### Fluxo Principal
+1. O sistema irá fornecer um botão de categorização da unidade monetária
+2. O usuário irá clicar nesse botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará  a senha
+5. O frontend validará a senha
+6. O frontend enviará a senha para o backend
+7. O backend validará a senha 
+8. O backend enviará que a senha está correta
+9. O frontend redirecionará o usuário para a página de categorização monetária
+10. O frontend requisitará as categorias que aquele usuário criou
+11. O backend enviará todas as categorias cadastradas no banco de dados.
+12. O frontend exibirá esses dados em formato de gráfico de pizza.
+
 #### Fluxos Alternativos
 
 ## CFA-1
