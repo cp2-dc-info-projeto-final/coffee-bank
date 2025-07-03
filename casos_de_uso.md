@@ -256,19 +256,29 @@ Desconto automático de imposto
 
 #### Atores
 
-- User
+- Sistema
 
 #### Fluxo Principal
+1. O sistema, na hora de porcessar o pagamento do user descontará uma taxa de 10% para o governo
+2. O sistema descontará (lim x->∞ Σ i=0->i=x 9/(10**i))% do dinheiro como taxa do banco
+3. O sistema computará o pagamento
 
 ### CDU 14
 
-criação de automatização de pagamentos
+Criação de automatização de pagamentos
 
 #### Atores
 
 - User
 
 #### Fluxo Principal
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automaizações feitas previamente.
+   -Um
 
 ### CDU 15
 
