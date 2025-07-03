@@ -109,6 +109,19 @@ Criação de contas.
    3. O usuário apertará em enviar e mandará a requisição.
    4. O sistema o validará o CPF
    5. O sistema informará que o CPF já está cadastrado
+##### CFA-2: Alteração de rota
+###### FA-1: Cancelamento
+   1. O sistema fornece um formulário de criação de contas com 
+      - CPF/RG
+      - senha de 5 digitos
+      - confirmação senha de 5 digitos
+      - senha de 7 digitos
+      - confirmação senha de 7 dígitos
+      - data de nascimento 
+      - nome
+   2. O sistema fornecerá um botão de cancelamento de cadastro
+   3. O usuário clicará no botão
+   4. O sistema o redirecionará a página de login/cadastro.
 **Diagrama de sequência XX**
 
 ![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
@@ -132,6 +145,35 @@ Login
 #### fluxo alternativo
 ##### CFA-1: dados errados
 ###### FA-1: Senha diferente da cadastrada
+1. O sistema fornece formulário de login de contas com os campos:
+   - senha de cinco digitos
+   - numero da conta
+2. O usuário preencherá o campo de senha incorretamente.
+3. Os dados serão validados no sistema.
+4. O usuário será avisado que a senha está errada.
+###### FA-2: Campo vazio
+1. O sistema fornece formulário de login de contas com os campos:
+   - senha de cinco digitos
+   - numero da conta
+2. O usuário não preencherá algum campo dos campos.
+3. Os dados serão validados no sistema.
+4. O usuário será avisado que o campo está nulo.
+###### FA-3: Numero de conta inexistente
+1. O sistema fornece formulário de login de contas com os campos:
+   - senha de cinco digitos
+   - numero da conta
+2. O usuário preencherá o campo de conta com um número de conta inexistente.
+3. Os dados serão validados no sistema.
+4. O usuário será avisado que o campo de conta está com um valor que não está cadastrado.
+
+##### CFA-2: Alteração de rota
+###### FA-1: cancelamento
+1. O sistema fornece formulário de login de contas com os campos:
+   - senha de cinco digitos
+   - numero da conta
+2. O sistema fornecerá um campo de cancelar login.
+3. O usuário apertará no botão
+4. O usuário será mandado para a página de login/cadastro
 ### CDU 03
 
 Transferências
