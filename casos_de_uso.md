@@ -297,6 +297,11 @@ Supervisionamento do saldo
 - User
 
 #### Fluxo Principal
+1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+2. O usuário clicará nesse botão.
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a senha
+5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
 
 ### CDU 16
 - Empréstimo
