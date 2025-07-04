@@ -417,7 +417,7 @@ Excluir Admin
 
 #### Atores
 - Admin
-
+eu sou gay
 #### Fluxo Principal
 1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
 2. O admin clicará no botão.
