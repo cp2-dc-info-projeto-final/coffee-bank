@@ -366,7 +366,7 @@ Cancelamento de Contas via Admin
 ###### FA-2: Cancelamento de Confirmaação de Login
 1. O sistema mostrará as tabelas para preencher o Login.
 2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
-   - Email Válido
+   - CPF Válido
    - Senha Válida
 3. O sistema irá verificar se todas as informações estão corretas e mostrar uma tela de carregamento.
 4. O sistema irá mostrar se está Válido ou Inválido.
