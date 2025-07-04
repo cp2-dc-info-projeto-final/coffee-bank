@@ -328,11 +328,9 @@ Cadastro de investimentos
 27. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
 
 ### CDU 06
-
 Cancelamento de Contas
 
 #### Atores
-
 - Admin
 
 #### Fluxo Principal
@@ -371,11 +369,9 @@ Cancelamento de Contas
 
 
 ### CDU 07
-
 Cadastramento de Admins
 
 #### Atores
-
 - Admin
 
 #### Fluxo Principal
@@ -411,12 +407,11 @@ Cadastramento de Admins
    5. O sistema redirecionará o usuário para a pagina principal de admins
 ##### CFA-2: Erro de dados
 ###### FA-1: filtragem de transferências
-### CDU 08
 
+### CDU 08
 Excluir Admin
 
 #### Atores
-
 - Admin
 
 #### Fluxo Principal
@@ -437,7 +432,6 @@ Excluir Admin
 - Admin
 
 #### Fluxo Principal
-
 1. O sistem fornecerá, na página de gerenciamento um botão "Editar" ao lado de cada admin listado.  
 2. Ao clicar, o sistema exigirá a senha de 12 digítos do administrador. 
 3. O Admin colocará sua senha.
@@ -446,11 +440,9 @@ Excluir Admin
 6. O sistema validará ás alterações, e aplica ás edições feitas, relatando ao administrador que as mudanças foram realizadas com sucesso.
 
 ### CDU 10
-
 Alterar senha
 
 ### Atores
-
 - User
 
 #### Fluxo Principal
@@ -466,11 +458,9 @@ Alterar senha
 7. O sistema validará o código, e mudará a senha da conta do usuário pela nova senha, além de exibir ao usuário uma mensagem de alteração realizada com sucesso, redirecionando usuário á página de login.
 
 ### CDU 11
-
 Buscar e consultar usuários
 
 #### Atores
-
 - Admin
 
 #### Fluxo Principal
@@ -483,11 +473,9 @@ Buscar e consultar usuários
 7. O sistema validará os dados e exibirá ás informações desse usuário.
 
 ### CDU 14
-
 Criação de automatização de pagamentos
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
@@ -512,7 +500,6 @@ Criação de automatização de pagamentos
 Supervisionamento do saldo
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
@@ -561,15 +548,15 @@ Vizualização de Categoria da unidade monetária
 1. O sistema irá fornecer um botão de categorização da unidade monetária
 2. O usuário irá clicar nesse botão
 3. O sistema requisitará a senha de 5 dígitos
-4. O usuário digitará  a senha
-5. O frontend validará a senha
-6. O frontend enviará a senha para o backend
-7. O backend validará a senha 
-8. O backend enviará que a senha está correta
-9. O frontend redirecionará o usuário para a página de categorização monetária
-10. O frontend requisitará as categorias que aquele usuário criou
-11. O backend enviará todas as categorias cadastradas no banco de dados.
-12. O frontend exibirá esses dados em formato de gráfico de pizza.
+4. O usuário digitará a senha
+5. O sistema validará a senha
+   - Enviará a senha para o checagem e mostrar tela de espera
+   - Validará a senha 
+   - enviará que a senha está correta
+6. O sistema redirecionará o usuário para a página de categorização monetária
+7. O sistema requisitará as categorias que aquele usuário criou
+8. O sistema enviará todas as categorias cadastradas no banco de dados.
+9. O sistema exibirá esses dados em formato de gráfico de pizza.
 
 #### Fluxos Alternativos
 
