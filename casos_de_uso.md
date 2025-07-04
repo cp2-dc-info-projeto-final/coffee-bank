@@ -13,13 +13,13 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 14](#cdu-14): criação de automatização de pagamentos
- - [CDU 15](#cdu-15): Supervisionamento do saldo
- - [CDU 16](#cdu-16): Realização de emprestimos
- - [CDU 17](#cdu-17): Vizualização de Categoria da unidade monetária
- - [CDU 18](#cdu-18): Investimentos
- - [CDU 19](#cdu-19): Excluir categoria de unidade monetária
- - [CDU 20](#cdu-20): Editar categoria de unidade monetária
+ - [CDU 14](#cdu-12): Criação de Automatização de Pagamentos
+ - [CDU 15](#cdu-13): Supervisionamento do saldo
+ - [CDU 16](#cdu-14): Realização de Emprestimos
+ - [CDU 17](#cdu-15): Vizualização de Categoria da Unidade Monetária
+ - [CDU 18](#cdu-16): Investimentos
+ - [CDU 19](#cdu-17): Excluir Categoria de Unidade Monetária
+ - [CDU 20](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
 
@@ -389,24 +389,28 @@ Cadastramento de Admins
 9. O sistema pedirá a senha de 12 dígitos.
 10. O admin digitará a senha de 12 dígitos.
 11. O sistema validará a senha e gerará uma senha de 12 digítos aleatória para o novo admin, além de exibi-lá ao admin.
-#### fluxo alternativo
+
+#### Fluxos Alternativos
+
 ##### CFA-1: Alteração de Rotas
-   ###### FA-1: cancelamento cadastro de admin
-   1. O sistema providenciará um botão para cadastro de novos admins.
-   2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin.
-   4. O admin digitará a senha.
-   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
-   6. O usuário clicará no botão
-   7. O sistema redirecionará o usuário para a página principal de admins
-   ###### FA-2: Cancelamento da senha para acessar o cancelamento
-   1. O sistema providenciará um botão para cadastro de novos admins.
-   2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
-   4. O usuário clicará no botão
-   5. O sistema redirecionará o usuário para a pagina principal de admins
+###### FA-1: Cancelamento Cadastro de Admin
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin.
+4. O admin digitará a senha.
+5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
+6. O usuário clicará no botão
+7. O sistema redirecionará o usuário para a página principal de admins
+
+###### FA-2: Cancelamento da Senha Para Acessar o Cancelamento
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
+4. O usuário clicará no botão
+5. O sistema redirecionará o usuário para a pagina principal de admins
+
 ##### CFA-2: Erro de dados
-###### FA-1: filtragem de transferências
+###### FA-1: Filtragem de Transferências
 
 ### CDU 08
 Excluir Admin
@@ -472,7 +476,7 @@ Buscar e consultar usuários
 6. O admin digitará o nome do usuário que ele deseja achar.
 7. O sistema validará os dados e exibirá ás informações desse usuário.
 
-### CDU 14
+### CDU 12
 Criação de automatização de pagamentos
 
 #### Atores
@@ -496,7 +500,7 @@ Criação de automatização de pagamentos
 10. O usuário digitará a senha.
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
-### CDU 15
+### CDU 13
 Supervisionamento do saldo
 
 #### Atores
@@ -509,7 +513,7 @@ Supervisionamento do saldo
 4. O usuário digitará a senha
 5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
 
-### CDU 16
+### CDU 14
 - Empréstimo
 
 #### Atores
@@ -601,7 +605,7 @@ Acesso cancelado pelo usuário
    Quaisquer Cancelamento Pelo Usuário
 1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
-### CDU-18
+### CDU-16
 Investimentos em cafezais
 
 #### Atores
@@ -628,7 +632,7 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
-### CDU 19
+### CDU 17
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -649,7 +653,7 @@ Investimentos em cafezais
    12. O sistema excluirá aquela automatização.
    13. O sistema exibirá os dados cadastrados.
 
-### CDU 20
+### CDU 18
    Editar Categoria de Unidade Monetária
 
 #### Atores
