@@ -565,6 +565,85 @@ Criação de automatização de pagamentos
 10. O usuário digitará a senha.
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
+#### Fluxo alternativo
+
+##### CFA-1: Dados incorretos
+
+###### FA-1: Senha diferente da do usuário 1
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário colocará uma senha diferente da cadastrada.
+5. O sistema requisitará ao usuário a senha correta.
+
+###### FA-2: Senha diferente da do usuário 2
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automatizações feitas previamente.
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+   - destinatário
+   - valor
+   - dia do mês
+8. O usuário completará o formulário.
+9. O sistema validará os dados e requisistará a senha de 7 digítos do usuário.
+10. O usuário colocará uma senha diferente da cadastrada.
+11. O sistema requisitará ao usuário a senha correta.
+
+###### FA-3: Campo senha vazia 1
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário não colocará nenhum dado na senha
+5. O sistema requisitará ao usuário que digite a senha.
+
+###### FA-4: Campo senha vazia 2
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automatizações feitas previamente.
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+   - destinatário
+   - valor
+   - dia do mês
+8. O usuário completará o formulário.
+9. O sistema validará os dados e requisistará a senha de 7 digítos do usuário.
+10. O usuário não colocará nenhum dado na senha
+10. O sistema requisitará ao usuário que digite a senha.
+
+###### FA-5: Campo vazio no formulário 
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automatizações feitas previamente.
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+   - destinatário
+   - valor
+   - dia do mês
+8. O usuário deixará um ou mais campos vazios.
+9. O sistema requisitará ao usuário que preencha os campos vazios.
+
+##### CFA-2: Alteração de rota
+
+###### FA-1: Abortação de operação 1
+
+###### FA-2: Abortação de operação 2
+
+###### FA-3: Abortação de operação 3
+
+
 ### CDU 13
 Supervisionamento do saldo
 
@@ -607,7 +686,7 @@ Supervisionamento do saldo
 12. O usuário digitará sua senha.
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 ##### CFA-1: Alteração de Rotas
-   ###### FA-1: empréstimo recusado
+   ###### FA-1: Empréstimo recusado
    1. O sistema fornecerá um botão para realização de empréstimos.
    2. O usuário clicará no botão.
    3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
@@ -624,7 +703,11 @@ Supervisionamento do saldo
       - O usuário tem ficha criminal recente e avisada.
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
-###### FA-1: filtragem de transferências
+
+###### FA-2: Filtragem de Transferências
+
+
+
 ### CDU 17
 Vizualização de Categoria da unidade monetária
 
