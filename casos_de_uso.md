@@ -341,8 +341,8 @@ Cancelamento de Contas via Admin
 8. O admin fornecerá a senha.
 9. O sistema validará a senha e cancelará a conta do usuário, e exibirá uma mensagem de terminação concluída.
 
-#### Fluxo alternativo
-##### CFA-1: Dados errados
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
 
 ###### FA-1: Senha diferente da do admin
 1. O sistema oferecerá um botão de gerenciamento de usuário.
@@ -351,19 +351,29 @@ Cancelamento de Contas via Admin
 4. O admin fornecerá a senha errada
 5. O sistema validará os dados e requisitará que o admin digite a senha de 12 digítos correta.
 
-##### CFA-2: Alteração de rota
-###### FA-1: Cancelamento
+##### CFA-2: Alteração de Rota
+###### FA-1: Cancelamento da Senha de Confirmação Final
 1. O sistema oferecerá um botão de gerenciamento de usuário.
 2. O admin clicará no botão de gerenciamento de usuário.
 3. O sistema pedirá a confirmação via senha de admin de 12 dígitos.
-4. O admin fornecerá a senha
+4. O admin fornecerá a senha.
 5. O sistema validará a senha e redirecionará o admin à página de gerenciamento de usuário, além de exibir todas as contas do sistema com um botão de deletar ao lado.
 6. O admin apertará no botão de excluir do usuário desejado.
 7. O sistema requisitára a senha de 12 caractéres do admin.
-8. O admin abortará a operação ao clicar no botão de cancelar. 
+8. O admin abortará a operação ao clicar no botão de cancelar.
 9. O sistema redirecionará o admin á página de gerenciamento de usuário.
 
-
+###### FA-2: Cancelamento de Confirmaação de Login
+1. O sistema mostrará as tabelas para preencher o Login.
+2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
+   - Email Válido
+   - Senha Válida
+3. O sistema irá verificar se todas as informações estão corretas e mostrar uma tela de carregamento.
+4. O sistema irá mostrar se está Válido ou Inválido.
+5. Caso Inválido, estará impedindo que o usuário entre, necessitando repetir as credenciais corretamente.
+6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
+7. Usuário clicará na opção de Cancelar.
+8. Sitema estará redirecioanndo o usuário para a tela de preenchimento das credenciais de Login e Cadastro.
 
 ### CDU 07
 Cadastramento de Admins
