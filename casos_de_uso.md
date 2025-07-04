@@ -13,13 +13,13 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 14](#cdu-12): Criação de Automatização de Pagamentos
- - [CDU 15](#cdu-13): Supervisionamento do saldo
- - [CDU 16](#cdu-14): Realização de Emprestimos
- - [CDU 17](#cdu-15): Vizualização de Categoria da Unidade Monetária
- - [CDU 18](#cdu-16): Investimentos
- - [CDU 19](#cdu-17): Excluir Categoria de Unidade Monetária
- - [CDU 20](#cdu-18): Editar categoria de Unidade Monetária
+ - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos
+ - [CDU 13](#cdu-13): Supervisionamento do saldo
+ - [CDU 14](#cdu-14): Realização de Emprestimos
+ - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
+ - [CDU 16](#cdu-16): Investimentos
+ - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
 
