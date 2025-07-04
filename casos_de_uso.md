@@ -328,7 +328,7 @@ Cadastro de investimentos
 27. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
 
 ### CDU 06
-Cancelamento de Contas
+Cancelamento de Contas via Admin
 
 #### Atores
 - Admin
@@ -521,8 +521,8 @@ Supervisionamento do saldo
 3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
 4. O usuário escolherá um empréstimo.
 5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado  
-  - Número de parcelas   
+  - Valor solicitado
+  - Número de parcelas
 6. O usuário  preencherá esses campos.
 7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
    - Valor da parcela  
@@ -537,7 +537,25 @@ Supervisionamento do saldo
 11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
 12. O usuário digitará sua senha.
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
-
+##### CFA-1: Alteração de Rotas
+   ###### FA-1: empréstimo recusado
+   1. O sistema fornecerá um botão para realização de empréstimos.
+   2. O usuário clicará no botão.
+   3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+   4. O usuário escolherá um empréstimo.
+   5. O sistema exibirá um modal/ formulário com os seguintes campos:
+      - Valor solicitado
+      - Número de parcelas
+   6. O usuário  preencherá esses campos.
+   7. O sistema validará esses dados e calculará mas recusará por um dos seguintes motivos:
+      - Empréstimo em andamento.
+      - Excesso de dívidas.
+      - Saldo irrisóriamente pequeno para as condições.
+      - O score do usuário é ruim.
+      - O usuário tem ficha criminal recente e avisada.
+      - O usuário já comeu a dona do banco
+      - Estou com preguiça de empresta dinheiro
+###### FA-1: filtragem de transferências
 ### CDU 17
 Vizualização de Categoria da unidade monetária
 
