@@ -13,13 +13,13 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 14](#cdu-14): criação de automatização de pagamentos
- - [CDU 15](#cdu-15): Supervisionamento do saldo
- - [CDU 16](#cdu-16): Realização de emprestimos
- - [CDU 17](#cdu-17): Vizualização de Categoria da unidade monetária
- - [CDU 18](#cdu-18): Investimentos
- - [CDU 19](#cdu-19): Excluir categoria de unidade monetária
- - [CDU 20](#cdu-20): Editar categoria de unidade monetária
+ - [CDU 14](#cdu-12): Criação de Automatização de Pagamentos
+ - [CDU 15](#cdu-13): Supervisionamento do saldo
+ - [CDU 16](#cdu-14): Realização de Emprestimos
+ - [CDU 17](#cdu-15): Vizualização de Categoria da Unidade Monetária
+ - [CDU 18](#cdu-16): Investimentos
+ - [CDU 19](#cdu-17): Excluir Categoria de Unidade Monetária
+ - [CDU 20](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
 
@@ -476,7 +476,7 @@ Buscar e consultar usuários
 6. O admin digitará o nome do usuário que ele deseja achar.
 7. O sistema validará os dados e exibirá ás informações desse usuário.
 
-### CDU 14
+### CDU 12
 Criação de automatização de pagamentos
 
 #### Atores
@@ -500,7 +500,7 @@ Criação de automatização de pagamentos
 10. O usuário digitará a senha.
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
-### CDU 15
+### CDU 13
 Supervisionamento do saldo
 
 #### Atores
@@ -513,7 +513,7 @@ Supervisionamento do saldo
 4. O usuário digitará a senha
 5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
 
-### CDU 16
+### CDU 14
 - Empréstimo
 
 #### Atores
@@ -542,7 +542,7 @@ Supervisionamento do saldo
 12. O usuário digitará sua senha.
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 
-### CDU 17
+### CDU 15
 Vizualização de Categoria da unidade monetária
 
 #### Atores
@@ -587,7 +587,7 @@ Acesso cancelado pelo usuário
    Quaisquer Cancelamento Pelo Usuário
 1. O sistema retorna à tela inicial quando botão "cancelar" é pressionado.
 
-### CDU-18
+### CDU-16
 Investimentos em cafezais
 
 #### Atores
@@ -614,7 +614,7 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
-### CDU 19
+### CDU 17
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -635,7 +635,7 @@ Investimentos em cafezais
    12. O sistema excluirá aquela automatização.
    13. O sistema exibirá os dados cadastrados.
 
-### CDU 20
+### CDU 18
    Editar Categoria de Unidade Monetária
 
 #### Atores
