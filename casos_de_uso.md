@@ -370,7 +370,7 @@ Cancelamento de Contas via Admin
    - Senha Válida
 3. O sistema irá verificar se todas as informações estão corretas e mostrar uma tela de carregamento.
 4. O sistema irá mostrar se está Válido ou Inválido.
-5. Caso Inválido, estará impedindo que o usuário entre, necessitando repetir as credenciais corretamente.
+5. Caso Inválido, estará impedindo o usuário de entrar, necessitando repetir as credenciais corretamente.
 6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
 7. Usuário clicará na opção de Cancelar.
 8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
