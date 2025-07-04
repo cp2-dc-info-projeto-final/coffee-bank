@@ -22,18 +22,15 @@
  - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
-
  - User
  - Admin
 
 ## Diagrama de Casos de Uso
-
 ![Diagrama de Casos de Uso](diagramas/diagrama-exemplo.png)
 
 ## Descrição dos Casos de Uso
 
 ### CDU 01
-
 Criação de contas.
 
 #### Atores
