@@ -291,44 +291,41 @@ Vizualização de Extrato
    6. O usuário clicará no botão
    7. O sistema abrirá o campo de filtragem exibirá o campo de cancelar filtragem
    8. o sistema fechará o campo de filtragem
-### CDU 05
 
+### CDU 05
 Cadastro de investimentos
 
 #### Atores
-
-- Admin
+- User
 
 #### Fluxo Principal
-O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
-O usuário clica no botão.
-O sistema redireciona o usuário para a página de login.
-O sistema exibe campos para CPF do usuário e senha.
-O usuário insere suas credenciais e clica em "Entrar".
-O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
+1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+2. O usuário clica no botão.
+3. O sistema redireciona o usuário para a página de login.
+4. O sistema exibe campos para CPF do usuário e senha.
+5. O usuário insere suas credenciais e clica em "Entrar".
+6. O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
    - Credenciais são verificas no banco de dados e confirmado se o login é válido.
-
-O sistema redireciona o usuário para a página de cadastro de investimentos.
-O sistema exibe um formulário com os campos:
-CPF do dono do investimento
-Valor de cada fundo imobiliário
-Tamanho da propriedade
-Tamanho a ser dividido entre os fundos
-Número de fundos imobiliários para negociação
-Percentual de aluguel para investidores
-Nome da propriedade
-Número da conta para transferência
-Nome do fundo
-Nome do proprietário
-Distrito Federal da propriedade
-O usuário preenche todos os campos com os dados do proprietário.
-O usuário clica no botão "Confirmar Cadastro".
-O frontend valida os dados (ex.: campos obrigatórios, valores numéricos válidos).
-O frontend envia os dados para o backend.
-O backend valida a consistência dos dados (ex.: CPF existente, valores positivos).
-O backend salva o investimento no banco de dados.
-O backend envia uma confirmação de cadastro bem-sucedido.
-O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o admin para a página inicial.
+7. O sistema redireciona o usuário para a página de cadastro de investimentos.
+8. O sistema exibe um formulário com os campos:
+   - CPF do dono do investimento
+   - Valor de cada fundo imobiliário
+   - Tamanho da propriedade
+   - Tamanho a ser dividido entre os fundos
+   - Número de fundos imobiliários para negociação
+   - Percentual de aluguel para investidores
+   - Nome da propriedade
+   - Número da conta para transferência
+   - Nome do fundo
+   - Nome do proprietário
+   - Distrito Federal da propriedade
+20. O usuário preenche todos os campos com os dados do proprietário.
+21. O usuário clica no botão "Confirmar Cadastro".
+22. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
+   - valida a consistência dos dados (ex.: CPF existente, valores positivos)
+   - salva o investimento no banco de dados.
+26. O sistema envia uma confirmação de cadastro bem-sucedido.
+27. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
 
 ### CDU 06
 
