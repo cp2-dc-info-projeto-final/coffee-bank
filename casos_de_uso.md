@@ -750,7 +750,7 @@ Supervisionamento do saldo
          10. O usuário preencherá esse modal.
          11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
          12. O sistema fornecerá um botão de cancelar confirmação.
-         13. A altenticação será fechádo
+         13. A altenticação será fechado
 ### CDU 17
 Vizualização de Categoria da unidade monetária
 
