@@ -316,14 +316,57 @@ Cadastro de investimentos
    - Nome do fundo
    - Nome do proprietário
    - Distrito Federal da propriedade
-20. O usuário preenche todos os campos com os dados do proprietário.
-21. O usuário clica no botão "Confirmar Cadastro".
-22. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
+9. O usuário preenche todos os campos com os dados do proprietário.
+10. O usuário clica no botão "Confirmar Cadastro".
+11. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
    - valida a consistência dos dados (ex.: CPF existente, valores positivos)
    - salva o investimento no banco de dados.
-26. O sistema envia uma confirmação de cadastro bem-sucedido.
-27. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
-
+12. O sistema envia uma confirmação de cadastro bem-sucedido.
+13. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
+#### fluxo alternativo
+##### CFA-1: erro de autenticação
+   ###### FA-1:Senha inválida do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está inválida.
+   ###### FA-2:Senha incorreta do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está incorreta.
+   ###### FA-3:Senha nula do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere não suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está nula.
+   ###### FA-4:CPF inválido do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está inválida.
+   ###### FA-5:CPF incorreto do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está incorreta.
+   ###### FA-6:CPF nulo do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere não suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está nula.
 ### CDU 06
 Cancelamento de Contas via Admin
 
@@ -366,14 +409,26 @@ Cancelamento de Contas via Admin
 ###### FA-2: Cancelamento de Confirmaação de Login
 1. O sistema mostrará as tabelas para preencher o Login.
 2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
-   - Email Válido
+   - CPF Válido
    - Senha Válida
 3. O sistema irá verificar se todas as informações estão corretas e mostrar uma tela de carregamento.
 4. O sistema irá mostrar se está Válido ou Inválido.
-5. Caso Inválido, estará impedindo que o usuário entre, necessitando repetir as credenciais corretamente.
+5. Caso Inválido, estará impedindo o usuário de entrar, necessitando repetir as credenciais corretamente.
 6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
 7. Usuário clicará na opção de Cancelar.
-8. Sitema estará redirecioanndo o usuário para a tela de preenchimento das credenciais de Login e Cadastro.
+8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
+
+###### FA-3: Cancelamento De Pagamento
+1. Sistema irá mostrar os dados (com Nomes, CPF, Localização, Notas) contento as informações de onde o dinheiro será destinado
+   - Pagamento de Taxas
+   - Transferências
+2. Usuário listará as informações e estará escolhendo os botões Confirmar e Cancelar que o sistema exibirá desde sua primeira interação em pagamentos.
+3. Usuário irá clicar em Confirmar, sendo redirecionado para uma janela onde solicitará a Confirmação de Senha do próprio.
+4. Usuário preencherá a Confirmação de Senha Válida.
+5. Caso Inválido, sistema exigirá a repetição da Confirmação de Senha para uma Válida.
+6. Caso Válido, sistema irá exibir um popout questionando se o usuário deseja realmente prosseguir sua transferência, havendo opções de Confirmação e Cancelar.
+7. O usuário estará clicando em Cancelar.
+8. Sistema redirecionará o usuário para tela inicial.
 
 ### CDU 07
 Cadastramento de Admins
@@ -686,7 +741,7 @@ Supervisionamento do saldo
 12. O usuário digitará sua senha.
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 ##### CFA-1: Alteração de Rotas
-   ###### FA-1: Empréstimo recusado
+   ###### FA-1: empréstimo recusado
    1. O sistema fornecerá um botão para realização de empréstimos.
    2. O usuário clicará no botão.
    3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
@@ -703,11 +758,7 @@ Supervisionamento do saldo
       - O usuário tem ficha criminal recente e avisada.
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
-
-###### FA-2: Filtragem de Transferências
-
-
-
+###### FA-1: filtragem de transferências
 ### CDU 17
 Vizualização de Categoria da unidade monetária
 
