@@ -385,7 +385,7 @@ Cancelamento de Contas via Admin
 5. Caso Inválido, sistema exigirá a repetição da Confirmação de Senha para uma Válida.
 6. Caso Válido, sistema irá exibir um popout questionando se o usuário deseja realmente prosseguir sua transferência, havendo opções de Confirmação e Cancelar.
 7. O usuário estará clicando em Cancelar.
-8. Sistema redirecionará o usuário para a tela inicial.
+8. Sistema redirecionará o usuário para tela inicial.
 
 ### CDU 07
 Cadastramento de Admins
