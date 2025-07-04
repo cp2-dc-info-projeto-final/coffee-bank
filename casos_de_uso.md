@@ -389,24 +389,28 @@ Cadastramento de Admins
 9. O sistema pedirá a senha de 12 dígitos.
 10. O admin digitará a senha de 12 dígitos.
 11. O sistema validará a senha e gerará uma senha de 12 digítos aleatória para o novo admin, além de exibi-lá ao admin.
-#### fluxo alternativo
+
+#### Fluxos Alternativos
+
 ##### CFA-1: Alteração de Rotas
-   ###### FA-1: cancelamento cadastro de admin
-   1. O sistema providenciará um botão para cadastro de novos admins.
-   2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin.
-   4. O admin digitará a senha.
-   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
-   6. O usuário clicará no botão
-   7. O sistema redirecionará o usuário para a página principal de admins
-   ###### FA-2: Cancelamento da senha para acessar o cancelamento
-   1. O sistema providenciará um botão para cadastro de novos admins.
-   2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
-   4. O usuário clicará no botão
-   5. O sistema redirecionará o usuário para a pagina principal de admins
+###### FA-1: Cancelamento Cadastro de Admin
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin.
+4. O admin digitará a senha.
+5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
+6. O usuário clicará no botão
+7. O sistema redirecionará o usuário para a página principal de admins
+
+###### FA-2: Cancelamento da Senha Para Acessar o Cancelamento
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
+4. O usuário clicará no botão
+5. O sistema redirecionará o usuário para a pagina principal de admins
+
 ##### CFA-2: Erro de dados
-###### FA-1: filtragem de transferências
+###### FA-1: Filtragem de Transferências
 
 ### CDU 08
 Excluir Admin
