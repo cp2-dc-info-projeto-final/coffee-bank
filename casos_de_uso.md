@@ -618,25 +618,151 @@ Supervisionamento do saldo
 11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
 12. O usuário digitará sua senha.
 13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
-##### CFA-1: Alteração de Rotas
-   ###### FA-1: empréstimo recusado
-   1. O sistema fornecerá um botão para realização de empréstimos.
-   2. O usuário clicará no botão.
-   3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-   4. O usuário escolherá um empréstimo.
-   5. O sistema exibirá um modal/ formulário com os seguintes campos:
-      - Valor solicitado
-      - Número de parcelas
-   6. O usuário  preencherá esses campos.
-   7. O sistema validará esses dados e calculará mas recusará por um dos seguintes motivos:
-      - Empréstimo em andamento.
-      - Excesso de dívidas.
-      - Saldo irrisóriamente pequeno para as condições.
-      - O score do usuário é ruim.
-      - O usuário tem ficha criminal recente e avisada.
-      - O usuário já comeu a dona do banco
-      - Estou com preguiça de empresta dinheiro
-###### FA-1: filtragem de transferências
+#### Fluxos alternativos
+   ##### CFA-1: Alteração de Rotas
+      ###### FA-1: empréstimo recusado
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+            - Valor solicitado
+            - Número de parcelas
+         6. O usuário  preencherá esses campos.
+         7. O sistema validará esses dados e calculará mas recusará por um dos seguintes motivos:
+            - Empréstimo em andamento.
+            - Excesso de dívidas.
+            - Saldo irrisóriamente pequeno para as condições.
+            - O score do usuário é ruim.
+         8. O sistema redireciona a pessoa para a página pricipal e avisa que a transição foi impedida
+      ###### FA-2: Dados nulos
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+            - Valor solicitado
+            - Número de parcelas
+         6. O usuário  preencherá esses campos, mas deixará algum deles vazio.
+         7. O sistema validará e dirá que o usuario deixou dados nulos.
+      ###### FA-3: Dados inválidos
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+            - Valor solicitado
+            - Número de parcelas
+         6. O usuário  preencherá esses campos, mas deixará algum deles com dados inválidos.
+         7. O sistema validará e dirá que o usuario deixou dados inválidos.
+   ##### CFA-2: Erros de autenticação
+      ###### FA-1: Senha nula
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+         - Valor solicitado
+         - Número de parcelas
+         6. O usuário  preencherá esses campos.
+         7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+            - Valor da parcela  
+            - CET (Custo Efetivo Total)  
+            - Data prevista de quitação 
+         8. O usuário apertará o botão.
+         9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+            - Um dropdown que determina o tipo de empréstimo.
+            - Confirmação de renda.
+            - Aceitação dos termos legais
+         10. O usuário preencherá esse modal.
+         11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+         12. O usuário digitará não sua senha.
+         13. O sistema validará a senha e retornará que a senha está nula
+      ###### FA-2: Senha inválida
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+         - Valor solicitado
+         - Número de parcelas
+         6. O usuário  preencherá esses campos.
+         7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+            - Valor da parcela  
+            - CET (Custo Efetivo Total)  
+            - Data prevista de quitação 
+         8. O usuário apertará o botão.
+         9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+            - Um dropdown que determina o tipo de empréstimo.
+            - Confirmação de renda.
+            - Aceitação dos termos legais
+         10. O usuário preencherá esse modal.
+         11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+         12. O usuário digitará uma senha que não seja de 7 dígitos.
+         13. O sistema validará a senha e retornará que a senha é inválida.
+      ###### FA-3: Senha errada
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+         - Valor solicitado
+         - Número de parcelas
+         6. O usuário  preencherá esses campos.
+         7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+            - Valor da parcela  
+            - CET (Custo Efetivo Total)  
+            - Data prevista de quitação 
+         8. O usuário apertará o botão.
+         9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+            - Um dropdown que determina o tipo de empréstimo.
+            - Confirmação de renda.
+            - Aceitação dos termos legais
+         10. O usuário preencherá esse modal.
+         11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+         12. O usuário digitará uma senha que não seja a sua.
+         13. O sistema validará a senha e retornará que a senha está errada.
+   ##### CFA-3: Erros de alteração de rota
+      ###### FA-1: Sair da página de impréstimo
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O sistema fornecerá um botão de voltar para a página principal.
+         5. O usuário apertará no botão
+         6. O sistema redirecionará o usuário para a página principal
+      ###### FA-2: Cancelar o impréstimo
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+            - Valor solicitado
+            - Número de parcelas
+         6. O sistema fornecerá um botão de cancelar impréstimo
+         7. O usuário clicará no botão
+         8. O form de investimento será cancelado
+      ###### FA-3: Cancelamento de senha
+         1. O sistema fornecerá um botão para realização de empréstimos.
+         2. O usuário clicará no botão.
+         3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
+         4. O usuário escolherá um empréstimo.
+         5. O sistema exibirá um modal/ formulário com os seguintes campos:
+         - Valor solicitado
+         - Número de parcelas
+         6. O usuário  preencherá esses campos.
+         7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
+            - Valor da parcela  
+            - CET (Custo Efetivo Total)  
+            - Data prevista de quitação 
+         8. O usuário apertará o botão.
+         9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
+            - Um dropdown que determina o tipo de empréstimo.
+            - Confirmação de renda.
+            - Aceitação dos termos legais
+         10. O usuário preencherá esse modal.
+         11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
+         12. O sistema fornecerá um botão de cancelar confirmação.
+         13. A altenticação será fechado
 ### CDU 17
 Vizualização de Categoria da unidade monetária
 
