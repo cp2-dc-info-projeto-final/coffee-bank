@@ -13,27 +13,24 @@
  - [CDU 09](#CDU-09): Editar Administradores
  - [CDU 10](#cdu-10): Alterar Senha
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 14](#cdu-12): Criação de Automatização de Pagamentos
- - [CDU 15](#cdu-13): Supervisionamento do saldo
- - [CDU 16](#cdu-14): Realização de Emprestimos
- - [CDU 17](#cdu-15): Vizualização de Categoria da Unidade Monetária
- - [CDU 18](#cdu-16): Investimentos
- - [CDU 19](#cdu-17): Excluir Categoria de Unidade Monetária
- - [CDU 20](#cdu-18): Editar categoria de Unidade Monetária
+ - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos
+ - [CDU 13](#cdu-13): Supervisionamento do saldo
+ - [CDU 14](#cdu-14): Realização de Emprestimos
+ - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
+ - [CDU 16](#cdu-16): Investimentos
+ - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
-
  - User
  - Admin
 
 ## Diagrama de Casos de Uso
-
 ![Diagrama de Casos de Uso](diagramas/diagrama-exemplo.png)
 
 ## Descrição dos Casos de Uso
 
 ### CDU 01
-
 Criação de contas.
 
 #### Atores
@@ -156,7 +153,7 @@ Login
 2. O usuário não preencherá algum campo dos campos.
 3. Os dados serão validados no sistema.
 4. O usuário será avisado que o campo está nulo.
-###### FA-3: Numero de conta inexistente
+###### FA-3: Número de conta inexistente
 1. O sistema fornece formulário de login de contas com os campos:
    - senha de cinco digitos
    - numero da conta
@@ -344,8 +341,8 @@ Cancelamento de Contas via Admin
 8. O admin fornecerá a senha.
 9. O sistema validará a senha e cancelará a conta do usuário, e exibirá uma mensagem de terminação concluída.
 
-#### Fluxo alternativo
-##### CFA-1: Dados errados
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
 
 ###### FA-1: Senha diferente da do admin
 1. O sistema oferecerá um botão de gerenciamento de usuário.
@@ -354,19 +351,29 @@ Cancelamento de Contas via Admin
 4. O admin fornecerá a senha errada
 5. O sistema validará os dados e requisitará que o admin digite a senha de 12 digítos correta.
 
-##### CFA-2: Alteração de rota
-###### FA-1: Cancelamento
+##### CFA-2: Alteração de Rota
+###### FA-1: Cancelamento da Senha de Confirmação Final
 1. O sistema oferecerá um botão de gerenciamento de usuário.
 2. O admin clicará no botão de gerenciamento de usuário.
 3. O sistema pedirá a confirmação via senha de admin de 12 dígitos.
-4. O admin fornecerá a senha
+4. O admin fornecerá a senha.
 5. O sistema validará a senha e redirecionará o admin à página de gerenciamento de usuário, além de exibir todas as contas do sistema com um botão de deletar ao lado.
 6. O admin apertará no botão de excluir do usuário desejado.
 7. O sistema requisitára a senha de 12 caractéres do admin.
-8. O admin abortará a operação ao clicar no botão de cancelar. 
+8. O admin abortará a operação ao clicar no botão de cancelar.
 9. O sistema redirecionará o admin á página de gerenciamento de usuário.
 
-
+###### FA-2: Cancelamento de Confirmaação de Login
+1. O sistema mostrará as tabelas para preencher o Login.
+2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
+   - CPF Válido
+   - Senha Válida
+3. O sistema irá verificar se todas as informações estão corretas e mostrar uma tela de carregamento.
+4. O sistema irá mostrar se está Válido ou Inválido.
+5. Caso Inválido, estará impedindo que o usuário entre, necessitando repetir as credenciais corretamente.
+6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
+7. Usuário clicará na opção de Cancelar.
+8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
 
 ### CDU 07
 Cadastramento de Admins
@@ -424,10 +431,68 @@ Excluir Admin
 3. O sistema requisitará a senha de 12 dígitos.
 4. O admin escreverá a senha.
 5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
-6. O admin clicará no botão de apagar admin.
+6. O admin clicará no botão de apagar o admin desejado.
 7. O sistema requisitará a senha de 12 dígitos
 8. O admin escreverá sua senha.
 9. O sistema validará os dados e terminará a conta do admin, além de exibir ao admin que está efetuando a deleção uma mensagem de exclusão efetuada.
+
+#### Fluxo alternativo
+##### CFA-1: Dados errados
+
+###### FA-1: Senha diferente da do admin 1
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin colocará a senha errada.
+5. O sistema requisitará ao admin a senha correta.
+
+###### FA-2: Senha diferente da do admin 2
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin escreverá a senha.
+5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
+6. O admin clicará no botão de apagar o admin desejado.
+7. O sistema requisitará a senha de 12 dígitos
+8. O admin colocará a senha errada.
+9. O sistema requisitará ao admin a senha correta.
+
+###### FA-3: Campo senha vazio 1
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin não inserirá nenhuma informação.
+5. O sistema requisitará ao admin que coloque a senha.
+
+###### FA-4: Campo senha vazio 2
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin escreverá a senha.
+5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
+6. O admin clicará no botão de apagar o admin desejado.
+7. O sistema requisitará a senha de 12 dígitos
+8. O admin não inserirá nenhuma informação.
+9. O sistema requisitará ao admin que coloque a senha.
+
+##### CFA-2: Alteração de rota
+###### FA-1: Abortação de operação 1
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin clicará o botão cancelar.
+5. O sistema redirecionará o admin para a página inicial.
+
+###### FA-2: Abortação de operação 2
+1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+2. O admin clicará no botão.
+3. O sistema requisitará a senha de 12 dígitos.
+4. O admin escreverá a senha.
+5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
+6. O admin clicará no botão de apagar o admin desejado.
+7. O sistema requisitará a senha de 12 dígitos
+8. O admin clicará o botão cancelar.
+9. O sistema abortará a operação atual e redirecionará o admin para a página inicial.
 
 ### CDU 09 
 - Editar Administradores
