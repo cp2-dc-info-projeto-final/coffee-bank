@@ -316,14 +316,57 @@ Cadastro de investimentos
    - Nome do fundo
    - Nome do proprietário
    - Distrito Federal da propriedade
-20. O usuário preenche todos os campos com os dados do proprietário.
-21. O usuário clica no botão "Confirmar Cadastro".
-22. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
+9. O usuário preenche todos os campos com os dados do proprietário.
+10. O usuário clica no botão "Confirmar Cadastro".
+11. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
    - valida a consistência dos dados (ex.: CPF existente, valores positivos)
    - salva o investimento no banco de dados.
-26. O sistema envia uma confirmação de cadastro bem-sucedido.
-27. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
-
+12. O sistema envia uma confirmação de cadastro bem-sucedido.
+13. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
+#### fluxo alternativo
+##### CFA-1: erro de autenticação
+   ###### FA-1:Senha inválida do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está inválida.
+   ###### FA-2:Senha incorreta do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está incorreta.
+   ###### FA-3:Senha nula do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere não suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que a senha está nula.
+   ###### FA-4:CPF inválido do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está inválida.
+   ###### FA-5:CPF incorreto do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está incorreta.
+   ###### FA-6:CPF nulo do usuário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere não suas credenciais e clica em "Entrar".
+      6. O sistema autentica e retorna que o CPF está nula.
 ### CDU 06
 Cancelamento de Contas via Admin
 
