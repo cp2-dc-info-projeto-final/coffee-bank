@@ -3,8 +3,8 @@
 ## Lista dos Casos de Uso
 
  - [CDU 01](#CDU-01): Criação de contas.(pronto)
- - [CDU 02](#CDU-02): Login(parcial)
- - [CDU 03](#CDU-03): Transferências(parcial)
+ - [CDU 02](#CDU-02): Login(pronto)
+ - [CDU 03](#CDU-03): Transferências(pronto)
  - [CDU 04](#CDU-04): Vizualização de Extrato(pronto)
  - [CDU 05](#CDU-05): Cadastro de investimentos(pronto)
  - [CDU 06](#CDU-06): Cancelamento de contas(parcial)
@@ -213,19 +213,6 @@ Transferências
 4. O usuário não colocará o pix a qual deseja transferir o dinheiro nos campos.
 5. O sistema perceberá a ausência de dados requisitará que o usuário digite o pix de um usuário.
 
-###### FA-3: Dinheiro insuficiente
-1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
-2. O usuário clicará no botão.
-3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
-4. O usuário digitará o valor da transferência, que será acima do que ele tem atualmente na conta e chave pix a qual deseja transferir o dinheiro.
-5. O sistema validará os dados e avisará ao usuário que a quantia monetária selecionada excede os recursos disponíveis na conta.
-
-###### FA-4: Remetente inexistente
-1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
-2. O usuário clicará no botão.
-3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
-4. O usuário colocará um pix inexistente e o valor monetário desejado.
-5. O sistema validará os dados, e requisitará que o usuário digite o pix de um usuário existente.
 
 ##### CFA-2: Alteração de rota
 ###### FA-1: Cancelamento de operação
@@ -237,6 +224,41 @@ Transferências
 6. O sistema terá um botão para confirmar ou cancelar a operação embaixo da tela.
 7. O usuário clicará no botão cancelar.
 8. O sistema encerrará a operação, redirecionando o usuário á página inicial.
+###### FA-2: cancelamento de remetente
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e redicionará o usuário a outra página.
+6. O sistema fornecerá uma página para voltar
+7. O usuário clicará nesse botão
+8. O sistema p redirecionará ao campo onde ele insere o remetente
+###### FA-3 cancelar a confirmação da operação
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e redicionará o usuário a outra página.
+6. O sistema terá um botão para confirmar ou cancelar a operação embaixo da tela.
+7. O usuário clicará no botão de confirmar.
+8. O sistema pedirá a senha de 7 dígitos.
+9. O sistema terá o botão de cancelar
+10. O usuário apertará no botão
+11. O campo de senha será fechado
+##### CFA3: operação impossível
+###### FA-1: Dinheiro insuficiente
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário digitará o valor da transferência, que será acima do que ele tem atualmente na conta e chave pix a qual deseja transferir o dinheiro.
+5. O sistema validará os dados e avisará ao usuário que a quantia monetária selecionada excede os recursos disponíveis na conta.
+
+###### FA-2: Destinatário inexistente
+1. O sistema fornecerá um botão com o simbolo de dinheiro localizado na tela princial de usuário.
+2. O usuário clicará no botão.
+3. O usuário será redirecionado a outra página com um formulário com os campos valor e chave pix da conta.
+4. O usuário colocará um pix inexistente e o valor monetário desejado.
+5. O sistema validará os dados, e requisitará que o usuário digite o pix de um usuário existente.
 
 
 ### CDU 04
