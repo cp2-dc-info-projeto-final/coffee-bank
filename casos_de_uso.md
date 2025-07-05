@@ -17,7 +17,7 @@
  - [CDU 13](#cdu-13): Supervisionamento do saldo
  - [CDU 14](#cdu-14): Realização de Emprestimos
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
- - [CDU 16](#cdu-16): Investimentos(prontos)
+ - [CDU 16](#cdu-16): Investimentos
  - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
  - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
 
