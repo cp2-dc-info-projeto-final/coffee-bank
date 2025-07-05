@@ -11,8 +11,8 @@
  - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
  - [CDU 09](#CDU-09): Editar Administradores(pronto)
- - [CDU 10](#cdu-10): Alterar Senha(pendente)
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pronto)
+ - [CDU 10](#cdu-10): Alterar Senha(pronto)
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
  - [CDU 13](#cdu-13): Supervisionamento do saldo(pendente)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
@@ -762,6 +762,27 @@ Excluir Admin
 5. O Admin preencherá o formulário com ás mudanças desejadas.
 6. O sistema validará ás alterações, e aplica ás edições feitas, relatando ao administrador que as mudanças foram realizadas com sucesso.
 
+#### Fluxo Alternativo
+##### CFA-1: Cancelamento de Edição
+
+###### FA-1: Cancalemento de Edição de Senha
+1. Usuário entrará nas Edições selecionando a opção de Editar Perfil.
+2. Sistema redicionará usuário para a página de Edição de Perfil, mostrando as segiuntes opções:
+   - Troca de Ícone
+   - Troca de Senha
+   - Troca de Email
+   - Troca de Nome
+3. Em quaisquer escolha do usuário, dentre estas opções, sistema estará mostando um campo onde deverá ser fornecido a Senha do usuário
+4. Caso a Senha for Inválida, sistema estará retornando o mesmo campo sinalizando Credenciais Inválidas em vermelho, pressionando o usuário à repetir a senha Válida para prosseguir.
+5. Caso a senha for Válida, sistema estará fechando este campo e abrindo outro, mostrando a Troca que solicita (Ícone, Senha ou Email)
+   - Caso Email, será solicitado o novo Email, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Nome, será solicitado o novo Nome, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Senha, será solicitado nova Senha, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Ícone, será solicitado um arquivo (png, jpg, wbem) ou uma foto, onde usuário deve entregar acessibilidade da câmera.
+      2. Entregue o arquivo, ou a foto retirada, aparecerá um botão de Confirmação e um de Cancelar ao lado.
+6. Usuário irá pressionar a opção de Cancelar.
+7. O sistema irá redirecionar o usuário para a página de Edição de Perfil.
+
 ### CDU 10
 Alterar senha
 
@@ -780,6 +801,21 @@ Alterar senha
 6. O usuário digitará o código.
 7. O sistema validará o código, e mudará a senha da conta do usuário pela nova senha, além de exibir ao usuário uma mensagem de alteração realizada com sucesso, redirecionando usuário á página de login.
 
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
+
+###### FA-1: Código Inválido
+1. O sistema estará enviando uma notificação para o usuário solicitando o Código para validar a Alteração de Senha.
+2. O usuário estará verificando seu email e preenchendo o Código errado.
+3. O sistema anasilará o Código, entendendo e alertando como Inválido, redirecionando o usuário para o campo de Preenchimento do Código.
+
+##### CFA-2: Alteração De Rota
+
+###### FA-1: Email Nulo
+1. O sistema estará enviando uma notificação para o usuário solicitando o Código para validar a Alteração de Senha.
+2. O sistema verá que não há um email na credencial do usuário, assim interrompendo e não vendo ser possível prosseguir a rota da Notificação com o Código ao email.
+3. O sistema estará redirecionando o usuário para a página inicial, havendo um campo alertando sobre a Ausência de um Email, solicitando um.
+
 ### CDU 11
 Buscar e consultar usuários
 
@@ -792,48 +828,9 @@ Buscar e consultar usuários
 3. O sistema requisitará a senha de 12 caracteres
 4. O Admin digitará a senha
 5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
-#### Fluxos alternativos
-##### CFA-1: alteração de rota
-###### FA-1 pesquisar usuário
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres
-   4. O Admin digitará a senha
-   5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
-   6. O usuário clicará no campo de pesquisar usuário e digitará o nome que quer pesquisar
-   7. O sistema retornará todos os usuário com aquele nome/sequência de caracteres
-###### FA-2: cancelar senha de acesso
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres e um botão de voltar
-   4. O Admin clicará no botão de voltar
-   5. O sistema fechará aquele campo
-###### FA-3 voltar para a página principal
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres
-   4. O Admin digitará a senha
-   5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
-   6. O sistema fornecerá um campo de voltar para a página principal
-##### CFA-2: erro de autenticação
-###### FA-1: senha errada
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres
-   4. O Admin digitará a senha errada
-   5. O sistema validará a senha e dirá que está errada.
-###### FA-2: senha nula
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres
-   4. O Admin não digitará a senha
-   5. O sistema validará a senha e dirá que está nula.
-###### FA-3: senha inválida
-   1. O sistema fornecerá um botão de gerenciamento de usuário
-   2. O Admin clicará no botão de gerenciamento
-   3. O sistema requisitará a senha de 12 caracteres
-   4. O Admin digitará a senha de forma inválida
-   5. O sistema validará a senha e dirá que está inválida.
+6. O admin digitará o nome do usuário que ele deseja achar.
+7. O sistema validará os dados e exibirá ás informações desse usuário.
+
 ### CDU 12
 Criação de automatização de pagamentos
 
@@ -1027,13 +1024,10 @@ Supervisionamento do saldo
       - Excesso de dívidas.
       - Saldo irrisóriamente pequeno para as condições.
       - O score do usuário é ruim.
-<<<<<<< HEAD
       - O usuário tem ficha criminal recente e avisada.
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
-=======
-
->>>>>>> ccb1f166b04d6462c14cce9e3036ed591c7e0966
+###### FA-1: filtragem de transferências
 
 ### CDU 15
 Vizualização de Categoria da unidade monetária
