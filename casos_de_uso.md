@@ -10,7 +10,7 @@
  - [CDU 06](#CDU-06): Cancelamento de contas(pronto)
  - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
- - [CDU 09](#CDU-09): Editar Administradores(pendente)
+ - [CDU 09](#CDU-09): Editar Administradores(pronto)
  - [CDU 10](#cdu-10): Alterar Senha(pendente)
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
