@@ -2,24 +2,24 @@
 
 ## Lista dos Casos de Uso
 
- - [CDU 01](#CDU-01): Criação de contas.
- - [CDU 02](#CDU-02): Login
- - [CDU 03](#CDU-03): Transferências
- - [CDU 04](#CDU-04): Vizualização de Extrato
- - [CDU 05](#CDU-05): Cadastro de investimentos
- - [CDU 06](#CDU-06): Cancelamento de contas
- - [CDU 07](#CDU-07): Cadastramento de admins
- - [CDU 08](#CDU-08): Exclusão de admins
- - [CDU 09](#CDU-09): Editar Administradores
- - [CDU 10](#cdu-10): Alterar Senha
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos
- - [CDU 13](#cdu-13): Supervisionamento do saldo
- - [CDU 14](#cdu-14): Realização de Emprestimos
- - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
- - [CDU 16](#cdu-16): Investimentos
- - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
+ - [CDU 01](#CDU-01): Criação de contas.(pronto)
+ - [CDU 02](#CDU-02): Login(parcial)
+ - [CDU 03](#CDU-03): Transferências(parcial)
+ - [CDU 04](#CDU-04): Vizualização de Extrato(pronto)
+ - [CDU 05](#CDU-05): Cadastro de investimentos(pronto)
+ - [CDU 06](#CDU-06): Cancelamento de contas(parcial)
+ - [CDU 07](#CDU-07): Cadastramento de admins(parcial)
+ - [CDU 08](#CDU-08): Exclusão de admins(pronto)
+ - [CDU 09](#CDU-09): Editar Administradores(pendente)
+ - [CDU 10](#cdu-10): Alterar Senha(pendente)
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
+ - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
+ - [CDU 13](#cdu-13): Supervisionamento do saldo(pendente)
+ - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
+ - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
+ - [CDU 16](#cdu-16): Investimentos(pendente)
+ - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pendente)
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pendente)
 
 ## Lista dos Atores
  - User
@@ -533,7 +533,6 @@ Cadastramento de Admins
 5. O sistema redirecionará o usuário para a pagina principal de admins
 
 ##### CFA-2: Erro de dados
-###### FA-1: Filtragem de Transferências
 
 ### CDU 08
 Excluir Admin
@@ -820,7 +819,7 @@ Supervisionamento do saldo
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
 ###### FA-1: filtragem de transferências
-### CDU 17
+### CDU 15
 Vizualização de Categoria da unidade monetária
 
 #### Atores
@@ -892,7 +891,7 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
-### CDU 17
+### CDU 16
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -913,7 +912,7 @@ Investimentos em cafezais
    12. O sistema excluirá aquela automatização.
    13. O sistema exibirá os dados cadastrados.
 
-### CDU 18
+### CDU 17
    Editar Categoria de Unidade Monetária
 
 #### Atores
