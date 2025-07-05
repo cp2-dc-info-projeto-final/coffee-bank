@@ -14,7 +14,7 @@
  - [CDU 10](#cdu-10): Alterar Senha(pronto)
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pronto)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
- - [CDU 13](#cdu-13): Supervisionamento do saldo(pendente)
+ - [CDU 13](#cdu-13): Supervisionamento do saldo(pronto)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
  - [CDU 16](#cdu-16): Investimentos(pendente)
@@ -980,7 +980,54 @@ Supervisionamento do saldo
 3. O sistema requisitará a senha de 5 dígitos
 4. O usuário digitará a senha
 5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
-
+#### Fluxos alternativos
+##### CFA-1: Erro de autententicação
+###### FA-1: Senha nula
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário não digitará a senha e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está nula
+###### FA-2: Senha inválida
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha inválida e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está inválida
+###### FA-3: Senha incorreto
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha incorreto e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está incorreto
+##### CFA-2: Alteração de rota
+###### FA-1: cancelamento da senha
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos e fornerá um botão de cancelar
+   4. O sistema redirecionará o usuário a página principal
+###### FA-2: voltar para a página principal
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha
+   5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
+   6. O sistema fornecerá um botão para voltar para a página principal
+   7. O usuário clicará para voltar para a página principal.
+##### CFA-3: alteração dos dados
+###### FA-3: filtragem de transferências 
+1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+2. O usuário clicará nesse botão.
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a senha
+5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
+6. O sistema fornecerá um campo de filtragem de dados
+7. O usuário clicará e poderá redirecionar selecionar quais filtros quer aplicar
+   - valor mínimo
+   - valor máximo
+   - destinatário
+   - Recebido OU Enviados
+   - Recorte temporal
 ### CDU 14
 - Empréstimo
 
