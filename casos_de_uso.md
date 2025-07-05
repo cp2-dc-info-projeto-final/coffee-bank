@@ -19,7 +19,7 @@
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
  - [CDU 16](#cdu-16): Investimentos(pendente)
  - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pendente)
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pendente)
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pronto)
 
 ## Lista dos Atores
  - User
@@ -1158,7 +1158,7 @@ Investimentos em cafezais
    1. O sistema irá fornecer um botão de categorização da unidade monetária.
    2. O usuário irá clicar nesse botão.
    3. O sistema requisitará a senha de 5 dígitos.
-   4. O usuário digitará  a senha.
+   4. O usuário digitará a senha.
    5. O sistema validará a senha.
    6. O sistema redirecionará o usuário para a página de categorização monetária.
    7. O sistema fornecerá um botão de gerenciar categorias.
@@ -1195,3 +1195,96 @@ Investimentos em cafezais
    15. O usuário clicará no botão.
    16. O sistema fará as alterações
    17. O sistema voltará a lista de categorias.
+#### Fluxos alternaltivos
+##### CFA-1: alteração de rota
+###### FA-1: Cancelação da senha para entrar na rota
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O Sistema fornecerá um botão para voltar.
+   5. O usuário clicará no botão para voltar.
+   6. O sistema fechará aquele campo.
+###### FA-2: Cancelação da senha para entrar na rota
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de voltar
+   8. O usuário clicará no botão.
+   9. O sistema redirecionará o usuário para a página principal
+###### FA-3: cancelamento do form de edição
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O sistema fornecerá também um botão de voltar
+   14. O usuário voltará para a página de gerenciamento de categorias
+##### CFA-2: Erro de autenticação
+   ###### FA-1: senha incorreta
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário digitará  a senha incorreta.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está incorreta.
+   ###### FA-2: senha nula
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário não digitará a senha.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está nula.
+   ###### FA-2: senha inválida
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário digitará a senha inválida.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está inválida.
+##### CFA-3: erro de dados:
+###### FA-1: dados nulos
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário com algum dado nulo.
+   14. O sistema retornará que o campo está vazio
+###### FA-2: dados inválidos
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário com algum dado inválido.
+   14. O sistema retornará que o campo está inválido.
