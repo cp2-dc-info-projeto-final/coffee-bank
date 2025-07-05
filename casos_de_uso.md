@@ -489,7 +489,7 @@ Cancelamento de Contas via Admin
 8. O admin abortará a operação ao clicar no botão de cancelar.
 9. O sistema redirecionará o admin á página de gerenciamento de usuário.
 
-###### FA-2: Cancelamento de Confirmaação de Login
+###### FA-2: Cancelamento de Confirmação de Login
 1. O sistema mostrará as tabelas para preencher o Login.
 2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
    - CPF Válido
@@ -500,7 +500,6 @@ Cancelamento de Contas via Admin
 6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
 7. Usuário clicará na opção de Cancelar.
 8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
-
 
 ### CDU 07
 Cadastramento de Admins
