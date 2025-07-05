@@ -783,9 +783,6 @@ Excluir Admin
 6. Usuário irá pressionar a opção de Cancelar.
 7. O sistema irá redirecionar o usuário para a página de Edição de Perfil.
 
-###### FA-3: Cancalemento de Edição de Email
-1. 
-
 ### CDU 10
 Alterar senha
 
