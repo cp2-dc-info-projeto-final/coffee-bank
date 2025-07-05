@@ -367,6 +367,67 @@ Cadastro de investimentos
       4. O sistema exibe campos para CPF do usuário e senha.
       5. O usuário insere não suas credenciais e clica em "Entrar".
       6. O sistema autentica e retorna que o CPF está nula.
+##### CFA-2: Alteração de rota
+   ###### FA-1: canelamento de entrar na página de cadastro de investimentos
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha, será fornecido um botão de cancelamento também.
+      5. O usuário clicará no botão de cancelamento.
+      6. O sistema o rediorecionará a página principal dos admins.
+   ###### FA-2: cancelamento do preenchimento do formulário
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
+         - Credenciais são verificas no banco de dados e confirmado se o login é válido.
+      7. O sistema redireciona o usuário para a página de cadastro de investimentos.
+      8. O sistema exibe um formulário com os campos:
+         - CPF do dono do investimento
+         - Valor de cada fundo imobiliário
+         - Tamanho da propriedade
+         - Tamanho a ser dividido entre os fundos
+         - Número de fundos imobiliários para negociação
+         - Percentual de aluguel para investidores
+         - Nome da propriedade
+         - Número da conta para transferência
+         - Nome do fundo
+         - Nome do proprietário
+         - Distrito Federal da propriedade
+      9. O sistema fornecerá também um botão de cancelamento de cadastro de investimento
+      10. O usuário clicará no botão
+      11. O usuário será redirecionado á página de senha e CPF do usuário
+##### CFA-3: impossibilidade de execução de passo
+   ###### FA-1: Email não cadastrado
+      1. O sistema exibe um botão "Cadastrar Investimento" na página principal do usuário.
+      2. O usuário clica no botão.
+      3. O sistema redireciona o usuário para a página de login.
+      4. O sistema exibe campos para CPF do usuário e senha.
+      5. O usuário insere suas credenciais e clica em "Entrar".
+      6. O sistema valida o formato dos dados (ex.: CPF válido, senha não vazia)
+         - Credenciais são verificas no banco de dados e confirmado se o login é válido.
+      7. O sistema redireciona o usuário para a página de cadastro de investimentos.
+      8. O sistema exibe um formulário com os campos:
+         - CPF do dono do investimento
+         - Valor de cada fundo imobiliário
+         - Tamanho da propriedade
+         - Tamanho a ser dividido entre os fundos
+         - Número de fundos imobiliários para negociação
+         - Percentual de aluguel para investidores
+         - Nome da propriedade
+         - Número da conta para transferência
+         - Nome do fundo
+         - Nome do proprietário
+         - Distrito Federal da propriedade
+      9. O usuário preenche todos os campos com os dados do proprietário.
+      10. O usuário clica no botão "Confirmar Cadastro".
+      11. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
+         - valida a consistência dos dados (ex.: CPF existente, valores positivos)
+         - salva o investimento no banco de dados.
+      12. O sistema exibe a mensagem: "Investimento registrado com sucesso!" e redireciona o usuário para a página inicial.
+
 ### CDU 06
 Cancelamento de Contas via Admin
 
