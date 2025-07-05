@@ -12,7 +12,7 @@
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
  - [CDU 09](#CDU-09): Editar Administradores(pronto)
  - [CDU 10](#cdu-10): Alterar Senha(pronto)
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pronto)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
  - [CDU 13](#cdu-13): Supervisionamento do saldo(pendente)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
