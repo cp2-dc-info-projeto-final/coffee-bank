@@ -7,7 +7,7 @@
  - [CDU 03](#CDU-03): Transferências(pronto)
  - [CDU 04](#CDU-04): Vizualização de Extrato(pronto)
  - [CDU 05](#CDU-05): Cadastro de investimentos(pronto)
- - [CDU 06](#CDU-06): Cancelamento de contas(parcial)
+ - [CDU 06](#CDU-06): Cancelamento de contas(pronto)
  - [CDU 07](#CDU-07): Cadastramento de admins(parcial)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
  - [CDU 09](#CDU-09): Editar Administradores(pendente)
@@ -501,17 +501,6 @@ Cancelamento de Contas via Admin
 7. Usuário clicará na opção de Cancelar.
 8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
 
-###### FA-3: Cancelamento De Pagamento
-1. Sistema irá mostrar os dados (com Nomes, CPF, Localização, Notas) contento as informações de onde o dinheiro será destinado
-   - Pagamento de Taxas
-   - Transferências
-2. Usuário listará as informações e estará escolhendo os botões Confirmar e Cancelar que o sistema exibirá desde sua primeira interação em pagamentos.
-3. Usuário irá clicar em Confirmar, sendo redirecionado para uma janela onde solicitará a Confirmação de Senha do próprio.
-4. Usuário preencherá a Confirmação de Senha Válida.
-5. Caso Inválido, sistema exigirá a repetição da Confirmação de Senha para uma Válida.
-6. Caso Válido, sistema irá exibir um popout questionando se o usuário deseja realmente prosseguir sua transferência, havendo opções de Confirmação e Cancelar.
-7. O usuário estará clicando em Cancelar.
-8. Sistema redirecionará o usuário para tela inicial.
 
 ### CDU 07
 Cadastramento de Admins
@@ -553,9 +542,138 @@ Cadastramento de Admins
 3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
 4. O usuário clicará no botão
 5. O sistema redirecionará o usuário para a pagina principal de admins
-
+###### FA-3: cancelamento de formulário
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin.
+4. O admin digitará a senha.
+5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+    - nome do novo admin
+    - numero da conta do novo admin
+    - cpf do novo admin
+6. O sistema colocará um botão de voltar
+7. O usuário apertará para voltra
+8. O sistema redirecionará o usuário para a página inicial de admins
+###### FA4: cancelamento da senha final
+1. O sistema providenciará um botão para cadastro de novos admins.
+2. O admin clicará no botão para cadastrar outros admins.
+3. O sistema exigirá a senha de 12 caracteres do admin.
+4. O admin digitará a senha.
+5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+    - nome do novo admin
+    - numero da conta do novo admin
+    - cpf do novo admin
+6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+7. O sistema fornecerá um botão de confirmar cadastro.
+8. O admin clicará no botão de confirmar cadastro.
+9. O sistema pedirá a senha de 12 dígitos.
+10. O sistema fornecerá um botão de voltar.
+11. O usuário clicará no botão
+12. O sistema fechará o campo de senhas
 ##### CFA-2: Erro de dados
-
+###### FA-1 dados invalidos
+   1. O sistema providenciará um botão para cadastro de novos admins.
+   2. O admin clicará no botão para cadastrar outros admins.
+   3. O sistema exigirá a senha de 12 caracteres do admin.
+   4. O admin digitará a senha.
+   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+      - nome do novo admin
+      - numero da conta do novo admin
+      - cpf do novo admin
+   6. O usuário deixará algum campo nulo
+   7. O sistema validará e retornará que o campo está vazio
+###### FA-2 dados errados
+   1. O sistema providenciará um botão para cadastro de novos admins.
+   2. O admin clicará no botão para cadastrar outros admins.
+   3. O sistema exigirá a senha de 12 caracteres do admin.
+   4. O admin digitará a senha.
+   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+      - nome do novo admin
+      - numero da conta do novo admin
+      - cpf do novo admin
+   6. O usuário deixará algum campo errado
+   7. O sistema validará e retornará que o campo está errado
+###### FA-3 dados já cadastrado
+   1. O sistema providenciará um botão para cadastro de novos admins.
+   2. O admin clicará no botão para cadastrar outros admins.
+   3. O sistema exigirá a senha de 12 caracteres do admin.
+   4. O admin digitará a senha.
+   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+      - nome do novo admin
+      - numero da conta do novo admin
+      - cpf do novo admin
+   6. O usuário deixará algum campo com valores já cadastrados
+   7. O sistema validará e retornará que o campo está com um valor cadastrado
+##### CFA-3: Erro de autenticação
+   ###### FA-1: Senha de acesso nula
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin não digitará a senha.
+      5. O sistema fornecerá o botão de confirmar senha
+      5. O usuário clicará em enviar senha
+      6. O sistema validará e retornará que a senha é nula.
+   ###### FA-2: Senha de acesso inválida
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin digitará a senha de forma inválida.
+      5. O sistema fornecerá o botão de confirmar senha
+      5. O usuário clicará em enviar senha
+      6. O sistema validará e retornará que a senha é inválida.
+   ###### FA-3: Senha de acesso errada
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin digitará a senha errada.
+      5. O sistema fornecerá o botão de confirmar senha
+      5. O usuário clicará em enviar senha
+      6. O sistema validará e retornará que a senha está errada.
+   ###### FA-4: senha de confirmação nula
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin digitará a senha.
+      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+         - nome do novo admin
+         - numero da conta do novo admin
+         - cpf do novo admin
+      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+      7. O sistema fornecerá um botão de confirmar cadastro.
+      8. O admin clicará no botão de confirmar cadastro.
+      9. O sistema pedirá a senha de 12 dígitos.
+      10. O admin não digitará a senha de 12 dígitos e clicará em confirmar.
+      11. O sistema validará e dirá que a senha está nula.
+   ###### FA-5: senha de confirmação errada
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin digitará a senha.
+      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+         - nome do novo admin
+         - numero da conta do novo admin
+         - cpf do novo admin
+      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+      7. O sistema fornecerá um botão de confirmar cadastro.
+      8. O admin clicará no botão de confirmar cadastro.
+      9. O sistema pedirá a senha de 12 dígitos.
+      10. O admin digitará a senha de 12 dígitos errada e clicará em confirmar.
+      11. O sistema validará e dirá que a senha está errada.
+   ###### FA-6: senha de confirmação inválida
+      1. O sistema providenciará um botão para cadastro de novos admins.
+      2. O admin clicará no botão para cadastrar outros admins.
+      3. O sistema exigirá a senha de 12 caracteres do admin.
+      4. O admin digitará a senha.
+      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+         - nome do novo admin
+         - numero da conta do novo admin
+         - cpf do novo admin
+      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+      7. O sistema fornecerá um botão de confirmar cadastro.
+      8. O admin clicará no botão de confirmar cadastro.
+      9. O sistema pedirá a senha de 12 dígitos.
+      10. O admin não digitará a senha de 12 dígitos e clicará em confirmar.
+      11. O sistema validará e dirá que a senha está inválida.
 ### CDU 08
 Excluir Admin
 
