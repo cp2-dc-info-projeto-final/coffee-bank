@@ -891,7 +891,7 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
-### CDU 16
+### CDU 17
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -912,7 +912,7 @@ Investimentos em cafezais
    12. O sistema excluirá aquela automatização.
    13. O sistema exibirá os dados cadastrados.
 
-### CDU 17
+### CDU 18
    Editar Categoria de Unidade Monetária
 
 #### Atores
