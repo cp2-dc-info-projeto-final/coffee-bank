@@ -1009,10 +1009,7 @@ Supervisionamento do saldo
       - Excesso de dívidas.
       - Saldo irrisóriamente pequeno para as condições.
       - O score do usuário é ruim.
-      - O usuário tem ficha criminal recente e avisada.
-      - O usuário já comeu a dona do banco
-      - Estou com preguiça de empresta dinheiro
-###### FA-1: filtragem de transferências
+
 
 ### CDU 15
 Vizualização de Categoria da unidade monetária
