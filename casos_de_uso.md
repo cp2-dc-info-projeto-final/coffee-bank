@@ -2,24 +2,24 @@
 
 ## Lista dos Casos de Uso
 
- - [CDU 01](#CDU-01): Criação de contas.(pronto)
- - [CDU 02](#CDU-02): Login(pronto)
- - [CDU 03](#CDU-03): Transferências(pronto)
- - [CDU 04](#CDU-04): Vizualização de Extrato(pronto)
- - [CDU 05](#CDU-05): Cadastro de investimentos(pronto)
- - [CDU 06](#CDU-06): Cancelamento de contas(pronto)
- - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
- - [CDU 08](#CDU-08): Exclusão de admins(pronto)
- - [CDU 09](#CDU-09): Editar Administradores(pronto)
- - [CDU 10](#cdu-10): Alterar Senha(pronto)
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pronto)
- - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
- - [CDU 13](#cdu-13): Supervisionamento do saldo(pronto)
- - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
- - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
+ - [CDU 01](#CDU-01): Criação de contas.
+ - [CDU 02](#CDU-02): Login
+ - [CDU 03](#CDU-03): Transferências
+ - [CDU 04](#CDU-04): Vizualização de Extrato
+ - [CDU 05](#CDU-05): Cadastro de investimentos
+ - [CDU 06](#CDU-06): Cancelamento de contas
+ - [CDU 07](#CDU-07): Cadastramento de admins
+ - [CDU 08](#CDU-08): Exclusão de admins
+ - [CDU 09](#CDU-09): Editar Administradores
+ - [CDU 10](#cdu-10): Alterar Senha
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários
+ - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos
+ - [CDU 13](#cdu-13): Supervisionamento do saldo
+ - [CDU 14](#cdu-14): Realização de Emprestimos
+ - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
  - [CDU 16](#cdu-16): Investimentos(prontos)
- - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pronto)
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pronto)
+ - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
 
 ## Lista dos Atores
  - User
