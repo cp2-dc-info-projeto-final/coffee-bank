@@ -1101,6 +1101,8 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
+
+
 ### CDU 17
    Excluir categoria de unidade monetária
 
@@ -1108,19 +1110,59 @@ Investimentos em cafezais
    - User
 
 #### Fluxo Principal
-   1. O sistema irá fornecer um botão de categorização da unidade monetária.
-   2. O usuário irá clicar nesse botão.
-   3. O sistema requisitará a senha de 5 dígitos.
-   4. O usuário digitará  a senha.
-   5. O sistema validará a senha.
-   6. O sistema redirecionará o usuário para a página de categorização monetária.
-   7. O sistema fornecerá um botão de gerenciar categorias.
-   8. O usuário clicará nesse botão.
-   9. O usuário será redirecionado para a página de gerenciamento de categorias.
-   10. O sistema exibirá as categorias em lista com um botão de excluir.
-   11. O usuário clicará no botão de excluir.
-   12. O sistema excluirá aquela automatização.
-   13. O sistema exibirá os dados cadastrados.
+1. O sistema irá fornecer um botão de categorização da unidade monetária.
+2. O usuário irá clicar nesse botão.
+3. O sistema requisitará a senha de 5 dígitos.
+4. O usuário digitará  a senha.
+5. O sistema validará a senha.
+6. O sistema redirecionará o usuário para a página de categorização monetária.
+7. O sistema fornecerá um botão de gerenciar categorias.
+8. O usuário clicará nesse botão.
+9. O usuário será redirecionado para a página de gerenciamento de categorias.
+10. O sistema exibirá as categorias em lista com um botão de excluir.
+11. O usuário clicará no botão de excluir.
+12. O sistema excluirá aquela automatização.
+13. O sistema exibirá os dados cadastrados.
+
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
+
+###### FA-1: Senha Incorreta
+1. O usuário clica no botão de categorização.  
+2. O sistema solicita a senha de 5 dígitos.  
+3. O usuário insere uma senha incorreta.  
+4. O sistema exibe uma mensagem: *"Senha inválida. Tente novamente."*  
+5. O usuário tenta novamente.  
+6. Após 3 tentativas, o sistema bloqueia temporariamente o acesso e exibe: *"Sistema temporariamente indisponível para categorização."*  
+7. O usuário aguarda 5 minutos para tentar novamente.  
+
+###### FA-2: Permissão Negada
+1. O usuário acessa o sistema.  
+2. O usuário clica no botão de categorização.  
+3. O sistema solicita a senha.  
+4. O usuário insere a senha correta.  
+5. O sistema valida a senha e verifica as permissões.  
+6. O sistema detecta que o usuário não possui permissão para categorização.  
+7. O sistema exibe: *"Você não tem permissão para acessar esta funcionalidade."*  
+8. O usuário é redirecionado para outra página.  
+
+###### FA-3: Categoria Não Encontrada  
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe uma lista vazia.  
+3. O usuário clica no botão de excluir.  
+4. O sistema exibe: "Não há categorias para excluir."  
+5. O usuário é redirecionado para a página inicial.  
+
+##### CFA-1: Erro Interno
+
+###### FA-1: Falha ao Excluir Categoria
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe a lista de categorias.  
+3. O usuário seleciona uma categoria e clicou no botão de excluir.  
+4. O sistema tenta excluir a categoria.  
+5. Ocorre um erro no banco de dados (ex.: violação de chave estrangeira).  
+6. O sistema exibe: "Erro ao excluir a categoria. A categoria está vinculada a dados existentes."
+7. O usuário volta à página principal.  
 
 ### CDU 18
    Editar Categoria de Unidade Monetária
