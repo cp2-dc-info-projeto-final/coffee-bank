@@ -17,7 +17,7 @@
  - [CDU 13](#cdu-13): Supervisionamento do saldo(pronto)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
- - [CDU 16](#cdu-16): Investimentos(pendente)
+ - [CDU 16](#cdu-16): Investimentos(pronto)
  - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pronto)
  - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pendente)
 
@@ -980,6 +980,7 @@ Supervisionamento do saldo
 3. O sistema requisitará a senha de 5 dígitos
 4. O usuário digitará a senha
 5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
+
 #### Fluxos alternativos
 ##### CFA-1: Erro de autententicação
 ###### FA-1: Senha nula
@@ -1055,11 +1056,9 @@ Supervisionamento do saldo
 10. O usuário preencherá esse modal.
 11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
 12. O usuário digitará sua senha.
-13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de empréstimos. 
-
+13. O sistema validará a senha, e disponibilizará o crédito na conta, mandando uma mensagem avisando essa disponibilidade de crédito ao email do usuário, além de exibir uma mensagem de operação bem sucedida ao usuário, redirecionando-o á página de emprésimos. 
 ##### CFA-1: Alteração de Rotas
-
-###### FA-1: Empréstimo recusado
+   ###### FA-1: empréstimo recusado
    1. O sistema fornecerá um botão para realização de empréstimos.
    2. O usuário clicará no botão.
    3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
@@ -1077,195 +1076,6 @@ Supervisionamento do saldo
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
 ###### FA-1: filtragem de transferências
-###### FA-2: Abortação de operação 1
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário clicará no botão voltar.
-5. O sistema o redirecionará de volta á página inicial.
-
-###### FA-3: Abortação de operação 2
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário clicará no botão voltar.
-7. O sistema o redirecionará de volta á página de empréstimos.
-
-###### FA-4: Abortação de operação 3
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário clicará no botão voltar.
-9. O sistema o redirecionará de volta á página de empréstimos.
-
-###### FA-5: Abortação de operação 4
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário clicará no botão voltar.
-11. O sistema redirecionará o usuário á página de empréstimos.
-
-###### FA-6: Abortação de operação 5
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário preencherá esse modal.
-11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
-12. O usuário clicará no botão cancelar.
-13. O sistema abortará a operação e redirecionará o usuário á página de empréstimos.
-
-##### CFA-2: Dados incorretos
-
-###### FA-1: Campo de formulário vazio 1
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário não preencherá pelo menos um campo do formulário.
-7. O sistema requisitará ao usuário o preenchimento dos formulários vazios.
-
-###### FA-2: Campo de formulário vazio 2
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário não preencherá pelo menos um campo do formulário.
-11. O sistema requisitará ao usuário o preenchimento dos formulários vazios.
-
-###### FA-3: Campo de senha de confirmação vazio 
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário preencherá esse modal.
-11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
-12. O usuário não digitará a senha.
-13. O sistema requisitará ao usuário que digite sua senha.
-
-###### FA-4: Campo de formulário preenchido incorretamente
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário preencherá os campos de maneira incorreta.
-7. O sistema requisitará ao usuário o preenchimento dos dados dos formulários de forma correta.
-
-###### FA-5: Campo de formulário preenchido incorretamente 2
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário preencherá os campos de maneira incorreta.
-11. O sistema requisitará ao usuário o preenchimento dos dados dos formulários de forma correta.
-
-###### FA-6: Campo de senha de confirmação incorreto 
-1. O sistema fornecerá um botão para realização de empréstimos.
-2. O usuário clicará no botão.
-3. O sistema o redirecionará  a página de empréstimos, onde terá todos os empréstimos disponíveis.
-4. O usuário escolherá um empréstimo.
-5. O sistema exibirá um modal/ formulário com os seguintes campos:
-  - Valor solicitado
-  - Número de parcelas
-6. O usuário  preencherá esses campos.
-7. O sistema validará esses dados e calculará além de exibir essas informações com os dados inseridos pelo usuário, e um botão de confirmação:
-   - Valor da parcela  
-   - CET (Custo Efetivo Total)  
-   - Data prevista de quitação 
-8. O usuário apertará o botão.
-9. O sistema validará esses dados e redirecionará o usuário para outro modal, onde terá os seguintes campos:
-   - Um dropdown que determina o tipo de empréstimo.
-   - Confirmação de renda.
-   - Aceitação dos termos legais
-10. O usuário preencherá esse modal.
-11. O sistema validará os dados e verificará se o usuário pode realizar este empréstimo, e criará uma pré-aprovação imediata, exibindo ao usuário o contrato digital com assinatura eletrônica, além de requisitar a confirmação do usuário por meio da senha de 7 digítos.
-12. O usuário preencherá os campos de maneira incorreta.
-13. O sistema requisitará ao usuário o preenchimento dos dados dos formulários de forma correta.
 
 ### CDU 15
 Vizualização de Categoria da unidade monetária
@@ -1339,7 +1149,26 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
 
+###### FA-1: Senha Incorreta 
+1. O usuário clicou no botão de investimentos.  
+2. O sistema redirecionou para a página de investimentos.  
+3. O usuário selecionou um investimento.  
+4. O usuário acessou a página do investimento selecionado.  
+5. O usuário clicou no botão "Investir".  
+6. O sistema pediu a senha de 7 dígitos.  
+7. O usuário digitou uma senha incorreta.  
+8. O sistema exibiu: "Senha inválida. Tente novamente."
+
+##### CFA-1: Alteração de Rota
+
+###### FA-1: Investimento Bloqueado Temporariamente 
+1. O usuário digitou a senha correta. 
+2. O sistema pediu a senha de 7 dígitos.   
+3. O usuário tentou investir várias vezes.  
+4. O sistema exibiu: "Você não pode investir várias vezes em um mesmo fundo." 
 
 ### CDU 17
    Excluir categoria de unidade monetária
