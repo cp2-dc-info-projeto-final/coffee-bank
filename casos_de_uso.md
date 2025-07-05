@@ -8,7 +8,7 @@
  - [CDU 04](#CDU-04): Vizualização de Extrato(pronto)
  - [CDU 05](#CDU-05): Cadastro de investimentos(pronto)
  - [CDU 06](#CDU-06): Cancelamento de contas(pronto)
- - [CDU 07](#CDU-07): Cadastramento de admins(parcial)
+ - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
  - [CDU 09](#CDU-09): Editar Administradores(pendente)
  - [CDU 10](#cdu-10): Alterar Senha(pendente)
