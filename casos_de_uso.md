@@ -753,11 +753,45 @@ Criação de automatização de pagamentos
 ##### CFA-2: Alteração de rota
 
 ###### FA-1: Abortação de operação 1
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário clicará no botão voltar.
+5. O sistema abortará a operação e redirecionará o usuário à página inicial.
 
 ###### FA-2: Abortação de operação 2
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automaizações feitas previamente.
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+   - destinatário
+   - valor
+   - dia do mês
+8. O usuário clicará no botão voltar.
+9. O sistema abortará a operação e redirecionará o usuário à página inicial.
 
 ###### FA-3: Abortação de operação 3
-
+1. O sistema fornecerá um botão para automatização de pagamentos
+2. O usuário clicará no botão
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a sua senha de 5 dígitos
+5. O sistema validará a senha e redirecionará o usuário para a página de automatização de pagamentos, onde exibirá:
+   -Todas as automatizações feitas previamente.
+   -Um botão para cadastrar novos pagamentos automáticos.
+6. O usuário clicará no botão.
+7. O sistema fornecerá um formulário com os campos:
+   - destinatário
+   - valor
+   - dia do mês
+8. O usuário completará o formulário.
+9. O sistema validará os dados e requiistará a senha de 7 digítos do usuário.
+9. O usuário clicará no botão voltar.
+9. O sistema abortará a operação e  redirecionará o usuário à página de automatizações de pagamentos.
 
 ### CDU 13
 Supervisionamento do saldo
@@ -819,6 +853,7 @@ Supervisionamento do saldo
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
 ###### FA-1: filtragem de transferências
+
 ### CDU 15
 Vizualização de Categoria da unidade monetária
 
