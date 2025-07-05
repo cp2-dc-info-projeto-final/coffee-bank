@@ -17,15 +17,9 @@
  - [CDU 13](#cdu-13): Supervisionamento do saldo(pronto)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
-<<<<<<< HEAD
- - [CDU 16](#cdu-16): Investimentos(pendente)
- - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pendente)
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pronto)
-=======
- - [CDU 16](#cdu-16): Investimentos(pronto)
+ - [CDU 16](#cdu-16): Investimentos(prontos)
  - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pronto)
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pendente)
->>>>>>> 30dd6d5b76fb9fd48cbfc8cb5450046d7a6a8145
+ - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pronto)
 
 ## Lista dos Atores
  - User
