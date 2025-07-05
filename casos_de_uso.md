@@ -11,14 +11,14 @@
  - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
  - [CDU 09](#CDU-09): Editar Administradores(pronto)
- - [CDU 10](#cdu-10): Alterar Senha(pendente)
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
+ - [CDU 10](#cdu-10): Alterar Senha(pronto)
+ - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pronto)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
- - [CDU 13](#cdu-13): Supervisionamento do saldo(pendente)
+ - [CDU 13](#cdu-13): Supervisionamento do saldo(pronto)
  - [CDU 14](#cdu-14): Realização de Emprestimos(pronto)
  - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária(pronto)
  - [CDU 16](#cdu-16): Investimentos(pendente)
- - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pendente)
+ - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária(pronto)
  - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária(pendente)
 
 ## Lista dos Atores
@@ -801,6 +801,21 @@ Alterar senha
 6. O usuário digitará o código.
 7. O sistema validará o código, e mudará a senha da conta do usuário pela nova senha, além de exibir ao usuário uma mensagem de alteração realizada com sucesso, redirecionando usuário á página de login.
 
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
+
+###### FA-1: Código Inválido
+1. O sistema estará enviando uma notificação para o usuário solicitando o Código para validar a Alteração de Senha.
+2. O usuário estará verificando seu email e preenchendo o Código errado.
+3. O sistema anasilará o Código, entendendo e alertando como Inválido, redirecionando o usuário para o campo de Preenchimento do Código.
+
+##### CFA-2: Alteração De Rota
+
+###### FA-1: Email Nulo
+1. O sistema estará enviando uma notificação para o usuário solicitando o Código para validar a Alteração de Senha.
+2. O sistema verá que não há um email na credencial do usuário, assim interrompendo e não vendo ser possível prosseguir a rota da Notificação com o Código ao email.
+3. O sistema estará redirecionando o usuário para a página inicial, havendo um campo alertando sobre a Ausência de um Email, solicitando um.
+
 ### CDU 11
 Buscar e consultar usuários
 
@@ -965,7 +980,54 @@ Supervisionamento do saldo
 3. O sistema requisitará a senha de 5 dígitos
 4. O usuário digitará a senha
 5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
-
+#### Fluxos alternativos
+##### CFA-1: Erro de autententicação
+###### FA-1: Senha nula
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário não digitará a senha e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está nula
+###### FA-2: Senha inválida
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha inválida e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está inválida
+###### FA-3: Senha incorreto
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha incorreto e clicará a senha e clicará em confirmar
+   5. O sistema validará a senha e retornará que a senha está incorreto
+##### CFA-2: Alteração de rota
+###### FA-1: cancelamento da senha
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos e fornerá um botão de cancelar
+   4. O sistema redirecionará o usuário a página principal
+###### FA-2: voltar para a página principal
+   1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+   2. O usuário clicará nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos
+   4. O usuário digitará a senha
+   5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
+   6. O sistema fornecerá um botão para voltar para a página principal
+   7. O usuário clicará para voltar para a página principal.
+##### CFA-3: alteração dos dados
+###### FA-3: filtragem de transferências 
+1. O sistema fornecerá um botão para vizualizar o supervisionamento do saldo.
+2. O usuário clicará nesse botão.
+3. O sistema requisitará a senha de 5 dígitos
+4. O usuário digitará a senha
+5. O sistema validará a senha e redicionará o usuário página de visualização de extrato, onde o sistema exibirá todas as transações feitas nos últimos 12 meses em um formato de gráfico.
+6. O sistema fornecerá um campo de filtragem de dados
+7. O usuário clicará e poderá redirecionar selecionar quais filtros quer aplicar
+   - valor mínimo
+   - valor máximo
+   - destinatário
+   - Recebido OU Enviados
+   - Recorte temporal
 ### CDU 14
 - Empréstimo
 
@@ -1011,7 +1073,10 @@ Supervisionamento do saldo
       - Excesso de dívidas.
       - Saldo irrisóriamente pequeno para as condições.
       - O score do usuário é ruim.
-
+      - O usuário tem ficha criminal recente e avisada.
+      - O usuário já comeu a dona do banco
+      - Estou com preguiça de empresta dinheiro
+###### FA-1: filtragem de transferências
 ###### FA-2: Abortação de operação 1
 1. O sistema fornecerá um botão para realização de empréstimos.
 2. O usuário clicará no botão.
@@ -1274,6 +1339,8 @@ Investimentos em cafezais
 8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
 9. O usuário fornecerá a senha
 
+
+
 ### CDU 17
    Excluir categoria de unidade monetária
 
@@ -1281,19 +1348,59 @@ Investimentos em cafezais
    - User
 
 #### Fluxo Principal
-   1. O sistema irá fornecer um botão de categorização da unidade monetária.
-   2. O usuário irá clicar nesse botão.
-   3. O sistema requisitará a senha de 5 dígitos.
-   4. O usuário digitará  a senha.
-   5. O sistema validará a senha.
-   6. O sistema redirecionará o usuário para a página de categorização monetária.
-   7. O sistema fornecerá um botão de gerenciar categorias.
-   8. O usuário clicará nesse botão.
-   9. O usuário será redirecionado para a página de gerenciamento de categorias.
-   10. O sistema exibirá as categorias em lista com um botão de excluir.
-   11. O usuário clicará no botão de excluir.
-   12. O sistema excluirá aquela automatização.
-   13. O sistema exibirá os dados cadastrados.
+1. O sistema irá fornecer um botão de categorização da unidade monetária.
+2. O usuário irá clicar nesse botão.
+3. O sistema requisitará a senha de 5 dígitos.
+4. O usuário digitará  a senha.
+5. O sistema validará a senha.
+6. O sistema redirecionará o usuário para a página de categorização monetária.
+7. O sistema fornecerá um botão de gerenciar categorias.
+8. O usuário clicará nesse botão.
+9. O usuário será redirecionado para a página de gerenciamento de categorias.
+10. O sistema exibirá as categorias em lista com um botão de excluir.
+11. O usuário clicará no botão de excluir.
+12. O sistema excluirá aquela automatização.
+13. O sistema exibirá os dados cadastrados.
+
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
+
+###### FA-1: Senha Incorreta
+1. O usuário clica no botão de categorização.  
+2. O sistema solicita a senha de 5 dígitos.  
+3. O usuário insere uma senha incorreta.  
+4. O sistema exibe uma mensagem: *"Senha inválida. Tente novamente."*  
+5. O usuário tenta novamente.  
+6. Após 3 tentativas, o sistema bloqueia temporariamente o acesso e exibe: *"Sistema temporariamente indisponível para categorização."*  
+7. O usuário aguarda 5 minutos para tentar novamente.  
+
+###### FA-2: Permissão Negada
+1. O usuário acessa o sistema.  
+2. O usuário clica no botão de categorização.  
+3. O sistema solicita a senha.  
+4. O usuário insere a senha correta.  
+5. O sistema valida a senha e verifica as permissões.  
+6. O sistema detecta que o usuário não possui permissão para categorização.  
+7. O sistema exibe: *"Você não tem permissão para acessar esta funcionalidade."*  
+8. O usuário é redirecionado para outra página.  
+
+###### FA-3: Categoria Não Encontrada  
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe uma lista vazia.  
+3. O usuário clica no botão de excluir.  
+4. O sistema exibe: "Não há categorias para excluir."  
+5. O usuário é redirecionado para a página inicial.  
+
+##### CFA-1: Erro Interno
+
+###### FA-1: Falha ao Excluir Categoria
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe a lista de categorias.  
+3. O usuário seleciona uma categoria e clicou no botão de excluir.  
+4. O sistema tenta excluir a categoria.  
+5. Ocorre um erro no banco de dados (ex.: violação de chave estrangeira).  
+6. O sistema exibe: "Erro ao excluir a categoria. A categoria está vinculada a dados existentes."
+7. O usuário volta à página principal.  
 
 ### CDU 18
    Editar Categoria de Unidade Monetária
