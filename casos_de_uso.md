@@ -10,7 +10,7 @@
  - [CDU 06](#CDU-06): Cancelamento de contas(pronto)
  - [CDU 07](#CDU-07): Cadastramento de admins(pronto)
  - [CDU 08](#CDU-08): Exclusão de admins(pronto)
- - [CDU 09](#CDU-09): Editar Administradores(pendente)
+ - [CDU 09](#CDU-09): Editar Administradores(pronto)
  - [CDU 10](#cdu-10): Alterar Senha(pendente)
  - [CDU 11](#cdu-11): Buscar e Consultar Usuários(pendente)
  - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos(pronto)
@@ -762,6 +762,30 @@ Excluir Admin
 5. O Admin preencherá o formulário com ás mudanças desejadas.
 6. O sistema validará ás alterações, e aplica ás edições feitas, relatando ao administrador que as mudanças foram realizadas com sucesso.
 
+<<<<<<< HEAD
+=======
+#### Fluxo Alternativo
+##### CFA-1: Cancelamento de Edição
+
+###### FA-1: Cancalemento de Edição de Senha
+1. Usuário entrará nas Edições selecionando a opção de Editar Perfil.
+2. Sistema redicionará usuário para a página de Edição de Perfil, mostrando as segiuntes opções:
+   - Troca de Ícone
+   - Troca de Senha
+   - Troca de Email
+   - Troca de Nome
+3. Em quaisquer escolha do usuário, dentre estas opções, sistema estará mostando um campo onde deverá ser fornecido a Senha do usuário
+4. Caso a Senha for Inválida, sistema estará retornando o mesmo campo sinalizando Credenciais Inválidas em vermelho, pressionando o usuário à repetir a senha Válida para prosseguir.
+5. Caso a senha for Válida, sistema estará fechando este campo e abrindo outro, mostrando a Troca que solicita (Ícone, Senha ou Email)
+   - Caso Email, será solicitado o novo Email, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Nome, será solicitado o novo Nome, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Senha, será solicitado nova Senha, depois um botão de Confirmação e um de Cancelar ao lado.
+   - Caso Ícone, será solicitado um arquivo (png, jpg, wbem) ou uma foto, onde usuário deve entregar acessibilidade da câmera.
+      2. Entregue o arquivo, ou a foto retirada, aparecerá um botão de Confirmação e um de Cancelar ao lado.
+6. Usuário irá pressionar a opção de Cancelar.
+7. O sistema irá redirecionar o usuário para a página de Edição de Perfil.
+
+>>>>>>> ccb1f166b04d6462c14cce9e3036ed591c7e0966
 ### CDU 10
 Alterar senha
 
@@ -988,9 +1012,13 @@ Supervisionamento do saldo
       - Excesso de dívidas.
       - Saldo irrisóriamente pequeno para as condições.
       - O score do usuário é ruim.
+<<<<<<< HEAD
       - O usuário tem ficha criminal recente e avisada.
       - O usuário já comeu a dona do banco
       - Estou com preguiça de empresta dinheiro
+=======
+
+>>>>>>> ccb1f166b04d6462c14cce9e3036ed591c7e0966
 
 ### CDU 15
 Vizualização de Categoria da unidade monetária
