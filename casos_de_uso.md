@@ -489,7 +489,7 @@ Cancelamento de Contas via Admin
 8. O admin abortará a operação ao clicar no botão de cancelar.
 9. O sistema redirecionará o admin á página de gerenciamento de usuário.
 
-###### FA-2: Cancelamento de Confirmaação de Login
+###### FA-2: Cancelamento de Confirmação de Login
 1. O sistema mostrará as tabelas para preencher o Login.
 2. O usuário estará colocando todas as informações pedidas nestas tabelas de preenchimento.
    - CPF Válido
@@ -500,18 +500,6 @@ Cancelamento de Contas via Admin
 6. Caso Válido, o sistema estará mostrando um popup questinando se ele quer mesmo prosseguir, com opções de Confirmar e Cancelar.
 7. Usuário clicará na opção de Cancelar.
 8. Sitema estará redirecioanndo o usuário para o preenchimento das credenciais de Login e Cadastro.
-
-###### FA-3: Cancelamento De Pagamento
-1. Sistema irá mostrar os dados (com Nomes, CPF, Localização, Notas) contento as informações de onde o dinheiro será destinado
-   - Pagamento de Taxas
-   - Transferências
-2. Usuário listará as informações e estará escolhendo os botões Confirmar e Cancelar que o sistema exibirá desde sua primeira interação em pagamentos.
-3. Usuário irá clicar em Confirmar, sendo redirecionado para uma janela onde solicitará a Confirmação de Senha do próprio.
-4. Usuário preencherá a Confirmação de Senha Válida.
-5. Caso Inválido, sistema exigirá a repetição da Confirmação de Senha para uma Válida.
-6. Caso Válido, sistema irá exibir um popout questionando se o usuário deseja realmente prosseguir sua transferência, havendo opções de Confirmação e Cancelar.
-7. O usuário estará clicando em Cancelar.
-8. Sistema redirecionará o usuário para tela inicial.
 
 ### CDU 07
 Cadastramento de Admins
