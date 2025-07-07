@@ -1,11 +1,16 @@
 DROP TABLE IF EXISTS usuario;
 
-CREATE TABLE usuario (
-    id bigint GENERATED ALWAYS AS IDENTITY,
-    login text NOT NULL,
-    email text NOT NULL
-);
-
-INSERT INTO usuario (login, email) VALUES
-('hermenegildo', 'hermenegildo@email.com'),
-('zoroastra', 'zoroastra@email.com');
+create table
+  "public"."Users" (
+    "id" serial not null,
+    "DataCriacao" timestamp not null default NOW(),
+    "CPF" varchar(255) not null,
+    "Nascimento" DATE not null,
+    "Nome" varchar(255) not null,
+    "Saldo" DECIMAL not null,
+    "Imagem" varchar(255) null,
+    "Senha5" varchar(255) not null,
+    "Senha7" varchar(255) not null,
+    "ChavePix" VARCHAR(255) not null,
+    constraint "Users_pkey" primary key ("id")
+  )

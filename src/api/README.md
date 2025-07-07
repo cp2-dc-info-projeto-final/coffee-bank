@@ -52,10 +52,10 @@ Crie um banco de dados com o nome do seu projeto, lembre de utilizar um nome sem
 CREATE DATABASE coffeebank;
 ```
 
-Para conectar ao seu banco de dados basta digitar o comando abaixo (trocando o nome correspondente).
+Para conectar ao seu banco de dados basta digitar o comando abaixo.
 
 ```sql
-\c elefantinho;
+\c coffeebank;
 ```
 
 Agora crie um usuário apra sua aplicação, é comum em ambientes de desenvolvimento utilizar o mesmo nome do banco de dados tanto no login quanto na senha. Após a criação do usuário precisamos dar permissão total de acesso ao banco de dados, certifique-se de que está no banco de dados correto.
