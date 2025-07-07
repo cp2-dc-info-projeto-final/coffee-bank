@@ -44,6 +44,7 @@ Criação de contas.
       - confirmação senha de 7 dígitos
       - data de nascimento 
       - nome
+      - imagem de perfil
 2. O usuário preencherá o formulário.
 3. O usuário apertará em enviar e mandará a requisição.
 4. O sistema o validará a senha
@@ -327,17 +328,19 @@ Cadastro de investimentos
    - Credenciais são verificas no banco de dados e confirmado se o login é válido.
 7. O sistema redireciona o usuário para a página de cadastro de investimentos.
 8. O sistema exibe um formulário com os campos:
-   - CPF do dono do investimento
-   - Valor de cada fundo imobiliário
-   - Tamanho da propriedade
-   - Tamanho a ser dividido entre os fundos
-   - Número de fundos imobiliários para negociação
-   - Percentual de aluguel para investidores
-   - Nome da propriedade
-   - Número da conta para transferência
-   - Nome do fundo
-   - Nome do proprietário
-   - Distrito Federal da propriedade
+   - CPF do dono do investimento.
+   - Número da conta do dono do fundo.
+   - Valor de cada fundo imobiliário.
+   - Tamanho da propriedade.
+   - Tamanho a ser dividido entre os fundos.
+   - Número de fundos imobiliários para negociação.
+   - Percentual de aluguel para investidores.
+   - Nome da propriedade.
+   - Número da conta para transferência.
+   - Nome do fundo.
+   - Nome do proprietário.
+   - Numero da conta do propietário.
+   - Distrito Federal da propriedade.
 9. O usuário preenche todos os campos com os dados do proprietário.
 10. O usuário clica no botão "Confirmar Cadastro".
 11. O sistema valida os dados (campos obrigatórios, valores numéricos válidos)
@@ -515,7 +518,7 @@ Cadastramento de Admins
 5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
     - nome do novo admin
     - numero da conta do novo admin
-    - cpf do novo admin
+    - cpf do novo admin 
 6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
 7. O sistema fornecerá um botão de confirmar cadastro.
 8. O admin clicará no botão de confirmar cadastro.
