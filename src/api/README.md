@@ -100,19 +100,45 @@ npm run dev
 Retorna todos os usuários
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "login": "hermenegildo",
-      "email": "hermenegildo@email.com"
-    },
-    {
-      "id": 2,
-      "login": "zoroastra",
-      "email": "zoroastra@email.com"
-    }
-  ]
+	"success": true,
+	"data": [
+		{
+			"id": 1,
+			"DataCriacao": "2025-07-07T20:57:15.564Z",
+			"CPF": "12345678",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		},
+		{
+			"id": 2,
+			"DataCriacao": "2025-07-07T22:41:36.125Z",
+			"CPF": "11144477735",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		},
+		{
+			"id": 3,
+			"DataCriacao": "2025-07-07T22:44:19.382Z",
+			"CPF": "39053344705",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		}
+	]
 }
 ```
 
@@ -120,12 +146,19 @@ Retorna todos os usuários
 Retorna um usuário específico
 ```json
 {
-  "success": true,
-  "data": {
-    "id": 1,
-    "login": "hermenegildo",
-    "email": "hermenegildo@email.com"
-  }
+	"success": true,
+	"data": {
+		"id": 1,
+		"DataCriacao": "2025-07-07T20:57:15.564Z",
+		"CPF": "12345678",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 }
 ```
 
@@ -134,22 +167,30 @@ Cria um novo usuário
 **Body:**
 ```json
 {
-  "login": "anaxarmandro",
-  "email": "anaxarmandro@email.com"
+  "CPF": "39053344705",
+  "Nascimento": "2025-07-07",
+	"Nome":"Dudu",
+	"Senha5":"12345",
+	"Senha5conf":"12345",
+	"Senha7":"1234567",
+	"Senha7conf":"1234567"
 }
 ```
 
 **Resposta:**
 ```json
-{
-  "success": true,
-  "message": "Usuário criado com sucesso",
-  "data": {
-    "id": 2,
-    "login": "anaxarmandro",
-    "email": "anaxarmandro@email.com"
-  }
-}
+"data": {
+		"id": 3,
+		"DataCriacao": "2025-07-07T22:44:19.382Z",
+		"CPF": "39053344705",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 ```
 
 ### PUT /users/:id
@@ -157,8 +198,19 @@ Atualiza um usuário existente
 **Body:**
 ```json
 {
-  "login": "hermenegilda",
-  "email": "hermenegilda@email.com"
+  {
+    "DataCriacao": "2025-07-07T22:41:36.125Z",
+    "CPF": "11144477735",
+    "Nascimento": "2025-07-07T03:00:00.000Z",
+    "Nome": "Dudu",
+    "Saldo": "500",
+    "Imagem": null,
+    "Senha5": "12345",
+    "Senha5conf":"12345",
+    "Senha7": "1234567",
+    "Senha7conf":"1234567",
+    "ChavePix": null
+  }
 }
 ```
 
@@ -166,8 +218,20 @@ Atualiza um usuário existente
 Remove um usuário
 ```json
 {
-  "success": true,
-  "message": "Usuário deletado com sucesso"
+	"success": true,
+	"message": "Usuário atualizado com sucesso",
+	"data": {
+		"id": 2,
+		"DataCriacao": "2025-07-07T22:41:36.125Z",
+		"CPF": "11144477735",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 }
 ```
 

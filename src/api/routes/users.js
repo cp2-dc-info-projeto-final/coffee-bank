@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const pool = require('../db/config');
+const ValidationCPF = require('../Functions/CPFValidation');
 
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
   try {
-    const result = await pool.query('SELECT * FROM Users ORDER BY id');
+    const result = await pool.query('SELECT * FROM "Users" ORDER BY id');
     res.json({
       success: true,
       data: result.rows
@@ -23,7 +24,7 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
   try {
     const { id } = req.params;
-    const result = await pool.query('SELECT * FROM usuario WHERE id = $1', [id]);
+    const result = await pool.query('SELECT * FROM "Users" WHERE id = $1', [id]);
     
     if (result.rows.length === 0) {
       return res.status(404).json({
@@ -70,13 +71,19 @@ router.post('/', async function(req, res, next) {
         message: 'Campos obrigatórios não preenchidos'
       });
     }
+    else if(ValidationCPF(CPF) === false){
+      return res.status(400).json({
+        success: false,
+        message: 'CPF inválido'
+      });
+    }
     else if (Senha5 !== Senha5conf || Senha7 !== Senha7conf) {
       return res.status(400).json({
         success: false,
         message: 'As senhas não conferem'
       });
     }
-    
+
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
@@ -111,18 +118,45 @@ router.post('/', async function(req, res, next) {
 router.put('/:id', async function(req, res, next) {
   try {
     const { id } = req.params;
-    const { login, email } = req.body;
+    const { CPF,
+      Nascimento,
+      Nome,
+      Senha5,
+      Senha5conf,
+      Senha7,
+      Senha7conf,
+      ChavePix,
+      Imagem
+      } = req.body;
     
-    // Validação básica
-    if (!login || !email) {
+    if (!CPF ||
+      !Nascimento||
+      !Nome||
+      !Senha5||
+      !Senha5conf||
+      !Senha7||
+      !Senha7conf) {
+        console.log(CPF,Nascimento,Nome,Senha5,Senha5conf,Senha7,Senha7conf);
       return res.status(400).json({
         success: false,
-        message: 'Login e email são obrigatórios'
+        message: 'Campos obrigatórios não preenchidos'
+      });
+    }
+    else if(ValidationCPF(CPF) === false){
+      return res.status(400).json({
+        success: false,
+        message: 'CPF inválido'
+      });
+    }
+    else if (Senha5 !== Senha5conf || Senha7 !== Senha7conf) {
+      return res.status(400).json({
+        success: false,
+        message: 'As senhas não conferem'
       });
     }
     
     // Verificar se o usuário existe
-    const userExists = await pool.query('SELECT id FROM usuario WHERE id = $1', [id]);
+    const userExists = await pool.query('SELECT id FROM "Users" WHERE id = $1', [id]);
     if (userExists.rows.length === 0) {
       return res.status(404).json({
         success: false,
@@ -131,17 +165,17 @@ router.put('/:id', async function(req, res, next) {
     }
     
     // Verificar se o login já está em uso por outro usuário
-    const existingUser = await pool.query('SELECT id FROM usuario WHERE login = $1 AND id != $2', [login, id]);
+    const existingUser = await pool.query('SELECT id FROM "Users" WHERE ("CPF" = $1 or "ChavePix"=$2) AND id != $3', [CPF,ChavePix,id]);
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Login já está em uso por outro usuário'
+        message: 'CPF ou ChavePix já está em uso por outro usuário'
       });
     }
     
     const result = await pool.query(
-      'UPDATE usuario SET login = $1, email = $2 WHERE id = $3 RETURNING *',
-      [login, email, id]
+      'UPDATE "Users" SET "CPF" = $1, "Nascimento" = $2,"Nome"=$3,"Imagem"=$4,"Senha5"=$5,"Senha7"=$6,"ChavePix"=$7 WHERE id = $8 RETURNING *',
+      [CPF, Nascimento, Nome, Imagem, Senha5, Senha7, ChavePix, id]
     );
     
     res.json({
@@ -164,7 +198,7 @@ router.delete('/:id', async function(req, res, next) {
     const { id } = req.params;
     
     // Verificar se o usuário existe
-    const userExists = await pool.query('SELECT id FROM usuario WHERE id = $1', [id]);
+    const userExists = await pool.query('SELECT id FROM "Users" WHERE id = $1', [id]);
     if (userExists.rows.length === 0) {
       return res.status(404).json({
         success: false,
@@ -172,7 +206,7 @@ router.delete('/:id', async function(req, res, next) {
       });
     }
     
-    await pool.query('DELETE FROM usuario WHERE id = $1', [id]);
+    await pool.query('DELETE FROM "Users" WHERE id = $1', [id]);
     
     res.json({
       success: true,
