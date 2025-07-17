@@ -76,7 +76,7 @@ psql -h localhost  -d coffeebank -U coffeebank -W
 Com o banco de dados configurado é possível trabalhar com SQL normalmente, criando tabelas e executando consultas. Nesse projeto recomendamos um script de criação do banco de dados `schema_create.sql` armazenado na pasta `db`. Esse script deve ser utilizado para criar ou recriar as tabelas e inserir registros iniciais, então deve ser feito considerando que as tabelas podem já existir, removendo e criando novamente. Para executar o script dentro do banco de dados e não precisar copiar o colar o conteúdo (que também é possível) basta utilizar o comando abaixo. Verifique em que pasta do projeto você está, pode ser necessário alterar o caminho, aqui estamos dentro da pasta do projeto backend `src/api/`.
 
 ```bash
- psql -h localhost  -d elefantinho -U elefantinho -W -f db/schema_create.sql
+ psql -h localhost  -d coffeebank -U coffeebank -W -f db/schema_create.sql
 ```
 
 Para navegar no banco de dados sugiro o a extensão PostgreSQL oficial da Microsoft, repare que há várias extensões com mesmo nome de outro fabricantes. Qualquer outra extensão de sua preferência pode ser utilizada.
