@@ -6,7 +6,7 @@ const ValidationCPF = require('../Functions/CPFValidation');
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
   try {
-    const result = await pool.query('SELECT * FROM "Users" ORDER BY id');
+    const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
     res.json({
       success: true,
       data: result.rows
@@ -49,6 +49,7 @@ router.get('/:id', async function(req, res, next) {
 /* POST - Criar novo usuário */
 router.post('/', async function(req, res, next) {
   try {
+    console.log(req.body)
     const { CPF,
       Nascimento,
       Nome,
@@ -57,7 +58,6 @@ router.post('/', async function(req, res, next) {
       Senha7,
       Senha7conf,
       } = req.body;
-    
     // Validação básica
     if (!CPF ||
       !Nascimento||
@@ -66,15 +66,10 @@ router.post('/', async function(req, res, next) {
       !Senha5conf||
       !Senha7||
       !Senha7conf) {
+      console.log("fudeu tudo")
       return res.status(400).json({
         success: false,
         message: 'Campos obrigatórios não preenchidos'
-      });
-    }
-    else if(ValidationCPF(CPF) === false){
-      return res.status(400).json({
-        success: false,
-        message: 'CPF inválido'
       });
     }
     else if (Senha5 !== Senha5conf || Senha7 !== Senha7conf) {
@@ -95,8 +90,8 @@ router.post('/', async function(req, res, next) {
     }
     
     const result = await pool.query(
-      `INSERT INTO "Users" ("CPF", "Nascimento", "Nome", "Saldo", "Senha5", "Senha7") 
-   VALUES ($1, $2, $3, 500, $4, $5) RETURNING *`,
+      `INSERT INTO "Users" ("CPF", "Nascimento", "Nome", "Saldo", "Senha5", "Senha7","ChavePix") 
+   VALUES ($1, $2, $3, 500, $4, $5,$1) RETURNING *`,
   [CPF, Nascimento, Nome, Senha5, Senha7]
     );
     
