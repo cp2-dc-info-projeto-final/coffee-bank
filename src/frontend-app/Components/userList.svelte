@@ -1,5 +1,6 @@
 <script lang="ts">
 
+
 export let nomeLista = "";
 export let descricao = "";
 export let nome = "";

@@ -26,6 +26,9 @@
 		  <li>
 			<a href="/form" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page"><i class="fa-solid fa-door-open"></i></a>
 		  </li>
+		  <li>
+			<a href="/gerenciamento" class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page"><i class="fa-solid fa-user-tie"></i></a>
+		  </li>
 		</ul>
 	  </div>
 	</div>
