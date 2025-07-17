@@ -6,7 +6,7 @@ const ValidationCPF = require('../Functions/CPFValidation');
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
   try {
-    const result = await pool.query('SELECT * FROM "Users" ORDER BY id');
+    const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
     res.json({
       success: true,
       data: result.rows
@@ -49,6 +49,7 @@ router.get('/:id', async function(req, res, next) {
 /* POST - Criar novo usuário */
 router.post('/', async function(req, res, next) {
   try {
+    console.log(req.body)
     const { CPF,
       Nascimento,
       Nome,
