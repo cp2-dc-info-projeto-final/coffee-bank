@@ -17,14 +17,14 @@
             };
 
             // Envia os dados via POST
-            fetch("http://localhost:3000/users", {
+           const resposta= await fetch("http://localhost:3000/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data)
             });
-            
+            const json = await resposta.json();
 
         }
 
@@ -37,6 +37,7 @@
 </script>
 
 <div>
+    
     <form action="POST" id="meuFormulario">
         <input type="text" name="nome" id="nome" placeholder="seu nome">
         <input type="text" name="cpf" id="cpf" placeholder="seu cpf">
