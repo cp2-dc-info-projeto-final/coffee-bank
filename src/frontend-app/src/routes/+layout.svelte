@@ -1,13 +1,13 @@
 <script lang="ts">
 	import '../app.css';
-
+	import 'flowbite';
 	let { children } = $props();
 </script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-	<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<nav class="bg-white border-gray-200 dark:bg-gray-900 w-[100%]">
+	<div class="flex flex-wrap items-center justify-between p-4 w-full mx-auto">
 	  <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
 		  <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
 		  <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CoffeeBank</span>
