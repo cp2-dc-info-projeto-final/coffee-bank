@@ -45,12 +45,28 @@ import { onMount } from 'svelte';
 </script>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+   <div class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
             Usuários
             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Uma lista com todos usuários do sistema</p>
-        </caption>
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        </div>
+        <div class="flex">
+
+            {#each users as user}
+
+            
+            <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200  shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user.Nome}</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">{user.Nascimento}</p>
+                <p class="font-normal text-gray-700 dark:text-gray-400">{user.CPF}</p>
+                <p class="font-normal text-gray-700 dark:text-gray-400">{user.ChavePix}</p>
+            
+            </a>
+            {/each}
+
+        </div>
+       <!--  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Usuário
@@ -72,9 +88,10 @@ import { onMount } from 'svelte';
                 </th>
             </tr>
         </thead>
-        <tbody>
-            {#each users as user}
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+        <tbody>-->
+           
+    
+               <!-- <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {user.Nome}
                     </th>
@@ -93,8 +110,7 @@ import { onMount } from 'svelte';
                     <td class="px-6 py-4 text-right">
                         <div on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</div>
                     </td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+                </tr> -->
+        <!-- </tbody>-->
+            </div>
 </div>
