@@ -67,22 +67,25 @@ import { onMount } from 'svelte';
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Delete</span>
+                </th>
             </tr>
         </thead>
         <tbody>
             {#each users as user}
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {user.nome}
+                        {user.Nome}
                     </th>
                     <td class="px-6 py-4">
-                        {user.nascimento}
+                        {user.Nascimento}
                     </td>
                     <td class="px-6 py-4">
-                        {user.cpf}
+                        {user.CPF}
                     </td>
                     <td class="px-6 py-4">
-                        {user.chavepix}
+                        {user.ChavePix}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div on:click={() => goto(`/users/edit/${user.id}`)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</div>
