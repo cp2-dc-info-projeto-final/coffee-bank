@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import UserList from '../../../Components/userList.svelte';
-	import api from '$lib/api';
+
+import UserList from '../../Components/userList.svelte';
+import { goto } from '$app/navigation';
     
     
 </script>
 
 <div>
     
-   <UserList {...users}/>
+   <UserList />
 </div>
