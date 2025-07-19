@@ -91,7 +91,7 @@ router.post('/', async function(req, res, next) {
     }
     
     const result = await pool.query(
-      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","sex") 
+      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
    VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
   [CPF, Nome, Senha5, Senha7,Sex]
     );

@@ -20,8 +20,7 @@ CREATE TABLE "public"."Users" (
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
   "ChavePix" VARCHAR(255) NOT NULL,
-  "Sex" BOOLEAN NOT NULL,
-  constraint "Users_pkey" primary key ("id")
+  "Sex" BOOLEAN NOT NULL
 );
 
 -- ADMINS
