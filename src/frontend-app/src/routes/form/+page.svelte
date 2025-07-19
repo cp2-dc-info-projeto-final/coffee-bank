@@ -1,5 +1,7 @@
 <script>
-    import { onMount } from 'svelte';
+    import Textform from '../components/textform.svelte';
+
+import { onMount } from 'svelte';
     let sexo=false;
     import img from "../../assets/images/image-removebg-preview (2).png"
     onMount(() => {
@@ -42,53 +44,53 @@
         <div class="shadow h-screen md:w-1/2 flex flex-wrap w-full">
             <div class="flex items-center justify-center content-center flex-col w-full">
                 <h5 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Cadastro para banco</h5>
-                <div class="w-full justify-center content-center my-10">
+                <div class="w-full justify-center content-center my-10 px-5">
                     <form action="POST" id="meuFormulario">
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="text" name="nome" id="nome" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label 
-                                for="nome" 
-                                class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Nome
-                            </label>
-                            </div>
+                            <Textform 
+                                Content="Nome"
+                                Name="nome"
+                                id="nome"
+                            />
                         </div>
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="text" name="cpf" id="cpf" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label for="cpf" class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">CPF</label>
-                            </div>
+                            <Textform 
+                                Content="CPF"
+                                Name="cpf"
+                                id="cpf"
+                            />
                         </div>
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="password" name="pin5" id="pin5" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label for="pin5" class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Senha 5 dígitos</label>
-                            </div>
+                            <Textform 
+                                Content="Senha 5 dígitos"
+                                Name="pin5"
+                                id="pin5"
+                                type="password"
+                            />
                         </div>
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="password" name="pin5-confirm" id="pin5-confirm" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label for="pin5-confirm" class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirmar senha 5 dígitos</label>
-                            </div>
+                            <Textform 
+                                Content="Confirmar senha 5 dígitos"
+                                Name="pin5-confirm"
+                                id="pin5-confirm"
+                                type="password"
+                            />
                         </div>
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="password" name="pin7" id="pin7" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label for="pin7" class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Senha 7 dígitos</label>
-                            </div>
+                            <Textform 
+                                Content="Senha 7 dígitos"
+                                Name="pin7"
+                                id="pin7"
+                                type="password"
+                            />
                         </div>
                         <div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <input type="password" name="pin7-confirm" id="pin7-confirm" 
-                                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                                <label for="pin7-confirm" class="peer-focus:font-medium absolute text-sm text-gray-100 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Senha 7 dígitos</label>
-                            </div>
+                            <Textform 
+                                Content="Confirmar senha 7 dígitos"
+                                Name="pin7-confirm"
+                                id="pin7-confirm"
+                                type="password"
+                            />
                         </div>
                         <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
                             <input type="checkbox" value="genero" class="sr-only peer" on:click={()=>{sexo=!sexo}}>
