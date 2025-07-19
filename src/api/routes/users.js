@@ -48,6 +48,7 @@ router.get('/:id', async function(req, res, next) {
 
 /* POST - Criar novo usuário */
 router.post('/', async function(req, res, next) {
+  console.log("entrou no post")
   try {
     console.log(req.body)
     const { CPF,
@@ -56,6 +57,7 @@ router.post('/', async function(req, res, next) {
       Senha5conf,
       Senha7,
       Senha7conf,
+      Sex
       } = req.body;
     // Validação básica
     if (!CPF ||
@@ -63,7 +65,8 @@ router.post('/', async function(req, res, next) {
       !Senha5||
       !Senha5conf||
       !Senha7||
-      !Senha7conf) {
+      !Senha7conf||
+    Sex === undefined) {
       console.log("fudeu tudo")
       return res.status(400).json({
         success: false,
@@ -88,9 +91,9 @@ router.post('/', async function(req, res, next) {
     }
     
     const result = await pool.query(
-      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix") 
-   VALUES ($1 $2, 500, $3, $4,$1) RETURNING *`,
-  [CPF, Nome, Senha5, Senha7]
+      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","sex") 
+   VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
+  [CPF, Nome, Senha5, Senha7,Sex]
     );
     
     res.status(201).json({
@@ -118,7 +121,8 @@ router.put('/:id', async function(req, res, next) {
       Senha7,
       Senha7conf,
       ChavePix,
-      Imagem
+      Imagem,
+      Sex
       } = req.body;
     
     if (!CPF ||
@@ -165,8 +169,8 @@ router.put('/:id', async function(req, res, next) {
     }
     
     const result = await pool.query(
-      'UPDATE "Users" SET "CPF" = $1,"Nome"=$2,"Imagem"=$3,"Senha5"=$4,"Senha7"=$5,"ChavePix"=$6 WHERE id = $7 RETURNING *',
-      [CPF, Nome, Imagem, Senha5, Senha7, ChavePix, id]
+      'UPDATE "Users" SET "CPF" = $1,"Nome"=$2,"Imagem"=$3,"Senha5"=$4,"Senha7"=$5,"ChavePix"=$6 "sex"=$7 WHERE id = $7 RETURNING *',
+      [CPF, Nome, Imagem, Senha5, Senha7, ChavePix, id,Sex]
     );
     
     res.json({
