@@ -14,13 +14,14 @@ CREATE TABLE "public"."Users" (
   "id" SERIAL PRIMARY KEY,
   "DataCriacao" TIMESTAMP NOT NULL DEFAULT NOW(),
   "CPF" VARCHAR(255) NOT NULL,
-  "Nascimento" DATE NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Saldo" DECIMAL NOT NULL,
   "Imagem" VARCHAR(255),
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
-  "ChavePix" VARCHAR(255) NOT NULL
+  "ChavePix" VARCHAR(255) NOT NULL,
+  "Sex" BOOLEAN NOT NULL,
+  constraint "Users_pkey" primary key ("id")
 );
 
 -- ADMINS

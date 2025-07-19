@@ -1,2 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
+@source "../node_modules/flowbite-datepicker";
+body{
+    background-color: #240f00;
+}
