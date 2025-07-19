@@ -55,14 +55,18 @@ import { onMount } from 'svelte';
             {#each users as user}
 
             
-            <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200  shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="flex flex-col w-full p-6 bg-white border border-gray-200  shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user.Nome}</h5>
-                <p class="font-normal text-gray-700 dark:text-gray-400">{user.Nascimento}</p>
-                <p class="font-normal text-gray-700 dark:text-gray-400">{user.CPF}</p>
-                <p class="font-normal text-gray-700 dark:text-gray-400">{user.ChavePix}</p>
-            
-            </a>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Usuário: {user.Nome}</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">Data de Nascimento: {user.Nascimento}</p>
+                <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
+                <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
+                <div class="flex items-end">
+                  <i on:click={() => goto(`/form/${user.id}`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 w-full" ></i>
+                  <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4 "></i>
+                </div>
+                
+              </div>
             {/each}
 
         </div>
