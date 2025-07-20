@@ -193,7 +193,7 @@ Cria um novo usuário
 	}
 ```
 
-### PUT /users/:id
+### PUT /users/Update/:id
 Atualiza um usuário existente
 **Body:**
 ```json
@@ -234,7 +234,14 @@ Remove um usuário
 	}
 }
 ```
-
+### PUT /users/Login/:id
+Busca um usuário a partir de login e senha
+```json
+{
+	"CPF": "12345678910",
+	"Senha5": "12345"
+}
+```
 ## Exemplo de Uso com curl
 
 O `curl` é um comando do linux que permite realizar requisições REST passando uma URL e dados. Abaixo alguns exemplos de como fazer.

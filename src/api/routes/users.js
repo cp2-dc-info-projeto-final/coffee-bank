@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../db/config');
 const ValidationCPF = require('../Functions/CPFValidation');
+const bcrypt = require('bcrypt');
 
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
@@ -89,11 +90,13 @@ router.post('/', async function(req, res, next) {
         message: 'Esse CPF já está cadastrado'
       });
     }
-    
+    Senha5_criptografada= await bcrypt.hash(Senha5, 10)
+    Senha7_criptografada= await bcrypt.hash(Senha7, 10)
+    console.log(Senha5_criptografada,Senha7_criptografada)
     const result = await pool.query(
       `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
    VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
-  [CPF, Nome, Senha5, Senha7,Sex]
+  [CPF, Nome, Senha5_criptografada, Senha7_criptografada,Sex]
     );
     
     res.status(201).json({
@@ -111,7 +114,7 @@ router.post('/', async function(req, res, next) {
 });
 
 /* PUT - Atualizar usuário */
-router.put('/:id', async function(req, res, next) {
+router.put('/Update/:id', async function(req, res, next) {
   try {
     const { id } = req.params;
     const { CPF,
@@ -131,7 +134,7 @@ router.put('/:id', async function(req, res, next) {
       !Senha5conf||
       !Senha7||
       !Senha7conf) {
-        console.log(CPF,Nascimento,Nome,Senha5,Senha5conf,Senha7,Senha7conf);
+        console.log(CPF,Nome,Senha5,Senha5conf,Senha7,Senha7conf);
       return res.status(400).json({
         success: false,
         message: 'Campos obrigatórios não preenchidos'
@@ -217,3 +220,47 @@ router.delete('/:id', async function(req, res, next) {
 });
 
 module.exports = router;
+router.put('/Login', async function(req, res, next) {
+  try {
+    var { CPF, Senha5 } = req.body;
+    // transformar CPF para o formato correto
+    CPF= `${CPF.slice(0, 3)}.${CPF.slice(3, 6)}.${CPF.slice(6, 9)}-${CPF.slice(9)}`;
+
+    if (!CPF || !Senha5) {
+      return res.status(400).json({
+        success: false,
+        message: 'Campos obrigatórios não preenchidos'
+      });
+    }
+    if(!ValidationCPF(CPF)) {
+      return res.status(400).json({
+        success: false,
+        message: 'CPF inválido'
+      });
+    }
+    console.log(CPF)
+    const result = await pool.query(
+      'SELECT * FROM "Users" WHERE "CPF" = $1',
+      [CPF]
+    );
+    if (result.rows.length === 0) {
+      return res.status(401).json({
+        success: false,
+        message: 'CPF incorreto'
+      });
+    }
+    if (!bcrypt.compare(result.rows[0].Senha5, Senha5)) {
+      return res.status(401).json({
+        success: false,
+        message: 'Senha incorreta'
+      });
+    }
+    res.json({
+      success: true,
+      message: 'Login bem-sucedido',
+      data: result.rows[0]
+    });
+  } catch (err) {
+    next(err);
+  }
+});
