@@ -75,7 +75,6 @@
     <div class="w-full flex" style="background: linear-gradient(to right, #240f00, #615145)">
         <div class="shadow h-screen md:w-1/2 flex flex-wrap w-full">
             <div class="flex items-center justify-center content-center flex-col w-full">
-                <h5 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Cadastro para banco</h5>
                 <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
                 <div class="w-full justify-center content-center my-10 px-5">
                     <form action="POST" id="meuFormulario">
@@ -134,14 +133,14 @@
                         </label>
                         <div class="flex items-center mb-4">
                             <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
-                            <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./form/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
+                            <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
                         </div>
                         <div class="w-full text-center">
                             <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
                         </div>
                         <ol style="list-style: disc">
                             {#each dataerros as erro}
-                                <li style="color:red;;">{erro}</li>
+                                <li style="color:red;">{erro}</li>
                             {/each}
                         </ol>
                     </form>
@@ -193,5 +192,3 @@
         </div>
       </section>
     --->
-    
-    
