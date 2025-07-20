@@ -1,5 +1,5 @@
 <script>
-    import Textform from '../components/textform.svelte';
+    import Textform from '../../Components/textform.svelte';
 
 // @ts-nocheck
     let dataerros = [];
