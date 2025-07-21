@@ -1,11 +1,17 @@
 <script>
+    
     import defaultimg from "../assets/images/defaultUser.jpg";
     export let img=defaultimg;
     export let User="UserDefault";
     export let CPF="999.999.999-55";
 </script>
-<div class="border md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white md:bg-transparent flex flex-col shadow-lg">
-    <div class="md:w-full bg-white md:rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+<div
+  class="md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white/50 backdrop-blur-lg flex flex-col shadow-lg"
+>
+
+    <div class="bg-white md:rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+    id="main"
+    >
         <img class="mb-auto rounded-t-lg w-full hidden md:block" src={img} alt="" />
         <div class="p-5">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{User}</h5>
@@ -24,3 +30,6 @@
         </div>
     </div>
 </div>
+<style>
+    
+</style>
