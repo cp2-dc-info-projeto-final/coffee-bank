@@ -1,36 +1,47 @@
-<script>
-    import { onMount } from 'svelte';
-    import axios from 'axios';
-    onMount(() => {
-        const cpfInput = document.getElementById('cpf');
-        const form = document.getElementById("form");
-        cpfInput.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
+<script lang="ts">
+  import User from '../../Class/User';
+  import { onMount } from 'svelte';
+  import axios from 'axios';
+  import { createEventDispatcher } from 'svelte';  
+  const dispatch = createEventDispatcher();
+  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
+    const user = new User(data);
+    dispatch('login', { detail: { User: user }, bubbles: true });
+  }
+  onMount(() => {
+      const cpfInput = document.getElementById('cpf');
+      const form = document.getElementById("form");
+      cpfInput.addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 11) value = value.slice(0, 11);
 
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+          value = value.replace(/(\d{3})(\d)/, '$1.$2');
+          value = value.replace(/(\d{3})(\d)/, '$1.$2');
+          value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
-            });
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault(); // Impede o envio padrão do form
-            const data = {
-                Senha5: document.getElementById("password").value,
-                CPF: document.getElementById("cpf").value
-            }
-            try{
-                const response = await axios.put("http://localhost:3000/users/Login", data);
-                if(response.data.success){
-                } else {
-                    console.log(data,response.data)
-                }
-            } catch (error) {
-                console.error("Erro ao fazer login:", error);
-                alert(data)
-            }
-        })
-    });
+          });
+          
+          
+      form.addEventListener("submit", async function (e) {
+          e.preventDefault(); // Impede o envio padrão do form
+          const data = {
+              Senha5: document.getElementById("password").value,
+              CPF: document.getElementById("cpf").value
+          }
+          try{
+              const response = await axios.put("http://localhost:3000/users/Login", data);
+              if(response.data.success){
+                enviarJson(response.data);
+                console.log(response.data);
+              } else {
+                  console.log(data,response.data)
+              }
+          } catch (error) {
+              console.error("Erro ao fazer login:", error);
+              alert(data)
+          }
+      })
+  });
 </script>
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
   <section class="dark:bg-gray-900 w-full h-full" id="login">

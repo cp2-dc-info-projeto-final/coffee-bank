@@ -1,16 +1,23 @@
-<script>
+<script lang="ts">
+    import type { CustomEvent } from 'svelte';
+    import User from '../Class/User';
+    let users: User[] = [];
+    function adicionarCarta(event:CustomEvent<{ User: User }>) {
+        const user:User = event.detail.User;
+        users = [...users, user];
+    }
     import Login from "../Components/Forms/Login.svelte";
     import CardMore from "../Components/CardMore.svelte";
     import img from "../assets/images/OIP.jpg";
     import UserCards from "../Components/cardsUser.svelte";
 </script>
 <div class="h-screen flex flex-col md:justify-center md:gap-2.5" id="Main">
- 
+    
     <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center">
-        <UserCards User="dudu" CPF="123" img={img}/>
-        <UserCards/>
-        <UserCards/>
-        <CardMore/>
+        {#each users as user}
+            <UserCards user={user} />
+        {/each}
+        <CardMore on:Login={adicionarCarta}/>
     </div>
     
 </div>

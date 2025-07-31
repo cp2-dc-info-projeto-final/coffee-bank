@@ -1,9 +1,11 @@
-<script>
-    
+<script lang="ts">
+    import User from "../Class/User";
     import defaultimg from "../assets/images/defaultUser.jpg";
-    export let img=defaultimg;
-    export let User="UserDefault";
-    export let CPF="999.999.999-55";
+    export let user:User;
+    let img=user.GetImagem();
+    let CPF= user.GetCPF();
+    let Name=user.GetNome();
+    if(!img) img=defaultimg;    
 </script>
 <div
   class="md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white/50 backdrop-blur-lg flex flex-col shadow-lg"
@@ -14,7 +16,7 @@
     >
         <img class="mb-auto rounded-t-lg w-full hidden md:block" src={img} alt="" />
         <div class="p-5">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{User}</h5>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{Name}</h5>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{CPF}</p>
             <div class="flex">
                 <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

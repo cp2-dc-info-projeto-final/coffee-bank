@@ -1,5 +1,14 @@
-<script>
-	import { Modal } from "flowbite";
+<script lang="ts">
+    import User from "../Class/User";
+    import { createEventDispatcher } from 'svelte';  
+    const dispatch = createEventDispatcher();
+    function login(event: CustomEvent<User>) {
+        const user:User = event.detail.detail.User;
+        console.log(user.User);
+        modal = false
+        dispatch('Login', { User: user });
+    }
+    import { Modal } from "flowbite";
     import Login from "./Forms/Login.svelte";
     var modal=false;
 </script>
@@ -14,7 +23,7 @@
     </div>
 </button>
 {#if modal}
-<Login/>
+    <Login on:login={login} />
 {/if}
 <style>
 </style>

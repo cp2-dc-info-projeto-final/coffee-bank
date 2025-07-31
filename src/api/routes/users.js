@@ -238,9 +238,8 @@ router.put('/Login', async function(req, res, next) {
         message: 'CPF inválido'
       });
     }
-    console.log(CPF)
     const result = await pool.query(
-      'SELECT * FROM "Users" WHERE "CPF" = $1',
+      'SELECT "CPF", "Nome", "Imagem", "Sex","Senha5" FROM "Users" WHERE "CPF" = $1',
       [CPF]
     );
     if (result.rows.length === 0) {
@@ -255,10 +254,16 @@ router.put('/Login', async function(req, res, next) {
         message: 'Senha incorreta'
       });
     }
+    const DataSend={
+      CPF: result.rows[0].CPF,
+      Nome: result.rows[0].Nome,
+      Imagem: result.rows[0].Imagem,
+      Sex: result.rows[0].Sex
+    }
     res.json({
       success: true,
       message: 'Login bem-sucedido',
-      data: result.rows[0]
+      ...DataSend
     });
   } catch (err) {
     next(err);
