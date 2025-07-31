@@ -49,10 +49,11 @@ router.get('/:id', async function(req, res, next) {
 
 /* POST - Criar novo usuário */
 router.post('/', async function(req, res, next) {
-  console.log("entrou no post")
   try {
     console.log(req.body)
-    const { CPF,
+    const {
+      file, 
+      CPF,
       Nome,
       Senha5,
       Senha5conf,
@@ -98,6 +99,7 @@ router.post('/', async function(req, res, next) {
    VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
   [CPF, Nome, Senha5_criptografada, Senha7_criptografada,Sex]
     );
+    
     
     res.status(201).json({
       success: true,

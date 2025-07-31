@@ -1,0 +1,21 @@
+{
+  "name": "files",
+  "version": "1.0.0",
+  "description": "The file server",
+  "main": "app.js",
+  "scripts": {
+  "dev": "nodemon app.js"
+}
+,
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "nodemon": "^3.1.10"
+  }
+}

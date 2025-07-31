@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
     import Textform from '../../Components/textform.svelte';
 
-// @ts-nocheck
-    let dataerros = [];
+    let dataerros:string[] = [];
     import ValidationCPF from "../../Functions/CPFValidation";
-    function Validationdata(data){
+    function Validationdata(data:any) {
         let erros=[];
         if(!data.CPF || !data.Nome || !data.Senha5 || !data.Senha5conf || !data.Senha7 || !data.Senha7conf){
             erros.push("Preencha todos os campos obrigatórios.");
         }
+        
         if(document.getElementById("checkbox-1").checked === false){
             erros.push("Você deve aceitar os termos de contrato.");
         }
@@ -26,28 +26,40 @@
         }
         dataerros = erros;
     }
+    function fileConvertBase64(blob: Blob[]): Promise<string> {
+        if (blob.length === 0) {
+            return Promise.resolve("");
+        }
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob[0]);
+        });
+    }
     import { onMount } from 'svelte';
     let sexo=false;
     import img from "../../assets/images/image-removebg-preview (2).png"
+	import ts from 'typescript';
     onMount(() => {
         const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
 
-    cpfInput.addEventListener('input', function (e) {
-      let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
 
-      if (value.length > 11) value = value.slice(0, 11);
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d)/, '$1.$2');
-      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-
-      e.target.value = value;
+        e.target.value = value;
     });
         const labels = ["cpf", "nome", "pin5", "pin7"];
         
         async function enviar() {
             // Obtém os dados do formulário
             const data = {
+                file: await fileConvertBase64(document.getElementById("dropzone-file").files),
                 Senha5: document.getElementById("pin5").value,
                 Senha7: document.getElementById("pin7").value,
                 Nome: document.getElementById("nome").value,
@@ -56,6 +68,7 @@
                 Senha5conf:document.getElementById("pin5-confirm").value,
                 Sex: sexo
             };
+            console.log(data);
             Validationdata(data);
             if(!dataerros.length){
             // Envia os dados via POST
@@ -143,13 +156,26 @@
                             <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
                             <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-venus"></i></span>
                         </label>
+                        <div class="mb-4 flex items-center justify-center w-full">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 my-2 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" class="hidden" />
+                            </label>
+                        </div>
                         <div class="flex items-center mb-4">
                             <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
                             <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
                         </div>
                         <div class="w-full text-center">
                             <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
-                        </div>
+                        </div> 
+
                         <ol style="list-style: disc">
                             {#each dataerros as erro}
                                 <li style="color:red;">{erro}</li>
@@ -160,9 +186,9 @@
             </div>        
         </div>
         <img
-  src={img}
-  alt="Imagem"
-  class="hidden md:block w-1/2 shadow"
-/>
+            src={img}
+            alt="Imagem"
+            class="hidden md:block w-1/2 shadow"
+        />
 
     </div>
