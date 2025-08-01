@@ -12,8 +12,8 @@ class Image extends Archive {
             console.error('Erro ao salvar arquivo:', error);
         }
     }
-    constructor(content = "", path, name) {
-        super(content, path, name);
+    constructor(path, name) {
+        super(path, name);
     }
     async read() {
         try {

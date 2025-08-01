@@ -13,7 +13,7 @@ class Image extends Archive{
         }
     }
     constructor(content:string="",path:string,name:string){
-        super(content,path,name)
+        super(path,name)
     }
     public async read():Promise<string>{
         try {

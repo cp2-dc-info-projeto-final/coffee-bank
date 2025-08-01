@@ -6,7 +6,7 @@ class Archive{
     public path:string;
     public name:string;
     public fullPath:string;
-    constructor(content:string="",path:string,name:string){
+    constructor(path:string,name:string){
         this.path=path
         this.name=name
         this.fullPath=`${path}/${name}`

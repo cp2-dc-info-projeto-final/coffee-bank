@@ -3,10 +3,11 @@ import { readFile } from 'fs/promises';
 import { unlink } from 'fs/promises';
 import Folder from "./folder.js";
 class Archive {
-    constructor(content = "", path, name) {
+    constructor(path, name) {
         this.path = path;
         this.name = name;
         this.fullPath = `${path}/${name}`;
+        console.log(this.name)
     }
     static async salvar(path, content) {
         try {

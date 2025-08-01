@@ -135,7 +135,7 @@ const {file}=req.body
 ```
 depois de recepcionado em base64 podemos agora, portanto enviar o Base64 utilizando o axios, com o comando
 ```js
-const response = await axios.post('http://localhost:3001', 
+const response = await axios.post('http://localhost:3001/images', 
 {
 	"base64":file,
 	"path":"upload/foto.png"
@@ -164,7 +164,7 @@ uploads/NomeDoUsuárioSemEspaço/user.png
 ```
 mando portanto essa URL para o servidor de arquivos com o comando
 ```js
-const img = await axios.put('http://localhost:3001', 
+const img = await axios.put('http://localhost:3001/images', 
 {
 	"path":"uploads/NomeDoUsuárioSemEspaço/user.png"
 }, {
