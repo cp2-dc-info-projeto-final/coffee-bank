@@ -4,7 +4,6 @@ import { writeFile } from 'fs/promises';
 class Image extends Archive {
     static async salvar(path, content) {
         try {
-            console.log("legal2")
             const base64Limpo = content.replace(/^data:image\/\w+;base64,/, '');
             const buffer = Buffer.from(base64Limpo, 'base64');
             await writeFile(path, buffer);
@@ -18,10 +17,8 @@ class Image extends Archive {
     }
     async read() {
         try {
-            console.log("entrou")
             const dados = await readFile(this.fullPath);
             const base64 = dados.toString("base64");
-            console.log("legal:",base64)
             return base64;
         }
         catch (error) {

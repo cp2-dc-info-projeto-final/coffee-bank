@@ -10,10 +10,6 @@ class Archive{
         this.path=path
         this.name=name
         this.fullPath=`${path}/${name}`
-        if(content){
-            let folder=new Folder(this.path)
-            Archive.salvar(this.fullPath,content)
-        }
     }
     public static async salvar(path:string,content: string) {
         try {

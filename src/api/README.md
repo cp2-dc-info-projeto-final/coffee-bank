@@ -234,7 +234,7 @@ Remove um usuário
 	}
 }
 ```
-### PUT /users/Login/:id
+### PUT /users/Login
 Busca um usuário a partir de login e senha
 ```json
 {
@@ -266,8 +266,3 @@ curl -X PUT http://localhost:3000/users/1 \
 # Deletar usuário
 curl -X DELETE http://localhost:3000/users/3
 ```
-
-
-
-
-

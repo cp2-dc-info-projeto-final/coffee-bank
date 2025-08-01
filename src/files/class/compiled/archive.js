@@ -10,7 +10,6 @@ class Archive {
     }
     static async salvar(path, content) {
         try {
-            console.log("legal1")
             await writeFile(path, content, 'utf8');
             console.log('Arquivo salvo com sucesso!');
         }
