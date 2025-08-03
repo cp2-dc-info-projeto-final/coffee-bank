@@ -7,7 +7,6 @@ class Archive {
         this.path = path;
         this.name = name;
         this.fullPath = `${path}/${name}`;
-        console.log(this.name)
     }
     static async salvar(path, content) {
         try {
@@ -16,6 +15,7 @@ class Archive {
         }
         catch (error) {
             console.error('Erro ao salvar arquivo:', error);
+            throw error;
         }
     }
     async read() {
@@ -36,10 +36,8 @@ class Archive {
         }
         catch (error) {
             console.error(`Erro ao deletar arquivo :`, error);
+            throw error;
         }
-    }
-    async atualizar(conteudo) {
-        Archive.salvar(this.fullPath, conteudo);
     }
     getNome() {
         return this.name;

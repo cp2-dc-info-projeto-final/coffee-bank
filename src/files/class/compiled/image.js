@@ -7,9 +7,10 @@ class Image extends Archive {
             const base64Limpo = content.replace(/^data:image\/\w+;base64,/, '');
             const buffer = Buffer.from(base64Limpo, 'base64');
             await writeFile(path, buffer);
+            console.log('Arquivo salvo com sucesso!');
         }
         catch (error) {
-            console.error('Erro ao salvar arquivo:', error);
+            throw error;
         }
     }
     constructor(path, name) {
@@ -18,11 +19,10 @@ class Image extends Archive {
     async read() {
         try {
             const dados = await readFile(this.fullPath);
-            const base64 = dados.toString("base64");
+            const base64 = dados.toString('base64');
             return base64;
         }
         catch (error) {
-            console.error('Erro ao ler arquivo:', error);
             throw error;
         }
     }

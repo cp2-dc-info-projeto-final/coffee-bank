@@ -4,7 +4,7 @@ import { mkdir } from 'fs/promises';
 import { rmdir } from 'fs/promises';
 import { rename } from 'fs/promises';
 import { readdir } from 'fs/promises';
-import Archive from "./archive";
+import Archive from './archive';
 class Folder {
   private path: string;
   private FolderName: string;
@@ -24,8 +24,11 @@ class Folder {
       try {
         await mkdir(this.path, { recursive: true });
       } catch (error) {
-        console.error('Erro ao criar pasta:', error);
+        throw error
       }
+    }
+    else{
+      console.error(`A pasta ${this.path} já existe`);
     }
   }
 
@@ -43,6 +46,7 @@ class Folder {
       await rmdir(this.path);
     } catch (error) {
       console.error('Erro ao deletar diretório:', error);
+      throw error
     }
   }
 
@@ -52,6 +56,7 @@ class Folder {
       this.path = novoCaminho;
     } catch (error) {
       console.error('Erro ao renomear diretório:', error);
+      throw error
     }
   }
 
@@ -60,14 +65,20 @@ class Folder {
       return await readdir(this.path);
     } catch (error) {
       console.error('Erro ao listar arquivos:', error);
-      return [];
+      throw error;
     }
   }
 
-  public async FileExist(archive: { getNome: () => string }): Promise<boolean> {
-    const name = archive.getNome();
-    const arquivos = await this.listarArquivos();
-    return arquivos.includes(name);
+  public async FileExist(archive:Archive): Promise<boolean> {
+    try{
+      const name = archive.getNome();
+      const arquivos = await this.listarArquivos();
+      return arquivos.includes(name);
+    }
+    catch (error) {
+      console.error('Erro ao buscar o arquivo:', error);
+      throw error;
+    }
   }
 }
 

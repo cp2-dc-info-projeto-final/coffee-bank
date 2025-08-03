@@ -17,6 +17,7 @@ class Archive{
             console.log('Arquivo salvo com sucesso!');
         } catch (error) {
             console.error('Erro ao salvar arquivo:', error);
+            throw error
         }
     }
     public async read():Promise<string>{
@@ -35,10 +36,8 @@ class Archive{
             console.log(`Arquivo deletado com sucesso!`);
         } catch (error) {
             console.error(`Erro ao deletar arquivo :`, error);
+            throw error
         }
-    }
-    public async atualizar(conteudo:string):Promise<void>{
-        Archive.salvar(this.fullPath,conteudo)
     }
     public getNome():string{
         return this.name

@@ -19,8 +19,11 @@ class Folder {
                 await mkdir(this.path, { recursive: true });
             }
             catch (error) {
-                console.error('Erro ao criar pasta:', error);
+                throw error;
             }
+        }
+        else {
+            console.error(`A pasta ${this.path} já existe`);
         }
     }
     async pastaExiste() {
@@ -38,6 +41,7 @@ class Folder {
         }
         catch (error) {
             console.error('Erro ao deletar diretório:', error);
+            throw error;
         }
     }
     async Rename(novoCaminho) {
@@ -47,6 +51,7 @@ class Folder {
         }
         catch (error) {
             console.error('Erro ao renomear diretório:', error);
+            throw error;
         }
     }
     async listarArquivos() {
@@ -55,13 +60,19 @@ class Folder {
         }
         catch (error) {
             console.error('Erro ao listar arquivos:', error);
-            return [];
+            throw error;
         }
     }
     async FileExist(archive) {
-        const name = archive.getNome();
-        const arquivos = await this.listarArquivos();
-        return arquivos.includes(name);
+        try {
+            const name = archive.getNome();
+            const arquivos = await this.listarArquivos();
+            return arquivos.includes(name);
+        }
+        catch (error) {
+            console.error('Erro ao buscar o arquivo:', error);
+            throw error;
+        }
     }
 }
 export default Folder;
