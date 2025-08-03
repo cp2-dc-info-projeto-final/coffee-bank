@@ -16,54 +16,98 @@ class ImageController{
         return [name,DadFolderPath]
     }
     static async Create(req,res) {
-        const {base64,path}=req.body
-        if(!base64||!path){
-            return res.status(400).json({"sucess":false,"message":"Parâmetros inválidos"})
-        }
-        const Separated=ImageController.Separate(path)
-        const Arquivo_sepado=Separated[0].split(".")
-        if(Arquivo_sepado.length!=2||Arquivo_sepado[1]==="."){
-            return res.status(400).json({"sucess":false,"message":"Nome de arquivo inválido"})
-        }
-        const DadFolderPath=Separated[1]
-        console.log(DadFolderPath)
-        const folder=new Folder(DadFolderPath)
-        
         try{
+            const {base64,path}=req.body
+            if(!base64||!path){
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Parâmetros vazios"}
+                )
+            }
+            if(typeof(base64)!=string||typeof(path)!=string){
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Parâmetros inválidos"}
+                )
+            }
+            const Separated=ImageController.Separate(path)
+            const Arquivo_separado=Separated[0].split(".")
+            if(Arquivo_separado.length!=2||Arquivo_separado[1]==="."){
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Nome de arquivo inválido"
+                })
+            }
+            const DadFolderPath=Separated[1]
+            const folder=new Folder(DadFolderPath)
             if(! await folder.pastaExiste()){
                 await folder.Create()
             }
             await Image.salvar(path,base64)
-            return res.status(200).json({"sucess":true,"message":"arquivo salvo com sucesso"})
+            return res.status(200).json({
+                "sucess":true,
+                "message":"arquivo salvo com sucesso"
+            })
         }catch(error){
             console.error(error)
-            return res.status(501).json({"sucess":false,"message":"Erro interno do servidor"})
+            return res.status(501).json({
+                "sucess":false,
+                "message":"Erro interno do servidor"
+            })
         }
     }
     static async Read(req,res){
-        var {path} = req.body
-        if(!path){
-            return res.status(400).json({"sucess":false,"message":"Parâmetros inválidos"})
-        }
-        const Separated=ImageController.Separate(path)
-        const name=Separated[0]
         try{
+            var {path} = req.body
+            if(!path){
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Parâmetros vazios"
+                })
+            }
+            if(typeof(path)!=string){
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Parâmetros inválidos"}
+                )
+            }
+            const Separated=ImageController.Separate(path)
+            const name=Separated[0]
             const DadFolderPath=new Folder(Separated[1])
             const imagem=new Image(Separated[1],name)
             if(! await DadFolderPath.pastaExiste() || ! await DadFolderPath.FileExist(imagem)){
-                return res.status(400).json({"sucess":false,"message":"Arquivo inexistente"})
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Arquivo inexistente"
+                })
             }
-            return res.status(200).json({"sucess":true,"message":"Leitura realizada com sucesso","data":await imagem.read()})
+            return res.status(200).json({
+                "sucess":true,
+                "message":"Leitura realizada com sucesso",
+                "data":await imagem.read()
+            })
         }
         catch(error){
             console.error(error)
-            return res.status(501).json({"sucess":false,"message":"Erro interno do servidor"})
+            return res.status(501).json({
+                "sucess":false,
+                "message":"Erro interno do servidor"
+            })
         }
     }
     static async Delete(req,res){
         var {path} = req.body
         if(!path){
-            return res.status(400).json({"sucess":false,"message":"Parâmetros inválidos"})   
+            return res.status(400).json({
+                "sucess":false,
+                "message":"Parâmetros vazios"
+            })   
+        }
+        if(typeof(path)!=string){
+            return res.status(400).json({
+                "sucess":false,
+                "message":"Parâmetros inválidos"
+            })
         }
         const Separated=ImageController.Separate(path)
         const name=Separated[0]
@@ -72,18 +116,23 @@ class ImageController{
         try{
             const DadFolderPath=new Folder(Separated[1])
             if(! await DadFolderPath.pastaExiste() || ! await DadFolderPath.FileExist(imagem)){
-                return res.status(400).json({"sucess":false,"message":"Arquivo inexistente"})
+                return res.status(400).json({
+                    "sucess":false,
+                    "message":"Arquivo inexistente"
+                })
             }
             await imagem.delete()
-            return res.json("arquivo deletado com sucesso")
+            return res.status(200).json({
+                "sucess":true,
+                "message":"deleção feita com sucesso"
+            })
         }catch(error){
-            if (error.code === 'ENOENT') {
-                return res.status(401).json({"sucess":false,"message":"Arquivo inexistente"})
-            }
             console.error(error)
-            return res.status(501).json({"sucess":false,"message":"Erro interno do servidor"})
+            return res.status(501).json({
+                "sucess":false,
+                "message":"Erro interno do servidor"
+            })
         }
-
     }
 }
 export default ImageController

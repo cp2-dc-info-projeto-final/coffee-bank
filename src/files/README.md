@@ -27,20 +27,29 @@ Guarda/atualiza uma imagem no servidor de arquivos
 ```
 
 **Resposta:**
-"Arquivo salvo com sucesso"
+```json
+{
+	"sucess":true,
+	"message":"arquivo salvo com sucesso"
+}
+```
 
 ### PUT /images
 Lê uma foto a partir de um path
 **Body:**
 ```json
 	{
-		"path":"uploads/foto.png"
+		"sucess":true,
+		"message":"Leitura realizada com sucesso",
+		"data":await imagem.read()
 	}
 ```
 **Resposta:**
 ```json
 {
-	"base64":'"base64":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMBAApXB1kAAAAASUVORK5CYII='
+	"sucess":true,
+	"message":"Leitura realizada com sucesso",
+	"data":"ajiengoake gajsofmaeognmakoeenklnamgkonaekognakoegmafea.agpaejngpaiengo.bjioprsmbkçs.v;aeç[á.c]"
 }
 ```
 ### DELETE /images
@@ -51,7 +60,12 @@ Deleta uma foto a partir de um path
 }
 ```
 **Resposta:**
-"arquivo deletado com sucesso"
+```json
+{
+	"sucess":true,
+	"message":"deleção feita com sucesso"
+}
+```
 # Como utilizar esse servidor
 ## Configurações prévias
 Precisamos entender algumas configurações prévias necessárias para que o servidor seja utilizado
