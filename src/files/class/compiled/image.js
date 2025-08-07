@@ -20,7 +20,7 @@ class Image extends Archive {
         try {
             const dados = await readFile(this.fullPath);
             const base64 = dados.toString('base64');
-            return base64;
+            return `data:image/png;base64,${base64}`;
         }
         catch (error) {
             throw error;

@@ -96,99 +96,102 @@
     });
 </script>
 
-
-    <div class="w-full flex" style="background: linear-gradient(to right, #240f00, #615145)">
-        <div class="shadow h-screen md:w-1/2 flex flex-wrap w-full">
-            <div class="flex items-center justify-center content-center flex-col w-full">
-                <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
-                <div class="w-full justify-center content-center my-10 px-5">
-                    <form action="POST" id="meuFormulario">
-                        <div>
-                            <Textform 
-                                Content="Nome"
-                                Name="nome"
-                                id="nome"
-                            />
-                        </div>
-                        <div>
-                            <Textform 
-                                Content="CPF"
-                                Name="cpf"
-                                id="cpf"
-                            />
-                        </div>
-                        <div>
-                            <Textform 
-                                Content="Senha 5 dígitos"
-                                Name="pin5"
-                                id="pin5"
-                                type="password"
-                            />
-                        </div>
-                        <div>
-                            <Textform 
-                                Content="Confirmar senha 5 dígitos"
-                                Name="pin5-confirm"
-                                id="pin5-confirm"
-                                type="password"
-                            />
-                        </div>
-                        <div>
-                            <Textform 
-                                Content="Senha 7 dígitos"
-                                Name="pin7"
-                                id="pin7"
-                                type="password"
-                            />
-                        </div>
-                        <div>
-                            <Textform 
-                                Content="Confirmar senha 7 dígitos"
-                                Name="pin7-confirm"
-                                id="pin7-confirm"
-                                type="password"
-                            />
-                        </div>
-                        <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
-                            <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
-                            <span class="text-sm font-medium text-white dark:text-gray-300 mx-2">sexo:</span>
-                            <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-mars"></i></span>
-                            <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                            <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-venus"></i></span>
-                        </label>
-                        <div class="mb-4 flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 my-2 dark:hover:bg-gray-600">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                </div>
-                                <input id="dropzone-file" type="file" class="hidden" />
+<div>
+    <div class="flex-1 flex flex-col">
+        <div class="w-full flex" style="background: linear-gradient(to right, #240f00, #615145)">
+            <div class="flex shadow md:w-1/2 flex-wrap w-full">
+                <div class="flex items-center justify-center content-center flex-col w-full">
+                    <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
+                    <div class="w-full justify-center content-center my-10 px-5">
+                        <form action="POST" id="meuFormulario">
+                            <div>
+                                <Textform 
+                                    Content="Nome"
+                                    Name="nome"
+                                    id="nome"
+                                />
+                            </div>
+                            <div>
+                                <Textform 
+                                    Content="CPF"
+                                    Name="cpf"
+                                    id="cpf"
+                                />
+                            </div>
+                            <div>
+                                <Textform 
+                                    Content="Senha 5 dígitos"
+                                    Name="pin5"
+                                    id="pin5"
+                                    type="password"
+                                />
+                            </div>
+                            <div>
+                                <Textform 
+                                    Content="Confirmar senha 5 dígitos"
+                                    Name="pin5-confirm"
+                                    id="pin5-confirm"
+                                    type="password"
+                                />
+                            </div>
+                            <div>
+                                <Textform 
+                                    Content="Senha 7 dígitos"
+                                    Name="pin7"
+                                    id="pin7"
+                                    type="password"
+                                />
+                            </div>
+                            <div>
+                                <Textform 
+                                    Content="Confirmar senha 7 dígitos"
+                                    Name="pin7-confirm"
+                                    id="pin7-confirm"
+                                    type="password"
+                                />
+                            </div>
+                            <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
+                                <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
+                                <span class="text-sm font-medium text-white dark:text-gray-300 mx-2">sexo:</span>
+                                <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-mars"></i></span>
+                                <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                                <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-venus"></i></span>
                             </label>
-                        </div>
-                        <div class="flex items-center mb-4">
-                            <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
-                            <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
-                        </div>
-                        <div class="w-full text-center">
-                            <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
-                        </div> 
-
-                        <ol style="list-style: disc">
-                            {#each dataerros as erro}
-                                <li style="color:red;">{erro}</li>
-                            {/each}
-                        </ol>
-                    </form>
-                </div>
-            </div>        
+                            <div class="mb-4 flex items-center justify-center w-full">
+                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 my-2 dark:hover:bg-gray-600">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    </div>
+                                    <input id="dropzone-file" type="file" class="hidden" />
+                                </label>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
+                                <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
+                            </div>
+                            <div class="w-full text-center">
+                                <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
+                            </div> 
+    
+                            <ol style="list-style: disc">
+                                {#each dataerros as erro}
+                                    <li style="color:red;">{erro}</li>
+                                {/each}
+                            </ol>
+                        </form>
+                    </div>
+                </div>        
+            </div>
+            <img
+                src={img}
+                alt="Imagem"
+                class="hidden md:block w-1/2 shadow"
+            />
+    
         </div>
-        <img
-            src={img}
-            alt="Imagem"
-            class="hidden md:block w-1/2 shadow"
-        />
-
     </div>
+</div>

@@ -11,7 +11,7 @@ class Archive{
         this.name=name
         this.fullPath=`${path}/${name}`
     }
-    public static async salvar(path:string,content: string) {
+    public static async salvar(path:string,content: string):Promise<void> {
         try {
             await writeFile(path, content, 'utf8');
             console.log('Arquivo salvo com sucesso!');
