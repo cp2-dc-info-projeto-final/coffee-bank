@@ -6,6 +6,15 @@
     let CPF= user.GetCPF();
     let Name=user.GetNome();
     if(!img) img=defaultimg;    
+    var editModal= false;
+    const dispatch = createEventDispatcher();
+    function edit(event: CustomEvent<User>)
+     {
+        const user:User = event.detail.detail.User;
+        console.log(user.User);
+        modal = false
+        dispatch('Edit', { User: user });
+    }
 </script>
 <div
   class="md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white/50 backdrop-blur-lg flex flex-col shadow-lg"
@@ -25,6 +34,9 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
                 </a>
+                <button on:click={()=> editModal=!editModal} class="flex items-center justify-end w-full h-10 ms-4 me-2 rtl:ms-0 rtl:me-4">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
                 <div class="flex items-center justify-end w-full h-10 ms-4 me-2 rtl:ms-0 rtl:me-4">
                     <i class="fa-solid fa-trash"></i>
                 </div>
@@ -32,6 +44,10 @@
         </div>
     </div>
 </div>
+
+{#if editModal}
+    <Edit on:edit={edit} />
+{/if}
 <style>
     
 </style>

@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "The file server",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-  "start": "node app.js",
-  "dev": "nodemon app.js"
-}
-,
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "nodemon": "^3.1.10"
+    "i": "^0.3.7",
+    "nodemon": "^3.1.10",
+    "nvm": "^0.0.4"
   }
 }
