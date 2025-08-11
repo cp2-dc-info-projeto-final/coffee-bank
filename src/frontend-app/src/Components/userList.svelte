@@ -59,7 +59,7 @@ import { onMount } from 'svelte';
           <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
           <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
           <div class="flex items-end">
-            <i on:click={() => goto(`/form/${user.id}`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 w-full" ></i>
+            <i on:click={() => goto(`/form/${user.id}.svelte`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 w-full" ></i>
             <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4 "></i>
           </div>              
         </div>
