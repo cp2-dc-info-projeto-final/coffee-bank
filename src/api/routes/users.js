@@ -273,11 +273,11 @@ router.put('/Login', async function(req, res, next) {
 });
 
 /*Hora Da Consulta*/
-router.get('/:id', async function(req, res, next) {
+router.get('/CPF', async function(req, res, next) {
   try {
     const { id } = req.params;
     const result = await pool.query(
-      'SELECT id, "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE id = $1',
+      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE id = $1',
       [id]
     );
 
