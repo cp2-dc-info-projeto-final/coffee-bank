@@ -286,12 +286,12 @@ router.put('/Login', async function(req, res, next) {
 });
 
 /*Hora Da Consulta*/
-router.get('/CPF', async function(req, res, next) {
+router.put('/search', async function(req, res, next) {
   try {
-    const { id } = req.params;
+    const { CPF } = req.body;
     const result = await pool.query(
-      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE id = $1',
-      [id]
+      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
+      [`%${CPF}%`]
     );
 
     if (result.rows.length === 0) {
