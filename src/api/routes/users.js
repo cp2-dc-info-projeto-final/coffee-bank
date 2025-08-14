@@ -284,3 +284,32 @@ router.put('/Login', async function(req, res, next) {
     next(err);
   }
 });
+
+/*Hora Da Consulta*/
+router.get('/CPF', async function(req, res, next) {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE id = $1',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});

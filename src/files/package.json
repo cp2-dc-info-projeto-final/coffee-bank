@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "The file server",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
@@ -18,5 +19,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "nodemon": "^3.1.10"
+    "i": "^0.3.7",
+    "nodemon": "^3.1.10",
+    "nvm": "^0.0.4"
   }
 }
