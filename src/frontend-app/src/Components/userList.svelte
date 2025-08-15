@@ -90,9 +90,9 @@ import { onMount } from 'svelte';
           <p class="font-normal text-gray-700 dark:text-gray-400">Data de Nascimento: {user.Nascimento}</p>
           <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
           <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
-          <div class="flex justify-between">
-            <i on:click={() => goto(`/form/${user.id}`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 hover:bg-gray-500 cursor-pointer p-2 rounded-full" ></i>
-            <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4 hover:bg-gray-700 px-4 cursor-pointer"></i>
+          <div class="flex items-end">
+            <i on:click={() => goto(`/form/${user.id}`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 w-full" ></i>
+            <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4 "></i>
           </div>              
         </div>
       {/each}
