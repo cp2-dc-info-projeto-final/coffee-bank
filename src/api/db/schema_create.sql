@@ -18,7 +18,8 @@ CREATE TABLE "public"."Users" (
   "Imagem" VARCHAR(255),
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
-  "ChavePix" VARCHAR(255)
+  "ChavePix" VARCHAR(255),
+  "Sex" BOOLEAN
 );
 -- ADMINS
 CREATE TABLE "public"."Admins" (
