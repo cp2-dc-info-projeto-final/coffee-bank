@@ -1,6 +1,6 @@
 <script lang="ts">
     import Textform from '../../Components/textform.svelte';
-
+    let sucesss:string=""
     let dataerros:string[] = [];
     import ValidationCPF from "../../Functions/CPFValidation";
     function Validationdata(data:any) {
@@ -80,9 +80,19 @@
                     body: JSON.stringify(data)
                 });
                 const json = await resposta.json();
-                console.log(json);
+                console.log(json.sucesss, json.message);
                 if(!json.success){
                     dataerros=[json.message];
+                }
+                else if(json.success){
+                    sucesss=json.message
+                    document.getElementById("dropzone-file").files=null
+                    document.getElementById("pin5").value=""
+                    document.getElementById("pin7").value=""
+                    document.getElementById("nome").value=""
+                    document.getElementById("cpf").value=""
+                    document.getElementById("pin7-confirm").value=""
+                    document.getElementById("pin5-confirm").value=""
                 }
 
             }
@@ -176,12 +186,13 @@
                             <div class="w-full text-center">
                                 <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
                             </div> 
-    
+                            <p class="text-green-500">{sucesss}</p>
                             <ol style="list-style: disc">
                                 {#each dataerros as erro}
                                     <li style="color:red;">{erro}</li>
                                 {/each}
                             </ol>
+
                         </form>
                     </div>
                 </div>        
