@@ -3,6 +3,7 @@
     import User from '../Class/User';
     let users: User[] = [];
     function adicionarCarta(event:CustomEvent<{ User: User }>) {
+        console.log(user.User);
         const user:User = event.detail.User;
         users = [...users, user];
     }
@@ -14,7 +15,7 @@
 <div class=" bg-white"></div>
 <div class="flex-1 flex flex-col md:justify-center md:gap-2.5" id="Main">
     
-    <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center">
+    <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center h-full">
         {#each users as user}
             <UserCards user={user} />
         {/each}

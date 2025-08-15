@@ -4,7 +4,6 @@
     const dispatch = createEventDispatcher();
     function login(event: CustomEvent<User>) {
         const user:User = event.detail.detail.User;
-        console.log(user.User);
         modal = false
         dispatch('Login', { User: user });
     }
