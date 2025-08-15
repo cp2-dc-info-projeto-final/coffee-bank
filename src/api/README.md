@@ -52,10 +52,10 @@ Crie um banco de dados com o nome do seu projeto, lembre de utilizar um nome sem
 CREATE DATABASE coffeebank;
 ```
 
-Para conectar ao seu banco de dados basta digitar o comando abaixo (trocando o nome correspondente).
+Para conectar ao seu banco de dados basta digitar o comando abaixo.
 
 ```sql
-\c elefantinho;
+\c coffeebank;
 ```
 
 Agora crie um usuário apra sua aplicação, é comum em ambientes de desenvolvimento utilizar o mesmo nome do banco de dados tanto no login quanto na senha. Após a criação do usuário precisamos dar permissão total de acesso ao banco de dados, certifique-se de que está no banco de dados correto.
@@ -76,7 +76,7 @@ psql -h localhost  -d coffeebank -U coffeebank -W
 Com o banco de dados configurado é possível trabalhar com SQL normalmente, criando tabelas e executando consultas. Nesse projeto recomendamos um script de criação do banco de dados `schema_create.sql` armazenado na pasta `db`. Esse script deve ser utilizado para criar ou recriar as tabelas e inserir registros iniciais, então deve ser feito considerando que as tabelas podem já existir, removendo e criando novamente. Para executar o script dentro do banco de dados e não precisar copiar o colar o conteúdo (que também é possível) basta utilizar o comando abaixo. Verifique em que pasta do projeto você está, pode ser necessário alterar o caminho, aqui estamos dentro da pasta do projeto backend `src/api/`.
 
 ```bash
- psql -h localhost  -d elefantinho -U elefantinho -W -f db/schema_create.sql
+ psql -h localhost  -d coffeebank -U coffeebank -W -f db/schema_create.sql
 ```
 
 Para navegar no banco de dados sugiro o a extensão PostgreSQL oficial da Microsoft, repare que há várias extensões com mesmo nome de outro fabricantes. Qualquer outra extensão de sua preferência pode ser utilizada.
@@ -100,19 +100,45 @@ npm run dev
 Retorna todos os usuários
 ```json
 {
-  "success": true,
-  "data": [
-    {
-      "id": 1,
-      "login": "hermenegildo",
-      "email": "hermenegildo@email.com"
-    },
-    {
-      "id": 2,
-      "login": "zoroastra",
-      "email": "zoroastra@email.com"
-    }
-  ]
+	"success": true,
+	"data": [
+		{
+			"id": 1,
+			"DataCriacao": "2025-07-07T20:57:15.564Z",
+			"CPF": "12345678",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		},
+		{
+			"id": 2,
+			"DataCriacao": "2025-07-07T22:41:36.125Z",
+			"CPF": "11144477735",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		},
+		{
+			"id": 3,
+			"DataCriacao": "2025-07-07T22:44:19.382Z",
+			"CPF": "39053344705",
+			"Nascimento": "2025-07-07T03:00:00.000Z",
+			"Nome": "Dudu",
+			"Saldo": "500",
+			"Imagem": null,
+			"Senha5": "12345",
+			"Senha7": "1234567",
+			"ChavePix": null
+		}
+	]
 }
 ```
 
@@ -120,12 +146,19 @@ Retorna todos os usuários
 Retorna um usuário específico
 ```json
 {
-  "success": true,
-  "data": {
-    "id": 1,
-    "login": "hermenegildo",
-    "email": "hermenegildo@email.com"
-  }
+	"success": true,
+	"data": {
+		"id": 1,
+		"DataCriacao": "2025-07-07T20:57:15.564Z",
+		"CPF": "12345678",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 }
 ```
 
@@ -134,31 +167,50 @@ Cria um novo usuário
 **Body:**
 ```json
 {
-  "login": "anaxarmandro",
-  "email": "anaxarmandro@email.com"
+  "CPF": "39053344705",
+  "Nascimento": "2025-07-07",
+	"Nome":"Dudu",
+	"Senha5":"12345",
+	"Senha5conf":"12345",
+	"Senha7":"1234567",
+	"Senha7conf":"1234567"
 }
 ```
 
 **Resposta:**
 ```json
-{
-  "success": true,
-  "message": "Usuário criado com sucesso",
-  "data": {
-    "id": 2,
-    "login": "anaxarmandro",
-    "email": "anaxarmandro@email.com"
-  }
-}
+"data": {
+		"id": 3,
+		"DataCriacao": "2025-07-07T22:44:19.382Z",
+		"CPF": "39053344705",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 ```
 
-### PUT /users/:id
+### PUT /users/Update/:id
 Atualiza um usuário existente
 **Body:**
 ```json
 {
-  "login": "hermenegilda",
-  "email": "hermenegilda@email.com"
+  {
+    "DataCriacao": "2025-07-07T22:41:36.125Z",
+    "CPF": "11144477735",
+    "Nascimento": "2025-07-07T03:00:00.000Z",
+    "Nome": "Dudu",
+    "Saldo": "500",
+    "Imagem": null,
+    "Senha5": "12345",
+    "Senha5conf":"12345",
+    "Senha7": "1234567",
+    "Senha7conf":"1234567",
+    "ChavePix": null
+  }
 }
 ```
 
@@ -166,11 +218,30 @@ Atualiza um usuário existente
 Remove um usuário
 ```json
 {
-  "success": true,
-  "message": "Usuário deletado com sucesso"
+	"success": true,
+	"message": "Usuário atualizado com sucesso",
+	"data": {
+		"id": 2,
+		"DataCriacao": "2025-07-07T22:41:36.125Z",
+		"CPF": "11144477735",
+		"Nascimento": "2025-07-07T03:00:00.000Z",
+		"Nome": "Dudu",
+		"Saldo": "500",
+		"Imagem": null,
+		"Senha5": "12345",
+		"Senha7": "1234567",
+		"ChavePix": null
+	}
 }
 ```
-
+### PUT /users/Login
+Busca um usuário a partir de login e senha
+```json
+{
+	"CPF": "12345678910",
+	"Senha5": "12345"
+}
+```
 ## Exemplo de Uso com curl
 
 O `curl` é um comando do linux que permite realizar requisições REST passando uma URL e dados. Abaixo alguns exemplos de como fazer.
@@ -195,8 +266,3 @@ curl -X PUT http://localhost:3000/users/1 \
 # Deletar usuário
 curl -X DELETE http://localhost:3000/users/3
 ```
-
-
-
-
-

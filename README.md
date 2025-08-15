@@ -22,7 +22,7 @@ Para detalhes técnicos de como executar o projeto consulte o [README da API](sr
 
 ## Descrição do Projeto
 
-Nosso TCC se pautará na programamação duas aplicações(frontend e backend) para criar um sistema bancário focado no investimentos em donos de cafezais
+Nosso TCC se pautará na programamação duas aplicações(frontend e backend) para criar um sistema bancário focado no investimentos em donos de cafezais e circulação de moedas dentro de um bando de digital.
 ## Documentação
 
 - [Manual do Usuário](manual.md)
@@ -36,4 +36,4 @@ Nosso TCC se pautará na programamação duas aplicações(frontend e backend) p
 
 **Modelagem do Banco de Dados**
 
-![Diagrama de Banco de Dados](diagramas/CasosDeUsoTechBank.drawio.png)
+![Diagrama de Banco de Dados](diagramas/ModelagemDoBanco.png)
