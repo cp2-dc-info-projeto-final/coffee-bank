@@ -24,7 +24,7 @@ class ImageController{
                     "message":"Parâmetros vazios"}
                 )
             }
-            if(typeof(base64)!=string||typeof(path)!=string){
+            if(typeof(base64)!="string"||typeof(path)!="string"){
                 return res.status(400).json({
                     "sucess":false,
                     "message":"Parâmetros inválidos"}
@@ -65,7 +65,7 @@ class ImageController{
                     "message":"Parâmetros vazios"
                 })
             }
-            if(typeof(path)!=string){
+            if(typeof(path)!="string"){
                 return res.status(400).json({
                     "sucess":false,
                     "message":"Parâmetros inválidos"}

@@ -2,21 +2,19 @@
     import User from "../Class/User";
     import defaultimg from "../assets/images/defaultUser.jpg";
     export let user:User;
-    let img=user.GetImagem();
     let CPF= user.GetCPF();
     let Name=user.GetNome();
-    if(!img) img=defaultimg;    
-    
+    let img = user.GetImagem() || defaultimg;
 </script>
 <div
-  class="md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white/50 backdrop-blur-lg flex flex-col shadow-lg"
+  class="md:border-0 md:rounded-lg border-gray-200 w-full md:w-70 bg-white/50 backdrop-blur-md flex flex-col shadow-md"
 >
 
-    <div class="bg-white md:rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+    <div class=" md:rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
     id="main"
     >
-        <img class="mb-auto rounded-t-lg w-full hidden md:block" src={img} alt="" />
-        <div class="p-5">
+        <img class="mb-auto rounded-t-lg w-70 h-70 aspect-square object-cover hidden md:block" src={img} alt="" />
+        <div class="p-5 bg-white">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{Name}</h5>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{CPF}</p>
             <div class="flex">
