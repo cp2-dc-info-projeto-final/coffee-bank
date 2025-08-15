@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS "public"."Transferencias";
 DROP TABLE IF EXISTS "public"."Admins";
 DROP TABLE IF EXISTS "public"."Users";
 -- USERS
+DROP Table IF EXISTS "Users";
 CREATE TABLE "public"."Users" (
   "id" SERIAL PRIMARY KEY,
   "DataCriacao" TIMESTAMP DEFAULT NOW(),
