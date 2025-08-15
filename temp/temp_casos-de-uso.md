@@ -564,8 +564,12 @@ Investimentos em cafezais
     - Um botão de investir.
 10. O usuário apertará no botão.
 11. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
+<<<<<<< HEAD:casos-de-uso.md
+### CDU 21
+=======
 
 ### CDU 19
+>>>>>>> bab77560be656c7080873afba1fba2a17ec2af01:temp/temp_casos-de-uso.md
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -636,3 +640,6 @@ Investimentos em cafezais
    27. O frontend requisitará novamente as categorias cadastradas por aquele usuário.
    28. O backend retornará as categorias daquele usuário.
    29. O frontend reorganizará esses dados.
+### CDU-25
+
+### CDU-26

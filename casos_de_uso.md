@@ -858,6 +858,12 @@ Criação de automatização de pagamentos
 10. O usuário digitará a senha.
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
+<<<<<<< HEAD
+### Fluxo Alternativos
+
+
+### CDU 15
+=======
 #### Fluxo alternativo
 
 ##### CFA-1: Dados incorretos
@@ -972,6 +978,7 @@ Criação de automatização de pagamentos
 9. O sistema abortará a operação e  redirecionará o usuário à página de automatizações de pagamentos.
 
 ### CDU 13
+>>>>>>> bc1044d9bdae68c4fad98dad45618941f93ad2e4
 Supervisionamento do saldo
 
 #### Atores
