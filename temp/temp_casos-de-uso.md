@@ -20,8 +20,8 @@
  - [CDU 16](#cdu-16): Realização de emprestimos
  - [CDU 17](#cdu-17): Vizualização de Categoria da unidade monetária
  - [CDU 18](#cdu-18): Investimentos
- - [CDU 21](#cdu-21): Excluir categoria de unidade monetária
- - [CDU 22](#cdu-22): Editar categoria de unidade monetária
+ - [CDU 21](#cdu-19): Excluir categoria de unidade monetária
+ - [CDU 22](#cdu-20): Editar categoria de unidade monetária
 ## Lista dos Atores
 
  - User
@@ -335,7 +335,7 @@ Buscar e consultar usuários
 - Notificação Via Usuário
 
 #### Atores
-- User/Sistema
+- Sistema
 
 #### Fluxo Principal  
 1. Evento disparador ocorre (Exemplo: usuário edita dados cadastrais, cancela conta, realiza transação relevante)  
@@ -518,15 +518,12 @@ Supervisionamento do saldo
 > ✅ Compliance: Todas as etapas registradas em audit trail (data/hora, IP, versão de contrato).  
 
 ### CDU 17
-
 Vizualização de Categoria da unidade monetária
 
 #### Atores
-
 - User
 
 #### Fluxo Principal
-
 1. O sistema irá fornecer um botão de categorização da unidade monetária
 2. O usuário irá clicar nesse botão
 3. O sistema requisitará a senha de 5 dígitos
@@ -539,9 +536,7 @@ Vizualização de Categoria da unidade monetária
 10. O frontend requisitará as categorias que aquele usuário criou
 11. O backend enviará todas as categorias cadastradas no banco de dados.
 12. O frontend exibirá esses dados em formato de gráfico de pizza.
-
 ### CDU-18
-
 Investimentos em cafezais
 
 #### Atores
@@ -569,7 +564,12 @@ Investimentos em cafezais
     - Um botão de investir.
 10. O usuário apertará no botão.
 11. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
+<<<<<<< HEAD:casos-de-uso.md
 ### CDU 21
+=======
+
+### CDU 19
+>>>>>>> bab77560be656c7080873afba1fba2a17ec2af01:temp/temp_casos-de-uso.md
    Excluir categoria de unidade monetária
 
 #### Atores
@@ -602,7 +602,7 @@ Investimentos em cafezais
    24. O backend retornará as categorias daquele usuário.
    25. O frontend reorganizará esses dados.
 
-### CDU 22
+### CDU 20
    editar categoria de unidade monetária
 
 #### Atores
