@@ -85,15 +85,18 @@ router.post('/', async function(req, res, next) {
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3de0e0680cdd5f7e6e6e0c9bd74159c56b08f0b2
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Esse CPF já está cadastrado'
+        message: 'Esse CPF já está cadastWrado'
       });
     }
-    Senha5_criptografada= await bcrypt.hash(Senha5, 10)
-    Senha7_criptografada= await bcrypt.hash(Senha7, 10)
+    const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
+    const Senha7_criptografada = await bcrypt.hash(Senha7, 10)
     const result = await pool.query(
       `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
    VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
@@ -108,7 +111,7 @@ router.post('/', async function(req, res, next) {
         })
       }catch(e){}
     }
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso',
       data: result.rows[0]
@@ -173,10 +176,12 @@ router.put('/Update/:id', async function(req, res, next) {
         message: 'CPF ou ChavePix já está em uso por outro usuário'
       });
     }
-    
+    // Criptografar novas senhas antes de salvar
+    const hashedSenha5 = await bcrypt.hash(Senha5, 10);
+    const hashedSenha7 = await bcrypt.hash(Senha7, 10);
     const result = await pool.query(
-      'UPDATE "Users" SET "CPF" = $1,"Nome"=$2,"Imagem"=$3,"Senha5"=$4,"Senha7"=$5,"ChavePix"=$6 "sex"=$7 WHERE id = $7 RETURNING *',
-      [CPF, Nome, Imagem, Senha5, Senha7, ChavePix, id,Sex]
+      'UPDATE "Users" SET "CPF"=$1, "Nome"=$2, "Imagem"=$3, "Senha5"=$4, "Senha7"=$5, "ChavePix"=$6, "Sex"=$7 WHERE id=$8 RETURNING *',
+      [CPF, Nome, Imagem, hashedSenha5, hashedSenha7, ChavePix, Sex, id]
     );
     
     res.json({
@@ -222,7 +227,6 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 
-module.exports = router;
 router.put('/Login', async function(req, res, next) {
   try {
     var { CPF, Senha5 } = req.body;
@@ -262,13 +266,14 @@ router.put('/Login', async function(req, res, next) {
       console.error(e)
       var Image=""
     }
-    if (!bcrypt.compare(result.rows[0].Senha5, Senha5)) {
+    const isValidPassword = await bcrypt.compare(Senha5, result.rows[0].Senha5)
+    if (!isValidPassword) {
       return res.status(401).json({
         success: false,
         message: 'Senha incorreta'
       });
     }
-    result.rows[0].CPF
+    
     const DataSend={
       CPF: result.rows[0].CPF,
       Nome: result.rows[0].Nome,
@@ -285,6 +290,8 @@ router.put('/Login', async function(req, res, next) {
     next(err);
   }
 });
+
+module.exports = router;
 
 /*Hora Da Consulta*/
 router.put('/search', async function(req, res, next) {
@@ -304,7 +311,7 @@ router.put('/search', async function(req, res, next) {
 
     res.json({
       success: true,
-      data: result.rows[0]
+      data: result.rows
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);

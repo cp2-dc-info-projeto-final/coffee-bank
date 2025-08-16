@@ -108,7 +108,7 @@
 
 <div>
     <div class="flex-1 flex flex-col">
-        <div class="w-full flex" style="background: linear-gradient(to right, #240f00, #615145)">
+        <div class="w-full flex h-screen" style="background: linear-gradient(to right, #240f00, #615145)">
             <div class="flex shadow md:w-1/2 flex-wrap w-full">
                 <div class="flex items-center justify-center content-center flex-col w-full">
                     <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
