@@ -1,12 +1,18 @@
 <script lang="ts">
-    import User from '../../Class/User';
+    //import User from '../../Class/User';
     import { onMount } from 'svelte';
     import axios from 'axios';
-    import { createEventDispatcher } from 'svelte';  
+    import { createEventDispatcher } from 'svelte';
+  
     const dispatch = createEventDispatcher();
+    import { page } from '$app/stores';
+    import { get } from 'svelte/store';
+	import { goto } from '$app/navigation';
+    const { id } = get(page).params;
+    console.log(id)
+    let sexo= false
     
-    onMount( ()=>{
-        alert("legal")
+    /*onMount( ()=>{
         let file= await fileConvertBase64(document.getElementById("dropzone-file").files)
         let senha5 = document.getElementById("pin5").value
         let senha7= document.getElementById("pin7").value
@@ -14,27 +20,38 @@
         let cPF= document.getElementById("cpf").value
         let senha7conf=document.getElementById("pin7-confirm").value
         let senha5conf=document.getElementById("pin5-confirm").value
-        let sex= sexo
     }
 
-    )
+    )*/
     
 
-     async function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sexo?: boolean }) {
-      const resposta= await fetch("http://localhost:3000/users", {
-                      method: "PUT",
-                      headers: {
-                          "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(data)
-                  });
-                  const json = await resposta.json();
-                  console.log(json);
-                  if(!json.success){
-                      dataerros=[json.message];
-                  }
-  
-    }
+     async function enviarJson() {
+        
+      let data={
+        CPF:document.getElementById("cpf").value,
+        Nome:document.getElementById("nome").value,
+        Sex: sexo,
+        Senha5:document.getElementById("password5").value,
+        Senha5conf:document.getElementById("password5").value,
+        Senha7:document.getElementById("password7").value,
+        Senha7conf:document.getElementById("password7").value,
+        ChavePix:document.getElementById("cpf").value
+      }
+      console.log(data)
+      const resposta= await fetch(`http://localhost:3000/users/Update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        const json = await resposta.json();
+        console.log(json);
+        if(!json.success){
+            dataerros=[json.message];
+        }
+        goto("../gerenciamento")
+      }
     function Validationdata(data:any) {
           let erros=[];
           if(!data.CPF || !data.Nome || !data.Senha5 || !data.Senha5conf || !data.Senha7 || !data.Senha7conf){
@@ -68,7 +85,7 @@
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Formulário de edição
             </h1>
-            <form class="space-y-4 md:space-y-6" method="POST" id="form">
+            <form class="space-y-4 md:space-y-6" method="dialog">
               
               <!-- Campo Nome -->
               <div>
@@ -89,7 +106,7 @@
               <!-- Campo Senha 5 -->
               <div>
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova Senha 5</label>
-                <input type="password" name="password" id="password" placeholder="•••••"
+                <input type="password" name="password" id="password5" placeholder="•••••"
                   class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
               </div>
@@ -98,7 +115,7 @@
               <!-- Campo Senha 7 -->
               <div>
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova Senha 7</label>
-                <input type="password" name="password" id="password" placeholder="•••••"
+                <input type="password" name="password" id="password7" placeholder="•••••"
                   class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
               </div>
@@ -111,7 +128,7 @@
                               <span class="text-sm font-medium text-dark dark:text-gray-900"><i class="fa-solid fa-venus"></i></span>
                           </label>
               <!-- Botão Confirmar -->
-              <button type="submit" on:click={enviarJson({cPF, nome, file, sex, })}
+              <button type="submit" on:click={enviarJson()}
                 class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Clique Para Confirmar
               </button>

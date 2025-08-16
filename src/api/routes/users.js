@@ -85,14 +85,10 @@ router.post('/', async function(req, res, next) {
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
-<<<<<<< HEAD
-
-=======
->>>>>>> 3de0e0680cdd5f7e6e6e0c9bd74159c56b08f0b2
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Esse CPF já está cadastWrado'
+        message: 'Esse CPF já está cadastrado'
       });
     }
     const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
@@ -129,6 +125,8 @@ router.post('/', async function(req, res, next) {
 router.put('/Update/:id', async function(req, res, next) {
   try {
     const { id } = req.params;
+    console.log(id)
+    console.log(req.body)
     const { CPF,
       Nome,
       Senha5,

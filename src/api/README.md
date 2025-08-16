@@ -199,7 +199,6 @@ Atualiza um usuário existente
 ```json
 {
   {
-    "DataCriacao": "2025-07-07T22:41:36.125Z",
     "CPF": "11144477735",
     "Nascimento": "2025-07-07T03:00:00.000Z",
     "Nome": "Dudu",
