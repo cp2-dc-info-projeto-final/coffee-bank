@@ -1,7 +1,8 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 	import api from '$lib/api';
-    import { goto } from '$app/navigation'; // navegação
+  import { goto } from '$app/navigation'; // navegação
+	import axios from 'axios';
 
     
   type User = {
@@ -41,10 +42,36 @@ import { onMount } from 'svelte';
       loading = false;
     }
   });
-  function search(cpf:string){
-    
+  let CPFFilter=""
+  async function search(cpf:string){
+    if(cpf){
+      try{
+        loading=true
+        let req=await axios.put("http://localhost:3000/users/search",{"CPF":cpf})
+        users=req.data.data
+        loading=false
+      }catch(e){
+        users=[]
+      }
+    }
+    else{
+      try {
+        const res = await api.get('/users');
+        users = res.data.data;
+        console.log(users);
+      } catch (e) {
+        error = 'Erro ao carregar usuários';  
+    }
   }
-
+  }
+  function CPFTransformer(event: Event) {
+    CPFFilter = event.target.value
+      .replace(/\D/g, "") // remove não números
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      search(CPFFilter)
+  }
 </script>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -60,24 +87,7 @@ import { onMount } from 'svelte';
                 <i class="w-4 h-4 text-gray-500 dark:text-gray-400 fa-solid fa-magnifying-glass">
                 </i>
             </div>
-            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pesquise Seu CPF" required />
-              <script context="module" lang="ts">
-                import type {Items} from '';
-                import { writable } from '';
-
-                export const dataItems = writable<Items[]>([]);
-
-                  const filterInfo = (term:string) => {
-                    dataItems.update(item => {
-                          item.filter(x => {
-                                return x.name.toLowerCase().includes(term.toLowerCase())
-                                || x.description.toLowerCase().includes(term.toLowerCase());
-                          })
-                          return dataItems;
-                        })
-                    }*/
-                export const dispatcher = {filterInfo};
-              </script>
+         <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pesquise Seu CPF" bind:value={CPFFilter} on:input={CPFTransformer}/>
         </div>
         </form>
       </button>

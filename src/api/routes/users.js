@@ -85,11 +85,10 @@ router.post('/', async function(req, res, next) {
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
-
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Esse CPF já está cadastrado'
+        message: 'Esse CPF já está cadastWrado'
       });
     }
     const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
@@ -308,7 +307,7 @@ router.put('/search', async function(req, res, next) {
 
     res.json({
       success: true,
-      data: result.rows[0]
+      data: result.rows
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);
