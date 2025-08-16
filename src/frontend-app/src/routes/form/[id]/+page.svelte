@@ -5,14 +5,20 @@
     import { createEventDispatcher } from 'svelte';  
     const dispatch = createEventDispatcher();
     
-    let file= await fileConvertBase64(document.getElementById("dropzone-file").files)
-    let senha5 = document.getElementById("pin5").value
-    let senha7= document.getElementById("pin7").value
-    let nome= document.getElementById("nome").value
-    let cPF= document.getElementById("cpf").value
-    let senha7conf=document.getElementById("pin7-confirm").value
-    let senha5conf=document.getElementById("pin5-confirm").value
-    let sex= sexo
+    onMount( ()=>{
+        alert("legal")
+        let file= await fileConvertBase64(document.getElementById("dropzone-file").files)
+        let senha5 = document.getElementById("pin5").value
+        let senha7= document.getElementById("pin7").value
+        let nome= document.getElementById("nome").value
+        let cPF= document.getElementById("cpf").value
+        let senha7conf=document.getElementById("pin7-confirm").value
+        let senha5conf=document.getElementById("pin5-confirm").value
+        let sex= sexo
+    }
+
+    )
+    
 
      async function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sexo?: boolean }) {
       const resposta= await fetch("http://localhost:3000/users", {

@@ -51,7 +51,7 @@ import { onMount } from 'svelte';
   <div class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 md:flex-row md:justify-between md:text-start">
       <span class="text-xl text-center md:text-start">Usuários</span>
-      <button on:click={() => goto(`/form/${user.id}`)} class=" hover: px-4 cursor-pointer">
+      <button on:click={() => goto(`/${user.id}`)} class=" hover: px-4 cursor-pointer">
         
         <form class="max-w-md mx-auto">   
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white text-xml">Search</label>
