@@ -7,24 +7,22 @@
     const dispatch = createEventDispatcher();
     import { page } from '$app/stores';
     import { get } from 'svelte/store';
-	import { goto } from '$app/navigation';
+	  import { goto } from '$app/navigation';
     const { id } = get(page).params;
     console.log(id)
     let sexo= false
-    
-    /*onMount( ()=>{
-        let file= await fileConvertBase64(document.getElementById("dropzone-file").files)
-        let senha5 = document.getElementById("pin5").value
-        let senha7= document.getElementById("pin7").value
-        let nome= document.getElementById("nome").value
-        let cPF= document.getElementById("cpf").value
-        let senha7conf=document.getElementById("pin7-confirm").value
-        let senha5conf=document.getElementById("pin5-confirm").value
+    onMount( async ()=>{
+      let dados=(await axios.get(`http://localhost:3000/users/${id}`)).data.data
+      document.getElementById("cpf").value=dados.CPF
+      document.getElementById("nome").value=dados.Nome
+      if(dados.Sex){
+        sexo=true
+        document.getElementById("sexo").checked=true
+      }
     }
 
-    )*/
+    )
     
-
      async function enviarJson() {
         
       let data={
@@ -77,14 +75,20 @@
       }
   </script>
   
-  <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
+  <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full mt-5 justify-center w-full md:inset-0 items-center flex" on:load={load()}>
     <section class="dark:bg-gray-900 w-full h-full" id="login">
       <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
         <div class="w-full shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 itemns center">
           <div class="p-6 rounded-3xl bg-white space-y-4 md:space-y-6 sm:p-8">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Formulário de edição
-            </h1>
+            <div class="w-full flex justify-between">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Formulário de edição
+              </h1>
+              <button class="p-0 cursor-pointer" style="background-color: transparent;" on:click={()=>{goto("../gerenciamento")}}>
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            
             <form class="space-y-4 md:space-y-6" method="dialog">
               
               <!-- Campo Nome -->
@@ -121,7 +125,7 @@
               </div>
   
              <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
-                              <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
+                              <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}} id="sexo">
                               <span class="text-sm font-medium text-dark dark:text-gray-300 mx-2">Sexo:</span>
                               <span class="text-sm font-medium text-dark dark:text-gray-300"><i class="fa-solid fa-mars"></i></span>
                               <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
