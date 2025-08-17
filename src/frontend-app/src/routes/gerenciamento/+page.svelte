@@ -6,7 +6,7 @@ import UserList from '../../Components/userList.svelte';
     
 </script>
 
-<div class=" mx-10 my-5 h-screen">
+<div class="min-h-screen md:mx-10 md:my-">
     
    <UserList />
 </div>

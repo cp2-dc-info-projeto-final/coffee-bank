@@ -8,6 +8,21 @@ const axios = require("axios")
 router.get('/', async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        try {
+          let Imagem = await axios.put("http://localhost:3001/images", {
+            "path": `uploads/${user.id}/main.png`
+          })
+          return {
+            ...user,
+            "Image": Imagem.data.data
+          }
+        } catch (e) {
+          return user
+        }
+      })
+    )
     res.json({
       success: true,
       data: result.rows
@@ -33,11 +48,10 @@ router.get('/:id', async function(req, res, next) {
         message: 'Usuário não encontrado'
       });
     }
-    
+
     res.json({
       success: true,
-      data: result.rows[0]
-    });
+      data: result.rows[0]});
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);
     res.status(500).json({
@@ -211,7 +225,16 @@ router.delete('/:id', async function(req, res, next) {
     }
     
     await pool.query('DELETE FROM "Users" WHERE id = $1', [id]);
-    
+    try{
+      await axios.delete("http://localhost:3001/images", {
+  data: {
+    path: `uploads/${id}/main.png`
+  }
+})
+
+    }catch(e){
+      console.error(e)
+    }
     res.json({
       success: true,
       message: 'Usuário deletado com sucesso'
@@ -296,7 +319,7 @@ router.put('/search', async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
-      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
+      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
 
@@ -306,7 +329,21 @@ router.put('/search', async function(req, res, next) {
         message: 'Usuário não encontrado'
       });
     }
-
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        try {
+          let Imagem = await axios.put("http://localhost:3001/images", {
+            "path": `uploads/${user.id}/main.png`
+          })
+          return {
+            ...user,
+            "Image": Imagem.data.data
+          }
+        } catch (e) {
+          return user
+        }
+      })
+    )
     res.json({
       success: true,
       data: result.rows
