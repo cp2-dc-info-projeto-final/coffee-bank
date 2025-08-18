@@ -1,9 +1,19 @@
 <script lang="ts">
+  interface User {
+    CPF: string;
+    Nome: string;
+    Sex: string; // Você pode mudar para 'M' | 'F' | 'Outro' se quiser restringir
+    Senha5: string;
+    Senha5conf: string;
+    Senha7: string;
+    Senha7conf: string;
+    ChavePix: string;
+  }
     //import User from '../../Class/User';
     import { onMount } from 'svelte';
     import axios from 'axios';
     import { createEventDispatcher } from 'svelte';
-  
+    import ValidationCPF from '../../../Functions/CPFValidation'; 
     const dispatch = createEventDispatcher();
     import { page } from '$app/stores';
     import { get } from 'svelte/store';
@@ -12,6 +22,18 @@
     console.log(id)
     let sexo= false
     onMount( async ()=>{
+      const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 11) value = value.slice(0, 11);
+
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        e.target.value = value;
+    })
       let dados=(await axios.get(`http://localhost:3000/users/${id}`)).data.data
       document.getElementById("cpf").value=dados.CPF
       document.getElementById("nome").value=dados.Nome
@@ -25,7 +47,7 @@
     
      async function enviarJson() {
         
-      let data={
+      let data:User={
         CPF:document.getElementById("cpf").value,
         Nome:document.getElementById("nome").value,
         Sex: sexo,
@@ -35,7 +57,7 @@
         Senha7conf:document.getElementById("password7").value,
         ChavePix:document.getElementById("cpf").value
       }
-      console.log(data)
+      let validation=Validationdata(data)
       const resposta= await fetch(`http://localhost:3000/users/Update/${id}`, {
             method: "PUT",
             headers: {
@@ -50,29 +72,60 @@
         }
         goto("../gerenciamento")
       }
-    function Validationdata(data:any) {
-          let erros=[];
-          if(!data.CPF || !data.Nome || !data.Senha5 || !data.Senha5conf || !data.Senha7 || !data.Senha7conf){
-              erros.push("Preencha todos os campos obrigatórios.");
-          }
-          
-          if(document.getElementById("checkbox-1").checked === false){
-              erros.push("Você deve aceitar os termos de contrato.");
-          }
-          if(data.Senha5 !== data.Senha5conf || data.Senha7 !== data.Senha7conf){
-              erros.push("As senhas não conferem.");
-          }
-          if(ValidationCPF(data.CPF) === false){
-              erros.push("CPF inválido.");
-          }
-          if(data.Senha5.length !== 5 || data.Senha7.length !== 7){
-              erros.push("As senhas devem ter 5 e 7 dígitos respectivamente.");
-          }
-          if(/^\d+$/.test(data.Senha5) === false || /^\d+$/.test(data.Senha7) === false){
-              erros.push("As senhas devem conter apenas números.");
-          }
-          dataerros = erros;
+      async function Validationdata(data:User){
+        let message:string[]=[]
+        let sucesss=true
+        if(!data.CPF){
+          sucesss=false
+          message.push("CPF inválido")
+        }
+        else if(ValidationCPF(data.CPF)){
+          message.push("Nome nulo")
+          sucesss=false
+        }
+        if(!data.Nome){
+          message.push("Nome nulo")
+          sucesss=false
+        }
+        if(!data.Senha5|| !data.Senha5conf){
+          message.push("Senha5 nula")
+          sucesss=false
+        }
+        else if(data.Senha5!==data.Senha5conf){
+          message.push("Senha5 divergente")
+          sucesss=false
+        }
+        else if(data.Senha5.length!==5||data.Senha5conf.length!==5){
+          message.push("Senha5 inválida")
+          sucesss=false
+        }
+        if(!data.Senha7||!data.Senha7conf){
+          message.push("Senha7 nula")
+          sucesss=false
+        }
+        
+        else if(data.Senha7!==data.Senha7conf){
+          message.push("Senha7 divergente")
+          sucesss=false
+        }
+        
+        else if(data.Senha7.length!==7||data.Senha7conf.length!==7){
+          message.push("Senha7 inválida")
+          sucesss=false
+        }
+        if(!data.ChavePix){
+          message.push("Chave PIX nula")
+          sucesss=false
+        }
+        if(sucesss){
+          message.push("Operação sucedida!")
+        }
+        return {
+          "sucess":sucesss,
+          "message":message
+        }
       }
+
   </script>
   
   <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full mt-5 justify-center w-full md:inset-0 items-center flex" on:load={load()}>
