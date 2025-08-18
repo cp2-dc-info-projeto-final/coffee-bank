@@ -21,110 +21,111 @@
     const { id } = get(page).params;
     console.log(id)
     let sexo= false
-    onMount( async ()=>{
-      const cpfInput = document.getElementById('cpf');
-        cpfInput.addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, '');
+  onMount( async ()=>{
+    const cpfInput = document.getElementById('cpf');
+      cpfInput.addEventListener('input', function (e) {
+      let value = e.target.value.replace(/\D/g, '');
 
-        if (value.length > 11) value = value.slice(0, 11);
+      if (value.length > 11) value = value.slice(0, 11);
 
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d)/, '$1.$2');
+      value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
-        e.target.value = value;
+      e.target.value = value;
     })
-      let dados=(await axios.get(`http://localhost:3000/users/${id}`)).data.data
-      document.getElementById("cpf").value=dados.CPF
-      document.getElementById("nome").value=dados.Nome
-      if(dados.Sex){
-        sexo=true
-        document.getElementById("sexo").checked=true
-      }
+    let dados=(await axios.get(`http://localhost:3000/users/${id}`)).data.data
+    document.getElementById("cpf").value=dados.CPF
+    document.getElementById("nome").value=dados.Nome
+    if(dados.Sex){
+      sexo=true
+      document.getElementById("sexo").checked=true
+    }
+  })
+    
+  async function enviarJson() {
+    
+    let data:User={
+      CPF:document.getElementById("cpf").value,
+      Nome:document.getElementById("nome").value,
+      Sex: sexo,
+      Senha5:document.getElementById("password5").value,
+      Senha5conf:document.getElementById("password5").value,
+      Senha7:document.getElementById("password7").value,
+      Senha7conf:document.getElementById("password7").value,
+      ChavePix:document.getElementById("cpf").value
+    }
+    let validation= await Validationdata(data)
+    if(validation.sucess){
+      const resposta= await fetch(`http://localhost:3000/users/Update/${id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+      });
+      const json = await resposta.json();
+      goto("../gerenciamento")
+    }
+    else{
+      alert(validation.message)
     }
 
-    )
+  }
+  async function Validationdata(data:User){
+    let message:string[]=[]
+    let sucesss=true
+    if(!data.CPF){
+      sucesss=false
+      message.push("CPF inválido")
+    }
+    else if(!ValidationCPF(data.CPF)){
+      message.push("CPF inválido")
+      sucesss=false
+    }
+    if(!data.Nome){
+      alert(data.Nome)
+      message.push("Nome nulo")
+      sucesss=false
+    }
+    if(!data.Senha5|| !data.Senha5conf){
+      message.push("Senha5 nula")
+      sucesss=false
+    }
+    else if(data.Senha5!==data.Senha5conf){
+      message.push("Senha5 divergente")
+      sucesss=false
+    }
+    else if(data.Senha5.length!==5||data.Senha5conf.length!==5){
+      message.push("Senha5 inválida")
+      sucesss=false
+    }
+    if(!data.Senha7||!data.Senha7conf){
+      message.push("Senha7 nula")
+      sucesss=false
+    }
     
-     async function enviarJson() {
-        
-      let data:User={
-        CPF:document.getElementById("cpf").value,
-        Nome:document.getElementById("nome").value,
-        Sex: sexo,
-        Senha5:document.getElementById("password5").value,
-        Senha5conf:document.getElementById("password5").value,
-        Senha7:document.getElementById("password7").value,
-        Senha7conf:document.getElementById("password7").value,
-        ChavePix:document.getElementById("cpf").value
-      }
-      let validation=Validationdata(data)
-      const resposta= await fetch(`http://localhost:3000/users/Update/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        const json = await resposta.json();
-        console.log(json);
-        if(!json.success){
-            dataerros=[json.message];
-        }
-        goto("../gerenciamento")
-      }
-      async function Validationdata(data:User){
-        let message:string[]=[]
-        let sucesss=true
-        if(!data.CPF){
-          sucesss=false
-          message.push("CPF inválido")
-        }
-        else if(ValidationCPF(data.CPF)){
-          message.push("Nome nulo")
-          sucesss=false
-        }
-        if(!data.Nome){
-          message.push("Nome nulo")
-          sucesss=false
-        }
-        if(!data.Senha5|| !data.Senha5conf){
-          message.push("Senha5 nula")
-          sucesss=false
-        }
-        else if(data.Senha5!==data.Senha5conf){
-          message.push("Senha5 divergente")
-          sucesss=false
-        }
-        else if(data.Senha5.length!==5||data.Senha5conf.length!==5){
-          message.push("Senha5 inválida")
-          sucesss=false
-        }
-        if(!data.Senha7||!data.Senha7conf){
-          message.push("Senha7 nula")
-          sucesss=false
-        }
-        
-        else if(data.Senha7!==data.Senha7conf){
-          message.push("Senha7 divergente")
-          sucesss=false
-        }
-        
-        else if(data.Senha7.length!==7||data.Senha7conf.length!==7){
-          message.push("Senha7 inválida")
-          sucesss=false
-        }
-        if(!data.ChavePix){
-          message.push("Chave PIX nula")
-          sucesss=false
-        }
-        if(sucesss){
-          message.push("Operação sucedida!")
-        }
-        return {
-          "sucess":sucesss,
-          "message":message
-        }
-      }
+    else if(data.Senha7!==data.Senha7conf){
+      message.push("Senha7 divergente")
+      sucesss=false
+    }
+    
+    else if(data.Senha7.length!==7||data.Senha7conf.length!==7){
+      message.push("Senha7 inválida")
+      sucesss=false
+    }
+    if(!data.ChavePix){
+      message.push("Chave PIX nula")
+      sucesss=false
+    }
+    if(sucesss){
+      message.push("Operação sucedida!")
+    }
+    return {
+      "sucess":sucesss,
+      "message":message
+    }
+  }
 
   </script>
   
