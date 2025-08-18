@@ -1,10 +1,10 @@
-<h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-900 text-3xl  text-center">CoffeeBank</h1>
-<h2 class="mb-4 md:text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-xl  text-center">Nosso objetivo</h2>
-<p class='text-base md:text-lg lg:text-3xl'>Nós somos um banco totalmente digital focado na experiência intuitiva do usuário e no investimento em fazendas ecologicamente sustentáveis de café através de fundos imobiliário.
+<h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-200 text-3xl  text-center">CoffeeBank</h1>
+<h2 class="mb-4 md:text-4xl font-extrabold leading-none tracking-tight text-gray-200 text-xl  text-center">Nosso objetivo</h2>
+<p class='text-base text-gray-200 md:text-lg lg:text-3xl'>Nós somos um banco totalmente digital focado na experiência intuitiva do usuário e no investimento em fazendas ecologicamente sustentáveis de café através de fundos imobiliário.
 Essa postura se dá pela indignação da alta do café e nosso prazer em beber um bom café com leite de manhã. Além do excesso de agrotóxicos presentes no dia a dia brasileiro.</p>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl text-center">Por Que Nosso Banco?</h2>
+<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Por Que Nosso Banco?</h2>
 
-<ol class="space-y-1 text-gray-900 list-decimal list-inside ml-auto mr-auto">
+<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
     <li>
         Queremos te encher de taxa, por favor
     </li>
@@ -39,8 +39,8 @@ Essa postura se dá pela indignação da alta do café e nosso prazer em beber u
         Iremos te dar dinheiro, a uma taxa de apenas 1000000000000% ao dia
     </li>
 </ol>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl text-center">Termos de contrato para o usuário</h2>
-<ol class="space-y-1 text-gray-900 list-decimal list-inside ml-auto mr-auto">
+<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Termos de contrato para o usuário</h2>
+<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
     <li>
         Caso não pague os empréstimos, concedo a autorização da tomada de meus bens utilizados como garantia e/ou ainda sendo pagos no financiamento.
     </li>
@@ -63,8 +63,8 @@ Essa postura se dá pela indignação da alta do café e nosso prazer em beber u
         Confio ao banco o direito de me cobrar juros de 1% ao mês em meus empréstimos
     </li>
 </ol>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl text-center">Termos de contrato para o banco</h2>
-<ol class="space-y-1 text-gray-900 list-decimal list-inside ml-auto mr-auto">
+<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Termos de contrato para o banco</h2>
+<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
     <li>
         Concedo ao usuário a segurança de não vazamento e/ou venda de seus dados.
     </li>
