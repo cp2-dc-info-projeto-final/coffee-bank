@@ -75,9 +75,9 @@
   }
 </script>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 md:flex-row md:justify-between md:text-start">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+  <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-500 dark:text-gray-400" >
+    <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
       <span class="text-xl text-center md:text-start">Usuários</span>
       <button on:click={() => goto(`/${user.id}`)} class=" hover: px-4 cursor-pointer">
         
@@ -91,19 +91,20 @@
         </div>
       </button>
       </div>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 rounded-sm">
     {#each users as user, i}
       <div
-        class="w-full flex flex-col p-6 bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700
+        class="w-full flex flex-col p-6 bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-b-sm
               {i === users.length - 1 && users.length % 2 !== 0 ? 'md:col-span-2' : ''}"
       >
         <div class="flex flex-row text-center justify-center md:justify-start md:text-start">
-          <img src={ user.Image ? user.Image: defaultImage } alt="" class="hidden md:me-4 md:rounded-full md:block md:w-27 md:h-27">
+          <img src={ user.Image ? user.Image: defaultImage } alt="" class="hidden md:me-4 md:rounded-full md:block md:w-27 md:h-27 md:aspect-square md:object-cover">
           <div>
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {user.Nome}
         </h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
+        
         <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
         <div class="flex items-end">
           <i on:click={() => goto(`/form/${user.id}`)} class="text-blue-600 dark:text-blue-500 hover:underline text-xl fa-solid fa-user-pen m-4 w-full"></i>
