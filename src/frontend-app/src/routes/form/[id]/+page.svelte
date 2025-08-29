@@ -9,6 +9,7 @@
     Senha7conf: string;
     ChavePix: string;
   }
+    let Erros:string[]=[]
     //import User from '../../Class/User';
     import { onMount } from 'svelte';
     import axios from 'axios';
@@ -65,10 +66,15 @@
           body: JSON.stringify(data)
       });
       const json = await resposta.json();
-      goto("../gerenciamento")
+      if(json.success){
+        goto("../gerenciamento")
+      }
+      else{
+        Erros=["CPF já cadastrado por outro usuário",...Erros]
+      }
     }
     else{
-      alert(validation.message)
+      Erros=validation.message
     }
 
   }
@@ -84,7 +90,6 @@
       sucesss=false
     }
     if(!data.Nome){
-      alert(data.Nome)
       message.push("Nome nulo")
       sucesss=false
     }
@@ -131,9 +136,14 @@
   
   <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full mt-5 justify-center w-full md:inset-0 items-center flex" on:load={load()}>
     <section class=" w-full h-full" id="login">
+      <ol>
+      </ol>
       <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
+        
         <div class="w-full shadow md:mt-0 sm:max-w-md xl:p-0 itemns center">
+          
           <div class="p-6 rounded-3xl bg-white space-y-4 md:space-y-6 sm:p-8">
+            
             <div class="w-full flex justify-between">
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Formulário de edição
@@ -142,7 +152,9 @@
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
-            
+            {#each Erros as erro}
+            <li style="color:red;">{erro}</li>
+        {/each}
             <form class="space-y-4 md:space-y-6" method="dialog">
               
               <!-- Campo Nome -->
@@ -186,7 +198,7 @@
                               <span class="text-sm font-medium text-dark dark:text-gray-900"><i class="fa-solid fa-venus"></i></span>
                           </label>
               <!-- Botão Confirmar -->
-              <button type="submit" on:click={enviarJson()}
+              <button type="submit" on:click={enviarJson}
                 class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Clique Para Confirmar
               </button>
