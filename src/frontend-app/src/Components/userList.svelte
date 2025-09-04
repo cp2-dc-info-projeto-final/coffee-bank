@@ -2,29 +2,18 @@
   import defaultImage from "../assets/images/defaultUser.jpg";
   import { onMount } from 'svelte';
 	import api from '$lib/api';
-<<<<<<< HEAD
-    import { goto } from '$app/navigation'; // navegação
-	import User from '../Class/User';
-=======
   import { goto } from '$app/navigation'; // navegação
 	import axios from 'axios';
 	import User from "../Class/User";
->>>>>>> acecb1ed274b836c9442ef905238430e8739cdd3
 
-    
   type User = {
     id: number;
-<<<<<<< HEAD
-    nome: string;
-    cpf: string;
-    chavepix: string;
-=======
     Nome: string;
     CPF: string;
     ChavePix: string;
     Image:string;
->>>>>>> acecb1ed274b836c9442ef905238430e8739cdd3
   };
+  let editando={}
   let users: User[] = [];
   let error = '';
   let loading = true;
@@ -85,9 +74,9 @@
       search(CPFFilter)
   }
 </script>
-
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
   <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-500 dark:text-gray-400" >
+    
     <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
       <span class="text-xl text-center md:text-start">Usuários</span>
       <button on:click={() => goto(`/${user.id}`)} class=" hover: px-4 cursor-pointer">
@@ -98,37 +87,19 @@
                 <i class="w-4 h-4 text-gray-500 dark:text-gray-400 fa-solid fa-magnifying-glass">
                 </i>
             </div>
-<<<<<<< HEAD
-            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pesquise Seu CPF" required />
-            <script lang="ts">
-              <pre>{JSON.stringify(FileList)User}</pre>
-            </script>
-            
-=======
          <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pesquise Seu CPF" bind:value={CPFFilter} on:input={CPFTransformer}/>
->>>>>>> acecb1ed274b836c9442ef905238430e8739cdd3
         </div>
       </button>
-<<<<<<< HEAD
-    </div>
-    <div class="flex">
-      {#each users as user}
-        <div class="flex flex-col w-full p-6 bg-white border border-gray-200  shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Usuário: {user.Nome} </h5>
-          <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
-          <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
-          <div class="flex justify-between">
-            <i on:click={() => goto(`/form/${user.id}`)} class=" text-blue-600 dark:text-blue-500 hover:underline hover:blue-700 text-xl fa-solid fa-user-pen m-4 hover:bg-gray-500 cursor-pointer p-2 rounded-full" ></i>
-            <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4 hover:bg-gray-700 px-4 cursor-pointer"></i>
-          </div>              
-=======
       </div>
     <div class="grid grid-cols-1 md:grid-cols-2 rounded-sm">
     {#each users as user, i}
-      <div
+    {#if editando[user.id]}
+      <p>A condição é verdadeira!</p>
+    {:else}
+    <div
         class="w-full flex flex-col p-6 bg-white border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 rounded-b-sm
               {i === users.length - 1 && users.length % 2 !== 0 ? 'md:col-span-2' : ''}"
+              id={String(user.id)}
       >
         <div class="flex flex-row text-center justify-center md:justify-start md:text-start">
           <img src={ user.Image ? user.Image: defaultImage } alt="" class="hidden md:me-4 md:rounded-full md:block md:w-27 md:h-27 md:aspect-square md:object-cover">
@@ -142,13 +113,12 @@
         <div class="flex items-end">
           <i on:click={() => goto(`/form/${user.id}`)} class="text-blue-600 dark:text-blue-500 hover:underline text-xl fa-solid fa-user-pen m-4 w-full"></i>
           <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline fa-solid fa-trash m-4"></i>
->>>>>>> acecb1ed274b836c9442ef905238430e8739cdd3
         </div>
           </div>
         </div>
       </div>
-    {/each}
-  </div>
-
-  </div>
-</div>
+    {/if}
+    {/each }
+    </div>
+    </div>
+    </div>
