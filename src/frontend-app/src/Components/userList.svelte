@@ -2,12 +2,12 @@
 import { onMount } from 'svelte';
 	import api from '$lib/api';
     import { goto } from '$app/navigation'; // navegação
+	import User from '../Class/User';
 
     
   type User = {
     id: number;
     nome: string;
-    nascimento: string;
     cpf: string;
     chavepix: string;
   };
@@ -61,33 +61,19 @@ import { onMount } from 'svelte';
                 </i>
             </div>
             <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pesquise Seu CPF" required />
-              <script context="module" lang="ts">
-                import type {Items} from '';
-                import { writable } from '';
-
-                export const dataItems = writable<Items[]>([]);
-
-                  const filterInfo = (term:string) => {
-                    dataItems.update(item => {
-                          item.filter(x => {
-                                return x.name.toLowerCase().includes(term.toLowerCase())
-                                || x.description.toLowerCase().includes(term.toLowerCase());
-                          })
-                          return dataItems;
-                        })
-                    }*/
-                export const dispatcher = {filterInfo};
-              </script>
+            <script lang="ts">
+              <pre>{JSON.stringify(FileList)User}</pre>
+            </script>
+            
         </div>
         </form>
       </button>
-      </div>
+    </div>
     <div class="flex">
       {#each users as user}
         <div class="flex flex-col w-full p-6 bg-white border border-gray-200  shadow-sm dark:bg-gray-800 dark:border-gray-700">
             
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Usuário: {user.Nome} </h5>
-          <p class="font-normal text-gray-700 dark:text-gray-400">Data de Nascimento: {user.Nascimento}</p>
           <p class="font-normal text-gray-700 dark:text-gray-400">CPF: {user.CPF}</p>
           <p class="font-normal text-gray-700 dark:text-gray-400">Chave Pix: {user.ChavePix}</p>
           <div class="flex justify-between">

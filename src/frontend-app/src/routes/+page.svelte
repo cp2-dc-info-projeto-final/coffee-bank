@@ -3,6 +3,7 @@
     import User from '../Class/User';
     let users: User[] = [];
     function adicionarCarta(event:CustomEvent<{ User: User }>) {
+        console.log(user.User);
         const user:User = event.detail.User;
         users = [...users, user];
     }
