@@ -25,7 +25,7 @@
 
 <style>
     #Main {
-        background-image: url("../assets/images/OIP.jpg");
+        background-image: url("../assets/images/fundo.jpg");
         background-size: cover;
     }
     @media (max-width: 768px) {

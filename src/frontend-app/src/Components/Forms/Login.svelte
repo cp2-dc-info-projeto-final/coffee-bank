@@ -48,10 +48,12 @@
     <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
       <div class="w-full shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 itemns center">
         <div class="p-6 rounded-3xl bg-white space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Login para acesso
-          </h1>
-          <form class="space-y-4 md:space-y-6" method="POST" id="form">
+          <div class="flex">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Login para acesso
+            </h1>
+          </div>
+           <form class="space-y-4 md:space-y-6" method="POST" id="form">
             <!-- Campo CPF -->
             <div>
               <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seu CPF</label>
