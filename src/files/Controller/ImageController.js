@@ -103,7 +103,7 @@ class ImageController{
                 "message":"Parâmetros vazios"
             })   
         }
-        if(typeof(path)!=string){
+        if(typeof(path)!="string"){
             return res.status(400).json({
                 "sucess":false,
                 "message":"Parâmetros inválidos"
@@ -122,6 +122,9 @@ class ImageController{
                 })
             }
             await imagem.delete()
+            if((await DadFolderPath.listarArquivos()).length==0){
+                DadFolderPath.Delete()
+            }
             return res.status(200).json({
                 "sucess":true,
                 "message":"deleção feita com sucesso"

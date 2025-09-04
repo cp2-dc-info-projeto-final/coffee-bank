@@ -4,11 +4,54 @@
   import axios from 'axios';
   import { createEventDispatcher } from 'svelte';  
   const dispatch = createEventDispatcher();
-  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
-    const user = new User(data);
-    dispatch('login', { detail: { User: user }, bubbles: true });
-  }
+  
+  const datalet file= await fileConvertBase64(document.getElementById("dropzone-file").files)
+  let senha5 = document.getElementById("pin5").value
+  let senha7= document.getElementById("pin7").value
+  let nome= document.getElementById("nome").value
+  let cPF= document.getElementById("cpf").value
+  let senha7conf=document.getElementById("pin7-confirm").value
+  let senha5conf=document.getElementById("pin5-confirm").value
+  let sex= sexo
+  
+  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sexo?: boolean }) {
+    const resposta= await fetch("http://localhost:3000/users", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data)
+                });
+                const json = await resposta.json();
+                console.log(json);
+                if(!json.success){
+                    dataerros=[json.message];
+                }
 
+  }
+  function Validationdata(data:any) {
+        let erros=[];
+        if(!data.CPF || !data.Nome || !data.Senha5 || !data.Senha5conf || !data.Senha7 || !data.Senha7conf){
+            erros.push("Preencha todos os campos obrigatórios.");
+        }
+        
+        if(document.getElementById("checkbox-1").checked === false){
+            erros.push("Você deve aceitar os termos de contrato.");
+        }
+        if(data.Senha5 !== data.Senha5conf || data.Senha7 !== data.Senha7conf){
+            erros.push("As senhas não conferem.");
+        }
+        if(ValidationCPF(data.CPF) === false){
+            erros.push("CPF inválido.");
+        }
+        if(data.Senha5.length !== 5 || data.Senha7.length !== 7){
+            erros.push("As senhas devem ter 5 e 7 dígitos respectivamente.");
+        }
+        if(/^\d+$/.test(data.Senha5) === false || /^\d+$/.test(data.Senha7) === false){
+            erros.push("As senhas devem conter apenas números.");
+        }
+        dataerros = erros;
+    }
 </script>
 
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
@@ -62,7 +105,7 @@
                             <span class="text-sm font-medium text-dark dark:text-gray-900"><i class="fa-solid fa-venus"></i></span>
                         </label>
             <!-- Botão Confirmar -->
-            <button type="submit"
+            <button type="submit" on:click={enviarJson(){cPF, nome, file, sex, }}
               class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Clique Para Confirmar
             </button>

@@ -108,11 +108,20 @@
 
 <div>
     <div class="flex-1 flex flex-col">
-        <div class="w-full flex" style="background: linear-gradient(to right, #240f00, #615145)">
+        <div class="w-full flex min-h-screen" style="background: linear-gradient(to right, #240f00, #615145)">
             <div class="flex shadow md:w-1/2 flex-wrap w-full">
+               
                 <div class="flex items-center justify-center content-center flex-col w-full">
+                    <p class="text-green-500 w-full">{sucesss}</p>
+                    <ol style="list-style: disc" class="text-start w-full ps-6">
+                        {#each dataerros as erro}
+                            <li style="color:red;">{erro}</li>
+                        {/each}
+                    </ol>
+
                     <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
                     <div class="w-full justify-center content-center my-10 px-5">
+                        
                         <form action="POST" id="meuFormulario">
                             <div>
                                 <Textform 
@@ -186,13 +195,6 @@
                             <div class="w-full text-center">
                                 <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
                             </div> 
-                            <p class="text-green-500">{sucesss}</p>
-                            <ol style="list-style: disc">
-                                {#each dataerros as erro}
-                                    <li style="color:red;">{erro}</li>
-                                {/each}
-                            </ol>
-
                         </form>
                     </div>
                 </div>        

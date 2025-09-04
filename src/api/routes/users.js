@@ -8,6 +8,21 @@ const axios = require("axios")
 router.get('/', async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        try {
+          let Imagem = await axios.put("http://localhost:3001/images", {
+            "path": `uploads/${user.id}/main.png`
+          })
+          return {
+            ...user,
+            "Image": Imagem.data.data
+          }
+        } catch (e) {
+          return user
+        }
+      })
+    )
     res.json({
       success: true,
       data: result.rows
@@ -33,11 +48,10 @@ router.get('/:id', async function(req, res, next) {
         message: 'Usuário não encontrado'
       });
     }
-    
+
     res.json({
       success: true,
-      data: result.rows[0]
-    });
+      data: result.rows[0]});
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);
     res.status(500).json({
@@ -85,15 +99,14 @@ router.post('/', async function(req, res, next) {
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
-
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
         message: 'Esse CPF já está cadastrado'
       });
     }
-    Senha5_criptografada= await bcrypt.hash(Senha5, 10)
-    Senha7_criptografada= await bcrypt.hash(Senha7, 10)
+    const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
+    const Senha7_criptografada = await bcrypt.hash(Senha7, 10)
     const result = await pool.query(
       `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
    VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
@@ -108,7 +121,7 @@ router.post('/', async function(req, res, next) {
         })
       }catch(e){}
     }
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso',
       data: result.rows[0]
@@ -126,6 +139,8 @@ router.post('/', async function(req, res, next) {
 router.put('/Update/:id', async function(req, res, next) {
   try {
     const { id } = req.params;
+    console.log(id)
+    console.log(req.body)
     const { CPF,
       Nome,
       Senha5,
@@ -173,10 +188,12 @@ router.put('/Update/:id', async function(req, res, next) {
         message: 'CPF ou ChavePix já está em uso por outro usuário'
       });
     }
-    
+    // Criptografar novas senhas antes de salvar
+    const hashedSenha5 = await bcrypt.hash(Senha5, 10);
+    const hashedSenha7 = await bcrypt.hash(Senha7, 10);
     const result = await pool.query(
-      'UPDATE "Users" SET "CPF" = $1,"Nome"=$2,"Imagem"=$3,"Senha5"=$4,"Senha7"=$5,"ChavePix"=$6 "sex"=$7 WHERE id = $7 RETURNING *',
-      [CPF, Nome, Imagem, Senha5, Senha7, ChavePix, id,Sex]
+      'UPDATE "Users" SET "CPF"=$1, "Nome"=$2, "Imagem"=$3, "Senha5"=$4, "Senha7"=$5, "ChavePix"=$6, "Sex"=$7 WHERE id=$8 RETURNING *',
+      [CPF, Nome, Imagem, hashedSenha5, hashedSenha7, ChavePix, Sex, id]
     );
     
     res.json({
@@ -208,7 +225,16 @@ router.delete('/:id', async function(req, res, next) {
     }
     
     await pool.query('DELETE FROM "Users" WHERE id = $1', [id]);
-    
+    try{
+      await axios.delete("http://localhost:3001/images", {
+  data: {
+    path: `uploads/${id}/main.png`
+  }
+})
+
+    }catch(e){
+      console.error(e)
+    }
     res.json({
       success: true,
       message: 'Usuário deletado com sucesso'
@@ -222,7 +248,6 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 
-module.exports = router;
 router.put('/Login', async function(req, res, next) {
   try {
     var { CPF, Senha5 } = req.body;
@@ -262,13 +287,14 @@ router.put('/Login', async function(req, res, next) {
       console.error(e)
       var Image=""
     }
-    if (!bcrypt.compare(result.rows[0].Senha5, Senha5)) {
+    const isValidPassword = await bcrypt.compare(Senha5, result.rows[0].Senha5)
+    if (!isValidPassword) {
       return res.status(401).json({
         success: false,
         message: 'Senha incorreta'
       });
     }
-    result.rows[0].CPF
+    
     const DataSend={
       CPF: result.rows[0].CPF,
       Nome: result.rows[0].Nome,
@@ -286,12 +312,14 @@ router.put('/Login', async function(req, res, next) {
   }
 });
 
+module.exports = router;
+
 /*Hora Da Consulta*/
 router.put('/search', async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
-      'SELECT "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
+      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
 
@@ -301,10 +329,24 @@ router.put('/search', async function(req, res, next) {
         message: 'Usuário não encontrado'
       });
     }
-
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        try {
+          let Imagem = await axios.put("http://localhost:3001/images", {
+            "path": `uploads/${user.id}/main.png`
+          })
+          return {
+            ...user,
+            "Image": Imagem.data.data
+          }
+        } catch (e) {
+          return user
+        }
+      })
+    )
     res.json({
       success: true,
-      data: result.rows[0]
+      data: result.rows
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);

@@ -12,10 +12,9 @@
     import img from "../assets/images/OIP.jpg";
     import UserCards from "../Components/cardsUser.svelte";
 </script>
-<div class=" bg-white"></div>
 <div class="flex-1 flex flex-col md:justify-center md:gap-2.5" id="Main">
     
-    <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center">
+    <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center h-full">
         {#each users as user}
             <UserCards user={user} />
         {/each}

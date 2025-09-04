@@ -8,19 +8,26 @@ DROP TABLE IF EXISTS "public"."Emprestimos";
 DROP TABLE IF EXISTS "public"."Transferencias";
 DROP TABLE IF EXISTS "public"."Admins";
 DROP TABLE IF EXISTS "public"."Users";
+
 -- USERS
 CREATE TABLE "public"."Users" (
   "id" SERIAL PRIMARY KEY,
-  "DataCriacao" TIMESTAMP DEFAULT NOW(),
+  "DataCriacao" TIMESTAMP NOT NULL DEFAULT NOW(),
   "CPF" VARCHAR(255) NOT NULL,
+  "Nascimento" DATE NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Saldo" DECIMAL NOT NULL,
   "Imagem" VARCHAR(255),
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
+<<<<<<< HEAD
   "ChavePix" VARCHAR(255),
   "Sex" BOOLEAN
+=======
+  "ChavePix" VARCHAR(255) NOT NULL
+>>>>>>> acecb1ed274b836c9442ef905238430e8739cdd3
 );
+
 -- ADMINS
 CREATE TABLE "public"."Admins" (
   "id" SERIAL PRIMARY KEY,
