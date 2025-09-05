@@ -75,9 +75,9 @@
   }
 </script>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
-  <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-500 dark:text-gray-400" >
+  <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-400" >
     
-    <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
+    <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-white bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
   <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-400 " >
     <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-white bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
       <span class="text-xl text-center md:text-start">Usuários</span>
