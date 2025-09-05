@@ -13,13 +13,21 @@
     ChavePix: string;
     Image:string;
   };
-  let editando={}
+  let excluindo={}
   let users: User[] = [];
   let error = '';
   let loading = true;
   let deletingId: number | null = null; // id em deleção
 
-
+  
+  function deleteorder(id:Number):void{
+    if(excluindo[id]){
+      excluindo[id]=false
+    }else{
+      excluindo[id]=true
+    }
+    console.log(excluindo[id])
+  }
   async function handleDelete(id: number) {
     deletingId = id;
     error = '';
@@ -37,6 +45,9 @@
     try {
       const res = await api.get('/users');
       users = res.data.data;
+      for(let x=0;x<users.length;x++){
+          excluindo[users[x].id]=false
+        }
       console.log(users);
     } catch (e) {
       error = 'Erro ao carregar usuários';
@@ -95,8 +106,15 @@
       </div>
     <div class="grid grid-cols-1 md:grid-cols-2 rounded-sm">
     {#each users as user, i}
-    {#if editando[user.id]}
-      <p>A condição é verdadeira!</p>
+    {#if excluindo[user.id]}
+    <div
+    class="w-full  flex flex-col md:min-h-28 p-6 bg-gray-800 border border-gray-700 shadow-sm rounded-b-sm h-50
+    {i === users.length - 1 && users.length % 2 !== 0 ? 'md:col-span-2' : ''}"
+    id={String(user.id)}>
+      <div class="w-full h-full content-center p-5 text-center flex flex-col"><h1 class="w-full text-base text-white mb-10">Você realmente quer exclui {user.Nome}?</h1>
+        <div class="w-full flex flex-row justify-between"><button class="bg-lime-300 text-gray-900 p-2 rounded-lg w-[45%] text-xl" on:click={()=>handleDelete(user.id)}>sim</button> <button class="bg-red-600 text-gray-900 p-2 rounded-lg w-[45%] text-xl" on:click={()=> deleteorder(user.id)}>não</button></div>
+      </div>
+  </div>
     {:else}
       <div
         class="w-full flex flex-col p-6 bg-gray-800 border border-gray-700 shadow-sm  rounded-b-sm
@@ -113,7 +131,7 @@
         <p class="font-normal text-gray-400">Chave Pix: {user.ChavePix}</p>
         <div class="flex items-end">
           <i on:click={() => goto(`/form/${user.id}`)} class="text-blue-500 hover:text-blue-900 text-xl fa-solid fa-user-pen m-4 w-full"></i>
-          <i on:click={() => handleDelete(user.id)} class="font-medium text-blue-500 hover:text-blue-900 fa-solid fa-trash m-4"></i>
+          <i on:click={() => {deleteorder(user.id)}} class="font-medium text-blue-500 hover:text-blue-900 fa-solid fa-trash m-4"></i>
         </div>
           </div>
         </div>
