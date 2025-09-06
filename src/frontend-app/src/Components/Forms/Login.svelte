@@ -55,6 +55,7 @@
           </button>
           </h1>
             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+
               Login para acesso
             </h1>
           </div>
@@ -76,6 +77,7 @@
             <!-- Campo Senha 5 -->
             <div>
               <label for="password" class="block mb-2 text-sm font-medium text-white">Sua Senha 5</label>
+
               <input type="password" name="password" id="password" placeholder="•••••"
                 class=" border   rounded-lg focus:ring-blue-600  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 required>
@@ -85,7 +87,7 @@
             <div class="flex items-start space-x-2">
               <input id="remember" type="checkbox"
                 class="w-4 h-4 border border-gray-300 rounded focus:ring-3 bg-gray-700 border-gray-600 focus:ring-blue-600 ring-offset-gray-800">
-              <label for="remember" class="text-sm text-white">Lembrar de mim</label>
+              <label for="remember" class="text-sm text-dark">Lembrar de mim</label>
             </div>
 
             <!-- Link Esqueceu a senha -->
@@ -103,6 +105,7 @@
             <p class="text-sm font-light text-white">
               Sem uma conta ainda?
               <a href="/Cadastro" class="font-medium hover:underline text-blue-500 hover:text-blue-700">Crie uma aqui!</a>
+
             </p>
           </form>
         </div>
