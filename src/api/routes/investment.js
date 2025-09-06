@@ -10,16 +10,15 @@ router.post('/', async function(req, res, next) {
         porcentagem,
         DF,
         Nome,
-        preco
-      } = req.body;
-    if(!CPF||!Nome||!Area||!AreaTotal||!porcentagem||!DF||!preco){
+        Compra} = req.body;
+    if(!CPF||!Nome||!Area||!AreaTotal||!porcentagem||!DF){
         return res.status(400).json({
             Sucess:false,
             Message:"Dados nulos",
             Status:400
         })
     }
-    else if(typeof(CPF)!=="string" || typeof(Nome)!=="string" || typeof(Area)!=='number' || typeof(AreaTotal)!=="number" || typeof(porcentagem)!=="number"|| typeof(DF)!="string" || typeof(preco)!="number"){
+    else if(typeof(CPF)!=="string" || typeof(Nome)!=="string" || typeof(Area)!=='number' || typeof(AreaTotal)!=="number" || typeof(porcentagem)!=="number"|| typeof(DF)!="string"){
         return res.status(400).json({
             Sucess:false,
             Message:"Dados Inválidos",
@@ -42,8 +41,8 @@ router.post('/', async function(req, res, next) {
         })   
     }
     const result = await pool.query(
-      `INSERT INTO "Investimento" ("Preco", "Tamanho", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4,$5,$6,$7) RETURNING *`,
-        [preco, AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF]
+      `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4,$5,$6,$7) RETURNING *`,
+        [Compra,AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF]
     );
     return res.status(200).json({
         Sucess:true,
@@ -135,5 +134,64 @@ router.put('/Namesearch', async function(req, res, next) {
         Data:Dados.rows
     })
 })
-
+router.put('/:id', async function(req, res, next) {
+    const { id } = req.params; // pega id de req.params.id
+    console.log(id)
+    const {
+        porcentagem,Nome,CPF,DF,AreaTotal
+    }=req.body
+    if(!CPF||!Nome||!porcentagem||!DF||!AreaTotal){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Dados nulos",
+            Status:400
+        })
+    }
+    else if(typeof(CPF)!=="string" ||typeof(AreaTotal)!=="number" ||typeof(Nome)!=="string" || typeof(porcentagem)!=="number"|| typeof(DF)!="string"){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Dados Inválidos",
+            Status:400
+        })
+    }
+    else if(!ValidationCPF(CPF)){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"CPF inválido",
+            Status:400
+        })
+    }
+    const userId = await pool.query(`SELECT id FROM "Users" WHERE "CPF" = $1`,[CPF]);
+    if(!userId.rows.length){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"CPF não cadastrado",
+            Status:400
+        })   
+    }
+    const result = await pool.query(` UPDATE "Investimento" 
+  SET 
+    "Porcentagem" = $1, 
+    "Nome" = $2, 
+    "Emissor" = $3, 
+    "DF" = $4, 
+    "AreaTotal" = $5 
+  WHERE "id" = $6 
+  RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,id]);
+    if(!userId.rows.length){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Investimento não cadastrado",
+            Status:400
+        })   
+    }
+    else{
+        return res.status(200).json({
+            Sucess:true,
+            Message:"Update sucedido",
+            Status:200,
+            data:result.rows[0]
+        })
+    }
+})
 module.exports = router;
