@@ -39,7 +39,7 @@
     }
     import { onMount } from 'svelte';
     let sexo=false;
-    import img from "../../assets/images/image-removebg-preview (2).png"
+    import img from "../../assets/images/1290988.jpg"
 	import ts from 'typescript';
     onMount(() => {
         const cpfInput = document.getElementById('cpf');

@@ -49,10 +49,25 @@
       <div class="w-full shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-900 border-gray-700 itemns center">
         <div class="p-6 rounded-3xl bg-white space-y-4 md:space-y-6 sm:p-8">
           <div class="flex">
+<<<<<<< HEAD
             <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
+=======
+             <!-- Butão para fechar o modal -->
+            <button id="closeModal" type="button"
+            class="absolute top-3 right-3 text-gray-400 hover:text-gray-900 dark:hover:text-white">
+            ✕
+          </button>
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+>>>>>>> 50eab55f245f3c850fdb6aa8c471348304c2694c
               Login para acesso
             </h1>
           </div>
+          <script>
+            <!-- Script para fechar o modal -->
+            document.getElementById("closeModal").addEventListener("click", () => {
+              document.getElementById("default-modal").classList.add("hidden");
+            });
+          </script>
            <form class="space-y-4 md:space-y-6" method="POST" id="form">
             <!-- Campo CPF -->
             <div>
@@ -91,7 +106,11 @@
             <!-- Link Criar Conta -->
             <p class="text-sm font-light text-gray-400">
               Sem uma conta ainda?
+<<<<<<< HEAD
               <a href="" class="font-medium hover:underline text-blue-500">Crie uma aqui!</a>
+=======
+              <a href="/Cadastro" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Crie uma aqui!</a>
+>>>>>>> 50eab55f245f3c850fdb6aa8c471348304c2694c
             </p>
           </form>
         </div>
