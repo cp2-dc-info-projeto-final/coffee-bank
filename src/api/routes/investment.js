@@ -115,19 +115,19 @@ router.put('/Namesearch', async function(req, res, next) {
         })
     }
     const Dados = await pool.query(`
-  SELECT 
-    "Users"."Nome" AS "DonodoInvestimento", 
-    "Investimento"."Preco",
-    "Investimento"."Tamanho",
-    "Investimento"."Numero",
-    "Investimento"."AreaVendida",
-    "Investimento"."Porcentagem",
-    "Investimento"."Nome",
-    "Investimento"."DF"
-  FROM "Investimento"
-  JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"
-  WHERE "Users"."Nome" ILIKE $1;
-`, [`%${Name}%`]);
+        SELECT 
+        "Users"."Nome" AS "DonodoInvestimento", 
+        "Investimento"."Preco",
+        "Investimento"."Tamanho",
+        "Investimento"."Numero",
+        "Investimento"."AreaVendida",
+        "Investimento"."Porcentagem",
+        "Investimento"."Nome",
+        "Investimento"."DF"
+        FROM "Investimento"
+        JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"
+        WHERE "Users"."Nome" ILIKE $1;
+    `, [`%${Name}%`]);
     return res.json({
         Sucess:true,
         Message:"Consulta sucedida",
