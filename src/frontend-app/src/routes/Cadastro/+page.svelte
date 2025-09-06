@@ -102,11 +102,20 @@
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Impede o envio padrão do form
             enviar(); // Chama sua função personalizada
+            window.scrollTo({ top: 0, behavior: "smooth" }); 
         });
     });
+
+    /*const submitButton = document.getElementById('submit')
+    const backToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" }); 
+         // "smooth" for smooth scrolling
+    };
+    submitButton.addEventListener("click", backToTop);
+    */
 </script>
 
-<div>
+<div id="start">
     <div class="flex-1 flex flex-col">
         <div class="w-full flex min-h-screen" style="background: linear-gradient(to right, #240f00, #615145)">
             <div class="flex shadow md:w-1/2 flex-wrap w-full">
@@ -193,7 +202,7 @@
                                 <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
                             </div>
                             <div class="w-full text-center">
-                                <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
+                                <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
                             </div> 
                         </form>
                     </div>

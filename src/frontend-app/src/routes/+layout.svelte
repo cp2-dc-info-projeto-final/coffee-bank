@@ -25,6 +25,9 @@
 			  <li>
 				<a href="/gerenciamento" class="block py-2 px-3 text-white rounded-sm bg-transparent dark:text-white" aria-current="page"><i class="text-2xl fa-solid fa-user-tie relative z-11"></i></a>
 			  </li>
+				<li>
+				<a href="/Investimentos" class="block py-2 px-3 text-white rounded-sm bg-transparent dark:text-white" aria-current="page"><i class="text-2xl fa-solid fa-money-bill-trend-up relative z-11"></i></a>
+			  </li>
 			</ul>
 		  </div>
 		</div>
