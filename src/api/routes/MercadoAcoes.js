@@ -57,7 +57,7 @@ router.get("/",async function(req,res,next){
         Data:Investimento.rows
     })
 })
-router.put("/price",async function(req,res,next){
+router.put("/filter/price",async function(req,res,next){
     try {
     let { min, max } = req.body;
 
