@@ -25,6 +25,20 @@ router.post('/', async function(req, res, next) {
             Status:400
         })
     }
+    else if(Area<=0||AreaTotal<=0||Compra<=0){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Dados Inválidos",
+            Status:400
+        })
+    }
+    else if (porcentagem>100){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Procentagem superior a 100%",
+            Status:400
+        })
+    }
     else if(!ValidationCPF(CPF)){
         return res.status(400).json({
             Sucess:false,
@@ -136,7 +150,6 @@ router.put('/Namesearch', async function(req, res, next) {
 })
 router.put('/:id', async function(req, res, next) {
     const { id } = req.params; // pega id de req.params.id
-    console.log(id)
     const {
         porcentagem,Nome,CPF,DF,AreaTotal
     }=req.body
@@ -151,6 +164,20 @@ router.put('/:id', async function(req, res, next) {
         return res.status(400).json({
             Sucess:false,
             Message:"Dados Inválidos",
+            Status:400
+        })
+    }
+    else if(porcentagem<=0||AreaTotal<=0){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Dados Inválidos",
+            Status:400
+        }) 
+    }
+    else if (porcentagem>100){
+        return res.status(400).json({
+            Sucess:false,
+            Message:"Procentagem superior a 100%",
             Status:400
         })
     }
