@@ -28,9 +28,9 @@
           e.preventDefault(); // Impede o envio padrão do form
           var pass = document.getElementById("password").value;
           var CPF= document.getElementById("cpf").value;
-          }
+          console.log(CPF)
           try{
-             const result = await authLogin({ cpf, password });
+             const result = await authLogin({ "login":CPF, "password":pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
               if(result.success){
                 //enviarJson(response.data);
@@ -43,6 +43,7 @@
               console.error("Erro ao fazer login:", error);
               alert(data)
           }
+        
       })
   });
 </script>

@@ -255,6 +255,7 @@ router.post('/login', async function(req, res) {
   try {
     const { login, password } = req.body;
     if(!login||!password){
+      console.log(login,password)
       return res.status(401).json({
         success:false,
         message:"Credenciais Nulas"
