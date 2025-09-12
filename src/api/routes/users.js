@@ -277,7 +277,7 @@ router.post('/login', async function(req, res) {
     }
     else{
       result = await pool.query(`SELECT 
-      "Nome", "CPF","ChavePix","Saldo","Senha5" as passwordhash
+      id, "Nome", "CPF","ChavePix","Saldo","Senha5" as passwordhash,"Saldo"
       FROM "Users" 
       WHERE "CPF" = $1`, [login]);
     }
@@ -302,14 +302,13 @@ router.post('/login', async function(req, res) {
       5:"user"
     }
     var user = {...result.rows[0],role:roles[password.length]};
-    console.log(user)
     /*
      verifica a senha passando senha do forntend e hash armazenada
      a partir da hash não se pode descobrir a senha
      mas fornecendo a senha dá para aplicar a hash e ver coincidem
     */
     
-    bcrypt.compare(password, user.passwordhash, (err, isMatch) => {
+    bcrypt.compare(password, user.passwordhash, async (err, isMatch) => {
       if (err) {
         console.error('Erro no bcrypt:', err);
         // https status 500 - internal server error
@@ -326,15 +325,15 @@ router.post('/login', async function(req, res) {
           message: 'Credenciais não cadastradas'
         });
       }
+      let imagem = await axios.put("http://localhost:3001/images", {"path": `uploads/${user.id}/main.png`})
       // Cria o token com as informações do usuário logado e sua chave pública
       const token = jwt.sign(
         { 
-          id: user.id, 
-          login: user.login,
-          email: user.email,
-          // tipo do usuário, que vem do banco
-          role: user.role 
-          // a senha não entra no token para não ser exposta
+          Saldo:user.Saldo,
+          CPF:user.CPF,
+          Name:user.Nome,
+          role: user.role,
+          Imagem:imagem.data.data
         }, 
         process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
         { expiresIn: '30min' } 
