@@ -39,7 +39,7 @@
     }
     import { onMount } from 'svelte';
     let sexo=false;
-    import img from "../../assets/images/image-removebg-preview (2).png"
+    import img from "../../assets/images/1290988.jpg"
 	import ts from 'typescript';
     onMount(() => {
         const cpfInput = document.getElementById('cpf');
@@ -102,17 +102,35 @@
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Impede o envio padrão do form
             enviar(); // Chama sua função personalizada
+            window.scrollTo({ top: 0, behavior: "smooth" }); 
         });
     });
+
+    /*const submitButton = document.getElementById('submit')
+    const backToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" }); 
+         // "smooth" for smooth scrolling
+    };
+    submitButton.addEventListener("click", backToTop);
+    */
 </script>
 
-<div>
+<div id="start">
     <div class="flex-1 flex flex-col">
-        <div class="w-full flex h-screen" style="background: linear-gradient(to right, #240f00, #615145)">
+        <div class="w-full flex min-h-screen" style="background: linear-gradient(to right, #240f00, #615145)">
             <div class="flex shadow md:w-1/2 flex-wrap w-full">
+               
                 <div class="flex items-center justify-center content-center flex-col w-full">
-                    <h2 class="text-2xl font-semibold tracking-tight text-white dark:text-white">Cadastro</h2>
+                    <p class="text-green-500 w-full">{sucesss}</p>
+                    <ol style="list-style: disc" class="text-start w-full ps-6">
+                        {#each dataerros as erro}
+                            <li style="color:red;">{erro}</li>
+                        {/each}
+                    </ol>
+
+                    <h2 class="text-2xl font-semibold tracking-tight text-white">Cadastro</h2>
                     <div class="w-full justify-center content-center my-10 px-5">
+                        
                         <form action="POST" id="meuFormulario">
                             <div>
                                 <Textform 
@@ -162,37 +180,30 @@
                             </div>
                             <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
                                 <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
-                                <span class="text-sm font-medium text-white dark:text-gray-300 mx-2">sexo:</span>
-                                <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-mars"></i></span>
-                                <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                                <span class="text-sm font-medium text-white dark:text-gray-300"><i class="fa-solid fa-venus"></i></span>
+                                <span class="text-sm font-medium text-white mx-2">sexo:</span>
+                                <span class="text-sm font-medium text-white"><i class="fa-solid fa-mars"></i></span>
+                                <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all  peer-checked:bg-blue-600"></div>
+                                <span class="text-sm font-medium text-white"><i class="fa-solid fa-venus"></i></span>
                             </label>
                             <div class="mb-4 flex items-center justify-center w-full">
-                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 my-2 dark:hover:bg-gray-600">
+                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100  my-2">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                         </svg>
-                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                     </div>
                                     <input id="dropzone-file" type="file" class="hidden" />
                                 </label>
                             </div>
                             <div class="flex items-center mb-4">
                                 <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
-                                <label for="checkbox-1" class="ms-2 text-sm text-white font-medium dark:text-gray-300">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline dark:text-blue-500">termos de contrato.</a>.</label>
+                                <label for="checkbox-1" class="ms-2 text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline">termos de contrato.</a>.</label>
                             </div>
                             <div class="w-full text-center">
-                                <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12">
+                                <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
                             </div> 
-                            <p class="text-green-500">{sucesss}</p>
-                            <ol style="list-style: disc">
-                                {#each dataerros as erro}
-                                    <li style="color:red;">{erro}</li>
-                                {/each}
-                            </ol>
-
                         </form>
                     </div>
                 </div>        

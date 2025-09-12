@@ -3,6 +3,8 @@
   import { onMount } from 'svelte';
   import axios from 'axios';
   import { createEventDispatcher } from 'svelte';  
+  import { login as authLogin } from "$lib/auth";
+
   const dispatch = createEventDispatcher();
   function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
     const user = new User(data);
@@ -24,15 +26,16 @@
           
       form.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
-          const data = {
-              Senha5: document.getElementById("password").value,
-              CPF: document.getElementById("cpf").value
-          }
+          var pass = document.getElementById("password").value;
+          var CPF= document.getElementById("cpf").value;
+          console.log(CPF)
           try{
-              const response = await axios.put("http://localhost:3000/users/Login", data);
-              if(response.data.success){
-                enviarJson(response.data);
-                console.log(response.data);
+             const result = await authLogin({ "login":CPF, "password":pass });
+              //const response = await axios.put("http://localhost:3000/users/Login", data);
+              if(result.success){
+                //enviarJson(response.data);
+                console.log(result);
+                goto('/')
               } else {
                   console.log(data,response.data)
               }
@@ -40,56 +43,73 @@
               console.error("Erro ao fazer login:", error);
               alert(data)
           }
+        
       })
   });
 </script>
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
-  <section class="dark:bg-gray-900 w-full h-full" id="login">
+  <section class="bg-gray-900/60 w-full h-full" id="login">
     <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
-      <div class="w-full shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 itemns center">
-        <div class="p-6 rounded-3xl bg-white space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Login para acesso
+      <div class="w-full  md:mt-0 sm:max-w-md xl:p-0  itemns center">
+        <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
+          <div class="flex">
+            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            <button id="closeModal" type="button"
+            class="absolute top-3 right-3 text-gray-400 hover:text-white">
+            ✕
+          </button>
           </h1>
-          <form class="space-y-4 md:space-y-6" method="POST" id="form">
+            <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
+
+              Login para acesso
+            </h1>
+          </div>
+          <script>
+            <!-- Script para fechar o modal -->
+            document.getElementById("closeModal").addEventListener("click", () => {
+              document.getElementById("default-modal").classList.add("hidden");
+            });
+          </script>
+           <form class="space-y-4 md:space-y-6" method="POST" id="form">
             <!-- Campo CPF -->
             <div>
-              <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seu CPF</label>
+              <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900 text-white">Seu CPF</label>
               <input type="text" name="cpf" id="cpf" placeholder="123.456.789-10"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 required>
             </div>
 
             <!-- Campo Senha 5 -->
             <div>
-              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sua Senha 5</label>
+              <label for="password" class="block mb-2 text-sm font-medium text-white">Sua Senha 5</label>
+
               <input type="password" name="password" id="password" placeholder="•••••"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class=" border   rounded-lg focus:ring-blue-600  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                 required>
             </div>
 
             <!-- Checkbox Lembrar de mim -->
             <div class="flex items-start space-x-2">
               <input id="remember" type="checkbox"
-                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
-              <label for="remember" class="text-sm text-gray-900 dark:text-white">Lembrar de mim</label>
+                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 bg-gray-700 border-gray-600 focus:ring-blue-600 ring-offset-gray-800">
+              <label for="remember" class="text-sm text-dark">Lembrar de mim</label>
             </div>
 
             <!-- Link Esqueceu a senha -->
             <div>
-              <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Esqueceu sua senha?</a>
+              <a href="" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
             </div>
 
             <!-- Botão Confirmar -->
             <button type="submit"
-              class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
               Clique Para Confirmar
             </button>
 
             <!-- Link Criar Conta -->
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            <p class="text-sm font-light text-white">
               Sem uma conta ainda?
-              <a href="" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Crie uma aqui!</a>
+              <a href="/Cadastro" class="font-medium hover:underline text-blue-500 hover:text-blue-700">Crie uma aqui!</a>
+
             </p>
           </form>
         </div>

@@ -858,12 +858,6 @@ Criação de automatização de pagamentos
 10. O usuário digitará a senha.
 11. O sistema validará a senha e cadastrará o pagamento automático, além disso exibirá uma mensagem de operação feita com sucesso, e realizará todos os pagamentos nos dias previstos.
 
-<<<<<<< HEAD
-### Fluxo Alternativos
-
-
-### CDU 15
-=======
 #### Fluxo alternativo
 
 ##### CFA-1: Dados incorretos
@@ -978,7 +972,6 @@ Criação de automatização de pagamentos
 9. O sistema abortará a operação e  redirecionará o usuário à página de automatizações de pagamentos.
 
 ### CDU 13
->>>>>>> bc1044d9bdae68c4fad98dad45618941f93ad2e4
 Supervisionamento do saldo
 
 #### Atores
@@ -1374,21 +1367,6 @@ Investimentos em cafezais
    - User
 
 #### Fluxo Principal
-<<<<<<< HEAD
-   1. O sistema irá fornecer um botão de categorização da unidade monetária.
-   2. O usuário irá clicar nesse botão.
-   3. O sistema requisitará a senha de 5 dígitos.
-   4. O usuário digitará a senha.
-   5. O sistema validará a senha.
-   6. O sistema redirecionará o usuário para a página de categorização monetária.
-   7. O sistema fornecerá um botão de gerenciar categorias.
-   8. O usuário clicará nesse botão.
-   9. O usuário será redirecionado para a página de gerenciamento de categorias.
-   10. O sistema exibirá as categorias em lista com um botão de excluir.
-   11. O usuário clicará no botão de excluir.
-   12. O sistema excluirá aquela automatização.
-   13. O sistema exibirá os dados cadastrados.
-=======
 1. O sistema irá fornecer um botão de categorização da unidade monetária.
 2. O usuário irá clicar nesse botão.
 3. O sistema requisitará a senha de 5 dígitos.
@@ -1442,7 +1420,6 @@ Investimentos em cafezais
 5. Ocorre um erro no banco de dados (ex.: violação de chave estrangeira).  
 6. O sistema exibe: "Erro ao excluir a categoria. A categoria está vinculada a dados existentes."
 7. O usuário volta à página principal.  
->>>>>>> 30dd6d5b76fb9fd48cbfc8cb5450046d7a6a8145
 
 ### CDU 18
    Editar Categoria de Unidade Monetária
