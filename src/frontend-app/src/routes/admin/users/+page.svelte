@@ -1,5 +1,7 @@
 <script>
+  import UserList from '../../../Components/userList.svelte';
   import { onMount } from 'svelte';
+  
 
   let users = [];
   let isLoading = true;
@@ -26,6 +28,7 @@
 
       const response = await fetch(`http://localhost:3000/admin/users?${params}`);
       const data = await response.json();
+      console.log(data)
 
       if (data.success) {
         users = data.data;
@@ -113,9 +116,7 @@
       Total: {totalUsers} usuários
     </div>
   </div>
-
-  <!-- Search and Filters -->
-  <div class="bg-white p-6 rounded-lg shadow">
+  <!--<div class="bg-white p-6 rounded-lg shadow">
     <div class="flex flex-col sm:flex-row gap-4">
       <div class="flex-1">
         <label for="search" class="sr-only">Buscar usuários</label>
@@ -145,15 +146,18 @@
         Buscar
       </button>
     </div>
-  </div>
+  </div>-->
+  <UserList />
+  <!-- Search and Filters -->
+</div>
 
-  {#if error}
+  <!-- {#if error}
     <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
       {error}
     </div>
   {/if}
 
-  <!-- Users Table -->
+   Users Table 
   <div class="bg-white shadow overflow-hidden sm:rounded-md">
     {#if isLoading}
       <div class="flex items-center justify-center py-12">
@@ -174,6 +178,7 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
+                 
                   <div class="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
                     <span class="text-amber-600 font-medium text-sm">
                       {user.Nome.charAt(0).toUpperCase()}
@@ -214,7 +219,7 @@
     {/if}
   </div>
 
-  <!-- Pagination -->
+   Pagination 
   {#if totalPages > 1}
     <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       <div class="flex-1 flex justify-between sm:hidden">
@@ -283,7 +288,7 @@
   {/if}
 </div>
 
-<!-- Delete Confirmation Modal -->
+ Delete Confirmation Modal 
 {#if showDeleteModal && userToDelete}
   <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -318,3 +323,4 @@
     </div>
   </div>
 {/if}
+-->

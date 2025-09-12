@@ -102,6 +102,10 @@ router.post('/', async function(req, res, next) {
     
     // Verificar se o CPF já está em uso
     const existingUser = await pool.query('SELECT id FROM "Users" WHERE "CPF" = $1', [CPF]);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5811c51c84d0f8176e1dac3ae757e2be95f13648
     if (existingUser.rows.length > 0) {
       return res.status(409).json({
         success: false,
