@@ -3,6 +3,8 @@
   import { onMount } from 'svelte';
   import axios from 'axios';
   import { createEventDispatcher } from 'svelte';  
+  import { login as authLogin } from "$lib/auth";
+
   const dispatch = createEventDispatcher();
   function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
     const user = new User(data);
@@ -24,15 +26,16 @@
           
       form.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
-          const data = {
-              Senha5: document.getElementById("password").value,
-              CPF: document.getElementById("cpf").value
-          }
+          var pass = document.getElementById("password").value;
+          var CPF= document.getElementById("cpf").value;
+          console.log(CPF)
           try{
-              const response = await axios.put("http://localhost:3000/users/Login", data);
-              if(response.data.success){
-                enviarJson(response.data);
-                console.log(response.data);
+             const result = await authLogin({ "login":CPF, "password":pass });
+              //const response = await axios.put("http://localhost:3000/users/Login", data);
+              if(result.success){
+                //enviarJson(response.data);
+                console.log(result);
+                goto('/')
               } else {
                   console.log(data,response.data)
               }
@@ -40,6 +43,7 @@
               console.error("Erro ao fazer login:", error);
               alert(data)
           }
+        
       })
   });
 </script>

@@ -66,7 +66,7 @@
         const form = document.getElementById("formularioInvestimentos");
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Impede o envio padrão do form
-            enviar(); // Chama sua função personalizada
+            enviar();
             window.scrollTo({ top: 0, behavior: "smooth" }); 
         });
     });
@@ -142,7 +142,9 @@
         </div>
       </div>
 
-      
+       <div class="w-full text-center">
+        <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
+      </div> 
     </div>
                    
   </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import User from "../Class/User";
     import { createEventDispatcher } from 'svelte';  
+
     const dispatch = createEventDispatcher();
     function login(event: CustomEvent<User>) {
         const user:User = event.detail.detail.User;
