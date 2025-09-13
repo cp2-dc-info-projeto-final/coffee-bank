@@ -2,6 +2,7 @@
   import User from '../../Class/User';
   import { onMount } from 'svelte';
   import axios from 'axios';
+  import { goto } from '$app/navigation';
   import { createEventDispatcher } from 'svelte';  
   import { login as authLogin } from "$lib/auth";
 
@@ -35,7 +36,7 @@
               if(result.success){
                 //enviarJson(response.data);
                 console.log(result);
-                goto('/')
+                goto('/Users')
               } else {
                   console.log(data,response.data)
               }

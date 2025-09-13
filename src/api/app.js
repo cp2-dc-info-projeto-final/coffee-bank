@@ -31,6 +31,7 @@ app.use("/mercado", mercado);
 app.use('/admin', adminRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  res.setHeader("Content-Type", "application/json; charset=UTF-8");
   next(createError(404));
 });
 
