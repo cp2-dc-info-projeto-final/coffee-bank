@@ -325,7 +325,11 @@ router.post('/login', async function(req, res) {
           message: 'Credenciais não cadastradas'
         });
       }
-      let imagem = await axios.put("http://localhost:3001/images", {"path": `uploads/${user.id}/main.png`})
+      let imagem=null
+      try{
+        imagem = await axios.put("http://localhost:3001/images", {"path": `uploads/${user.id}/main.png`})
+      }
+      catch(e){}
       // Cria o token com as informações do usuário logado e sua chave pública
       const token = jwt.sign(
         { 
@@ -333,7 +337,7 @@ router.post('/login', async function(req, res) {
           CPF:user.CPF,
           Name:user.Nome,
           role: user.role,
-          Imagem:imagem.data.data
+          Imagem:imagem ? imagem.data.data : null
         }, 
         process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
         { expiresIn: '30min' } 
