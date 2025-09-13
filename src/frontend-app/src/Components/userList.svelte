@@ -91,8 +91,7 @@
     <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-white bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
   <div class="w-full text-sm md:my-5 text-left rtl:text-right text-gray-400 " >
     <div class="flex flex-col p-5 items-center text-lg font-semibold text-left rtl:text-right text-white bg-gray-800 md:flex-row md:justify-between md:text-start rounded-t-lg">
-      <span class="text-xl text-center md:text-start">Usuários</span>
-      <button on:click={() => goto(`/${user.id}`)} class=" hover: px-4 cursor-pointer">
+      <button on:click={() => goto(`/${user.id}`)} class=" hover: px-4 cursor-pointer w-full">
         
         <label for="default-search" class="mb-2 text-sm font-medium text-white sr-only  text-xml">Search</label>
         <div class="relative">
@@ -139,7 +138,7 @@
     {/if}
     {/each }
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
+  </div>
+  </div>
+  </div>
+  </div>
