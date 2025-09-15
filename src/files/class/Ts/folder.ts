@@ -32,7 +32,7 @@ class Folder {
     }
   }
 
-  private async pastaExiste(): Promise<boolean> {
+  public async pastaExiste(): Promise<boolean> {
     try {
       await access(this.path, constants.F_OK);
       return true;

@@ -4,6 +4,9 @@ const pool = require('../db/config');
 const ValidationCPF = require('../Functions/CPFValidation');
 const bcrypt = require('bcrypt');
 const axios = require("axios")
+const jwt = require('jsonwebtoken');
+const { verifyToken, isAdmin } = require('../middlewares/auth');
+
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
   try {
@@ -248,71 +251,116 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 
-router.put('/Login', async function(req, res, next) {
+router.post('/login', async function(req, res) {
   try {
-    var { CPF, Senha5 } = req.body;
-    console.log(CPF)
-    // transformar CPF para o formato correto
+    const { login, password } = req.body;
+    if(!login||!password){
+      console.log(login,password)
+      return res.status(401).json({
+        success:false,
+        message:"Credenciais Nulas"
+      }) 
+    }
+    if(typeof(login)!=="string" ||typeof(password) !=="string"||!ValidationCPF(login)|| password.length!==5 && password.length!==12){
+      console.log(!ValidationCPF(login))
+      return res.status(400).json({
+        success:false,
+        message:"Credenciais Inválidas"
+      })
+    }
+    var result=null;
+    if(password.length==12){
+      result = await pool.query(`SELECT 
+      "Nome", "CPF", "Senha12" as passwordHash
+      FROM "Admins" 
+      WHERE "CPF" = $1`, [login]);
+    }
+    else{
+      result = await pool.query(`SELECT 
+      id, "Nome", "CPF","ChavePix","Saldo","Senha5" as passwordhash,"Saldo"
+      FROM "Users" 
+      WHERE "CPF" = $1`, [login]);
+    }
+    // obtém o usuário do banco de dados
 
-    if (!CPF || !Senha5) {
-      return res.status(400).json({
-        success: false,
-        message: 'Campos obrigatórios não preenchidos'
-      });
-    }
-    if(!ValidationCPF(CPF)) {
-      return res.status(400).json({
-        success: false,
-        message: 'CPF inválido'
-      });
-    }
-    console.log(`SELECT "CPF", "Nome", "Imagem", "Sex","Senha5" FROM "Users" WHERE "CPF" = $1`)
-    const result = await pool.query(
-      `SELECT * FROM "Users" WHERE "CPF" = $1`,
-      [CPF]
-    );
+    /*
+     tratar login inválido igual senha incorreta
+     confere maior segurança por não expor indiretamente
+     se existe uma conta com aquele login 
+    */
     if (result.rows.length === 0) {
-      console.log(result)
+      // https status 401 - unauthorized
       return res.status(401).json({
         success: false,
-        message: 'CPF incorreto'
+        message: 'Credenciais não cadastradas'
       });
     }
-    try{
-      const image = await axios.put('http://localhost:3001/images', {
-        path: `uploads/${result.rows[0].id}/main.png`
-      });
-      var Image=image.data.data
-    }catch(e){
-      console.error(e)
-      var Image=""
-    }
-    const isValidPassword = await bcrypt.compare(Senha5, result.rows[0].Senha5)
-    if (!isValidPassword) {
-      return res.status(401).json({
-        success: false,
-        message: 'Senha incorreta'
-      });
-    }
-    
-    const DataSend={
-      CPF: result.rows[0].CPF,
-      Nome: result.rows[0].Nome,
-      Imagem: Image,
-      Sex: result.rows[0].Sex
-    }
-    res.json({
-      success: true,
-      message: 'Login bem-sucedido',
-      ...DataSend
-    });
-  } catch (err) {
-    console.error(err)
-    next(err);
-  }
-});
 
-module.exports = router;
+    // Objeto de usuário
+    const roles={
+      12:"admin",
+      5:"user"
+    }
+    var user = {...result.rows[0],role:roles[password.length]};
+    /*
+     verifica a senha passando senha do forntend e hash armazenada
+     a partir da hash não se pode descobrir a senha
+     mas fornecendo a senha dá para aplicar a hash e ver coincidem
+    */
+    
+    bcrypt.compare(password, user.passwordhash, async (err, isMatch) => {
+      if (err) {
+        console.error('Erro no bcrypt:', err);
+        // https status 500 - internal server error
+        return res.status(500).json({
+          success: false,
+          message: 'Erro interno do servidor'
+        });
+      }
+      
+      if (!isMatch) {
+        // https status 401 - unauthorized
+        return res.status(401).json({
+          success: false,
+          message: 'Credenciais não cadastradas'
+        });
+      }
+      let imagem=null
+      try{
+        imagem = await axios.put("http://localhost:3001/images", {"path": `uploads/${user.id}/main.png`})
+      }
+      catch(e){}
+      // Cria o token com as informações do usuário logado e sua chave pública
+      const token = jwt.sign(
+        { 
+          Saldo:user.Saldo,
+          CPF:user.CPF,
+          Name:user.Nome,
+          role: user.role,
+          Imagem:imagem ? imagem.data.data : null
+        }, 
+        process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
+        { expiresIn: '30min' } 
+      );
+
+      // O token contém as informções do usuário com a chave para posterior validação
+      return res.status(200).json({
+        success: true,
+        token: token,
+        message: 'Autenticado com sucesso!'
+      });
+    });
+
+  } catch (error) {
+    console.error('Erro ao autenticar usuário:', error);
+    // http status 500 - Internal Server Error
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+  
+});
 
 /*Hora Da Consulta*/
 router.put('/search', async function(req, res, next) {
@@ -356,3 +404,4 @@ router.put('/search', async function(req, res, next) {
     });
   }
 });
+module.exports = router;

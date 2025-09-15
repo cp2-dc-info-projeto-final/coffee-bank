@@ -23,7 +23,7 @@ Realização de Gerenciamentos dos usuários via admin
 # RF08 Gerenciamento de senhas 
 Alteração e gerenciamentos das senhas de login daquela conta
 
-# RF09 Buscar consultar usuários 
+# RF09 Buscar consultar usuários
 
 # RF10 Supervisionamento do saldo de café
 Supervisão do gasto do seu café ao longo do tempo

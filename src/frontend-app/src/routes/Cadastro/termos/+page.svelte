@@ -81,4 +81,3 @@ Essa postura se dá pela indignação da alta do café e nosso prazer em beber u
         Concedo ao usuário a certeza de que não usaremos seus dados para benefício de terceiros.
     </li>
 </ol>
-<a href="../Cadastro" class=""><i class="fa-solid fa-arrow-left"></i></a>
