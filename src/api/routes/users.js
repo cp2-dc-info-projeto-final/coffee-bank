@@ -76,7 +76,6 @@ router.post('/', async function(req, res, next) {
       Senha5conf,
       Senha7,
       Senha7conf,
-      Sex
       } = req.body;
     // Validação básica
     if (!CPF ||
@@ -84,8 +83,7 @@ router.post('/', async function(req, res, next) {
       !Senha5||
       !Senha5conf||
       !Senha7||
-      !Senha7conf||
-    Sex === undefined) {
+      !Senha7conf) {
       console.log("fudeu tudo")
       return res.status(400).json({
         success: false,
@@ -111,9 +109,9 @@ router.post('/', async function(req, res, next) {
     const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
     const Senha7_criptografada = await bcrypt.hash(Senha7, 10)
     const result = await pool.query(
-      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
-   VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
-  [CPF, Nome, Senha5_criptografada, Senha7_criptografada,Sex]
+      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix") 
+   VALUES ($1, $2, 500, $3, $4,$1) RETURNING *`,
+  [CPF, Nome, Senha5_criptografada, Senha7_criptografada]
     );
     if(file){
       try{

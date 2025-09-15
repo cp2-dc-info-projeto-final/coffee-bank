@@ -20,8 +20,7 @@ CREATE TABLE "public"."Users" (
   "Imagem" VARCHAR(255),
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
-  "ChavePix" VARCHAR(255) NOT NULL,
- 	"Sex" Boolean NOT NULL
+  "ChavePix" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "public"."Admins" (
@@ -62,7 +61,7 @@ CREATE TABLE "public"."Investimento" (
   "Preco" INTEGER NOT NULL,
   "Tamanho" NUMERIC NOT NULL,
   "Numero" INTEGER NOT NULL,
-  "AreaVendida" VARCHAR(255),
+  "AreaVendida" NUMERIC NOT NULL,
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Emissor" INTEGER NOT NULL REFERENCES "Users"("id") ON DELETE CASCADE,

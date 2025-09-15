@@ -4,40 +4,50 @@
   let sucesss:string=""
   let dataerros:string[] = [];
   import { onMount } from 'svelte';
+  let areaVendidaValue =0;
+  let precoValue =0;
+  let porcentagemValue =0;
+
   import ts from 'typescript';
 
+  function Validationdata(data:any) {
+        let erros=[];
+        if(!data.Preco || !data.areaVendida || !data.Nome || !data.DF || !data.Tamanho || !data.Porcentagem){
+            erros.push("Preencha todos os campos obrigatórios.");
+        }
+        
+        if(document.getElementById("checkbox-1").checked === false){
+            erros.push("Você deve aceitar os termos de contrato.");
+        }
+        if(data.Porcentagem > 100 ){
+            erros.push("As senhas devem ter 5 e 7 dígitos respectivamente.");
+        }
+        if(/^\d+$/.test(data.Senha5) === false || /^\d+$/.test(data.Senha7) === false){
+            erros.push("As senhas devem conter apenas números.");
+        }
+        dataerros = erros;
+    }
+
     onMount(() => {
-        const cpfInput = document.getElementById('cpf');
-        cpfInput.addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, '');
-
-        if (value.length > 11) value = value.slice(0, 11);
-
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-
-        e.target.value = value;
-    });
-        const labels = ["cpf", "nome", "pin5", "pin7"];
+     
+        const labels = ["preco", "area", "nome", "df", "tamanho", "porcentagem"];
         
         async function enviar() {
             // Obtém os dados do formulário
             const data = {
-                file: await fileConvertBase64(document.getElementById("dropzone-file").files),
-                Senha5: document.getElementById("pin5").value,
-                Senha7: document.getElementById("pin7").value,
+  
+                Preco: document.getElementById("preco").value,
+                areaVendida: document.getElementById("area").value,
                 Nome: document.getElementById("nome").value,
-                CPF: document.getElementById("cpf").value,
-                Senha7conf:document.getElementById("pin7-confirm").value,
-                Senha5conf:document.getElementById("pin5-confirm").value,
-                Sex: sexo
-            };
+                DF: document.getElementById("df").value,
+                Tamanho: document.getElementById("tamanho").value,
+                Porcentagem: document.getElementById("porcentagem").value
+              };
             console.log(data);
             Validationdata(data);
             if(!dataerros.length){
             // Envia os dados via POST
-                const resposta= await fetch("http://localhost:3000/users", {
+                const resposta= await fetch("http://localhost:3000/investment", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -51,13 +61,12 @@
                 }
                 else if(json.success){
                     sucesss=json.message
-                    document.getElementById("dropzone-file").files=null
-                    document.getElementById("pin5").value=""
-                    document.getElementById("pin7").value=""
+                    document.getElementById("preco").value=""
+                    document.getElementById("area").value=""
                     document.getElementById("nome").value=""
-                    document.getElementById("cpf").value=""
-                    document.getElementById("pin7-confirm").value=""
-                    document.getElementById("pin5-confirm").value=""
+                    document.getElementById("df").value=""
+                    document.getElementById("tamanho").value=""
+                    document.getElementById("porcentagem").value=""
                 }
 
             }
@@ -69,6 +78,15 @@
             enviar();
             window.scrollTo({ top: 0, behavior: "smooth" }); 
         });
+        document.getElementById("preco")?.addEventListener("input", async function(){
+          precoValue = document.getElementById("preco").value;
+        })
+        document.getElementById("porcentagem")?.addEventListener("input", async function(){
+          porcentagemValue = document.getElementById("porcentagem").value;
+        })
+        document.getElementById("area")?.addEventListener("input", async function(){
+          areaVendidaValue = document.getElementById("area").value;
+        })
     });
 </script>
 <div class="bg-gray-900 my-5 py-3 h-full mx-10 rounded-lg">
@@ -78,8 +96,8 @@
         <div class="text-xl">Cadastro de Fundo Imobiliário</div>
       </div>
 
-      <div class="flex content-stretch">
-        <div class="flex flex-col my-15 gap-9">
+      <div class="flex justify-around ">
+        <div class="flex flex-col my-15 gap-9 w-full mx-5">
 
           <Textform 
             Content="Nome"
@@ -98,55 +116,39 @@
             Name="df"
             id="df"
           />
-        </div>
 
-        <div class="flex flex-col gap-0 my-0">
-          <div class="text-lg text-white m-3">
+          <Textform 
+            Content="Área Vendida"
+            Name="area"
+            id="area"
+          />
 
-            <div class="text-lg text-white m-3">Preço</div>
-            <label for="labels-range-input" class="sr-only">Labels range</label>
-            <input id="labels-range-input" type="range" value="1000" min="100" max="1500" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer ">
-              <div class=" flex content-evenly w-full">
-                <span class="text-sm text-gray-500  relative  ">Min ($100)</span>
-                <span class="text-sm text-gray-500  relative   ">$500</span>
-                <span class="text-sm text-gray-500  relative">$1000</span>
-                <span class="text-sm text-gray-500  relative  ">Max ($1500)</span>
-              </div>
-            </div>
+          <Textform 
+            Content="Preço"
+            Name="preco"
+            id="preco"
+          />
 
           <div class="text-lg text-white m-3">
 
             <div class="text-lg text-white m-3">Porcentagem</div>
             <label for="labels-range-input" class="sr-only">Labels range</label>
-            <input id="labels-range-input" type="range" value="100" min="1" max="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer ">
+             <input id="porcentagem" type="range" value="1" min="1" max="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer ">
               <div class=" flex content-evenly w-full">
-                <span class="text-sm text-gray-500  relative start-0  ">Min (1%)</span>
-                <span class="text-sm text-gray-500  relative start-1/3    ">25%</span>
-                <span class="text-sm text-gray-500  relative start-2/3">50%</span>
-                <span class="text-sm text-gray-500  relative end-0  ">Max (100%)</span>
+                <span class="text-xl text-gray-500  relative start-0  ">{porcentagemValue}%</span>
               </div>
-            </div>
-          
-          
-          
-          <div class="text-lg text-white m-3">
-
-          <div class="text-lg text-white m-3">
-           Área vendida </div>
-          <label for="labels-range-input" class="sr-only">Labels range</label>
-          <input id="labels-range-input" type="range" value="1000" min="100" max="1500" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-          <span class="text-sm text-gray-500 dark:text-gray-400 relative start-0 -bottom-6">Min (10)</span>
-          <span class="text-sm text-gray-500 dark:text-gray-400 relative start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
-          <span class="text-sm text-gray-500 dark:text-gray-400 relative start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
-          <span class="text-sm text-gray-500 dark:text-gray-400 relative end-0 -bottom-6">Max ($1500)</span>
         </div>
-      </div>
+        </div>
 
-       <div class="w-full text-center">
-        <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
-      </div> 
+        
+
+        
+
+       
     </div>
-                   
+    <div class="w-full text-center my-5">
+      <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
+    </div>  
   </div>
   </form>
 </div>

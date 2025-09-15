@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
     let user = {};
     let largura;
+    let navOnSide = false;
     import defaultImage from "../../assets/images/defaultUser.jpg"
 	import { goto } from "$app/navigation";
     async function loading() {
@@ -27,16 +28,20 @@
 </script>
 <svelte:window bind:innerWidth={largura} />
 <nav class="flex flex-row w-full bg-[#3a1800b7] px-4 py-4 justify-between">
-    <div class="w-max flex">
+    <div class="w-max flex" on:click={navOnSide=true}>
         <img src={user.Imagem ? user.Imagem : defaultImage} class="rounded-full w-[75px] h-[75px] aspect-square">
         <div class="w-max flex flex-col text-white ps-6 justify-center">
             <span class="md:text-2xl" ia-label={user.Name}>{largura<450 ?user.firstName : user.Name}</span>
             <span class="md:text-2xl">{user.CPF}</span>
         </div>
     </div>
-    <div class="w-max flex flex-col justify-center md:pe-4">
-        <i class="fa-solid fa-right-from-bracket text-white text-5xl hover:text-gray-300 hover:cursor-pointer" on:click={logout}></i>
+    <div class="w-max flex col justify-center md:pe-4">
+        <i class="fa-solid fa-money-bill-trend-up text-white text-5xl hover:text-gray-300 hover:cursor-pointer mx-3" on:click={goto('/Investimentos')}></i>
+        <i class="fa-solid fa-right-from-bracket text-white text-5xl hover:text-gray-300 hover:cursor-pointer mx-3" on:click={logout}></i>
     </div>
+    {#if navOnSide}
+        <div class="h-screen bg-[#3a1800b7] w-10"></div>
+    {/if}
 </nav>
 <style>
 </style>

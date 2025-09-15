@@ -39,7 +39,6 @@
         });
     }
     import { onMount } from 'svelte';
-    let sexo=false;
     import img from "../../assets/images/1290988.jpg"
 	import ts from 'typescript';
     onMount(() => {
@@ -66,8 +65,7 @@
                 Nome: document.getElementById("nome").value,
                 CPF: document.getElementById("cpf").value,
                 Senha7conf:document.getElementById("pin7-confirm").value,
-                Senha5conf:document.getElementById("pin5-confirm").value,
-                Sex: sexo
+                Senha5conf:document.getElementById("pin5-confirm").value
             };
             console.log(data);
             Validationdata(data);
@@ -181,13 +179,6 @@
                                         type="password"
                                     />
                                 </div>
-                                <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
-                                    <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
-                                    <span class="text-sm font-medium text-white mx-2">sexo:</span>
-                                    <span class="text-sm font-medium text-white"><i class="fa-solid fa-mars"></i></span>
-                                    <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all  peer-checked:bg-blue-600"></div>
-                                    <span class="text-sm font-medium text-white"><i class="fa-solid fa-venus"></i></span>
-                                </label>
                                 <div class="mb-4 flex items-center justify-center w-full">
                                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100  my-2">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">

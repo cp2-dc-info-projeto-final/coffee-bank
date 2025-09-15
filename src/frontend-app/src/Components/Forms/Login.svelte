@@ -12,19 +12,14 @@
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
   onMount(() => {
-      const cpfInput = document.getElementById('cpf');
-      const form = document.getElementById("form");
-      cpfInput.addEventListener('input', function (e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.length > 11) value = value.slice(0, 11);
-
-          value = value.replace(/(\d{3})(\d)/, '$1.$2');
-          value = value.replace(/(\d{3})(\d)/, '$1.$2');
-          value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-
-          });
-          
-          
+      const form = document.getElementById("form");          
+      document.getElementById('cpf').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        e.target.value = value;
+      });    
       form.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
           var pass = document.getElementById("password").value;
@@ -38,11 +33,11 @@
                 console.log(result);
                 goto('/Users')
               } else {
-                  console.log(data,response.data)
+                  console.log(result,result.data)
               }
           } catch (error) {
               console.error("Erro ao fazer login:", error);
-              alert(data)
+              alert(result)
           }
         
       })
