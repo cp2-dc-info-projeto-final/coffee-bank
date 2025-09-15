@@ -38,11 +38,11 @@
                 console.log(result);
                 goto('/Users')
               } else {
-                  console.log(data,response.data)
+                  console.log(result,result.data)
               }
           } catch (error) {
               console.error("Erro ao fazer login:", error);
-              alert(data)
+              alert(result)
           }
         
       })
