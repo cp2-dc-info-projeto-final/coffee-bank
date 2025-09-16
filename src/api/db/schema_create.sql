@@ -81,7 +81,7 @@ CREATE TABLE "public"."CarteiraInvestimento" (
   "Investimento_id" INTEGER NOT NULL REFERENCES "Investimento"("id") ON DELETE CASCADE,
   "Carteira_id" INTEGER NOT NULL REFERENCES "Carteira"("id"),
   "DataCriacao" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "Area" INTEGER NOT NULL
+  "Area" Numeric NOT NULL
 );
 
 CREATE TABLE "public"."Categoria" (
