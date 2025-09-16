@@ -24,7 +24,13 @@
 
           });
           
-          
+      document.getElementById('cpf').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // remove tudo que não é número
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        e.target.value = value;
+      });
       form.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
           var pass = document.getElementById("password").value;
