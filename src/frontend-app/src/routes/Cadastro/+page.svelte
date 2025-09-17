@@ -4,28 +4,68 @@
     let dataerros:string[] = [];
     import Nav from "../../Components/Navs/Main.svelte"
     import ValidationCPF from "../../Functions/CPFValidation";
+    // Field-level errors
+    let errors: Record<string, string> = {
+        Nome: "",
+        CPF: "",
+        Senha5: "",
+        Senha5conf: "",
+        Senha7: "",
+        Senha7conf: "",
+        termos: "",
+        file: ""
+    };
+    let selectedFileName: string = "";
+    // Toast state
+    type ToastType = 'info' | 'success' | 'error';
+    let toastVisible: boolean = false;
+    let toastMessages: string[] = [];
+    let toastType: ToastType = 'info';
+    let toastTimeout: any;
+    function showToast(messages: string | string[], type: ToastType = 'info', durationMs: number = 5000) {
+        toastMessages = Array.isArray(messages) ? messages : [messages];
+        toastType = type;
+        toastVisible = true;
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => { toastVisible = false; }, durationMs);
+    }
     function Validationdata(data:any) {
-        let erros=[];
-        if(!data.CPF || !data.Nome || !data.Senha5 || !data.Senha5conf || !data.Senha7 || !data.Senha7conf){
-            erros.push("Preencha todos os campos obrigatórios.");
+        errors = { Nome: "", CPF: "", Senha5: "", Senha5conf: "", Senha7: "", Senha7conf: "", termos: "", file: "" };
+
+        if(!data.Nome){ errors.Nome = "Obrigatório"; }
+        if(!data.CPF){ errors.CPF = "Obrigatório"; }
+        if(!data.Senha5){ errors.Senha5 = "Obrigatório"; }
+        if(!data.Senha5conf){ errors.Senha5conf = "Obrigatório"; }
+        if(!data.Senha7){ errors.Senha7 = "Obrigatório"; }
+        if(!data.Senha7conf){ errors.Senha7conf = "Obrigatório"; }
+
+        const termosChecked = (document.getElementById("checkbox-1") as HTMLInputElement)?.checked === true;
+        if(!termosChecked){ errors.termos = "Aceite os termos"; }
+
+        if(data.CPF && ValidationCPF(data.CPF) === false){
+            errors.CPF = "CPF inválido";
         }
-        
-        if(document.getElementById("checkbox-1").checked === false){
-            erros.push("Você deve aceitar os termos de contrato.");
+        if(data.Senha5 && data.Senha5.length !== 5){
+            errors.Senha5 = "Deve ter 5 dígitos";
         }
-        if(data.Senha5 !== data.Senha5conf || data.Senha7 !== data.Senha7conf){
-            erros.push("As senhas não conferem.");
+        if(data.Senha7 && data.Senha7.length !== 7){
+            errors.Senha7 = "Deve ter 7 dígitos";
         }
-        if(ValidationCPF(data.CPF) === false){
-            erros.push("CPF inválido.");
+        if((data.Senha5 && !/^\d+$/.test(data.Senha5))){
+            errors.Senha5 = "Apenas números";
         }
-        if(data.Senha5.length !== 5 || data.Senha7.length !== 7){
-            erros.push("As senhas devem ter 5 e 7 dígitos respectivamente.");
+        if((data.Senha7 && !/^\d+$/.test(data.Senha7))){
+            errors.Senha7 = "Apenas números";
         }
-        if(/^\d+$/.test(data.Senha5) === false || /^\d+$/.test(data.Senha7) === false){
-            erros.push("As senhas devem conter apenas números.");
+        if((data.Senha5 && data.Senha5conf) && data.Senha5 !== data.Senha5conf){
+            errors.Senha5conf = "Não confere";
         }
-        dataerros = erros;
+        if((data.Senha7 && data.Senha7conf) && data.Senha7 !== data.Senha7conf){
+            errors.Senha7conf = "Não confere";
+        }
+
+        // keep legacy array cleared (not used in UI anymore)
+        dataerros = [];
     }
     function fileConvertBase64(blob: Blob[]): Promise<string> {
         if (blob.length === 0) {
@@ -43,35 +83,48 @@
     import img from "../../assets/images/1290988.jpg"
 	import ts from 'typescript';
     onMount(() => {
-        const cpfInput = document.getElementById('cpf');
-        cpfInput.addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, '');
+        const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
+        if (cpfInput) {
+            cpfInput.addEventListener('input', function (e) {
+                const target = e.target as HTMLInputElement | null;
+                if (!target) return;
+                let value = target.value.replace(/\D/g, '');
 
-        if (value.length > 11) value = value.slice(0, 11);
+                if (value.length > 11) value = value.slice(0, 11);
 
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
-        e.target.value = value;
-    });
+                target.value = value;
+            });
+        }
         const labels = ["cpf", "nome", "pin5", "pin7"];
         
         async function enviar() {
             // Obtém os dados do formulário
+            const dropEl = document.getElementById("dropzone-file") as HTMLInputElement | null;
+            const pin5El = document.getElementById("pin5") as HTMLInputElement | null;
+            const pin7El = document.getElementById("pin7") as HTMLInputElement | null;
+            const nomeEl = document.getElementById("nome") as HTMLInputElement | null;
+            const cpfEl = document.getElementById("cpf") as HTMLInputElement | null;
+            const pin7cEl = document.getElementById("pin7-confirm") as HTMLInputElement | null;
+            const pin5cEl = document.getElementById("pin5-confirm") as HTMLInputElement | null;
+
+            const filesArray: Blob[] = Array.from(dropEl?.files ?? []);
             const data = {
-                file: await fileConvertBase64(document.getElementById("dropzone-file").files),
-                Senha5: document.getElementById("pin5").value,
-                Senha7: document.getElementById("pin7").value,
-                Nome: document.getElementById("nome").value,
-                CPF: document.getElementById("cpf").value,
-                Senha7conf:document.getElementById("pin7-confirm").value,
-                Senha5conf:document.getElementById("pin5-confirm").value,
+                file: await fileConvertBase64(filesArray),
+                Senha5: pin5El?.value ?? "",
+                Senha7: pin7El?.value ?? "",
+                Nome: nomeEl?.value ?? "",
+                CPF: cpfEl?.value ?? "",
+                Senha7conf: pin7cEl?.value ?? "",
+                Senha5conf: pin5cEl?.value ?? "",
                 Sex: sexo
             };
             console.log(data);
             Validationdata(data);
-            if(!dataerros.length){
+            if(Object.values(errors).every(v => v === "")){
             // Envia os dados via POST
                 const resposta= await fetch("http://localhost:3000/users", {
                     method: "POST",
@@ -83,28 +136,51 @@
                 const json = await resposta.json();
                 console.log(json.sucesss, json.message);
                 if(!json.success){
-                    dataerros=[json.message];
+                    // fallback to show as heading-level message
+                    sucesss="";
+                    errors.Nome = errors.Nome || json.message;
+                    showToast(json.message ? [json.message] : ['Ocorreu um erro ao cadastrar.'], 'error');
                 }
                 else if(json.success){
                     sucesss=json.message
-                    document.getElementById("dropzone-file").files=null
-                    document.getElementById("pin5").value=""
-                    document.getElementById("pin7").value=""
-                    document.getElementById("nome").value=""
-                    document.getElementById("cpf").value=""
-                    document.getElementById("pin7-confirm").value=""
-                    document.getElementById("pin5-confirm").value=""
+                    if (dropEl) dropEl.value = "";
+                    if (pin5El) pin5El.value = "";
+                    if (pin7El) pin7El.value = "";
+                    if (nomeEl) nomeEl.value = "";
+                    if (cpfEl) cpfEl.value = "";
+                    if (pin7cEl) pin7cEl.value = "";
+                    if (pin5cEl) pin5cEl.value = "";
+                    selectedFileName="";
+                    errors = { Nome: "", CPF: "", Senha5: "", Senha5conf: "", Senha7: "", Senha7conf: "", termos: "", file: "" };
+                    showToast(json.message || 'Cadastro realizado com sucesso!', 'success');
                 }
 
             }
+            else {
+                const labels: Record<string,string> = { Nome: 'Nome', CPF: 'CPF', Senha5: 'Senha 5 dígitos', Senha5conf: 'Confirmar senha 5', Senha7: 'Senha 7 dígitos', Senha7conf: 'Confirmar senha 7', termos: 'Termos de contrato', file: 'Arquivo' };
+                const list = Object.entries(errors)
+                    .filter(([_, msg]) => !!msg)
+                    .map(([key, msg]) => `${labels[key] || key}: ${msg}`);
+                showToast(list.length ? list : ['Verifique os campos em vermelho e tente novamente.'], 'error');
+            }
         }
 
-        const form = document.getElementById("meuFormulario");
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Impede o envio padrão do form
-            enviar(); // Chama sua função personalizada
-            window.scrollTo({ top: 0, behavior: "smooth" }); 
-        });
+        const form = document.getElementById("meuFormulario") as HTMLFormElement | null;
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Impede o envio padrão do form
+                enviar(); // Chama sua função personalizada
+                window.scrollTo({ top: 0, behavior: "smooth" }); 
+            });
+        }
+
+        const fileInput = document.getElementById("dropzone-file") as HTMLInputElement | null;
+        if (fileInput) {
+            fileInput.addEventListener('change', () => {
+                const file = fileInput.files && fileInput.files[0];
+                selectedFileName = file ? file.name : "";
+            });
+        }
     });
 
     /*const submitButton = document.getElementById('submit')
@@ -124,14 +200,28 @@
                 <div class="flex shadow md:w-1/2 flex-wrap w-full h-full">
                    
                     <div class="flex items-center justify-center content-center flex-col w-full h-full">
-                        <p class="text-green-500 w-full">{sucesss}</p>
-                        <ol style="list-style: disc" class="text-start w-full ps-6">
-                            {#each dataerros as erro}
-                                <li style="color:red;">{erro}</li>
-                            {/each}
-                        </ol>
-    
-                        <h2 class="text-2xl font-semibold tracking-tight text-white">Cadastro</h2>
+                        {#if toastVisible}
+                            <div class={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4`}> 
+                                <div class={`px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm 
+                                    ${toastType === 'success' ? 'bg-green-900/70 border-green-600 text-green-100' : ''}
+                                    ${toastType === 'error' ? 'bg-red-900/70 border-red-600 text-red-100' : ''}
+                                    ${toastType === 'info' ? 'bg-gray-900/70 border-gray-600 text-gray-100' : ''}
+                                `}>
+                                    {#if toastMessages.length === 1}
+                                        <p>{toastMessages[0]}</p>
+                                    {:else}
+                                        <ul class="list-disc ps-5 space-y-1">
+                                            {#each toastMessages as msg}
+                                                <li>{msg}</li>
+                                            {/each}
+                                        </ul>
+                                    {/if}
+                                </div>
+                            </div>
+                        {/if}
+
+                        <h2 class="text-3xl font-extrabold tracking-tight text-white mb-2">Cadastro</h2>
+                        <p class="text-sm text-gray-300 mb-6">Crie sua conta preenchendo os dados abaixo.</p>
                         <div class="w-full justify-center content-center mt-10 px-5">
                             
                             <form action="POST" id="meuFormulario">
@@ -141,6 +231,9 @@
                                         Name="nome"
                                         id="nome"
                                     />
+                                    {#if errors.Nome}
+                                        <p class="text-xs text-red-400 mt-1">{errors.Nome}</p>
+                                    {/if}
                                 </div>
                                 <div>
                                     <Textform 
@@ -148,6 +241,9 @@
                                         Name="cpf"
                                         id="cpf"
                                     />
+                                    {#if errors.CPF}
+                                        <p class="text-xs text-red-400 mt-1">{errors.CPF}</p>
+                                    {/if}
                                 </div>
                                 <div>
                                     <Textform 
@@ -156,6 +252,9 @@
                                         id="pin5"
                                         type="password"
                                     />
+                                    {#if errors.Senha5}
+                                        <p class="text-xs text-red-400 mt-1">{errors.Senha5}</p>
+                                    {/if}
                                 </div>
                                 <div>
                                     <Textform 
@@ -164,6 +263,9 @@
                                         id="pin5-confirm"
                                         type="password"
                                     />
+                                    {#if errors.Senha5conf}
+                                        <p class="text-xs text-red-400 mt-1">{errors.Senha5conf}</p>
+                                    {/if}
                                 </div>
                                 <div>
                                     <Textform 
@@ -172,6 +274,9 @@
                                         id="pin7"
                                         type="password"
                                     />
+                                    {#if errors.Senha7}
+                                        <p class="text-xs text-red-400 mt-1">{errors.Senha7}</p>
+                                    {/if}
                                 </div>
                                 <div>
                                     <Textform 
@@ -180,32 +285,56 @@
                                         id="pin7-confirm"
                                         type="password"
                                     />
+                                    {#if errors.Senha7conf}
+                                        <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
+                                    {/if}
                                 </div>
-                                <label class="inline-flex items-center mb-5 cursor-pointer w-full text-center">
-                                    <input type="checkbox" value="genero" class="sr-only peer bg-blue-600" on:click={()=>{sexo=!sexo}}>
-                                    <span class="text-sm font-medium text-white mx-2">sexo:</span>
-                                    <span class="text-sm font-medium text-white"><i class="fa-solid fa-mars"></i></span>
-                                    <div class="mx-2 relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all  peer-checked:bg-blue-600"></div>
-                                    <span class="text-sm font-medium text-white"><i class="fa-solid fa-venus"></i></span>
-                                </label>
+                                <div class="w-full mb-5">
+                                    <div class="w-full max-w-xs mx-auto">
+                                        <span id="sexo-label" class="block text-sm font-medium text-white mb-1">Sexo</span>
+                                        <div class="flex bg-white/10 rounded-lg p-1 border border-white/10" role="group" aria-labelledby="sexo-label">
+                                            <button type="button" class={`flex-1 text-sm py-2 rounded-md transition-colors ${!sexo ? 'bg-white text-gray-900' : 'text-white hover:bg-white/10'}`} on:click={() => sexo=false}>Masculino</button>
+                                            <button type="button" class={`flex-1 text-sm py-2 rounded-md transition-colors ${sexo ? 'bg-white text-gray-900' : 'text-white hover:bg-white/10'}`} on:click={() => sexo=true}>Feminino</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="mb-4 flex items-center justify-center w-full">
-                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100  my-2">
+                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-500/40 border-dashed rounded-lg cursor-pointer bg-white/5 hover:bg-white/10 my-2 backdrop-blur-sm">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                            <svg class="w-8 h-8 mb-2 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                             </svg>
-                                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                            <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                            <p class="mb-1 text-sm text-gray-200"><span class="font-semibold">Clique para enviar</span> ou arraste e solte</p>
+                                            <p class="text-xs text-gray-300">PNG, JPG ou GIF (MAX. 800x400px)</p>
+                                            {#if selectedFileName}
+                                                <p class="mt-2 text-xs text-blue-300">Selecionado: {selectedFileName}</p>
+                                            {/if}
                                         </div>
                                         <input id="dropzone-file" type="file" class="hidden" />
                                     </label>
                                 </div>
-                                <div class="flex items-center">
-                                    <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="w-4 h-4 text-blue-600 border-gray-300 rounded-sm">
-                                    <label for="checkbox-1" class="ms-2 text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-600 hover:underline">termos de contrato.</a>.</label>
-                                </div>
+                                <label for="checkbox-1" class="block cursor-pointer select-none">
+                                    <div class="flex items-start gap-3 bg-white/5 border border-white/10 hover:border-white/20 transition-colors rounded-xl p-4">
+                                        <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only">
+                                        <div class="mt-0.5 h-5 w-5 rounded-md border border-white/20 bg-white/0 flex items-center justify-center peer-checked:bg-blue-600 peer-checked:border-blue-500 transition-colors">
+                                            <svg class="h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L8.5 11.586l6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-400 hover:underline">termos de contrato</a></p>
+                                            <p class="text-xs text-gray-300">Você deve aceitar para prosseguir com o cadastro.</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                {#if errors.termos}
+                                    <p class="text-xs text-red-400 mt-1">{errors.termos}</p>
+                                {/if}
                                 <div class="w-full text-center mt-1">
-                                    <input type="submit" value="SUBMIT" class="rounded-full p-5 bg-green-400 text-2xl px-12 hover:bg-green-500 active:bg-green-700" href="#start">
+                                    <button type="submit" class="inline-flex items-center gap-2 rounded-xl px-8 py-3 bg-green-500 text-white text-base font-semibold shadow-md shadow-green-900/20 hover:bg-green-600 active:bg-green-700 transition-colors border border-white/10">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 10a7.5 7.5 0 1113.493 3.578l1.312 1.313a.75.75 0 11-1.06 1.06l-1.312-1.312A7.5 7.5 0 012.5 10zm7.5-4a.75.75 0 00-.75.75V9.5H6.75a.75.75 0 000 1.5h3a.75.75 0 00.75-.75V6.75A.75.75 0 0010 6z"/></svg>
+                                        Cadastrar
+                                    </button>
                                 </div> 
                             </form>
                         </div>
