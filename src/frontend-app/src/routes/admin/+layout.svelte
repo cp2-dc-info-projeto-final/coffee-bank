@@ -22,12 +22,12 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+<div class="min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
   {#if isLoading}
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
       <div class="text-center">
-        <div class="animate-spin rounded-full h-20 w-20 border-b-4 border-blue-600 mx-auto mb-4"></div>
-        <p class="text-blue-600 font-medium">Carregando...</p>
+        <div class="animate-spin rounded-full h-20 w-20 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
+        <p class="text-[#0b8185] font-medium">Carregando...</p>
       </div>
     </div>
   {:else if !adminData}
@@ -35,25 +35,25 @@
   {:else}
     <!-- Sidebar -->
     <div class="flex">
-      <div class="w-72 bg-gradient-to-b from-blue-900 to-blue-800 text-white min-h-screen shadow-2xl">
+      <div class="w-72 bg-gradient-to-b from-[#1f5f61] to-[#36544f] text-white min-h-screen shadow-2xl">
         <!-- Logo Section -->
-        <div class="p-8 border-b border-blue-700">
+        <div class="p-8 border-b border-[#0b8185]">
           <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+            <div class="w-12 h-12 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-xl flex items-center justify-center shadow-lg">
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
               </svg>
             </div>
             <div>
               <h1 class="text-2xl font-bold text-white">Coffee Bank</h1>
-              <p class="text-blue-200 text-sm font-medium">Painel Administrativo</p>
+              <p class="text-[#0b8185] text-sm font-medium">Painel Administrativo</p>
             </div>
           </div>
         </div>
         
         <!-- Navigation -->
         <nav class="mt-8 px-4">
-          <a href="/admin" class="flex items-center px-6 py-4 text-blue-100 hover:bg-blue-700 hover:text-white transition-all duration-200 rounded-xl mb-2 group">
+          <a href="/admin" class="flex items-center px-6 py-4 text-[#0b8185] hover:bg-[#1f5f61] hover:text-white transition-all duration-200 rounded-xl mb-2 group">
             <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
@@ -61,21 +61,21 @@
             <span class="font-medium">Dashboard</span>
           </a>
           
-          <a href="/admin/users" class="flex items-center px-6 py-4 text-blue-100 hover:bg-blue-700 hover:text-white transition-all duration-200 rounded-xl mb-2 group">
+          <a href="/admin/users" class="flex items-center px-6 py-4 text-[#0b8185] hover:bg-[#1f5f61] hover:text-white transition-all duration-200 rounded-xl mb-2 group">
             <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
             </svg>
             <span class="font-medium">Gerenciar Usuários</span>
           </a>
           
-          <a href="/admin/admins" class="flex items-center px-6 py-4 text-blue-100 hover:bg-blue-700 hover:text-white transition-all duration-200 rounded-xl mb-2 group">
+          <a href="/admin/admins" class="flex items-center px-6 py-4 text-[#0b8185] hover:bg-[#1f5f61] hover:text-white transition-all duration-200 rounded-xl mb-2 group">
             <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
             </svg>
             <span class="font-medium">Gerenciar Admins</span>
           </a>
           
-          <a href="/admin/reports" class="flex items-center px-6 py-4 text-blue-100 hover:bg-blue-700 hover:text-white transition-all duration-200 rounded-xl mb-2 group">
+          <a href="/admin/reports" class="flex items-center px-6 py-4 text-[#0b8185] hover:bg-[#1f5f61] hover:text-white transition-all duration-200 rounded-xl mb-2 group">
             <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
@@ -85,18 +85,18 @@
 
         <!-- Admin Info -->
         <div class="absolute bottom-8 left-0 right-0 px-8">
-          <div class="bg-blue-700 rounded-xl p-4">
+          <div class="bg-[#1f5f61] rounded-xl p-4">
             <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
+              <div class="w-10 h-10 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-full flex items-center justify-center">
                 <span class="text-white font-bold text-sm">{adminData.Nome ? adminData.Nome.charAt(0).toUpperCase() : 'A'}</span>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-white truncate">{adminData.Nome}</p>
-                <p class="text-xs text-blue-200">Administrador</p>
+                <p class="text-xs text-[#0b8185]">Administrador</p>
               </div>
               <button 
                 on:click={logout}
-                class="p-2 text-blue-200 hover:text-white hover:bg-blue-600 rounded-lg transition-colors"
+                class="p-2 text-[#0b8185] hover:text-white hover:bg-[#1f5f61] rounded-lg transition-colors"
                 title="Sair"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

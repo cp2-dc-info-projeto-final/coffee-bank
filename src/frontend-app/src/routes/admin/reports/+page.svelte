@@ -63,7 +63,7 @@
 
 <div class="space-y-8">
   <!-- Header -->
-  <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-white shadow-xl">
+  <div class="bg-gradient-to-r from-[#1f5f61] to-[#36544f] rounded-2xl p-8 text-white shadow-xl">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-6">
         <button
@@ -77,13 +77,13 @@
         </button>
         <div>
           <h1 class="text-4xl font-bold mb-2">Relatórios e Análises</h1>
-          <p class="text-green-100 text-lg">Visão detalhada e estatísticas do sistema Coffee Bank</p>
+          <p class="text-[#0b8185] text-lg">Visão detalhada e estatísticas do sistema Coffee Bank</p>
         </div>
       </div>
       <div class="hidden md:flex items-center space-x-4">
         <button
           on:click={loadStats}
-          class="inline-flex items-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200"
+          class="inline-flex items-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-[#0b8185] bg-white hover:bg-[#0b8185]/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200"
         >
           <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -98,7 +98,7 @@
   <div class="md:hidden">
     <button
       on:click={loadStats}
-      class="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
+      class="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] transition-colors duration-200"
     >
       <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -110,8 +110,8 @@
   {#if isLoading}
     <div class="flex items-center justify-center py-20">
       <div class="text-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto mb-4"></div>
-        <p class="text-green-600 font-medium text-lg">Carregando relatórios...</p>
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
+        <p class="text-[#0b8185] font-medium text-lg">Carregando relatórios...</p>
       </div>
     </div>
   {:else if error}
@@ -137,19 +137,19 @@
               <p class="text-sm font-medium text-gray-600 mb-1">Total de Usuários</p>
               <p class="text-3xl font-bold text-gray-900">{formatNumber(stats.totalUsers)}</p>
             </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-xl flex items-center justify-center">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
               </svg>
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4">
+        <div class="bg-gradient-to-r from-[#0b8185]/10 to-[#1f5f61]/10 px-6 py-4">
           <div class="flex items-center">
-            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#0b8185] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
             </svg>
-            <span class="text-sm font-semibold text-green-600">+{stats.todayUsers}</span>
+            <span class="text-sm font-semibold text-[#0b8185]">+{stats.todayUsers}</span>
             <span class="text-sm text-gray-600 ml-1">novos hoje</span>
           </div>
         </div>
@@ -163,19 +163,19 @@
               <p class="text-sm font-medium text-gray-600 mb-1">Transferências</p>
               <p class="text-3xl font-bold text-gray-900">{formatNumber(stats.totalTransfers)}</p>
             </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-xl flex items-center justify-center">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
               </svg>
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-r from-green-50 to-green-100 px-6 py-4">
+        <div class="bg-gradient-to-r from-[#0b8185]/10 to-[#1f5f61]/10 px-6 py-4">
           <div class="flex items-center">
-            <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#0b8185] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
             </svg>
-            <span class="text-sm font-semibold text-green-600">+{stats.todayTransfers}</span>
+            <span class="text-sm font-semibold text-[#0b8185]">+{stats.todayTransfers}</span>
             <span class="text-sm text-gray-600 ml-1">hoje</span>
           </div>
         </div>
@@ -189,20 +189,20 @@
               <p class="text-sm font-medium text-gray-600 mb-1">Volume Total</p>
               <p class="text-3xl font-bold text-gray-900">{formatCurrency(stats.totalBalance)}</p>
             </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#403831] to-[#30261c] rounded-xl flex items-center justify-center">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
               </svg>
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-r from-amber-50 to-orange-100 px-6 py-4">
+        <div class="bg-gradient-to-r from-[#403831]/10 to-[#30261c]/10 px-6 py-4">
           <div class="flex items-center">
-            <svg class="w-4 h-4 text-amber-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#403831] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
-            <span class="text-sm font-medium text-amber-600">Em cafés</span>
+            <span class="text-sm font-medium text-[#403831]">Em cafés</span>
           </div>
         </div>
       </div>
@@ -215,19 +215,19 @@
               <p class="text-sm font-medium text-gray-600 mb-1">Administradores</p>
               <p class="text-3xl font-bold text-gray-900">{formatNumber(stats.totalAdmins)}</p>
             </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+            <div class="w-14 h-14 bg-gradient-to-br from-[#36544f] to-[#1f5f61] rounded-xl flex items-center justify-center">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-6 py-4">
+        <div class="bg-gradient-to-r from-[#36544f]/10 to-[#1f5f61]/10 px-6 py-4">
           <div class="flex items-center">
-            <svg class="w-4 h-4 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#36544f] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            <span class="text-sm font-medium text-purple-600">Acesso completo</span>
+            <span class="text-sm font-medium text-[#36544f]">Acesso completo</span>
           </div>
         </div>
       </div>
@@ -243,23 +243,23 @@
         </div>
         <div class="p-8">
           <dl class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-            <div class="bg-blue-50 rounded-xl p-6">
-              <dt class="text-sm font-medium text-blue-600 mb-2">Novos usuários hoje</dt>
-              <dd class="text-3xl font-bold text-blue-900">{stats.todayUsers}</dd>
+            <div class="bg-[#0b8185]/10 rounded-xl p-6">
+              <dt class="text-sm font-medium text-[#0b8185] mb-2">Novos usuários hoje</dt>
+              <dd class="text-3xl font-bold text-[#0b8185]">{stats.todayUsers}</dd>
             </div>
-            <div class="bg-green-50 rounded-xl p-6">
-              <dt class="text-sm font-medium text-green-600 mb-2">Transferências hoje</dt>
-              <dd class="text-3xl font-bold text-green-900">{stats.todayTransfers}</dd>
+            <div class="bg-[#0b8185]/10 rounded-xl p-6">
+              <dt class="text-sm font-medium text-[#0b8185] mb-2">Transferências hoje</dt>
+              <dd class="text-3xl font-bold text-[#0b8185]">{stats.todayTransfers}</dd>
             </div>
-            <div class="bg-purple-50 rounded-xl p-6">
-              <dt class="text-sm font-medium text-purple-600 mb-2">Taxa de crescimento diário</dt>
-              <dd class="text-3xl font-bold text-purple-900">
+            <div class="bg-[#36544f]/10 rounded-xl p-6">
+              <dt class="text-sm font-medium text-[#36544f] mb-2">Taxa de crescimento diário</dt>
+              <dd class="text-3xl font-bold text-[#36544f]">
                 {formatPercentage(stats.todayUsers, stats.totalUsers)}
               </dd>
             </div>
-            <div class="bg-amber-50 rounded-xl p-6">
-              <dt class="text-sm font-medium text-amber-600 mb-2">Atividade de transferências</dt>
-              <dd class="text-3xl font-bold text-amber-900">
+            <div class="bg-[#403831]/10 rounded-xl p-6">
+              <dt class="text-sm font-medium text-[#403831] mb-2">Atividade de transferências</dt>
+              <dd class="text-3xl font-bold text-[#403831]">
                 {formatPercentage(stats.todayTransfers, stats.totalTransfers)}
               </dd>
             </div>
@@ -281,7 +281,7 @@
                 <span>{formatNumber(stats.totalUsers)}</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-3">
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000" style="width: 100%"></div>
+                <div class="bg-gradient-to-r from-[#0b8185] to-[#1f5f61] h-3 rounded-full transition-all duration-1000" style="width: 100%"></div>
               </div>
             </div>
             

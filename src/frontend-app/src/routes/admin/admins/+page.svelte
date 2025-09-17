@@ -176,7 +176,7 @@
 
 <div class="space-y-8">
   <!-- Header -->
-  <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl p-8 text-white shadow-xl">
+  <div class="bg-gradient-to-r from-[#1f5f61] to-[#36544f] rounded-2xl p-8 text-white shadow-xl">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-6">
         <button
@@ -190,17 +190,17 @@
         </button>
         <div>
           <h1 class="text-4xl font-bold mb-2">Gerenciar Administradores</h1>
-          <p class="text-purple-100 text-lg">Crie, edite e gerencie administradores do sistema</p>
+          <p class="text-[#0b8185] text-lg">Crie, edite e gerencie administradores do sistema</p>
         </div>
       </div>
       <div class="hidden md:flex items-center space-x-4">
         <div class="bg-white/20 rounded-2xl p-4 text-center">
           <div class="text-2xl font-bold">{admins.length}</div>
-          <div class="text-purple-100 text-sm">Total de Admins</div>
+          <div class="text-[#0b8185] text-sm">Total de Admins</div>
         </div>
         <button
           on:click={openCreateModal}
-          class="inline-flex items-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-purple-700 bg-white hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200"
+          class="inline-flex items-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-[#0b8185] bg-white hover:bg-[#0b8185]/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200"
         >
           <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -214,7 +214,7 @@
   <div class="md:hidden">
     <button
       on:click={openCreateModal}
-      class="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
+      class="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] transition-colors duration-200"
     >
       <svg class="h-6 w-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -243,8 +243,8 @@
     {#if isLoading}
       <div class="flex items-center justify-center py-20">
         <div class="text-center">
-          <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto mb-4"></div>
-          <p class="text-purple-600 font-medium text-lg">Carregando administradores...</p>
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
+        <p class="text-[#0b8185] font-medium text-lg">Carregando administradores...</p>
         </div>
       </div>
     {:else if admins.length === 0}
@@ -258,7 +258,7 @@
         <p class="text-gray-600 mb-6">Comece criando um novo administrador para gerenciar o sistema.</p>
         <button
           on:click={openCreateModal}
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] transition-colors duration-200"
         >
           <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -283,7 +283,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-12 w-12">
-                      <div class="h-12 w-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                      <div class="h-12 w-12 rounded-full bg-gradient-to-br from-[#0b8185] to-[#1f5f61] flex items-center justify-center">
                         <span class="text-white font-bold text-lg">
                           {admin.Nome.charAt(0).toUpperCase()}
                         </span>
@@ -338,8 +338,8 @@
     <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full">
       <div class="p-8">
         <div class="text-center mb-6">
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 mb-4">
-            <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#0b8185]/10 mb-4">
+            <svg class="h-8 w-8 text-[#0b8185]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
             </svg>
           </div>
@@ -354,7 +354,7 @@
               id="nome"
               type="text"
               bind:value={formData.Nome}
-              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] transition-colors"
               placeholder="Digite o nome completo"
               required
             />
@@ -366,7 +366,7 @@
               type="text"
               bind:value={formData.CPF}
               on:input={handleCPFInput}
-              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] transition-colors"
               placeholder="000.000.000-00"
               maxlength="14"
               required
@@ -383,7 +383,7 @@
             </button>
             <button
               type="submit"
-              class="flex-1 px-6 py-3 bg-purple-600 text-white text-lg font-medium rounded-xl hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-colors duration-200"
+              class="flex-1 px-6 py-3 bg-[#0b8185] text-white text-lg font-medium rounded-xl hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-[#0b8185]/30 transition-colors duration-200"
             >
               Criar Admin
             </button>
@@ -400,8 +400,8 @@
     <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full">
       <div class="p-8">
         <div class="text-center mb-6">
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-            <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#0b8185]/10 mb-4">
+            <svg class="h-8 w-8 text-[#0b8185]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
             </svg>
           </div>
@@ -416,7 +416,7 @@
               id="edit-nome"
               type="text"
               bind:value={formData.Nome}
-              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] transition-colors"
               placeholder="Digite o nome completo"
               required
             />
@@ -443,7 +443,7 @@
             </button>
             <button
               type="submit"
-              class="flex-1 px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200"
+              class="flex-1 px-6 py-3 bg-[#0b8185] text-white text-lg font-medium rounded-xl hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-[#0b8185]/30 transition-colors duration-200"
             >
               Salvar Alterações
             </button>
