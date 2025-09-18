@@ -119,7 +119,6 @@
                 CPF: cpfEl?.value ?? "",
                 Senha7conf: pin7cEl?.value ?? "",
                 Senha5conf: pin5cEl?.value ?? "",
-                Sex: sexo
             };
             console.log(data);
             Validationdata(data);
@@ -287,15 +286,6 @@
                                     {#if errors.Senha7conf}
                                         <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
                                     {/if}
-                                </div>
-                                <div class="w-full mb-5">
-                                    <div class="w-full max-w-xs mx-auto">
-                                        <span id="sexo-label" class="block text-sm font-medium text-white mb-1">Sexo</span>
-                                        <div class="flex bg-white/10 rounded-lg p-1 border border-white/10" role="group" aria-labelledby="sexo-label">
-                                            <button type="button" class={`flex-1 text-sm py-2 rounded-md transition-colors ${!sexo ? 'bg-white text-gray-900' : 'text-white hover:bg-white/10'}`} on:click={() => sexo=false}>Masculino</button>
-                                            <button type="button" class={`flex-1 text-sm py-2 rounded-md transition-colors ${sexo ? 'bg-white text-gray-900' : 'text-white hover:bg-white/10'}`} on:click={() => sexo=true}>Feminino</button>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="mb-4 flex items-center justify-center w-full">
                                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-500/40 border-dashed rounded-lg cursor-pointer bg-white/5 hover:bg-white/10 my-2 backdrop-blur-sm">

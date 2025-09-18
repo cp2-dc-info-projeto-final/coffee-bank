@@ -8,7 +8,7 @@
 
   const dispatch = createEventDispatcher();
   export let cpf: string = '';
-  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
+  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; }) {
     const user = new User(data);
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
@@ -38,10 +38,10 @@
       form?.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
           var pass = (document.getElementById("password") as HTMLInputElement)?.value;
-          var CPF= (document.getElementById("cpf") as HTMLInputElement)?.value;
+          var CPF = (document.getElementById("cpf") as HTMLInputElement)?.value;
           console.log(CPF)
           try{
-             const result = await authLogin({ cpf: CPF, password: pass });
+             const result = await authLogin({ login: CPF, password: pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
               if(result.success){
                 //enviarJson(response.data);
@@ -56,6 +56,10 @@
           }
         
       })
+      document.getElementById("closeModal").addEventListener("click", () => {
+              const event = new CustomEvent('close');
+              document.getElementById("default-modal").dispatchEvent(event);
+            });
   });
 </script>
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
@@ -74,12 +78,6 @@
               Login para acesso
             </h1>
           </div>
-          <script>
-            document.getElementById("closeModal").addEventListener("click", () => {
-              const event = new CustomEvent('close');
-              document.getElementById("default-modal").dispatchEvent(event);
-            });
-          </script>
            <form class="space-y-4 md:space-y-6" method="POST" id="form">
             <!-- Campo CPF -->
             <div>
