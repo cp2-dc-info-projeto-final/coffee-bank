@@ -52,16 +52,17 @@
   }
 </script>
 
+
 <svelte:head>
-  <title>Relatórios - Coffee Bank Admin</title>
+
 </svelte:head>
 
 <div class="space-y-6">
   <!-- Header -->
   <div class="flex justify-between items-center">
     <div>
-      <h1 class="text-3xl font-bold text-gray-900">Relatórios e Análises</h1>
-      <p class="mt-2 text-gray-600">Visão detalhada do sistema Coffee Bank</p>
+      
+      <h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-200 text-3xl  text-center">CoffeeBank</h1>
     </div>
     <button
       on:click={loadStats}
@@ -275,7 +276,7 @@
       </div>
     </div>
 
-    <!-- Export Options -->
+    <!-- 
     <div class="bg-white shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Exportar Relatórios</h3>
@@ -307,5 +308,6 @@
         </div>
       </div>
     </div>
+     -->
   {/if}
 </div>

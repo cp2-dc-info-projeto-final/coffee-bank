@@ -22,7 +22,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen">
   {#if isLoading}
     <div class="flex items-center justify-center min-h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600"></div>
@@ -44,7 +44,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
             </svg>
-            Dashboard
+            <h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-200 text-3xl  text-center">CoffeeBank</h1>
           </a>
           
           <a href="/admin/users" class="flex items-center px-6 py-3 text-amber-100 hover:bg-amber-700 transition-colors">

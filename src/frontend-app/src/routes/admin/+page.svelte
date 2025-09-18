@@ -55,8 +55,8 @@
 <div class="space-y-6">
   <!-- Header -->
   <div>
-    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
-    <p class="mt-2 text-gray-600">Visão geral do sistema Coffee Bank</p>
+    <h1 class="text-x font-bold bg-gradient-to-r from-orange-700 via-orange-800 to-orange-500 bg-clip-text text-transparent text-5xl font-black">Dashboard</h1>
+    <p class="mt-2 text-red-50">Visão geral do sistema Coffee Bank</p>
   </div>
 
   {#if isLoading}

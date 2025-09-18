@@ -173,8 +173,8 @@
   <!-- Header -->
   <div class="flex justify-between items-center">
     <div>
-      <h1 class="text-3xl font-bold text-gray-900">Gerenciar Administradores</h1>
-      <p class="mt-2 text-gray-600">Crie, edite e gerencie administradores do sistema</p>
+      <h1 class="text-x font-bold bg-gradient-to-r from-orange-700 via-orange-800 to-orange-500 bg-clip-text text-transparent text-5xl font-black">Gerenciar Administradores</h1>
+      <p class="mt-2 text-red-50">Crie, edite e gerencie administradores do sistema</p>
     </div>
     <button
       on:click={openCreateModal}
@@ -194,7 +194,7 @@
   {/if}
 
   <!-- Admins Table -->
-  <div class="bg-white shadow overflow-hidden sm:rounded-md">
+  <div class="shadow overflow-hidden sm:rounded-md">
     {#if isLoading}
       <div class="flex items-center justify-center py-12">
         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
