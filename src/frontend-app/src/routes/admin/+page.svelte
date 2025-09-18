@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
 
@@ -46,14 +46,14 @@
     }
   }
 
-  function formatCurrency(value) {
+  function formatCurrency(value: number) {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     }).format(value);
   }
 
-  function formatNumber(value) {
+  function formatNumber(value: number) {
     return new Intl.NumberFormat('pt-BR').format(value);
   }
 
@@ -61,7 +61,7 @@
     sidebarOpen = !sidebarOpen;
   }
 
-  function setActiveSection(sectionId) {
+  function setActiveSection(sectionId: string) {
     activeSection = sectionId;
     if (sectionId === 'users') {
       goto('/admin/users');
@@ -292,132 +292,207 @@
               </div>
             </div>
 
-      <!-- Total de Transferências -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
-        <div class="p-6">
-          <div class="flex items-center justify-between">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600 mb-1">Transferências</p>
-              <p class="text-3xl font-bold text-gray-900">{formatNumber(stats.totalTransfers)}</p>
+            <!-- Activity Chart Placeholder -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 animate-fade-in-up animation-delay-400">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4 animate-fade-in">Atividade Diária</h3>
+              <div class="h-64 bg-gradient-to-br from-[#0b8185]/5 to-[#1f5f61]/5 rounded-lg flex items-center justify-center hover:scale-105 transition-transform duration-300">
+                <div class="text-center animate-fade-in-up">
+                  <svg class="w-16 h-16 text-[#0b8185]/30 mx-auto mb-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <p class="text-[#0b8185] font-medium">Gráfico de Atividade</p>
+                  <p class="text-gray-500 text-sm">Visualização dos dados em tempo real</p>
+                </div>
+              </div>
             </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-xl flex items-center justify-center">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-              </svg>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-in-up animation-delay-500">
+              <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-8 py-6 border-b border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-900">Ações Rápidas</h3>
+                <p class="text-gray-600 mt-1">Acesse rapidamente as principais funcionalidades</p>
+              </div>
+              <div class="p-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <a 
+                    href="/admin/users" 
+                    class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#0b8185] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+                    style="animation-delay: 600ms"
+                  >
+                    <div class="flex flex-col items-center text-center">
+                      <div class="w-16 h-16 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                      </div>
+                      <h4 class="text-lg font-semibold text-gray-900 mb-2">Gerenciar Usuários</h4>
+                      <p class="text-sm text-gray-600">Visualizar, buscar e gerenciar usuários do sistema</p>
+                    </div>
+                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0b8185]/0 to-[#0b8185]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </a>
+
+                  <a 
+                    href="/admin/admins" 
+                    class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#36544f] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+                    style="animation-delay: 700ms"
+                  >
+                    <div class="flex flex-col items-center text-center">
+                      <div class="w-16 h-16 bg-gradient-to-br from-[#36544f] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                      </div>
+                      <h4 class="text-lg font-semibold text-gray-900 mb-2">Gerenciar Admins</h4>
+                      <p class="text-sm text-gray-600">Criar, editar e excluir administradores</p>
+                    </div>
+                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#36544f]/0 to-[#36544f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </a>
+
+                  <a 
+                    href="/admin/reports" 
+                    class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#0b8185] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+                    style="animation-delay: 800ms"
+                  >
+                    <div class="flex flex-col items-center text-center">
+                      <div class="w-16 h-16 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                      </div>
+                      <h4 class="text-lg font-semibold text-gray-900 mb-2">Relatórios</h4>
+                      <p class="text-sm text-gray-600">Visualizar relatórios e análises do sistema</p>
+                    </div>
+                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0b8185]/0 to-[#0b8185]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </a>
+
+                  <button 
+                    on:click={loadStats}
+                    class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#403831] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+                    style="animation-delay: 900ms"
+                  >
+                    <div class="flex flex-col items-center text-center">
+                      <div class="w-16 h-16 bg-gradient-to-br from-[#403831] to-[#30261c] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                      </div>
+                      <h4 class="text-lg font-semibold text-gray-900 mb-2">Atualizar Dados</h4>
+                      <p class="text-sm text-gray-600">Recarregar estatísticas do sistema</p>
+                    </div>
+                    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#403831]/0 to-[#403831]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="bg-gradient-to-r from-[#0b8185]/10 to-[#1f5f61]/10 px-6 py-4">
-          <div class="flex items-center">
-            <svg class="w-4 h-4 text-[#0b8185] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
-            </svg>
-            <span class="text-sm font-semibold text-[#0b8185]">+{stats.todayTransfers}</span>
-            <span class="text-sm text-gray-600 ml-1">hoje</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Saldo Total do Sistema -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
-        <div class="p-6">
-          <div class="flex items-center justify-between">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600 mb-1">Volume Total</p>
-              <p class="text-3xl font-bold text-gray-900">{formatCurrency(stats.totalBalance)}</p>
-            </div>
-            <div class="w-14 h-14 bg-gradient-to-br from-[#403831] to-[#30261c] rounded-xl flex items-center justify-center">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="bg-gradient-to-r from-[#403831]/10 to-[#30261c]/10 px-6 py-4">
-          <div class="flex items-center">
-            <svg class="w-4 h-4 text-[#403831] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            <span class="text-sm font-medium text-[#403831]">Em cafés</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-8 py-6 border-b border-gray-200">
-        <h3 class="text-2xl font-bold text-gray-900">Ações Rápidas</h3>
-        <p class="text-gray-600 mt-1">Acesse rapidamente as principais funcionalidades</p>
-      </div>
-      <div class="p-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <a 
-            href="/admin/users" 
-            class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#0b8185] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                </svg>
-              </div>
-              <h4 class="text-lg font-semibold text-gray-900 mb-2">Gerenciar Usuários</h4>
-              <p class="text-sm text-gray-600">Visualizar, buscar e gerenciar usuários do sistema</p>
-            </div>
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0b8185]/0 to-[#0b8185]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
-
-          <a 
-            href="/admin/admins" 
-            class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#36544f] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-gradient-to-br from-[#36544f] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-              </div>
-              <h4 class="text-lg font-semibold text-gray-900 mb-2">Gerenciar Admins</h4>
-              <p class="text-sm text-gray-600">Criar, editar e excluir administradores</p>
-            </div>
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#36544f]/0 to-[#36544f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
-
-          <a 
-            href="/admin/reports" 
-            class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#0b8185] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                </svg>
-              </div>
-              <h4 class="text-lg font-semibold text-gray-900 mb-2">Relatórios</h4>
-              <p class="text-sm text-gray-600">Visualizar relatórios e análises do sistema</p>
-            </div>
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0b8185]/0 to-[#0b8185]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
-
-          <button 
-            on:click={loadStats}
-            class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-[#403831] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <div class="flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-gradient-to-br from-[#403831] to-[#30261c] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
-              </div>
-              <h4 class="text-lg font-semibold text-gray-900 mb-2">Atualizar Dados</h4>
-              <p class="text-sm text-gray-600">Recarregar estatísticas do sistema</p>
-            </div>
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#403831]/0 to-[#403831]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
-        </div>
+        {/if}
       </div>
     </div>
-  {/if}
+  </div>
 </div>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fade-in-up {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  
+  @keyframes fade-in-down {
+    from { 
+      opacity: 0; 
+      transform: translateY(-20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  
+  @keyframes slide-in-left {
+    from { 
+      opacity: 0; 
+      transform: translateX(-20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(0); 
+    }
+  }
+  
+  @keyframes slide-in-right {
+    from { 
+      opacity: 0; 
+      transform: translateX(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(0); 
+    }
+  }
+  
+  @keyframes count-up {
+    from { 
+      opacity: 0; 
+      transform: scale(0.8); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+  
+  .animate-fade-in-down {
+    animation: fade-in-down 0.6s ease-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+  }
+  
+  .animate-count-up {
+    animation: count-up 0.8s ease-out;
+  }
+  
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+</style>
