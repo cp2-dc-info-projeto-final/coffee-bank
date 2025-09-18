@@ -1,83 +1,58 @@
-<h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-200 text-3xl  text-center">CoffeeBank</h1>
-<h2 class="mb-4 md:text-4xl font-extrabold leading-none tracking-tight text-gray-200 text-xl  text-center">Nosso objetivo</h2>
-<p class='text-base text-gray-200 md:text-lg lg:text-3xl'>Nós somos um banco totalmente digital focado na experiência intuitiva do usuário e no investimento em fazendas ecologicamente sustentáveis de café através de fundos imobiliário.
-Essa postura se dá pela indignação da alta do café e nosso prazer em beber um bom café com leite de manhã. Além do excesso de agrotóxicos presentes no dia a dia brasileiro.</p>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Por Que Nosso Banco?</h2>
+<section class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-3xl lg:max-w-4xl mx-auto">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-100">CoffeeBank</h1>
+      <p class="mt-2 text-gray-300 md:text-lg">Transparência, segurança e uma experiência simples para o seu dia a dia financeiro.</p>
+    </header>
 
-<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
-    <li>
-        Queremos te encher de taxa, por favor
-    </li>
-    <li>
-        Gostamos de dinheiro
-    </li>
-    <li>
-        Apoia nosso TCC aí, por favor
-    </li>
-    <li>
-        Inteface super interativa
-    </li>
-    <li>
-        Somos super atenciosos (com os usuários mais ricos)
-    </li>
-    <li>
-        Iremos te ajudar muito(se você tiver dinheiro)
-    </li>
-    <li>
-        Somos super caridosos(exceto com suas dívidas)
-    </li>
-    <li>
-        Iremos ser super carinhosos(se seu nome não tiver no Serasa)
-    </li>
-    <li>
-        Iremos cuidar se você (se você for-nos de intrínsica importancia)
-    </li>
-    <li>
-        iremos te amar muito(desde que você pague suas dívidas)
-    </li>
-    <li>
-        Iremos te dar dinheiro, a uma taxa de apenas 1000000000000% ao dia
-    </li>
-</ol>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Termos de contrato para o usuário</h2>
-<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
-    <li>
-        Caso não pague os empréstimos, concedo a autorização da tomada de meus bens utilizados como garantia e/ou ainda sendo pagos no financiamento.
-    </li>
-    <li>
-        Aceito conceder meus dados sigilosos como CPF para a melhor prestação dos serviços de segurança.
-    </li>
-    <li>
-        Aceito conceder minha localização para poder aumentar a confiabilidade de minhas transferências.
-    </li>
-    <li>
-        Aceito ceder ao banco o direito de colocar meu nome no SERASA, caso eu não pague minhas dívidas.
-    </li>
-    <li>
-        Ao investir, confio ao banco 2% dos meus lucros como taxa para melhora dos serviços.
-    </li>
-    <li>
-        Ao cadastrar um investimento confio ao banco 7% deste próprio investimento para a manutenção e melhora desse mesmo sistema bancário.
-    </li>
-    <li>
-        Confio ao banco o direito de me cobrar juros de 1% ao mês em meus empréstimos
-    </li>
-</ol>
-<h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl text-center">Termos de contrato para o banco</h2>
-<ol class="space-y-1 text-gray-200 list-decimal list-inside ml-auto mr-auto">
-    <li>
-        Concedo ao usuário a segurança de não vazamento e/ou venda de seus dados.
-    </li>
-    <li>
-        Concedo ao usuário o direito de reclamar e/ou recomendar melhorias ao nosso banco.
-    </li>
-    <li>
-        Concedo ao usuário a certeza de que seu extrato não será invadido e/ou alterado sem motivos prévios, ou concentimento do usuário.
-    </li>
-    <li>
-        Concedo ao usuário a total transparencia de nossas diretrizes, atualizações e resultados financeiros de cada ano.
-    </li>
-    <li>
-        Concedo ao usuário a certeza de que não usaremos seus dados para benefício de terceiros.
-    </li>
-</ol>
+    <div class="bg-white/5 border border-white/10 rounded-2xl shadow-xl shadow-black/10 backdrop-blur-sm">
+      <div class="p-6 md:p-8">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-100 mb-3 text-center">Nosso propósito</h2>
+        <p class="text-gray-300 leading-relaxed">
+          Somos um banco 100% digital, focado em oferecer uma experiência intuitiva para o usuário e em fomentar investimentos sustentáveis no setor cafeeiro por meio de veículos financeiros responsáveis. Trabalhamos para unir tecnologia, eficiência e impacto positivo.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 grid gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-100 mb-4 text-center">Por que escolher o CoffeeBank?</h2>
+        <ul class="space-y-3 text-gray-300">
+          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>Interface moderna, acessível e responsiva, pensada para uso diário.</span></li>
+          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>Segurança em primeiro lugar: criptografia, monitoramento e boas práticas contínuas.</span></li>
+          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>Atendimento humano e eficiente, com foco na resolução rápida.</span></li>
+          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>Transparência em taxas e políticas: você sempre sabe o que está contratando.</span></li>
+          <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-400"></span><span>Compromisso com sustentabilidade e governança no ecossistema do café.</span></li>
+        </ul>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-100 mb-4 text-center">Termos de contrato — Usuário</h2>
+        <ol class="list-decimal list-inside space-y-3 text-gray-300">
+          <li>Em caso de inadimplência, os bens dados em garantia poderão ser executados conforme a legislação aplicável e o contrato firmado.</li>
+          <li>Autorizo o tratamento de dados pessoais (como CPF) para prevenção à fraude, autenticação e segurança, de acordo com a LGPD e nossa Política de Privacidade.</li>
+          <li>Autorizo, quando necessário e com base legal adequada, o uso de dados de localização para aumento da confiabilidade de transações.</li>
+          <li>Em caso de mora, autorizo a comunicação aos órgãos de proteção ao crédito (ex.: SERASA), respeitados os prazos e notificações legais.</li>
+          <li>Em investimentos, autorizo a cobrança de taxa de administração de 2% sobre ganhos, quando prevista no regulamento do produto.</li>
+          <li>Na contratação de produtos de investimento, autorizo, quando aplicável, a cobrança de até 7% de taxa conforme previsão contratual e regulatória.</li>
+          <li>Em operações de crédito, concordo com a incidência de juros remuneratórios e encargos conforme taxa pactuada (ex.: 1% a.m.), além de tributos e tarifas previstas.</li>
+        </ol>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-100 mb-4 text-center">Termos de contrato — Banco</h2>
+        <ol class="list-decimal list-inside space-y-3 text-gray-300">
+          <li>Garantimos políticas e controles para prevenir vazamento ou uso indevido de dados, em conformidade com a LGPD.</li>
+          <li>Asseguramos canais de atendimento para reclamações, sugestões e solicitações do titular.</li>
+          <li>Comprometemo-nos com a integridade das informações de conta e extrato, com auditoria e registro de acessos.</li>
+          <li>Praticamos transparência em diretrizes, atualizações relevantes e resultados do exercício, quando aplicável.</li>
+          <li>Não compartilhamos dados pessoais com terceiros para fins comerciais sem base legal e consentimento, quando exigido.</li>
+        </ol>
+      </div>
+    </div>
+
+    <footer class="mt-10 text-center text-sm text-gray-400">
+      Ao continuar, você declara que leu e concorda com estes termos e com a nossa Política de Privacidade.
+    </footer>
+  </div>
+</section>
