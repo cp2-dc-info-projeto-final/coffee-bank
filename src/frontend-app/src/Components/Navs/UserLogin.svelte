@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from "svelte";
+    let visível=false
+    import { onMount } from "svelte";
     let user = {};
     let largura;
     import defaultImage from "../../assets/images/defaultUser.jpg"
@@ -35,7 +36,7 @@
         <img src={user.Imagem ? user.Imagem : defaultImage} class="rounded-full w-[75px] h-[75px] aspect-square">
         <div class="w-max flex flex-col text-white ps-6 justify-center">
             <span class="md:text-2xl" ia-label={user.Name}>{largura<450 ?user.firstName : user.Name}</span>
-            <span class="md:text-2xl">{user.CPF}</span>
+            <span class="md:text-2xl"><i class="me-4 fa-solid {visível ? `fa-eye`: "fa-eye-slash"} hover:cursor-pointer" on:click={()=>{visível=!visível}}></i> {visível ? `${user.Saldo} Coffeekg`: ""}</span>
         </div>
     </div>
     <div class="w-max flex flex-col justify-center md:pe-4">

@@ -149,8 +149,7 @@ router.put('/Update/:id', async function(req, res, next) {
       Senha7,
       Senha7conf,
       ChavePix,
-      Imagem,
-      Sex
+      Imagem
       } = req.body;
     
     if (!CPF ||

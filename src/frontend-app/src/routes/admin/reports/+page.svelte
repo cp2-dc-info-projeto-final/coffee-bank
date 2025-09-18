@@ -76,8 +76,9 @@
   }
 </script>
 
+
 <svelte:head>
-  <title>Relatórios - Coffee Bank Admin</title>
+
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 flex">

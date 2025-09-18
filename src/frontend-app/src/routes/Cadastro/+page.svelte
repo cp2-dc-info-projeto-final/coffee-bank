@@ -4,7 +4,7 @@
     let dataerros:string[] = [];
     import Nav from "../../Components/Navs/Main.svelte"
     import ValidationCPF from "../../Functions/CPFValidation";
-    // Field-level errors
+    // Field-level errors\
     let errors: Record<string, string> = {
         Nome: "",
         CPF: "",
@@ -118,6 +118,7 @@
                 Nome: nomeEl?.value ?? "",
                 CPF: cpfEl?.value ?? "",
                 Senha7conf: pin7cEl?.value ?? "",
+                Senha5conf: pin5cEl?.value ?? ""
                 Senha5conf: pin5cEl?.value ?? "",
             };
             console.log(data);

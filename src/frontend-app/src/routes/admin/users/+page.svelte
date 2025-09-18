@@ -106,7 +106,7 @@
 </script>
 
 <svelte:head>
-  <title>Gerenciar Usuários - Coffee Bank Admin</title>
+      <h1 class="mb-4 md:text-6xl font-extrabold leading-none tracking-tight text-gray-200 text-3xl  text-center ">CoffeeBank</h1>
 </svelte:head>
 
 <div class="space-y-8">
