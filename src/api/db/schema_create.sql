@@ -58,10 +58,12 @@ CREATE TABLE "public"."Automatizacao" (
 
 CREATE TABLE "public"."Investimento" (
   "id" SERIAL PRIMARY KEY,
-  "Preco" INTEGER NOT NULL,
-  "Tamanho" NUMERIC NOT NULL,
+  "Compra" INTEGER NOT NULL,
+  "Preco" INTEGER,
+  "AreaTotal" NUMERIC NOT NULL,
   "Numero" INTEGER NOT NULL,
   "AreaVendida" NUMERIC NOT NULL,
+  "AreaVendida" INTEGER,
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Emissor" INTEGER NOT NULL REFERENCES "Users"("id") ON DELETE CASCADE,
@@ -79,7 +81,7 @@ CREATE TABLE "public"."CarteiraInvestimento" (
   "Investimento_id" INTEGER NOT NULL REFERENCES "Investimento"("id") ON DELETE CASCADE,
   "Carteira_id" INTEGER NOT NULL REFERENCES "Carteira"("id"),
   "DataCriacao" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "Quantidade" INTEGER NOT NULL
+  "Area" Numeric NOT NULL
 );
 
 CREATE TABLE "public"."Categoria" (

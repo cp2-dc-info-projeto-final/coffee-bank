@@ -333,7 +333,6 @@ router.post('/login', async function(req, res) {
         { 
           Saldo:user.Saldo,
           CPF:user.CPF,
-          Name:user.Nome,
           role: user.role,
           Imagem:imagem ? imagem.data.data : null
         }, 
@@ -402,4 +401,31 @@ router.put('/search', async function(req, res, next) {
     });
   }
 });
+router.put('/Name', async function(req, res, next) {
+  const {CPF}=req.body
+  if(!CPF){
+    return res.status(400).json({
+      "status":400,
+      "message":"CPF nulo"
+    })
+  }
+  const result = await pool.query(
+    `SELECT "Nome" FROM "Users" WHERE "CPF" = $1`,
+    [CPF]
+  )
+  if(!result.rows.length){
+    console.log(CPF,result.rows)
+    return res.status(404).json({
+      "status":404,
+      "message":"CPF não cadastrado"
+    })
+  }
+  else{
+    return res.status(200).json({
+      "status":200,
+      "message":"Consulta realizada",
+      "Name":result.rows[0].Nome
+    })
+  }
+})
 module.exports = router;

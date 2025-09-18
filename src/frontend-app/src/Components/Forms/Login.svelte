@@ -7,37 +7,52 @@
   import { login as authLogin } from "$lib/auth";
 
   const dispatch = createEventDispatcher();
+  export let cpf: string = '';
   function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
     const user = new User(data);
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
   onMount(() => {
-      const form = document.getElementById("form");          
-      document.getElementById('cpf').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+      const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
+      const form = document.getElementById("form") as HTMLFormElement | null;
+      if (cpfInput && cpf) {
+          cpfInput.value = cpf;
+      }
+      cpfInput?.addEventListener('input', function (e: any) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 11) value = value.slice(0, 11);
+
+          value = value.replace(/(\d{3})(\d)/, '$1.$2');
+          value = value.replace(/(\d{3})(\d)/, '$1.$2');
+          value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+          });
+          
+      document.getElementById('cpf')?.addEventListener('input', function (e: any) {
+        let value = e.target.value.replace(/\D/g, '');
         value = value.replace(/(\d{3})(\d)/, '$1.$2');
         value = value.replace(/(\d{3})(\d)/, '$1.$2');
         value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
         e.target.value = value;
-      });    
-      form.addEventListener("submit", async function (e) {
+      });
+      form?.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
-          var pass = document.getElementById("password").value;
-          var CPF= document.getElementById("cpf").value;
+          var pass = (document.getElementById("password") as HTMLInputElement)?.value;
+          var CPF= (document.getElementById("cpf") as HTMLInputElement)?.value;
           console.log(CPF)
           try{
-             const result = await authLogin({ "login":CPF, "password":pass });
+             const result = await authLogin({ cpf: CPF, password: pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
               if(result.success){
                 //enviarJson(response.data);
                 console.log(result);
                 goto('/Users')
               } else {
-                  console.log(result,result.data)
+                  console.log(result)
               }
           } catch (error) {
               console.error("Erro ao fazer login:", error);
-              alert(result)
+              
           }
         
       })
@@ -60,9 +75,9 @@
             </h1>
           </div>
           <script>
-            <!-- Script para fechar o modal -->
             document.getElementById("closeModal").addEventListener("click", () => {
-              document.getElementById("default-modal").classList.add("hidden");
+              const event = new CustomEvent('close');
+              document.getElementById("default-modal").dispatchEvent(event);
             });
           </script>
            <form class="space-y-4 md:space-y-6" method="POST" id="form">

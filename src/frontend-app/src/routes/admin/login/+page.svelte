@@ -69,18 +69,18 @@
   <title>Login Administrativo - Coffee Bank</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
     <div>
-      <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-amber-600">
+      <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-[#0b8185]">
         <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
         </svg>
       </div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
         Painel Administrativo
       </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
+      <p class="mt-2 text-center text-sm text-[#0b8185]">
         Coffee Bank - Sistema de Gestão
       </p>
     </div>
@@ -94,7 +94,7 @@
             name="cpf"
             type="text"
             required
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#0b8185] focus:border-[#0b8185] focus:z-10 sm:text-sm"
             placeholder="CPF"
             bind:value={cpf}
             on:input={handleCPFInput}
@@ -109,7 +109,7 @@
             name="senha"
             type="password"
             required
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#0b8185] focus:border-[#0b8185] focus:z-10 sm:text-sm"
             placeholder="Senha de 12 dígitos"
             bind:value={senha}
             maxlength="12"
@@ -128,7 +128,7 @@
         <button
           type="submit"
           disabled={isLoading}
-          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {#if isLoading}
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
       </div>
 
       <div class="text-center">
-        <a href="/" class="text-sm text-amber-600 hover:text-amber-500">
+        <a href="/" class="text-sm text-[#0b8185] hover:text-[#1f5f61]">
           ← Voltar ao site principal
         </a>
       </div>
