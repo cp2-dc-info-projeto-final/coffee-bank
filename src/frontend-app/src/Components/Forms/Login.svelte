@@ -105,7 +105,7 @@
 
             <!-- Link Esqueceu a senha -->
             <div>
-              <a href="" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
+              <a href="/1" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
             </div>
 
             <!-- Botão Confirmar -->

@@ -63,7 +63,6 @@ CREATE TABLE "public"."Investimento" (
   "AreaTotal" NUMERIC NOT NULL,
   "Numero" INTEGER NOT NULL,
   "AreaVendida" NUMERIC NOT NULL,
-  "AreaVendida" INTEGER,
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Emissor" INTEGER NOT NULL REFERENCES "Users"("id") ON DELETE CASCADE,
