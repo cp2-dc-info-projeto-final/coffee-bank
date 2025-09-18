@@ -41,7 +41,7 @@
           var CPF= (document.getElementById("cpf") as HTMLInputElement)?.value;
           console.log(CPF)
           try{
-             const result = await authLogin({ cpf: CPF, password: pass });
+             const result = await authLogin({ login: CPF, password: pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
               if(result.success){
                 //enviarJson(response.data);

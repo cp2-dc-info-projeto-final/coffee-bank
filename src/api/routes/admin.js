@@ -90,9 +90,9 @@ router.get('/', async function(req, res, next) {
 // Criar novo administrador
 router.post('/', async function(req, res, next) {
   try {
-    const { CPF, Nome, Senha12Confirmacao } = req.body;
-    
-    if (!CPF || !Nome || !Senha12Confirmacao) {
+    const { CPF, Nome} = req.body;
+    console.log(CPF,Nome)
+    if (!CPF || !Nome) {
       return res.status(400).json({
         success: false,
         message: 'Todos os campos são obrigatórios'
