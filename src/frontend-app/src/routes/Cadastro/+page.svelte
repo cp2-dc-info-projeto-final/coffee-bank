@@ -117,9 +117,8 @@
                 Senha7: pin7El?.value ?? "",
                 Nome: nomeEl?.value ?? "",
                 CPF: cpfEl?.value ?? "",
-                Senha7conf: pin7cEl?.value ?? "",
-                Senha5conf: pin5cEl?.value ?? ""
                 Senha5conf: pin5cEl?.value ?? "",
+                Senha7conf: pin5cEl?.value ?? "",
             };
             console.log(data);
             Validationdata(data);
