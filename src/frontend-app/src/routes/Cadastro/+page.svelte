@@ -228,6 +228,7 @@
                                         Content="Nome"
                                         Name="nome"
                                         id="nome"
+                                        color="gray-100"
                                     />
                                     {#if errors.Nome}
                                         <p class="text-xs text-red-400 mt-1">{errors.Nome}</p>
@@ -238,6 +239,7 @@
                                         Content="CPF"
                                         Name="cpf"
                                         id="cpf"
+                                        color="gray-100"
                                     />
                                     {#if errors.CPF}
                                         <p class="text-xs text-red-400 mt-1">{errors.CPF}</p>
@@ -249,6 +251,7 @@
                                         Name="pin5"
                                         id="pin5"
                                         type="password"
+                                        color="gray-100"
                                     />
                                     {#if errors.Senha5}
                                         <p class="text-xs text-red-400 mt-1">{errors.Senha5}</p>
@@ -260,6 +263,7 @@
                                         Name="pin5-confirm"
                                         id="pin5-confirm"
                                         type="password"
+                                        color="gray-100"
                                     />
                                     {#if errors.Senha5conf}
                                         <p class="text-xs text-red-400 mt-1">{errors.Senha5conf}</p>
@@ -271,6 +275,7 @@
                                         Name="pin7"
                                         id="pin7"
                                         type="password"
+                                        color="gray-100"
                                     />
                                     {#if errors.Senha7}
                                         <p class="text-xs text-red-400 mt-1">{errors.Senha7}</p>
@@ -282,6 +287,7 @@
                                         Name="pin7-confirm"
                                         id="pin7-confirm"
                                         type="password"
+                                        color="gray-100"
                                     />
                                     {#if errors.Senha7conf}
                                         <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
