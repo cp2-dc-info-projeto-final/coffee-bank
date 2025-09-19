@@ -216,7 +216,7 @@ router.get('/users', async function(req, res, next) {
   try {
     const { search, limit = 50, offset = 0 } = req.query;
     
-    let query = 'SELECT id, "CPF", "Nome", "Saldo", "DataCriacao", "Sex" FROM "Users"';
+    let query = 'SELECT id, "CPF", "Nome", "Saldo", "DataCriacao" FROM "Users"';
     let params = [];
     let paramCount = 0;
 
