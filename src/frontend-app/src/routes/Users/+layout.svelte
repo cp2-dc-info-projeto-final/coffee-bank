@@ -26,6 +26,6 @@
   </div>
 {:else}
   <div class="min-h-screen flex flex-1 flex-col items-center justify-center" style="background-color: #240f00;">
-    <img src={Image404} alt="Erro 404 - Página não encontrada" class="max-w-md" />
+    <img src={Image404} alt="Erro 404 - Página não encontrada" class="flex flex-1" />
   </div>
 {/if}
