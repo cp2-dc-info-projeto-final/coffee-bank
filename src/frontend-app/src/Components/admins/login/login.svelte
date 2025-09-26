@@ -7,7 +7,10 @@
   let senha = '';
   let isLoading = false;
   let error = '';
-
+  
+  function reload() {
+    window.location.reload();
+  }
   async function handleLogin() {
     if (!cpf || !senha) {
       error = 'Por favor, preencha todos os campos';
@@ -31,9 +34,8 @@
       const data = await response.json();
 
       if (data.success) {
-        console.log(data)
         const result = await setToken(data.data);
-        console.log(result)
+        reload()
       } else {
         error = data.message || 'Erro ao fazer login';
       }
@@ -42,8 +44,6 @@
       error = 'Erro de conexão. Tente novamente.';
     } finally {
       isLoading = false;
-      alert("legal")
-      goto("/admin")
     }
   }
 

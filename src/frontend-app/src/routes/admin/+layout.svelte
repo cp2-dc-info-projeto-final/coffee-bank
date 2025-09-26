@@ -1,9 +1,12 @@
 <script lang="ts">
   
-  import { goto } from '$app/navigation';
+  import { invalidateAll } from '$app/navigation';
   import { browser } from '$app/environment';
   import Login from "../../Components/admins/login/login.svelte"
   import axios from 'axios';
+  function reloadPage() {
+    invalidateAll();
+  }
   const api = axios.create({
     baseURL: 'http://localhost:3000',
     withCredentials: true, // Útil para CORS com cookies/sessão
@@ -30,12 +33,8 @@
   let loginvalido=false
   async  function validadordeToken() {
     if(adminLogado){
-      const resposta= await api.get("./")
-      console.log(resposta,resposta)
+      const resposta= await api.get("./admin/validation")
       loginvalido= resposta.status===200
-      if(!loginvalido){
-        alert("Login inválido")
-      }
     }
   }
   if (browser) {
@@ -47,16 +46,11 @@
       adminLogado=role&&role==="admin"
       validadordeToken()
   }
-
-  function logout() {
-    localStorage.removeItem('auth_token');
-    goto('/');
-  }
 </script>
 {#if loginvalido}
   <div class="min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
     <slot />
   </div>
 {:else}
-  <Login />
+  <Login/>
 {/if}
