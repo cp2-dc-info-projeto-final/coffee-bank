@@ -1,19 +1,11 @@
 <script>
   import { goto } from '$app/navigation';
-  import { onMount } from 'svelte';
-
+  import { setToken } from "$lib/auth";
+  console.log("legal")
   let cpf = '';
   let senha = '';
   let isLoading = false;
   let error = '';
-
-  onMount(() => {
-    // Verificar se já está logado
-    const storedAdmin = localStorage.getItem('adminData');
-    if (storedAdmin) {
-      goto('/admin');
-    }
-  });
 
   async function handleLogin() {
     if (!cpf || !senha) {
@@ -23,7 +15,6 @@
 
     isLoading = true;
     error = '';
-
     try {
       const response = await fetch('http://localhost:3000/admin/login', {
         method: 'POST',
@@ -39,7 +30,9 @@
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem('adminData', JSON.stringify(data.data));
+        console.log(data)
+        const result = await setToken(data.data);
+        console.log(result)
         goto('/admin');
       } else {
         error = data.message || 'Erro ao fazer login';

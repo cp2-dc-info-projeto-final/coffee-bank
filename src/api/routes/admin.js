@@ -1,16 +1,23 @@
 var express = require('express');
+var {verifyToken,isAdmin}=require("../middlewares/auth")
 var router = express.Router();
 const pool = require('../db/config');
 const bcrypt = require('bcrypt');
 const ValidationCPF = require('../Functions/CPFValidation');
-
+const jwt = require('jsonwebtoken');
 // Função para gerar senha aleatória de 12 dígitos
 function generateRandomPassword() {
   return Math.floor(100000000000 + Math.random() * 900000000000).toString();
 }
 
 // Login de administrador
-router.post('/login', async function(req, res, next) {
+router.get("/validation",async function(req, res, next) {
+  return res.json({
+    success: true,
+    message: 'Acesso autorizado'
+  });
+})
+router.post('/login',async function(req, res, next) {
   try {
     const { CPF, Senha12 } = req.body;
     
@@ -52,13 +59,18 @@ router.post('/login', async function(req, res, next) {
       id: result.rows[0].id,
       CPF: result.rows[0].CPF,
       Nome: result.rows[0].Nome,
-      DataCriacao: result.rows[0].DataCriacao
+      DataCriacao: result.rows[0].DataCriacao,
+      role:"admin"
     };
-
-    res.json({
+    const token = jwt.sign(
+    adminData, 
+    process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
+    { expiresIn: '30min' } 
+  );
+    return res.json({
       success: true,
       message: 'Login bem-sucedido',
-      data: adminData
+      data: token
     });
   } catch (err) {
     console.error('Erro no login do admin:', err);
