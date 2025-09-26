@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { text } from "@sveltejs/kit";
-import logo from "../../assets/images/coffebank_noir-removebg-preview.png";
+import logo from "../assets/images/coffebank_noir-removebg-preview.png";
 	// Links principais
 	const links = {
 		login: "/LoginUser",
