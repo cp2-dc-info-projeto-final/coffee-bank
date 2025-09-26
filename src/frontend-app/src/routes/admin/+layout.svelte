@@ -1,32 +1,47 @@
-<script>
-  import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
+<script lang="ts">
+  
+  import { invalidateAll } from '$app/navigation';
   import { browser } from '$app/environment';
-  import Image404 from "../../assets/images/Error404.png";
   import Login from "../../Components/admins/login/login.svelte"
+  import axios from 'axios';
+  function reloadPage() {
+    invalidateAll();
+  }
+  const api = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Útil para CORS com cookies/sessão
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  });
   let token = null;
   let role=null
-  function parseJwt(token) {
-  const base64Url = token.split(".")[1]; // pega só o payload
-  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // converte Base64URL p/ Base64 normal
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split("")
-      .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join("")
-  );
-  return JSON.parse(jsonPayload);
-}
-
-  let adminLogado=null;
+  function parseJwt(token:string):string {
+    const base64Url = token.split(".")[1]; // pega só o payload
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // converte Base64URL p/ Base64 normal
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  }
+  
+  let adminLogado:boolean|null=null;
+  let loginvalido=false
+  async  function validadordeToken() {
+    if(adminLogado){
+      const resposta= await api.get("./admin/validation")
+      loginvalido= resposta.status===200
+    }
+  }
   if (browser) {
       token = sessionStorage.getItem("auth_token");
-      console.log(token)
       if(token){
-          let user = parseJwt(token);
-          role = user.role
-          console.log(role)
+        let user = parseJwt(token);
+        role = user.role
       }
       adminLogado=role&&role==="admin"
       console.log(adminLogado)
@@ -37,20 +52,12 @@
   function logout() {
     localStorage.removeItem('adminData');
     goto('/admin');
+      validadordeToken()
   }
 </script>
-{#if adminLogado}
+{#if loginvalido}
   <div class="min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
-    {#if isLoading}
-      <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
-        <div class="text-center">
-          <div class="animate-spin rounded-full h-20 w-20 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
-          <p class="text-[#0b8185] font-medium">Carregando...</p>
-        </div>
-      </div>
-    {:else}
-      <slot />
-    {/if}
+    <slot />
   </div>
 {:else}
   <Login/>

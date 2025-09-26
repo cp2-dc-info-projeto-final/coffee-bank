@@ -32,22 +32,22 @@ import logo from "../../assets/images/coffebank_noir-removebg-preview.png";
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 		<div class="grid md:grid-cols-2 gap-10 items-center">
 			<div class="animate-fade-in-up">
-                <h1 class="text-3xl md:text-5xl font-extrabold text-amber-950 dark:text-amber-100 leading-tight drop-shadow-sm">
-					Seu banco digital simples, seguro e sem complicação
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#fff] dark:text-amber-100 leading-tight drop-shadow-sm">
+					Coffebank, seu banco digital simples, seguro e sem complicação
 				</h1>
-                <p class="mt-4 text-amber-900/90 dark:text-amber-100/90 md:text-lg">
+                <p class="mt-4 text-amber-200/70 dark:text-amber-100/90 md:text-lg">
 					Organize seu dinheiro, faça transferências e invista com transparência. Uma experiência moderna com foco em você.
 				</p>
 				<div class="mt-6 flex flex-col sm:flex-row gap-3">
                     <a href={links.cadastro} class="inline-flex items-center justify-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow hover:shadow-lg hover:-translate-y-0.5">
 						Quero abrir minha conta
 					</a>
-                    <a href={links.login} class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-amber-300/70 dark:border-amber-700/70 text-amber-900 dark:text-amber-100 hover:bg-amber-50/70 dark:hover:bg-amber-900/40 transition-all duration-300">
+                    <a href={links.login} class="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-amber-300/70 dark:border-amber-700/70 text-amber-200/70 hover:text-amber-900/70 dark:text-amber-100 hover:bg-amber-50/70 dark:hover:bg-amber-900/40 transition-all duration-300">
 						Já tenho conta
 					</a>
 				</div>
-                <p class="mt-4 text-sm text-amber-800/80 dark:text-amber-200/80">
-                    Ao continuar você concorda com nossos <a href={links.termos} class="underline decoration-amber-500 decoration-2 underline-offset-2 hover:text-amber-700">Termos & Condições</a>.
+                <p class="mt-4 text-sm text-amber-200/70 dark:text-amber-200/80">
+                    Ao continuar você concorda com nossos <a href={links.termos} class="underline-none text-amber-400/70 decoration-2 underline-offset-2 hover:text-amber-700">Termos & Condições</a>.
 				</p>
 			</div>
             <div class="relative animate-fade-in-up" style="animation-delay: .1s;">
@@ -134,7 +134,7 @@ import logo from "../../assets/images/coffebank_noir-removebg-preview.png";
 <footer class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-12">
 	<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
 		<div class="text-sm text-gray-500 dark:text-gray-400">
-			© {new Date().getFullYear()} Coffee Bank. Todos os direitos reservados.
+			© {new Date().getFullYear()} CoffeeBank. Todos os direitos reservados.
 		</div>
 		<nav class="flex flex-wrap items-center gap-4 text-sm">
 			<a href={links.login} class="link">Login</a>

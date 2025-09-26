@@ -11,6 +11,7 @@
             let user = JSON.parse(payload);
             role = user.role
         }
+        alert(role)
     }
     let logado=role&&role==="user"
 </script>
