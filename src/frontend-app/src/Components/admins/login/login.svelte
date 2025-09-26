@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { setToken } from "$lib/auth";
+	import { onMount } from 'svelte';
   console.log("legal")
   let cpf = '';
   let senha = '';
@@ -33,7 +34,6 @@
         console.log(data)
         const result = await setToken(data.data);
         console.log(result)
-        goto('/admin');
       } else {
         error = data.message || 'Erro ao fazer login';
       }
@@ -42,6 +42,8 @@
       error = 'Erro de conexão. Tente novamente.';
     } finally {
       isLoading = false;
+      alert("legal")
+      goto("/admin")
     }
   }
 
@@ -78,7 +80,7 @@
       </p>
     </div>
     
-    <form class="mt-8 space-y-6" on:submit|preventDefault={handleLogin}>
+    <div class="mt-8 space-y-6" id="login">
       <div class="rounded-md shadow-sm -space-y-px">
         <div>
           <label for="cpf" class="sr-only">CPF</label>
@@ -119,7 +121,7 @@
 
       <div>
         <button
-          type="submit"
+          on:click={handleLogin}
           disabled={isLoading}
           class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
@@ -140,6 +142,6 @@
           ← Voltar ao site principal
         </a>
       </div>
-    </form>
+    </div>
   </div>
 </div>
