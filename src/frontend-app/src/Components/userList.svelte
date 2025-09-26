@@ -13,6 +13,7 @@
     ChavePix: string;
     Image: string;
     Saldo: number;
+    Sex: boolean;
     DataCriacao: string;
   };
   
@@ -303,6 +304,10 @@
               
               <div class="mt-6 flex items-center justify-between">
                 <div class="flex items-center space-x-2">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 animate-fade-in">
+                    <i class="fa-solid fa-user mr-1"></i>
+                    {user.Sex ? 'Masculino' : 'Feminino'}
+                  </span>
                 </div>
                 
                 <div class="flex items-center space-x-2">
