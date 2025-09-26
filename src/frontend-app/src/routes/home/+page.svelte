@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { COLOR } from "$env/static/private";
 	import { text } from "@sveltejs/kit";
 import logo from "../../assets/images/coffebank_noir-removebg-preview.png";
 	// Links principais

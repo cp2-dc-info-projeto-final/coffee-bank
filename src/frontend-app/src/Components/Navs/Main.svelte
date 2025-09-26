@@ -9,11 +9,18 @@
     <img src={imagem} class="w-10 h-10 md:h-20 md:w-20 z-11" alt="Flowbite Logo" />
     <ul class="items-center font-medium flex p-0 mt-4 rounded-lg flex-row space-x-8 rtl:space-x-reverse">
       <li>
+        <a href="/home" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-arrow-left relative z-11"></i></a>
+      </li>
+      <li>
+        <a href="/admin" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-user-tie relative z-11"></i></a>
+      </li>
+      <li>
         <a href="/" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-house relative z-11"></i></a>
       </li>
       <li>
         <a href="/Cadastro" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-door-open relative z-11"></i></a>
       </li>
+      
     </ul>
   </div>
 </nav>

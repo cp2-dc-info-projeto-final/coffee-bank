@@ -31,7 +31,7 @@
       adminLogado=role&&role==="admin"
       console.log(adminLogado)
   }
-  let isLoading = true;
+  let isLoading = false;
 
 
   function logout() {

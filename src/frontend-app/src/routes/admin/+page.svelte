@@ -93,6 +93,7 @@
             <h2 class="text-xl font-bold text-white animate-slide-in-left">Dashboard</h2>
             <p class="text-[#0b8185] text-sm animate-slide-in-left animation-delay-100">Coffee Bank Admin</p>
           </div>
+          
         </div>
         <button
           on:click={toggleSidebar}
@@ -120,6 +121,7 @@
           </button>
         {/each}
       </nav>
+      
 
       <!-- Sidebar Footer -->
       <div class="p-6 border-t border-white/20 animate-fade-in-up animation-delay-500">
@@ -133,7 +135,9 @@
           <span class="font-medium">Atualizar Dados</span>
         </button>
       </div>
+      
     </div>
+    
   </div>
 
   <!-- Overlay for mobile -->

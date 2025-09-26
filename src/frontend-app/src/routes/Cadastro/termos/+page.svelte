@@ -37,6 +37,7 @@
         <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-amber-100">Termos & Condições</h1>
         <p class="mt-3 text-amber-100/80 md:text-lg">Transparência e segurança para você usar o CoffeeBank com confiança.</p>
         <a href="#conteudo" class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow hover:shadow-lg">Ler termos</a>
+        <a href="/home" class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow hover:shadow-lg">Voltar a página inicial</a>
       </div>
       <div class="relative animate-fade-in-up" style="animation-delay:.06s;">
         <div class="group rounded-2xl border border-amber-200/40 bg-amber-50/5 backdrop-blur p-2 shadow-xl feature-card-animated">

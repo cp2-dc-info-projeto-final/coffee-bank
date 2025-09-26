@@ -89,3 +89,5 @@ CREATE TABLE "public"."Categoria" (
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL
 );
+
+insert into "public"."Admins" ("CPF", "DataCriacao", "Nome", "Senha12", "id") values ('629.598.820-24', '2025-09-25 21:27:39.75167', 'João Gabriel Pereira Lopes', '$2b$10$ypakIosLzNJNf3BvwAiys.Hthfykp7Zp/YealuGcgPfQhO85FNUPO', 2)
