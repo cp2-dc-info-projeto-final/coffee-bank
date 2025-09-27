@@ -42,7 +42,6 @@
           e.preventDefault(); // Impede o envio padrão do form
           var pass = (document.getElementById("password") as HTMLInputElement)?.value;
           var CPF = (document.getElementById("cpf") as HTMLInputElement)?.value;
-          console.log(CPF)
           try{
              const result = await authLogin({ login: CPF, password: pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
@@ -64,13 +63,13 @@
   <section class="bg-gray-900/60 w-full h-full" id="login">
     <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
       <div class="w-full  md:mt-0 sm:max-w-md xl:p-0  itemns center">
-        <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8" on:click={Fechar}>
+        <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
           <div class="flex">
-            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            <button id="closeModal" type="button"
-            class="absolute top-3 right-3 text-gray-400 hover:text-white">
-            ✕
-          </button>
-          </h1>
+            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            
+              <button id="closeModal" type="button" on:click={Fechar}class="absolute top-3 right-3 text-gray-400 hover:text-white">
+                ✕
+              </button>
+            </h1>
             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
 
               Login para acesso
