@@ -66,7 +66,7 @@
         <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
           <div class="flex">
             <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            
-              <button id="closeModal" type="button" on:click={Fechar}class="absolute top-3 right-3 text-gray-400 hover:text-white">
+              <button id="closeModal" type="button" on:click={Fechar} class="absolute top-3 right-3 text-gray-400 hover:text-white">
                 ✕
               </button>
             </h1>

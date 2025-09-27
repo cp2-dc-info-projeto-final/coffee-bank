@@ -17,10 +17,10 @@
 <Nav/>
 
 <!-- Perfil Bancário -->
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <div class="max-w-6xl mx-auto px-4 py-8">
+<div class="flex flex-1 items-center justify-center">
+    <div class="max-w-6xl px-4 py-8">
         <!-- Header do Perfil -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8 animate-fade-in-up hover:shadow-md transition-all duration-300">
+        <div class="bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8 animate-fade-in-up hover:shadow-md transition-all duration-300">
             <div class="flex items-center space-x-4">
                 <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                     <i class="fa-solid fa-user text-white text-2xl"></i>
@@ -43,6 +43,7 @@
                     text="Faça uma transferência para alguém" 
                     imagem="fa-solid fa-money-bill-transfer" 
                     tittle="Transferências"
+                    link="Users/transferências"
                 />
             </div>
             <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
@@ -50,30 +51,40 @@
                     text="Veja sua carteira de investimentos" 
                     imagem="fa-solid fa-wallet" 
                     tittle="Investimentos"
+                    link="Users/Investimentos"
                 />
             </div>
+            <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
+                <LinkButton 
+                    text="Faça uma transferência para alguém" 
+                    imagem="fa-solid fa-chart-simple" 
+                    tittle="Transferências"
+                    link="Users/transferências"
+                />
+            </div>
+            
         </div>
 
         <!-- Resumo Rápido -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 animate-fade-in-up hover:shadow-md transition-all duration-300" style="animation-delay: 0.3s;">
+        <div class="bg-gray-800 flex flex-col rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 animate-fade-in-up hover:shadow-md transition-all duration-300 items-center justify-center" style="animation-delay: 0.3s;">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Resumo da Conta
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105">
-                    <i class="fa-solid fa-wallet text-blue-500 text-2xl mb-2"></i>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Saldo Disponível</p>
+                <div class="text-center w-70 h-50 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-wallet text-blue-500 text-6xl mb-2"></i>
+                    <p class="text-3xl text-gray-600 dark:text-gray-400">Saldo Disponível</p>
                     <p class="text-xl font-bold text-gray-900 dark:text-white">R$ 0,00</p>
                 </div>
-                <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105">
-                    <i class="fa-solid fa-chart-line text-green-500 text-2xl mb-2"></i>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Investimentos</p>
+                <div class="text-center w-70 h-50 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-chart-line text-green-500 text-6xl mb-2"></i>
+                    <p class="text-3xl text-gray-600 dark:text-gray-400">Investimentos</p>
                     <p class="text-xl font-bold text-gray-900 dark:text-white">R$ 0,00</p>
                 </div>
-                <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105">
-                    <i class="fa-solid fa-credit-card text-purple-500 text-2xl mb-2"></i>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Cartões</p>
-                    <p class="text-xl font-bold text-gray-900 dark:text-white">2 ativos</p>
+                <div class="text-center w-70 h-50 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-credit-card text-purple-500 text-6xl mb-2"></i>
+                    <p class="text-3xl text-gray-600 dark:text-gray-400">Cartões</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">2 ativos</p>
                 </div>
             </div>
         </div>
