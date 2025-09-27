@@ -6,7 +6,10 @@
     <div class="flex flex-wrap items-center justify-between p-3 w-full mx-auto">
 
   <div class="w-full flex flex-row justify-between items-center" id="navbar-default">
-    <img src={imagem} class="w-10 h-10 md:h-20 md:w-20 z-11" alt="Flowbite Logo" />
+    <div class="flex flex-row justify-center items-center gap-1">
+      <img src={imagem} class="w-10 h-10 ml-2 md:h-20 md:w-20 z-11" alt="CoffeeBank Logo" />
+      <div class=" hidden sm:inline text-4xl text-white">Coffebank</div>
+    </div>
     <ul class="items-center font-medium flex p-0 mt-4 rounded-lg flex-row space-x-8 rtl:space-x-reverse">
       <li>
         <a href="/LoginUser" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-user relative z-11"></i></a>

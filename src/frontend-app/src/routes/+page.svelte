@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { text } from "@sveltejs/kit";
-import logo from "../assets/images/coffebank_noir-removebg-preview.png";
+    import logo from "../assets/images/coffebank_noir-removebg-preview.png";
 	// Links principais
 	const links = {
 		login: "/LoginUser",
@@ -14,7 +14,10 @@ import logo from "../assets/images/coffebank_noir-removebg-preview.png";
 <header class="relative w-full">
 	<div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
 	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-		<img src={logo} alt="Coffee Bank" class="h-10 w-10 md:h-12 md:w-12" />
+        <div class="flex flex-row justify-center items-center gap-1">
+		    <img src={logo} alt="Coffee Bank" class="h-10 w-10 md:h-12 md:w-12" />
+            <div class=" hidden sm:inline text-3xl text-white">Coffebank</div>
+        </div>
 		<nav class="flex items-center gap-2 md:gap-3">
             <a href={links.adminLogin} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
                     <i class="fa-solid fa-right-to-bracket"></i>
