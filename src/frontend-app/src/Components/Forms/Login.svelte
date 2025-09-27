@@ -12,6 +12,9 @@
     const user = new User(data);
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
+  function Fechar() {
+    dispatch('Fechar', { detail: { Event:"close" }, bubbles: true });
+  }
   onMount(() => {
       const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
       const form = document.getElementById("form") as HTMLFormElement | null;
@@ -55,18 +58,13 @@
               
           }
         
-      })
-      document.getElementById("closeModal").addEventListener("click", () => {
-              const event = new CustomEvent('close');
-              document.getElementById("default-modal").dispatchEvent(event);
-            });
-  });
+      })})
 </script>
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
   <section class="bg-gray-900/60 w-full h-full" id="login">
     <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
       <div class="w-full  md:mt-0 sm:max-w-md xl:p-0  itemns center">
-        <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
+        <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8" on:click={Fechar}>
           <div class="flex">
             <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            <button id="closeModal" type="button"
             class="absolute top-3 right-3 text-gray-400 hover:text-white">
