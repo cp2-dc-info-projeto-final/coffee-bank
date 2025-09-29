@@ -3,7 +3,7 @@ var router = express.Router();
 const pool = require('../db/config');
 const ValidationCPF = require('../Functions/CPFValidation');
 const bcrypt = require('bcrypt');
-const axios = require("axios")
+const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
 
@@ -140,8 +140,6 @@ router.post('/', verifyToken, isAdmin, async function(req, res, next) {
 router.put('/Update/:id', verifyToken, async function(req, res, next) {
   try {
     const { id } = req.params;
-    console.log(id)
-    console.log(req.body)
     const { CPF,
       Nome,
       Senha5,
@@ -427,8 +425,5 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
 })
-router.put('/trasferencia', verifyToken, async function(req, res, next) {
-  var {ChavePix,valor}=req.body
-  var {CPF}=req.user
-})
+
 module.exports = router;

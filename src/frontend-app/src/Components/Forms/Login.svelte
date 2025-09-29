@@ -13,6 +13,10 @@
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
   function Fechar() {
+    const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
+    const senha = document.getElementById("password") as HTMLFormElement | null;
+    senha?.value=""
+    cpfInput?.value=""
     dispatch('Fechar', { detail: { Event:"close" }, bubbles: true });
   }
   onMount(() => {
