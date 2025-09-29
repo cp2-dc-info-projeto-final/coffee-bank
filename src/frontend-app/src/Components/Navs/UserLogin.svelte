@@ -57,7 +57,7 @@
                             <i class="fa-solid {visível ? 'fa-eye' : 'fa-eye-slash'} text-sm"></i>
                         </button>
                         {#if visível}
-                            <span class="text-white font-medium text-sm md:text-base animate-fade-in">
+                            <span class="text-white font-medium text-md md:text-2xl animate-fade-in">
                                 {user.Saldo} Coffeekg
                             </span>
                         {/if}

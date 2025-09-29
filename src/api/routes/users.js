@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
 
 /* GET - Buscar todos os usuários */
-router.get('/', async function(req, res, next) {
+router.get('/',  verifyToken, isAdmin, async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
     result.rows = await Promise.all(
@@ -40,7 +40,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET parametrizado - Buscar usuário por ID */
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { id } = req.params;
     const result = await pool.query('SELECT * FROM "Users" WHERE id = $1', [id]);
@@ -65,7 +65,7 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', async function(req, res, next) {
+router.post('/', verifyToken, isAdmin, async function(req, res, next) {
   try {
     console.log(req.body)
     const {
@@ -137,7 +137,7 @@ router.post('/', async function(req, res, next) {
 });
 
 /* PUT - Atualizar usuário */
-router.put('/Update/:id', async function(req, res, next) {
+router.put('/Update/:id', verifyToken, async function(req, res, next) {
   try {
     const { id } = req.params;
     console.log(id)
@@ -211,7 +211,7 @@ router.put('/Update/:id', async function(req, res, next) {
 });
 
 /* DELETE - Remover usuário */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { id } = req.params;
     
@@ -359,7 +359,7 @@ router.post('/login', async function(req, res) {
 });
 
 /*Hora Da Consulta*/
-router.put('/search', async function(req, res, next) {
+router.put('/search', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
@@ -400,7 +400,7 @@ router.put('/search', async function(req, res, next) {
     });
   }
 });
-router.put('/Name', async function(req, res, next) {
+router.put('/Name', verifyToken, async function(req, res, next) {
   const {CPF}=req.body
   if(!CPF){
     return res.status(400).json({
@@ -426,5 +426,9 @@ router.put('/Name', async function(req, res, next) {
       "Name":result.rows[0].Nome
     })
   }
+})
+router.put('/trasferencia', verifyToken, async function(req, res, next) {
+  var {ChavePix,valor}=req.body
+  var {CPF}=req.user
 })
 module.exports = router;

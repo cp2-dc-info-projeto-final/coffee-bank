@@ -32,7 +32,6 @@
     }
     @media (max-width: 768px) {
         #Main {
-            background-image: url("../../assets/images/mobalLogin.jpg");
             background-size: cover;
             background-position: center;
         }

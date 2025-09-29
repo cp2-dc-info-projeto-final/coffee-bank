@@ -2,6 +2,7 @@
     export let text;
     export let imagem;
     export let tittle;
+    export let link;
     
     // Determinar cores baseadas no tipo de ação
     $: colorClasses = {
@@ -13,8 +14,8 @@
     $: currentColor = colorClasses[tittle] || colorClasses.default;
 </script>
 
-<a href="transferênvias" class="group block">
-    <div class="relative w-full h-48 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50 hover:-translate-y-1 group-hover:scale-[1.02]">
+<a href={link} class="group block">
+    <div class="relative w-full h-60 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50 hover:-translate-y-1 group-hover:scale-[1.02]">
         <!-- Gradiente de fundo sutil -->
         <div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 opacity-50"></div>
         
