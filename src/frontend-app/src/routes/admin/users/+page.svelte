@@ -111,7 +111,7 @@
 
 <div class="space-y-8">
   <!-- Header -->
-  <div class="bg-gradient-to-r from-[#1f5f61] to-[#36544f] rounded-2xl p-8 text-white shadow-xl">
+  <div class="bg-gradient-to-r from-[#1f5f61] to-[#36544f] p-8 text-white shadow-xl">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-6">
         <button

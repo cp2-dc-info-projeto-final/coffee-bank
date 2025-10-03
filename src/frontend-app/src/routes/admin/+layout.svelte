@@ -58,7 +58,7 @@
   }
 </script>
 {#if loginvalido}
-  <div class="min-h-screen bg-gradient-to-br from-[#30261c] to-[#403831]">
+  <div class="min-h-screen bg-gray-50">
     <slot />
   </div>
 {:else}

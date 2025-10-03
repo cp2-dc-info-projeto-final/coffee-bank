@@ -81,7 +81,7 @@
   <title>Dashboard - Coffee Bank Admin</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 flex">
+<div class="min-h-screen bg-gray-50 flex flex-1">
   <!-- Sidebar -->
   <div class="fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-[#1f5f61] to-[#36544f] transform transition-all duration-500 ease-in-out {sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0 shadow-2xl">
     <div class="flex flex-col h-full">
@@ -170,7 +170,7 @@
   <div class="flex-1 flex flex-col min-h-screen">
     <!-- Top Header -->
     <div class="bg-white shadow-sm border-b border-gray-200 animate-fade-in-down">
-      <div class="px-6 py-4">
+      <div class="md:px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
             <button

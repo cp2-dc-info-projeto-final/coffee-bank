@@ -43,7 +43,7 @@
                     text="Faça uma transferência para alguém" 
                     imagem="fa-solid fa-money-bill-transfer" 
                     tittle="Transferências"
-                    link="Users/transferências"
+                    link="Users/transferencias"
                 />
             </div>
             <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
@@ -54,14 +54,7 @@
                     link="Users/Investimentos"
                 />
             </div>
-            <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
-                <LinkButton 
-                    text="Faça uma transferência para alguém" 
-                    imagem="fa-solid fa-chart-simple" 
-                    tittle="Transferências"
-                    link="Users/transferências"
-                />
-            </div>
+            
             
         </div>
 
