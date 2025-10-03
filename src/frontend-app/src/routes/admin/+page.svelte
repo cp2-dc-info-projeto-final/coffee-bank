@@ -28,6 +28,7 @@
   }
   onMount(async () => {
     await loadStats();
+    console.log("legal com Miado gostoso")
   });
 
   async function loadStats() {
