@@ -3,12 +3,12 @@ var router = express.Router();
 const pool = require('../db/config');
 const ValidationCPF = require('../Functions/CPFValidation');
 const bcrypt = require('bcrypt');
-const axios = require("axios")
+const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
 
 /* GET - Buscar todos os usuários */
-router.get('/', async function(req, res, next) {
+router.get('/',  verifyToken, isAdmin, async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
     result.rows = await Promise.all(
@@ -40,7 +40,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET parametrizado - Buscar usuário por ID */
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { id } = req.params;
     const result = await pool.query('SELECT * FROM "Users" WHERE id = $1', [id]);
@@ -65,7 +65,7 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', async function(req, res, next) {
+router.post('/', verifyToken, isAdmin, async function(req, res, next) {
   try {
     console.log(req.body)
     const {
@@ -76,7 +76,6 @@ router.post('/', async function(req, res, next) {
       Senha5conf,
       Senha7,
       Senha7conf,
-      Sex
       } = req.body;
     // Validação básica
     if (!CPF ||
@@ -84,8 +83,7 @@ router.post('/', async function(req, res, next) {
       !Senha5||
       !Senha5conf||
       !Senha7||
-      !Senha7conf||
-    Sex === undefined) {
+      !Senha7conf) {
       console.log("fudeu tudo")
       return res.status(400).json({
         success: false,
@@ -111,9 +109,9 @@ router.post('/', async function(req, res, next) {
     const Senha5_criptografada = await bcrypt.hash(Senha5, 10)
     const Senha7_criptografada = await bcrypt.hash(Senha7, 10)
     const result = await pool.query(
-      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix","Sex") 
-   VALUES ($1, $2, 500, $3, $4,$1,$5) RETURNING *`,
-  [CPF, Nome, Senha5_criptografada, Senha7_criptografada,Sex]
+      `INSERT INTO "Users" ("CPF", "Nome", "Saldo", "Senha5", "Senha7","ChavePix") 
+   VALUES ($1, $2, 500, $3, $4,$1) RETURNING *`,
+  [CPF, Nome, Senha5_criptografada, Senha7_criptografada]
     );
     if(file){
       try{
@@ -139,11 +137,9 @@ router.post('/', async function(req, res, next) {
 });
 
 /* PUT - Atualizar usuário */
-router.put('/Update/:id', async function(req, res, next) {
+router.put('/Update/:id', verifyToken, async function(req, res, next) {
   try {
     const { id } = req.params;
-    console.log(id)
-    console.log(req.body)
     const { CPF,
       Nome,
       Senha5,
@@ -151,8 +147,7 @@ router.put('/Update/:id', async function(req, res, next) {
       Senha7,
       Senha7conf,
       ChavePix,
-      Imagem,
-      Sex
+      Imagem
       } = req.body;
     
     if (!CPF ||
@@ -214,7 +209,7 @@ router.put('/Update/:id', async function(req, res, next) {
 });
 
 /* DELETE - Remover usuário */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { id } = req.params;
     
@@ -362,7 +357,7 @@ router.post('/login', async function(req, res) {
 });
 
 /*Hora Da Consulta*/
-router.put('/search', async function(req, res, next) {
+router.put('/search', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
@@ -403,7 +398,7 @@ router.put('/search', async function(req, res, next) {
     });
   }
 });
-router.put('/Name', async function(req, res, next) {
+router.put('/Name', verifyToken, async function(req, res, next) {
   const {CPF}=req.body
   if(!CPF){
     return res.status(400).json({
@@ -430,4 +425,5 @@ router.put('/Name', async function(req, res, next) {
     })
   }
 })
+
 module.exports = router;

@@ -7,14 +7,25 @@
   import { login as authLogin } from "$lib/auth";
 
   const dispatch = createEventDispatcher();
-  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; sex?: boolean }) {
+  export let cpf: string = '';
+  function enviarJson(data: { CPF?: string; Nome?: string; Imagem?: string | null; }) {
     const user = new User(data);
     dispatch('login', { detail: { User: user }, bubbles: true });
   }
+  function Fechar() {
+    const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
+    const senha = document.getElementById("password") as HTMLFormElement | null;
+    senha?.value=""
+    cpfInput?.value=""
+    dispatch('Fechar', { detail: { Event:"close" }, bubbles: true });
+  }
   onMount(() => {
-      const cpfInput = document.getElementById('cpf');
-      const form = document.getElementById("form");
-      cpfInput.addEventListener('input', function (e) {
+      const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
+      const form = document.getElementById("form") as HTMLFormElement | null;
+      if (cpfInput && cpf) {
+          cpfInput.value = cpf;
+      }
+      cpfInput?.addEventListener('input', function (e: any) {
           let value = e.target.value.replace(/\D/g, '');
           if (value.length > 11) value = value.slice(0, 11);
 
@@ -24,29 +35,33 @@
 
           });
           
-          
-      form.addEventListener("submit", async function (e) {
+      document.getElementById('cpf')?.addEventListener('input', function (e: any) {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        e.target.value = value;
+      });
+      form?.addEventListener("submit", async function (e) {
           e.preventDefault(); // Impede o envio padrão do form
-          var pass = document.getElementById("password").value;
-          var CPF= document.getElementById("cpf").value;
-          console.log(CPF)
+          var pass = (document.getElementById("password") as HTMLInputElement)?.value;
+          var CPF = (document.getElementById("cpf") as HTMLInputElement)?.value;
           try{
-             const result = await authLogin({ "login":CPF, "password":pass });
+             const result = await authLogin({ login: CPF, password: pass });
               //const response = await axios.put("http://localhost:3000/users/Login", data);
               if(result.success){
                 //enviarJson(response.data);
                 console.log(result);
                 goto('/Users')
               } else {
-                  console.log(result,result.data)
+                  console.log(result)
               }
           } catch (error) {
               console.error("Erro ao fazer login:", error);
-              alert(result)
+              
           }
         
-      })
-  });
+      })})
 </script>
 <div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
   <section class="bg-gray-900/60 w-full h-full" id="login">
@@ -54,22 +69,16 @@
       <div class="w-full  md:mt-0 sm:max-w-md xl:p-0  itemns center">
         <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
           <div class="flex">
-            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            <button id="closeModal" type="button"
-            class="absolute top-3 right-3 text-gray-400 hover:text-white">
-            ✕
-          </button>
-          </h1>
+            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            
+              <button id="closeModal" type="button" on:click={Fechar} class="absolute top-3 right-3 text-gray-400 hover:text-white">
+                ✕
+              </button>
+            </h1>
             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
 
               Login para acesso
             </h1>
           </div>
-          <script>
-            <!-- Script para fechar o modal -->
-            document.getElementById("closeModal").addEventListener("click", () => {
-              document.getElementById("default-modal").classList.add("hidden");
-            });
-          </script>
            <form class="space-y-4 md:space-y-6" method="POST" id="form">
             <!-- Campo CPF -->
             <div>
@@ -97,7 +106,7 @@
 
             <!-- Link Esqueceu a senha -->
             <div>
-              <a href="" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
+              <a href="/1" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
             </div>
 
             <!-- Botão Confirmar -->

@@ -20,8 +20,7 @@ CREATE TABLE "public"."Users" (
   "Imagem" VARCHAR(255),
   "Senha5" VARCHAR(255) NOT NULL,
   "Senha7" VARCHAR(255) NOT NULL,
-  "ChavePix" VARCHAR(255) NOT NULL,
- 	"Sex" Boolean NOT NULL
+  "ChavePix" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "public"."Admins" (
@@ -59,10 +58,11 @@ CREATE TABLE "public"."Automatizacao" (
 
 CREATE TABLE "public"."Investimento" (
   "id" SERIAL PRIMARY KEY,
-  "Preco" INTEGER NOT NULL,
-  "Tamanho" NUMERIC NOT NULL,
+  "Compra" INTEGER NOT NULL,
+  "Preco" INTEGER,
+  "AreaTotal" NUMERIC NOT NULL,
   "Numero" INTEGER NOT NULL,
-  "AreaVendida" VARCHAR(255),
+  "AreaVendida" NUMERIC NOT NULL,
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
   "Emissor" INTEGER NOT NULL REFERENCES "Users"("id") ON DELETE CASCADE,
@@ -80,7 +80,7 @@ CREATE TABLE "public"."CarteiraInvestimento" (
   "Investimento_id" INTEGER NOT NULL REFERENCES "Investimento"("id") ON DELETE CASCADE,
   "Carteira_id" INTEGER NOT NULL REFERENCES "Carteira"("id"),
   "DataCriacao" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "Quantidade" INTEGER NOT NULL
+  "Area" Numeric NOT NULL
 );
 
 CREATE TABLE "public"."Categoria" (
@@ -89,3 +89,5 @@ CREATE TABLE "public"."Categoria" (
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL
 );
+
+insert into "public"."Admins" ("CPF", "DataCriacao", "Nome", "Senha12") values ('629.598.820-24', '2025-09-25 21:27:39.75167', 'Default Admin', '$2b$10$ypakIosLzNJNf3BvwAiys.Hthfykp7Zp/YealuGcgPfQhO85FNUPO')
