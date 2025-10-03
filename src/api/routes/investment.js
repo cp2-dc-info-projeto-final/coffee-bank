@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
+
 router.post('/', async function(req, res, next) {
     try{
         const {

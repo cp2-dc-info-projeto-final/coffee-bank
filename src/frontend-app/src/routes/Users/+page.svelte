@@ -5,6 +5,7 @@
     let token
     let payload
     let user = {}
+    
     import Nav from "../../Components/Navs/UserLogin.svelte"
     
     onMount(() => {
@@ -43,7 +44,7 @@
                     text="Faça uma transferência para alguém" 
                     imagem="fa-solid fa-money-bill-transfer" 
                     tittle="Transferências"
-                    link="Users/transferencias"
+                    link="../Users/transferencias"
                 />
             </div>
             <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
@@ -51,7 +52,7 @@
                     text="Veja sua carteira de investimentos" 
                     imagem="fa-solid fa-wallet" 
                     tittle="Investimentos"
-                    link="Users/Investimentos"
+                    link="../Users/Investimentos"
                 />
             </div>
             
