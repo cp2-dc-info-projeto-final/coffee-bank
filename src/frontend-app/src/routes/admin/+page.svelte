@@ -28,29 +28,29 @@
     {
       label:'Total de Usuários',
       stats:stats.totalUsers,
-      svg1:'<svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>',
-      svg2:'<svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>',
+      svg1:'1',
+      svg2:'1',
       extraInfo:`+ ${stats.todayUsers} novos hoje`
     },
     {
       label:'Transferências',
       stats:stats.totalTransfers, 
-      svg1:'<svg class="w-6 h-6 text-[#1f5f61] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>',
-      svg2:`<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path></svg>`, 
+      svg1:'2',
+      svg2:`3`, 
       extraInfo:`+ ${stats.todayTransfers} hoje`
     },
     {
       label:'Volume Total',
       stats:stats.totalBalance,
-      svg1:'<svg class="w-6 h-6 text-[#403831] transition-transform duration-300 hover:scale-110" fill="none" stroke="green" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"> </path> </svg>',
-      svg2:'<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>', 
+      svg1:'4',
+      svg2:'5', 
       extraInfo:'Em cafés'
     },
     {
       label:'Administradores',
       stats:stats.totalAdmins,
-      svg1:'<svg class="w-6 h-6 text-[#36544f] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>',
-      svg2:'<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>', 
+      svg1:'6',
+      svg2:'7', 
       extraInfo:'Acesso completo'
     }
 
