@@ -23,6 +23,12 @@
             console.error("Error decoding token:", error);
         }
     }
+    function Editar(){
+        goto("../Users/edit/")
+    }
+    function home(){
+        goto("../Users/")
+    }
     async function logout(){
         sessionStorage.removeItem("auth_token")
         goto("../")
@@ -36,7 +42,7 @@
         <div class="flex items-center justify-between">
             <!-- Perfil do Usuário -->
             <div class="flex items-center space-x-4 animate-fade-in-left">
-                <div class="relative group">
+                <div class="relative group" on:click={Editar}>
                     <img 
                         src={user.Imagem ? user.Imagem : defaultImage} 
                         class="w-16 h-16 rounded-full border-2 border-white/20 shadow-md object-cover transition-all duration-300 group-hover:shadow-lg group-hover:scale-105"
@@ -72,7 +78,15 @@
                     <i class="fa-solid fa-bell text-lg group-hover:animate-bounce"></i>
                     <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
                 </button>
-                
+                <!-- Home -->
+                <button 
+                    class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-105"
+                    on:click={home}
+                    aria-label="Sair da conta"
+                >
+                 <i class="fa-solid fa-house text-lg group-hover:scale-110 transition-transform duration-200"></i>
+                    <span class="hidden md:block text-sm font-medium">Home</span>
+                </button>
                 <!-- Logout -->
                 <button 
                     class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-105"

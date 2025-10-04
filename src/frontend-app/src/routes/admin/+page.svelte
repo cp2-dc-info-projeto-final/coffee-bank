@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import Card from '../../Components/cards/adminCards.svelte'
 
   let stats = {
     totalUsers: 0,
@@ -22,6 +23,38 @@
     { id: 'transfers', name: 'Transferências', icon: 'M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4' },
     { id: 'reports', name: 'Relatórios', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' } 
   ];
+
+  const sectionsContent = [
+    {
+      label:'Total de Usuários',
+      stats:stats.totalUsers,
+      svg1:'<svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>',
+      svg2:'<svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>',
+      extraInfo:`+ ${stats.todayUsers} novos hoje`
+    },
+    {
+      label:'Transferências',
+      stats:stats.totalTransfers, 
+      svg1:'<svg class="w-6 h-6 text-[#1f5f61] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>',
+      svg2:`<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path></svg>`, 
+      extraInfo:`+ ${stats.todayTransfers} hoje`
+    },
+    {
+      label:'Volume Total',
+      stats:stats.totalBalance,
+      svg1:'<svg class="w-6 h-6 text-[#403831] transition-transform duration-300 hover:scale-110" fill="none" stroke="green" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"> </path> </svg>',
+      svg2:'<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>', 
+      extraInfo:'Em cafés'
+    },
+    {
+      label:'Administradores',
+      stats:stats.totalAdmins,
+      svg1:'<svg class="w-6 h-6 text-[#36544f] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>',
+      svg2:'<svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>', 
+      extraInfo:'Acesso completo'
+    }
+
+  ]
   function logout() {
     localStorage.removeItem('auth_token');
     goto('/');
@@ -228,85 +261,16 @@
           <!-- Stats Grid -->
           <div class="space-y-6 animate-fade-in">
             <!-- Key Metrics Cards -->
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-gray-600">Total de Usuários</p>
-                    <p class="text-2xl font-bold text-gray-900 animate-count-up">{formatNumber(stats.totalUsers)}</p>
-                  </div>
-                  <div class="w-12 h-12 bg-[#0b8185]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mt-4 flex items-center text-sm text-[#0b8185] animate-fade-in-up animation-delay-200">
-                  <svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
-                  </svg>
-                  +{stats.todayUsers} novos hoje
-                </div>
-              </div>
-
-              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-100">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-gray-600">Transferências</p>
-                    <p class="text-2xl font-bold text-gray-900 animate-count-up">{formatNumber(stats.totalTransfers)}</p>
-                  </div>
-                  <div class="w-12 h-12 bg-[#1f5f61]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#1f5f61] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mt-4 flex items-center text-sm text-[#1f5f61] animate-fade-in-up animation-delay-200">
-                  <svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
-                  </svg>
-                  +{stats.todayTransfers} hoje
-                </div>
-              </div>
-
-              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-200">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-gray-600">Volume Total</p>
-                    <p class="text-2xl font-bold text-gray-900 animate-count-up">{formatCurrency(stats.totalBalance)}</p>
-                  </div>
-                  <div class="w-12 h-12 bg-[#403831]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#403831] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mt-4 flex items-center text-sm text-[#403831] animate-fade-in-up animation-delay-200">
-                  <svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  </svg>
-                  Em cafés
-                </div>
-              </div>
-
-              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-300">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-gray-600">Administradores</p>
-                    <p class="text-2xl font-bold text-gray-900 animate-count-up">{formatNumber(stats.totalAdmins)}</p>
-                  </div>
-                  <div class="w-12 h-12 bg-[#36544f]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#36544f] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mt-4 flex items-center text-sm text-[#36544f] animate-fade-in-up animation-delay-200">
-                  <svg class="w-4 h-4 mr-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  Acesso completo
-                </div>
+              {#each sectionsContent as sectionContent }
+              <Card 
+                label={sectionContent.label}
+                stats={sectionContent.stats}
+                svg={sectionContent.svg}
+                extraInfo={sectionContent.extraInfo}
+                />
+              {/each}
               </div>
             </div>
 
@@ -402,7 +366,6 @@
                 </div>
               </div>
             </div>
-          </div>
         {/if}
       </div>
     </div>
