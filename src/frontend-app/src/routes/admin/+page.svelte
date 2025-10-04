@@ -1,8 +1,14 @@
 <script lang="ts">
+  import Svg1 from "../../assets";
+  import Svg2 from "../../assets";
+  import Svg3 from "../../assets";
+  import Svg4 from "../../assets";
+  import Svg5 from "../../assets";
+  import Svg6 from "../../assets";
+  import Svg7 from "../../assets";
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import Card from '../../Components/cards/adminCards.svelte'
-
   let stats = {
     totalUsers: 0,
     totalAdmins: 0,
