@@ -36,7 +36,7 @@ import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
 		}
     })   
 </script>
-
+<div class="flex flex-1 flex-col bg-gradient-to-br from-gray-800/15">
 
 <header class="relative w-full">
 	<div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
@@ -61,7 +61,30 @@ import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
 		</nav>
 	</div>
 </header>
-{#each data as investimento}
-    <li>
-		{investimento.Preco} {investimento.AreaTotal}</li>
+
+<div class="flex flex-1 flex-col-reverse md:flex-row">
+<ul class="flex flex-col w-full md:w-xl grow bg-gradient-to-b from-[#240f00] rounded-2xl backdrop-blur-3xl p-10 ">
+   	<h2 class="text-center text-xl md:text-5xl py-6 text-white">INVESTIMENTOS A VENDA</h2>
+	{#each data as investimento}
+    <li class="pb-3 sm:pb-4">
+      <div class="flex items-center space-x-4 rtl:space-x-reverse">
+         <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-white">
+               {investimento.Nome}
+            </p>
+            <p class="text-sm text-white">
+               {investimento.DonodoInvestimento}
+            </p>
+         </div>
+         <div class="inline-flex items-center text-base font-semibold text-white">
+            {investimento.Preco} KGCF
+         </div>
+      </div>
+   	</li>
 {/each}
+</ul>
+<div class="flex flex-10">
+	
+</div>
+</div>
+</div>
