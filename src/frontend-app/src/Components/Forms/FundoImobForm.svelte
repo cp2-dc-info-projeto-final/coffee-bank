@@ -1,5 +1,13 @@
 <script lang="ts">
-  
+    import axios from 'axios';
+    const api = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Útil para CORS com cookies/sessão
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })  
     import Textform from '../../Components/textform.svelte';
     let sucesss:string=""
     let dataerros:string[] = [];
@@ -33,7 +41,6 @@
       onMount(() => {
        
           const labels = ["preco", "area", "nome", "df", "tamanho", "porcentagem"];
-          const token = sessionStorage.getItem("auth_token");
           if (token) {
                   const payload = atob(token.split(".")[1]);
                   user = JSON.parse(payload); 
@@ -60,13 +67,7 @@
               Validationdata(data);
               if(!dataerros.length){
               // Envia os dados via POST
-                  const resposta= await fetch("http://localhost:3000/investment.js", {
-                      method: "POST",
-                      headers: {
-                          "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(data)
-                  });
+                  const resposta= api.post("http://localhost:3000/investment.js",JSON.stringify(data));
                   const json = await resposta.json();
                   console.log(json.sucesss, json.message);
                   if(!json.success){
