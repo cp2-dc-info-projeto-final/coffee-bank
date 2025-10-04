@@ -1,8 +1,17 @@
-<script>
-    import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
+<script lang="ts">
+	import axios from "axios";
+import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";
     import logo from "../../../assets/images/coffebank_noir-removebg-preview.png";
 	// Links principais
+	const api = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Útil para CORS com cookies/sessão
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  })
 	const links = {
 		login: "/LoginUser",
 		cadastro: "/Cadastro",
@@ -12,11 +21,19 @@
     let token
     let payload
     let user = {}
-    
-    onMount(() => {
+	let data:{id:number,Compra:number,Preco:number,AreaTotal:string,1000}[]=[]
+	let erros=[]
+    onMount(async() => {
         token = sessionStorage.getItem("auth_token");
         payload = atob(token.split(".")[1]);
         user = JSON.parse(payload);
+		const resultado=await api.get("/mercado")
+		if(resultado.status==200){
+			data=resultado.data.Data
+			console.log(data)
+		}else{
+			erros.push("Problema na consulta")
+		}
     })   
 </script>
 
@@ -44,3 +61,7 @@
 		</nav>
 	</div>
 </header>
+{#each data as investimento}
+    <li>
+		{investimento.Preco} {investimento.AreaTotal}</li>
+{/each}
