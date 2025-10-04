@@ -1,11 +1,12 @@
 <script lang="ts">
-  import Svg1 from "../../assets";
-  import Svg2 from "../../assets";
-  import Svg3 from "../../assets";
-  import Svg4 from "../../assets";
-  import Svg5 from "../../assets";
-  import Svg6 from "../../assets";
-  import Svg7 from "../../assets";
+  import userSvg from "../../assets/svgs/users.svg";
+  import Svg2 from "../../assets/svgs/svg2.svg";
+  import Svg3 from "../../assets/svgs/svg3.svg";
+  import Svg4 from "../../assets/svgs/svg4.svg";
+  import Svg5 from "../../assets/svgs/svg5.svg";
+  import Svg6 from "../../assets/svgs/svg6.svg";
+  import Svg7 from "../../assets/svgs/svg7.svg";
+  import ActivityChart from "../../Components/admins/activityChart.svelte";
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import Card from '../../Components/cards/adminCards.svelte'
@@ -33,30 +34,30 @@
   const sectionsContent = [
     {
       label:'Total de Usuários',
-      stats:stats.totalUsers,
-      svg1:'1',
-      svg2:'1',
+      stats:formatNumber(stats.totalUsers),
+      SVG1:{userSvg},
+      SVG2:{userSvg},
       extraInfo:`+ ${stats.todayUsers} novos hoje`
     },
     {
       label:'Transferências',
-      stats:stats.totalTransfers, 
-      svg1:'2',
-      svg2:`3`, 
+      stats:formatNumber(stats.totalTransfers), 
+      SVG1:{Svg2},
+      SVG2:{Svg3}, 
       extraInfo:`+ ${stats.todayTransfers} hoje`
     },
     {
       label:'Volume Total',
-      stats:stats.totalBalance,
-      svg1:'4',
-      svg2:'5', 
+      stats:formatCurrency(stats.totalBalance),
+      SVG1:{Svg4},
+      SVG2:{Svg5}, 
       extraInfo:'Em cafés'
     },
     {
       label:'Administradores',
-      stats:stats.totalAdmins,
-      svg1:'6',
-      svg2:'7', 
+      stats:formatNumber(stats.totalAdmins),
+      SVG1:{Svg6},
+      SVG2:{Svg7}, 
       extraInfo:'Acesso completo'
     }
 
@@ -78,6 +79,7 @@
       
       if (data.success) {
         stats = data.data;
+        console.log(stats);
       } else {
         error = 'Erro ao carregar estatísticas';
       }
@@ -273,26 +275,15 @@
               <Card 
                 label={sectionContent.label}
                 stats={sectionContent.stats}
-                svg={sectionContent.svg}
+                SVG1={sectionContent.SVG1}
+                SVG2={sectionContent.SVG2}
                 extraInfo={sectionContent.extraInfo}
                 />
               {/each}
               </div>
             </div>
 
-            <!-- Activity Chart Placeholder -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 animate-fade-in-up animation-delay-400">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4 animate-fade-in">Atividade Diária</h3>
-              <div class="h-64 bg-gradient-to-br from-[#0b8185]/5 to-[#1f5f61]/5 rounded-lg flex items-center justify-center hover:scale-105 transition-transform duration-300">
-                <div class="text-center animate-fade-in-up">
-                  <svg class="w-16 h-16 text-[#0b8185]/30 mx-auto mb-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                  </svg>
-                  <p class="text-[#0b8185] font-medium">Gráfico de Atividade</p>
-                  <p class="text-gray-500 text-sm">Visualização dos dados em tempo real</p>
-                </div>
-              </div>
-            </div>
+            <ActivityChart/>
 
             <!-- Quick Actions -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-fade-in-up animation-delay-500">
