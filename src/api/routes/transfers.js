@@ -4,7 +4,6 @@ var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
 const { verifyToken } = require('../middlewares/auth');
 const bcrypt = require('bcrypt');
-
 router.put('/trasferencia', verifyToken, async function(req, res, next) {
   var {ChavePix,valor, senha7}=req.body
   var {CPF}=req.user
