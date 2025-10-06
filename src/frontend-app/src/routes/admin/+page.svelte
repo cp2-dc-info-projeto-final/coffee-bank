@@ -1,11 +1,11 @@
 <script lang="ts">
-  import userSvg from "../../assets/svgs/users.svg";
-  import Svg2 from "../../assets/svgs/svg2.svg";
-  import Svg3 from "../../assets/svgs/svg3.svg";
-  import Svg4 from "../../assets/svgs/svg4.svg";
-  import Svg5 from "../../assets/svgs/svg5.svg";
-  import Svg6 from "../../assets/svgs/svg6.svg";
-  import Svg7 from "../../assets/svgs/svg7.svg";
+  let userSvg = "/svgs/users.svg";
+  let Svg2 = "/svgs/svg2.svg";
+  let Svg3 = "/svgs/svg3.svg";
+  let Svg4 = "/svgs/svg4.svg";
+  let Svg5 = "/svgs/svg5.svg";
+  let Svg6 = "/svgs/svg6.svg";
+  let Svg7 = "/svgs/svg7.svg";
   import ActivityChart from "../../Components/admins/activityChart.svelte";
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
