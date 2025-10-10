@@ -1,13 +1,13 @@
 <script lang="ts">
     import axios from 'axios';
     const api = axios.create({
-    baseURL: 'http://localhost:3000',
-    withCredentials: true, // Útil para CORS com cookies/sessão
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  })  
+      baseURL: 'http://localhost:3000',
+      withCredentials: true, // Útil para CORS com cookies/sessão
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    })  
     import Textform from '../../Components/textform.svelte';
     let sucesss:string=""
     let dataerros:string[] = [];
@@ -17,64 +17,53 @@
     let porcentagemValue = 0;
     let user = {};
    
-  
+    function parseJwt(token:string):string {
+      const base64Url = token.split(".")[1]; // pega só o payload
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // converte Base64URL p/ Base64 normal
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    }
     import ts from 'typescript';
   
     function Validationdata(data:any) {
-          let erros=[];
-          if(!data.Preco || !data.areaVendida || !data.Nome || !data.DF || !data.Tamanho || !data.Porcentagem){
-              erros.push("Preencha todos os campos obrigatórios.");
-          }
           
-          if(document.getElementById("checkbox-1").checked === false){
-              erros.push("Você deve aceitar os termos de contrato.");
-          }
-          if(data.Porcentagem > 100 ){
-              erros.push("As senhas devem ter 5 e 7 dígitos respectivamente.");
-          }
-          if(/^\d+$/.test(data.Senha5) === false || /^\d+$/.test(data.Senha7) === false){
-              erros.push("As senhas devem conter apenas números.");
-          }
-          dataerros = erros;
       }
-  
-      onMount(() => {
-       
-          const labels = ["preco", "area", "nome", "df", "tamanho", "porcentagem"];
-          if (token) {
-                  const payload = atob(token.split(".")[1]);
-                  user = JSON.parse(payload); 
-                   // parse the decoded payload to a JS object
-              } else {
-                  console.error("No auth token found in session storage.");
-              }
-              
-              console.log(user.CPF)
-              user.firstName=user.Name.split(" ")[0]
-          async function enviar() {
-              // Obtém os dados do formulário
+      async function enviar() {
+        console.log("legal");      
+        // Obtém os dados do formulário
               const data = {
-  
-                  CPF: user.CPF,
-                  areaVendida: document.getElementById("area").value,
-                  Tamanho: document.getElementById("tamanho").value,
-                  Porcentagem: document.getElementById("porcentagem").value,
+                  CPF: "123.456.789-09",
+                  Area: Number(document.getElementById("area").value),
+                  AreaTotal: Number(document.getElementById("tamanho").value),
+                  porcentagem: Number(document.getElementById("porcentagem").value),
                   DF: document.getElementById("df").value,
                   Nome: document.getElementById("nome").value,
-                  Preco: document.getElementById("preco").value               
+                  Compra: Number(document.getElementById("preco").value)               
                 };
               console.log(data);
+
               Validationdata(data);
+              
               if(!dataerros.length){
               // Envia os dados via POST
-                  const resposta= api.post("http://localhost:3000/investment.js",JSON.stringify(data));
-                  const json = await resposta.json();
-                  console.log(json.sucesss, json.message);
-                  if(!json.success){
-                      dataerros=[json.message];
+              console.log(JSON.stringify(data))
+                  const resposta= await api.post("/investment",data);
+                  
+                  const json = await resposta.data;
+                  console.log(json,resposta)
+                  console.log(json.Sucess, json.Message);
+                  if(!resposta.Sucess){
+                    console.log("legal")
+                      dataerros=[json.Message];
                   }
-                  else if(json.success){
-                      sucesss=json.message
+                  else{
+                    console.log("legal")
+                      sucesss=json.Message
                       document.getElementById("preco").value=""
                       document.getElementById("area").value=""
                       document.getElementById("nome").value=""
@@ -85,18 +74,32 @@
   
               }
           }
-  
-          const form = document.getElementById("formularioInvestimentos");
-          form.addEventListener("submit", function (event) {
+      var token=null
+      onMount(() => {
+          let token = sessionStorage.getItem("auth_token");
+          const labels = ["preco", "area", "nome", "df", "tamanho", "porcentagem"];
+          if (token) {
+                  const payload = atob(token.split(".")[1]);
+                  user = JSON.parse(payload); 
+                   // parse the decoded payload to a JS object
+              } else {
+                  console.error("No auth token found in session storage.");
+              }
+              console.log(user.CPF)          
+              enviador()
+      });
+      function enviador(){
+        const form = document.getElementById("formularioInvestimentos");
+        form.addEventListener("submit", function (event) {
+            console.log("vou matar o asafe")  
               event.preventDefault(); // Impede o envio padrão do form
               enviar();
               window.scrollTo({ top: 0, behavior: "smooth" }); 
           });
-         
-      });
+      }
   </script>
   <div class="bg-gray-100 my-5 py-3 h-full mx-10 rounded-lg ">
-    <form action="POST" id="formularioInvestimentos">
+    <form method="POST" id="formularioInvestimentos">
     <div class="relative m-6">
        
   
@@ -154,7 +157,7 @@
           </button>
       </div>  
     </div>
-    </form>
+  </form>
   </div>
   
   

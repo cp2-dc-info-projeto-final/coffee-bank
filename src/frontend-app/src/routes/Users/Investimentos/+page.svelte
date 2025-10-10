@@ -63,7 +63,7 @@ import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
 </header>
 
 <div class="flex flex-1 flex-col-reverse md:flex-row">
-<ul class="flex flex-col w-full md:w-xl grow bg-gradient-to-b from-[#240f00] rounded-2xl backdrop-blur-3xl p-10 ">
+<ul class="flex flex-col w-full md:w-xl grow bg-gradient-to-br from-[#000000] rounded-2xl backdrop-blur-3xl p-10 ">
    	<h2 class="text-center text-xl md:text-5xl py-6 text-white">INVESTIMENTOS A VENDA</h2>
 	{#each data as investimento}
     <li class="pb-3 sm:pb-4">
@@ -77,7 +77,7 @@ import LinkButton from "../../../Components/cards/userMainlinknavigacion.svelte"
             </p>
          </div>
          <div class="inline-flex items-center text-base font-semibold text-white">
-            {investimento.Preco} KGCF
+            {investimento.Preco} KGB
          </div>
       </div>
    	</li>

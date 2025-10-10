@@ -61,7 +61,7 @@ CREATE TABLE "public"."Investimento" (
   "Compra" INTEGER NOT NULL,
   "Preco" INTEGER,
   "AreaTotal" NUMERIC NOT NULL,
-  "Numero" INTEGER NOT NULL,
+  "Numero" INTEGER,
   "AreaVendida" NUMERIC NOT NULL,
   "Porcentagem" NUMERIC NOT NULL,
   "Nome" VARCHAR(255) NOT NULL,
