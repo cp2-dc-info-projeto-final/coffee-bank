@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import FundoForm from '../../../Components/Forms/FundoImobForm.svelte';
+  // import FundoForm from '../../../Components/Forms/FundoImobForm.svelte';
 
   let admins = [];
   let isLoading = true;
@@ -14,6 +14,19 @@
   let newPassword = '';
   let sidebarOpen = false;
   let activeSection = 'overview';
+
+  // Fundo Imobiliário form data
+  let fundoFormData = {
+    Nome: '',
+    Tamanho: '',
+    DistritoFederal: '',
+    AreaVendida: '',
+    Preco: '',
+    Porcentagem: ''
+  };
+  let fundoError = '';
+  let fundoSuccess = '';
+  let isLoadingFundo = false;
 
   // Form data
   let formData = {
@@ -195,6 +208,108 @@
     else if (sectionId === 'editFundoImob') {
       goto('/admin/admins/fundoImobiliario');
     }
+    else if (sectionId === 'fundoImob') {
+      // Reset form data when switching to fundo imob section
+      fundoFormData = {
+        Nome: '',
+        Tamanho: '',
+        DistritoFederal: '',
+        AreaVendida: '',
+        Preco: '',
+        Porcentagem: ''
+      };
+      fundoError = '';
+      fundoSuccess = '';
+    }
+  }
+
+  async function createFundoImobiliario() {
+    if (!fundoFormData.Nome || !fundoFormData.Tamanho || !fundoFormData.DistritoFederal || 
+        !fundoFormData.AreaVendida || !fundoFormData.Preco || !fundoFormData.Porcentagem) {
+      fundoError = 'Todos os campos são obrigatórios';
+      return;
+    }
+
+    // Validate numeric fields
+    if (isNaN(Number(fundoFormData.Tamanho)) || Number(fundoFormData.Tamanho) <= 0) {
+      fundoError = 'Tamanho deve ser um número positivo';
+      return;
+    }
+    if (isNaN(Number(fundoFormData.AreaVendida)) || Number(fundoFormData.AreaVendida) <= 0) {
+      fundoError = 'Área vendida deve ser um número positivo';
+      return;
+    }
+    if (isNaN(Number(fundoFormData.Preco)) || Number(fundoFormData.Preco) <= 0) {
+      fundoError = 'Preço deve ser um número positivo';
+      return;
+    }
+    if (isNaN(Number(fundoFormData.Porcentagem)) || Number(fundoFormData.Porcentagem) <= 0 || Number(fundoFormData.Porcentagem) > 100) {
+      fundoError = 'Porcentagem deve ser um número entre 0 e 100';
+      return;
+    }
+
+    try {
+      isLoadingFundo = true;
+      fundoError = '';
+      
+      const data = {
+        CPF: "123.456.789-09", // This should come from the logged user
+        Area: Number(fundoFormData.AreaVendida),
+        AreaTotal: Number(fundoFormData.Tamanho),
+        porcentagem: Number(fundoFormData.Porcentagem),
+        DF: fundoFormData.DistritoFederal,
+        Nome: fundoFormData.Nome,
+        Compra: Number(fundoFormData.Preco)
+      };
+
+      const response = await fetch('http://localhost:3000/investment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        fundoSuccess = 'Fundo Imobiliário criado com sucesso!';
+        // Reset form
+        fundoFormData = {
+          Nome: '',
+          Tamanho: '',
+          DistritoFederal: '',
+          AreaVendida: '',
+          Preco: '',
+          Porcentagem: ''
+        };
+      } else {
+        fundoError = result.Message || 'Erro ao criar fundo imobiliário';
+      }
+    } catch (err) {
+      console.error('Erro ao criar fundo imobiliário:', err);
+      fundoError = 'Erro de conexão';
+    } finally {
+      isLoadingFundo = false;
+    }
+  }
+
+  function formatCurrency(value) {
+    const numbers = value.replace(/\D/g, '');
+    return numbers.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  }
+
+  function handleCurrencyInput(event) {
+    fundoFormData.Preco = formatCurrency(event.target.value);
+  }
+
+  function formatPercentage(value) {
+    const numbers = value.replace(/\D/g, '');
+    return numbers;
+  }
+
+  function handlePercentageInput(event) {
+    fundoFormData.Porcentagem = formatPercentage(event.target.value);
   }
 </script>
 
@@ -594,8 +709,235 @@
               </div>
             </div>
           </div>
-          {:else if activeSection === 'fundoImob'}
-            <FundoForm/>
+        {:else if activeSection === 'fundoImob'}
+          <!-- Criar Fundo Imobiliário Section -->
+          <div class="space-y-6 animate-fade-in">
+            <!-- Header -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div class="flex items-center space-x-4 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-800 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900">Criar Fundo Imobiliário</h3>
+                  <p class="text-gray-600">Cadastre um novo fundo imobiliário no sistema</p>
+                </div>
+              </div>
+
+              <!-- Success Message -->
+              {#if fundoSuccess}
+                <div class="bg-green-50 border-l-4 border-green-400 text-green-700 p-4 rounded-lg mb-6 animate-fade-in-up">
+                  <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                      <h4 class="font-semibold">Sucesso!</h4>
+                      <p class="text-sm">{fundoSuccess}</p>
+                    </div>
+                  </div>
+                </div>
+              {/if}
+
+              <!-- Error Message -->
+              {#if fundoError}
+                <div class="bg-red-50 border-l-4 border-red-400 text-red-700 p-4 rounded-lg mb-6 animate-fade-in-up">
+                  <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                      <h4 class="font-semibold">Erro</h4>
+                      <p class="text-sm">{fundoError}</p>
+                    </div>
+                  </div>
+                </div>
+              {/if}
+
+              <!-- Form -->
+              <form on:submit|preventDefault={createFundoImobiliario} class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Nome -->
+                  <div class="space-y-2">
+                    <label for="fundo-nome" class="block text-sm font-medium text-gray-700">
+                      Nome do Fundo
+                    </label>
+                    <input
+                      id="fundo-nome"
+                      type="text"
+                      bind:value={fundoFormData.Nome}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Digite o nome do fundo"
+                      required
+                    />
+                  </div>
+
+                  <!-- Tamanho -->
+                  <div class="space-y-2">
+                    <label for="fundo-tamanho" class="block text-sm font-medium text-gray-700">
+                      Tamanho Total (m²)
+                    </label>
+                    <input
+                      id="fundo-tamanho"
+                      type="number"
+                      bind:value={fundoFormData.Tamanho}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Ex: 1000"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+
+                  <!-- Distrito Federal -->
+                  <div class="space-y-2">
+                    <label for="fundo-distrito" class="block text-sm font-medium text-gray-700">
+                      Distrito Federal
+                    </label>
+                    <select
+                      id="fundo-distrito"
+                      bind:value={fundoFormData.DistritoFederal}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      required
+                    >
+                      <option value="">Selecione o distrito</option>
+                      <option value="1">Distrito 1</option>
+                      <option value="2">Distrito 2</option>
+                      <option value="3">Distrito 3</option>
+                      <option value="4">Distrito 4</option>
+                      <option value="5">Distrito 5</option>
+                    </select>
+                  </div>
+
+                  <!-- Área Vendida -->
+                  <div class="space-y-2">
+                    <label for="fundo-area" class="block text-sm font-medium text-gray-700">
+                      Área Vendida (m²)
+                    </label>
+                    <input
+                      id="fundo-area"
+                      type="number"
+                      bind:value={fundoFormData.AreaVendida}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Ex: 500"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+
+                  <!-- Preço -->
+                  <div class="space-y-2">
+                    <label for="fundo-preco" class="block text-sm font-medium text-gray-700">
+                      Preço de Compra (R$)
+                    </label>
+                    <input
+                      id="fundo-preco"
+                      type="text"
+                      bind:value={fundoFormData.Preco}
+                      on:input={handleCurrencyInput}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Ex: 1.000.000"
+                      required
+                    />
+                  </div>
+
+                  <!-- Porcentagem -->
+                  <div class="space-y-2">
+                    <label for="fundo-porcentagem" class="block text-sm font-medium text-gray-700">
+                      Porcentagem do Investimento (%)
+                    </label>
+                    <input
+                      id="fundo-porcentagem"
+                      type="text"
+                      bind:value={fundoFormData.Porcentagem}
+                      on:input={handlePercentageInput}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Ex: 25"
+                      maxlength="3"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end pt-6 border-t border-gray-200">
+                  <button
+                    type="submit"
+                    disabled={isLoadingFundo}
+                    class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-amber-600 to-amber-800 text-white text-lg font-medium rounded-xl hover:from-amber-700 hover:to-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-600/30 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {#if isLoadingFundo}
+                      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Criando...
+                    {:else}
+                      <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                      Criar Fundo Imobiliário
+                    {/if}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        {:else if activeSection === 'editFundoImob'}
+          <!-- Editar Fundo Imobiliário Section -->
+          <div class="space-y-6 animate-fade-in">
+            <!-- Header -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div class="flex items-center space-x-4 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#0b8185] to-[#1f5f61] rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-gray-900">Editar Fundo Imobiliário</h3>
+                  <p class="text-gray-600">Atualize as informações do fundo imobiliário</p>
+                </div>
+              </div>
+
+              <!-- Info Card -->
+              <div class="bg-gradient-to-r from-[#0b8185]/5 to-[#1f5f61]/5 rounded-xl p-6 mb-6">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-6 h-6 text-[#0b8185]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <div>
+                    <h4 class="font-semibold text-[#0b8185]">Funcionalidade em Desenvolvimento</h4>
+                    <p class="text-sm text-[#1f5f61]">A edição de fundos imobiliários estará disponível em breve.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coming Soon Content -->
+              <div class="text-center py-12">
+                <div class="w-24 h-24 bg-gradient-to-br from-[#0b8185]/10 to-[#1f5f61]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg class="w-12 h-12 text-[#0b8185]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Em Breve</h3>
+                <p class="text-gray-600 mb-6">A funcionalidade de edição de fundos imobiliários está sendo desenvolvida e estará disponível em breve.</p>
+                <button
+                  on:click={() => setActiveSection('fundoImob')}
+                  class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#0b8185] to-[#1f5f61] text-white rounded-xl hover:from-[#1f5f61] hover:to-[#36544f] transition-all duration-300 hover:scale-105"
+                >
+                  <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                  Criar Novo Fundo
+                </button>
+              </div>
+            </div>
+          </div>
       {/if}
       
 
