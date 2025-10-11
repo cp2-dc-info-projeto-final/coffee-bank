@@ -425,7 +425,7 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
 })
-router.put('/searchCPF', verifyToken, isAdmin, async function(req, res, next) {
+router.put('/searchCPF', async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
