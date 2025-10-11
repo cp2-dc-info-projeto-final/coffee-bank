@@ -29,28 +29,28 @@
       label:'Total de Usuários',
       stats:formatNumber(stats.totalUsers),
       SVG1:"/svgs/users.svg",
-      SVG2:"/svgs/svg2.svg",
+      SVG2:"/svgs/svg3.svg",
       extraInfo:`+ ${stats.todayUsers} novos hoje`
     },
     {
       label:'Transferências',
       stats:formatNumber(stats.totalTransfers), 
-      SVG1:"/svgs/svg3.svg",
-      SVG2:"/svgs/svg2.svg", 
+      SVG1:"/svgs/svg2.svg",
+      SVG2:"/svgs/svg3.svg", 
       extraInfo:`+ ${stats.todayTransfers} hoje`
     },
     {
       label:'Volume Total',
       stats:formatCurrency(stats.totalBalance),
-      SVG1:"/svgs/svg5.svg",
-      SVG2:"/svgs/svg6.svg", 
+      SVG1:"/svgs/svg4.svg",
+      SVG2:"/svgs/svg5.svg", 
       extraInfo:'Em cafés'
     },
     {
       label:'Administradores',
       stats:formatNumber(stats.totalAdmins),
-      SVG1:"/svgs/svg7.svg",
-      SVG2:"/svgs/svg8.svg", 
+      SVG1:"/svgs/svg6.svg",
+      SVG2:"/svgs/svg7.svg", 
       extraInfo:'Acesso completo'
     }
 
