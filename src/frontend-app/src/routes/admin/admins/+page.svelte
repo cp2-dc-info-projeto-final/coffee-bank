@@ -204,7 +204,7 @@
 
 <div class="min-h-screen bg-gray-50 flex">
   <!-- Sidebar -->
-  <div class="fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-[#1f5f61] to-[#36544f] transform transition-all duration-500 ease-in-out {sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0 shadow-2xl">
+  <div class="fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-amber-600/90 to-amber-800/90 backdrop-blur-sm transform transition-all duration-500 ease-in-out {sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:inset-0 shadow-2xl">
     <div class="flex flex-col h-full">
       <!-- Sidebar Header -->
       <div class="flex items-center justify-between p-6 border-b border-white/20">
@@ -216,7 +216,7 @@
           </div>
           <div>
             <h2 class="text-xl font-bold text-white animate-slide-in-left">Administradores</h2>
-            <p class="text-[#0b8185] text-sm animate-slide-in-left animation-delay-100">Coffee Bank Admin</p>
+            <p class="text-amber-200/80 text-sm animate-slide-in-left animation-delay-100">Coffee Bank Admin</p>
           </div>
         </div>
         <button
@@ -235,7 +235,7 @@
         {#each sections as section, index}
           <button
             on:click={() => setActiveSection(section.id)}
-            class="w-full flex items-center space-x-4 px-4 py-3 rounded-xl text-left transition-all duration-300 hover:scale-105 {activeSection === section.id ? 'bg-white/20 text-white shadow-lg animate-pulse' : 'text-[#0b8185] hover:bg-white/10 hover:text-white'} animate-fade-in-up"
+            class="w-full flex items-center space-x-4 px-4 py-3 rounded-xl text-left transition-all duration-300 hover:scale-105 {activeSection === section.id ? 'bg-white/20 text-white shadow-lg animate-pulse' : 'text-amber-200/80 hover:bg-white/10 hover:text-white'} animate-fade-in-up"
             style="animation-delay: {index * 100}ms"
           >
             <svg class="w-5 h-5 transition-transform duration-300 {activeSection === section.id ? 'scale-110' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +250,7 @@
       <div class="p-6 border-t border-white/20 animate-fade-in-up animation-delay-500">
         <button
           on:click={goBack}
-          class="w-full flex items-center space-x-3 px-4 py-3 text-[#0b8185] hover:bg-white/10 hover:text-white rounded-xl transition-all duration-300 hover:scale-105"
+          class="w-full flex items-center space-x-3 px-4 py-3 text-amber-200/80 hover:bg-white/10 hover:text-white rounded-xl transition-all duration-300 hover:scale-105"
         >
           <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
@@ -295,13 +295,13 @@
             </div>
           </div>
           <div class="flex items-center space-x-4">
-            <div class="bg-[#0b8185]/10 rounded-xl p-4 text-center animate-fade-in-up">
-              <div class="text-2xl font-bold text-[#0b8185] animate-count-up">{admins.length}</div>
-              <div class="text-[#0b8185] text-sm">Total de Admins</div>
+            <div class="bg-amber-600/10 rounded-xl p-4 text-center animate-fade-in-up">
+              <div class="text-2xl font-bold text-amber-600 animate-count-up">{admins.length}</div>
+              <div class="text-amber-600 text-sm">Total de Admins</div>
             </div>
     <button
       on:click={openCreateModal}
-              class="inline-flex items-center px-4 py-2 bg-[#0b8185] text-white rounded-lg hover:bg-[#1f5f61] transition-all duration-300 hover:scale-105 hover:shadow-lg animate-fade-in-up"
+              class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-800 text-white rounded-lg hover:from-amber-700 hover:to-amber-900 transition-all duration-300 hover:scale-105 hover:shadow-lg animate-fade-in-up"
     >
               <svg class="h-5 w-5 mr-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -343,8 +343,8 @@
                     <p class="text-sm font-medium text-gray-600">Total de Admins</p>
                     <p class="text-3xl font-bold text-gray-900 animate-count-up">{admins.length}</p>
                   </div>
-                  <div class="w-12 h-12 bg-[#0b8185]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#0b8185] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-amber-600/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-amber-600 transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                     </svg>
                   </div>
@@ -357,8 +357,8 @@
                     <p class="text-sm font-medium text-gray-600">Admins Ativos</p>
                     <p class="text-3xl font-bold text-gray-900 animate-count-up">{admins.length}</p>
                   </div>
-                  <div class="w-12 h-12 bg-[#1f5f61]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#1f5f61] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-amber-700/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-amber-700 transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                   </div>
@@ -371,8 +371,8 @@
                     <p class="text-sm font-medium text-gray-600">Permissões</p>
                     <p class="text-3xl font-bold text-gray-900 animate-count-up">100%</p>
                   </div>
-                  <div class="w-12 h-12 bg-[#36544f]/10 rounded-lg flex items-center justify-center animate-pulse">
-                    <svg class="w-6 h-6 text-[#36544f] transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-amber-800/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-amber-800 transition-transform duration-300 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                   </div>
@@ -387,7 +387,7 @@
                 <div class="space-y-4">
                   {#each admins.slice(0, 3) as admin}
                     <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0b8185] to-[#1f5f61] flex items-center justify-center">
+                      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center">
                         <span class="text-white font-bold text-sm">{admin.Nome.charAt(0).toUpperCase()}</span>
                       </div>
                       <div class="flex-1">
@@ -410,8 +410,8 @@
     {#if isLoading}
       <div class="flex items-center justify-center py-20">
         <div class="text-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
-                    <p class="text-[#0b8185] font-medium text-lg animate-pulse">Carregando administradores...</p>
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-amber-600 mx-auto mb-4"></div>
+                    <p class="text-amber-600 font-medium text-lg animate-pulse">Carregando administradores...</p>
         </div>
       </div>
     {:else if admins.length === 0}
@@ -425,7 +425,7 @@
                   <p class="text-gray-600 mb-6 animate-fade-in-up">Comece criando um novo administrador para gerenciar o sistema.</p>
         <button
           on:click={openCreateModal}
-                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] transition-all duration-300 hover:scale-105 animate-fade-in-up"
+                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 transition-all duration-300 hover:scale-105 animate-fade-in-up"
         >
           <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -450,7 +450,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-12 w-12">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-[#0b8185] to-[#1f5f61] flex items-center justify-center animate-pulse">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center animate-pulse">
                         <span class="text-white font-bold text-lg">
                           {admin.Nome.charAt(0).toUpperCase()}
                         </span>
@@ -472,7 +472,7 @@
                   <div class="flex items-center space-x-3">
                     <button
                       on:click={() => openEditModal(admin)}
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-amber-700 bg-amber-100 hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all duration-300 hover:scale-105"
                     >
                       <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -610,8 +610,8 @@
     <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full">
       <div class="p-8">
         <div class="text-center mb-6">
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#0b8185]/10 mb-4">
-            <svg class="h-8 w-8 text-[#0b8185]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-amber-600/10 mb-4">
+            <svg class="h-8 w-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
             </svg>
           </div>
@@ -626,7 +626,7 @@
               id="nome"
               type="text"
               bind:value={formData.Nome}
-              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] transition-colors"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
               placeholder="Digite o nome completo"
               required
             />
@@ -638,7 +638,7 @@
               type="text"
               bind:value={formData.CPF}
               on:input={handleCPFInput}
-              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] transition-colors"
+              class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
               placeholder="000.000.000-00"
               maxlength="14"
               required
@@ -655,7 +655,7 @@
             </button>
             <button
               type="submit"
-              class="flex-1 px-6 py-3 bg-[#0b8185] text-white text-lg font-medium rounded-xl hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-[#0b8185]/30 transition-colors duration-200"
+              class="flex-1 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-800 text-white text-lg font-medium rounded-xl hover:from-amber-700 hover:to-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-600/30 transition-colors duration-200"
             >
               Criar Admin
             </button>
