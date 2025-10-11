@@ -1,11 +1,4 @@
 <script lang="ts">
-  let userSvg = "/svgs/users.svg";
-  let Svg2 = "/svgs/svg2.svg";
-  let Svg3 = "/svgs/svg3.svg";
-  let Svg4 = "/svgs/svg4.svg";
-  let Svg5 = "/svgs/svg5.svg";
-  let Svg6 = "/svgs/svg6.svg";
-  let Svg7 = "/svgs/svg7.svg";
   import ActivityChart from "../../Components/admins/activityChart.svelte";
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -35,29 +28,29 @@
     {
       label:'Total de Usuários',
       stats:formatNumber(stats.totalUsers),
-      SVG1:{userSvg},
-      SVG2:{userSvg},
+      SVG1:"/svgs/users.svg",
+      SVG2:"/svgs/svg2.svg",
       extraInfo:`+ ${stats.todayUsers} novos hoje`
     },
     {
       label:'Transferências',
       stats:formatNumber(stats.totalTransfers), 
-      SVG1:{Svg2},
-      SVG2:{Svg3}, 
+      SVG1:"/svgs/svg3.svg",
+      SVG2:"/svgs/svg2.svg", 
       extraInfo:`+ ${stats.todayTransfers} hoje`
     },
     {
       label:'Volume Total',
       stats:formatCurrency(stats.totalBalance),
-      SVG1:{Svg4},
-      SVG2:{Svg5}, 
+      SVG1:"/svgs/svg5.svg",
+      SVG2:"/svgs/svg6.svg", 
       extraInfo:'Em cafés'
     },
     {
       label:'Administradores',
       stats:formatNumber(stats.totalAdmins),
-      SVG1:{Svg6},
-      SVG2:{Svg7}, 
+      SVG1:"/svgs/svg7.svg",
+      SVG2:"/svgs/svg8.svg", 
       extraInfo:'Acesso completo'
     }
 
