@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-  import axios from 'axios';
+    import axios from 'axios';
+	import { login } from '$lib/auth';
+	import FundoImobForm from '../../../../Components/Forms/FundoImobForm.svelte';
     const api = axios.create({
       baseURL: 'http://localhost:3000',
       withCredentials: true, // Útil para CORS com cookies/sessão
@@ -22,7 +24,7 @@
 
   async function pegarTodosFundoImob(){
     const resposta= await api.get("/investment");
-    let fundoImobiliarios = resposta.data
+    let fundoImobiliarios = resposta.data.Data
     return fundoImobiliarios
   }
   async function openEditModal(fundoImobID){
@@ -57,9 +59,10 @@
   async function editFundoImob(id, data){
     const resposta = api.put(`/investiment/${id}`, data)
   }
-
-  onMount(() => {
-    pegarTodosFundoImob();
+  var fundoImobiliarios=[]
+  onMount(async () => {
+    fundoImobiliarios= await pegarTodosFundoImob();
+    console.log(fundoImobiliarios)
   })
     
   
