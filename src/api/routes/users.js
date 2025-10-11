@@ -439,21 +439,6 @@ router.put('/searchCPF', async function(req, res, next) {
         message: 'Usuário não encontrado'
       });
     }
-    result.rows = await Promise.all(
-      result.rows.map(async (user) => {
-        try {
-          let Imagem = await axios.put("http://localhost:3001/images", {
-            "path": `uploads/${user.id}/main.png`
-          })
-          return {
-            ...user,
-            "Image": Imagem.data.data
-          }
-        } catch (e) {
-          return user
-        }
-      })
-    )
     res.json({
       success: true,
       data: result.rows
