@@ -65,7 +65,7 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res, next) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', verifyToken, isAdmin, async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   try {
     console.log(req.body)
     const {
