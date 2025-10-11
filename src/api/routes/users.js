@@ -361,7 +361,7 @@ router.put('/search', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
-      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
+      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
 
@@ -425,5 +425,46 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
 })
+router.put('/searchCPF', verifyToken, isAdmin, async function(req, res, next) {
+  try {
+    const { CPF } = req.body;
+    const result = await pool.query(
+      'SELECT "CPF", "Nome" FROM "Users" WHERE "CPF" LIKE $1',
+      [`%${CPF}%`]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        try {
+          let Imagem = await axios.put("http://localhost:3001/images", {
+            "path": `uploads/${user.id}/main.png`
+          })
+          return {
+            ...user,
+            "Image": Imagem.data.data
+          }
+        } catch (e) {
+          return user
+        }
+      })
+    )
+    res.json({
+      success: true,
+      data: result.rows
+    });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
 
 module.exports = router;
