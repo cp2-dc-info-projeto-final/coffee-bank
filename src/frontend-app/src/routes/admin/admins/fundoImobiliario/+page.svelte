@@ -57,12 +57,11 @@
       }
   }
   async function editFundoImob(id, data){
-    const resposta = api.put(`/investiment/${id}`, data)
+    const resposta = await api.put(`/investiment/${id}`, data)
   }
-  var fundoImobiliarios=[]
+  var fundoImobiliarios:any[]=[]
   onMount(async () => {
     fundoImobiliarios= await pegarTodosFundoImob();
-    console.log(fundoImobiliarios)
   })
     
   
