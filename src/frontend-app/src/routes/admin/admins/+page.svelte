@@ -22,7 +22,8 @@
     DistritoFederal: '',
     AreaVendida: '',
     Preco: '',
-    Porcentagem: ''
+    Porcentagem: '',
+    CPF: ''
   };
   let fundoError = '';
   let fundoSuccess = '';
@@ -216,7 +217,8 @@
         DistritoFederal: '',
         AreaVendida: '',
         Preco: '',
-        Porcentagem: ''
+        Porcentagem: '',
+        CPF: ''
       };
       fundoError = '';
       fundoSuccess = '';
@@ -225,7 +227,7 @@
 
   async function createFundoImobiliario() {
     if (!fundoFormData.Nome || !fundoFormData.Tamanho || !fundoFormData.DistritoFederal || 
-        !fundoFormData.AreaVendida || !fundoFormData.Preco || !fundoFormData.Porcentagem) {
+        !fundoFormData.AreaVendida || !fundoFormData.Preco || !fundoFormData.Porcentagem || !fundoFormData.CPF) {
       fundoError = 'Todos os campos são obrigatórios';
       return;
     }
@@ -281,7 +283,8 @@
           DistritoFederal: '',
           AreaVendida: '',
           Preco: '',
-          Porcentagem: ''
+          Porcentagem: '',
+          CPF: ''
         };
       } else {
         fundoError = result.Message || 'Erro ao criar fundo imobiliário';
@@ -310,6 +313,10 @@
 
   function handlePercentageInput(event) {
     fundoFormData.Porcentagem = formatPercentage(event.target.value);
+  }
+
+  function handleFundoCPFInput(event) {
+    fundoFormData.CPF = formatCPF(event.target.value);
   }
 </script>
 
@@ -770,6 +777,23 @@
                       bind:value={fundoFormData.Nome}
                       class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
                       placeholder="Digite o nome do fundo"
+                      required
+                    />
+                  </div>
+
+                  <!-- CPF -->
+                  <div class="space-y-2">
+                    <label for="fundo-cpf" class="block text-sm font-medium text-gray-700">
+                      CPF do Investidor
+                    </label>
+                    <input
+                      id="fundo-cpf"
+                      type="text"
+                      bind:value={fundoFormData.CPF}
+                      on:input={handleFundoCPFInput}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="000.000.000-00"
+                      maxlength="14"
                       required
                     />
                   </div>
