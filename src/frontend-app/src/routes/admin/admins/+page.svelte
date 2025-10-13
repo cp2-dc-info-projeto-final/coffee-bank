@@ -28,6 +28,11 @@
   let fundoError = '';
   let fundoSuccess = '';
   let isLoadingFundo = false;
+  
+  // CPF search
+  let availableCPFs = [];
+  let showCPFList = false;
+  let isLoadingCPFs = false;
 
   // Form data
   let formData = {
@@ -210,7 +215,7 @@
       goto('/admin/admins/fundoImobiliario');
     }
     else if (sectionId === 'fundoImob') {
-      // Reset form data when switching to fundo imob section
+
       fundoFormData = {
         Nome: '',
         Tamanho: '',
@@ -255,7 +260,7 @@
       fundoError = '';
       
       const data = {
-        CPF: "123.456.789-09", // This should come from the logged user
+        CPF: fundoFormData.CPF,
         Area: Number(fundoFormData.AreaVendida),
         AreaTotal: Number(fundoFormData.Tamanho),
         porcentagem: Number(fundoFormData.Porcentagem),
@@ -317,7 +322,40 @@
 
   function handleFundoCPFInput(event) {
     fundoFormData.CPF = formatCPF(event.target.value);
+    showCPFList = fundoFormData.CPF.length > 0;
   }
+
+  async function loadAvailableCPFs() {
+    try {
+      isLoadingCPFs = true;
+      const response = await fetch('http://localhost:3000/investment/users-cpf');
+      const data = await response.json();
+      
+      if (data.Success) {
+        availableCPFs = data.Data;
+      } else {
+        console.error('Erro ao carregar CPFs:', data.Message);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar CPFs:', err);
+    } finally {
+      isLoadingCPFs = false;
+    }
+  }
+
+  function selectCPF(cpf, nome) {
+    fundoFormData.CPF = cpf;
+    showCPFList = false;
+  }
+
+  function filteredCPFs() {
+    if (!fundoFormData.CPF) return availableCPFs;
+    return availableCPFs.filter(user => 
+      user.CPF.includes(fundoFormData.CPF.replace(/\D/g, '')) ||
+      user.Nome.toLowerCase().includes(fundoFormData.CPF.toLowerCase())
+    );
+  }
+
 </script>
 
 <svelte:head>
@@ -782,20 +820,45 @@
                   </div>
 
                   <!-- CPF -->
-                  <div class="space-y-2">
+                  <div class="space-y-2 relative">
                     <label for="fundo-cpf" class="block text-sm font-medium text-gray-700">
                       CPF do Investidor
                     </label>
-                    <input
-                      id="fundo-cpf"
-                      type="text"
-                      bind:value={fundoFormData.CPF}
-                      on:input={handleFundoCPFInput}
-                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
-                      placeholder="000.000.000-00"
-                      maxlength="14"
-                      required
-                    />
+                    <div class="relative">
+                      <input
+                        id="fundo-cpf"
+                        type="text"
+                        bind:value={fundoFormData.CPF}
+                        on:input={handleFundoCPFInput}
+                        on:focus={() => { loadAvailableCPFs(); showCPFList = true; }}
+                        on:blur={() => setTimeout(() => showCPFList = false, 200)}
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                        placeholder="Digite ou selecione um CPF"
+                        maxlength="14"
+                        required
+                      />
+                      {#if isLoadingCPFs}
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                          <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-amber-600"></div>
+                        </div>
+                      {/if}
+                    </div>
+                    
+                    <!-- Dropdown de CPFs -->
+                    {#if showCPFList && filteredCPFs().length > 0}
+                      <div class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-xl shadow-lg max-h-60 overflow-y-auto animate-fade-in-up">
+                        {#each filteredCPFs() as user}
+                          <button
+                            type="button"
+                            on:click={() => selectCPF(user.CPF, user.Nome)}
+                            class="w-full px-4 py-3 text-left hover:bg-amber-50 transition-colors border-b border-gray-100 last:border-b-0"
+                          >
+                            <div class="font-medium text-gray-900">{user.CPF}</div>
+                            <div class="text-sm text-gray-500">{user.Nome}</div>
+                          </button>
+                        {/each}
+                      </div>
+                    {/if}
                   </div>
 
                   <!-- Tamanho -->
