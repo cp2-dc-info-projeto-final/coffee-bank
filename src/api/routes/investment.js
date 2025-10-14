@@ -58,8 +58,8 @@ router.post('/', async function(req, res, next) {
             })   
         }
         const result = await pool.query(
-        `INSERT INTO "Investimento" ("Preco","AreaTotal", "Numero", "AreaVendida","Nome", "Porcentagem","Emissor","DF","Compra") VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9) RETURNING *`,
-            [Compra,AreaTotal, 1, Area, Nome,porcentagem,userId.rows[0].id,DF,Compra]
+        `INSERT INTO "Investimento" ("AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF","Compra") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+            [AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF,Compra]
         );
         return res.status(200).json({
             Sucess:true,
