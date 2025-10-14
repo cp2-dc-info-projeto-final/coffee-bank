@@ -13,6 +13,7 @@ router.post('/', async function(req, res, next) {
             DF,
             Nome,
             Compra} = req.body;
+        console.log( CPF,Area,AreaTotal,porcentagem,DF,Nome,Compra )
         if(!CPF||!Nome||!Area||!AreaTotal||!porcentagem||!DF){
             return res.status(400).json({
                 Sucess:false,
@@ -57,8 +58,8 @@ router.post('/', async function(req, res, next) {
             })   
         }
         const result = await pool.query(
-        `INSERT INTO "Investimento" ("Preco","Tamanho", "Numero", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-            [Compra,AreaTotal, 1, Area, Nome,porcentagem,userId.rows[0].id,DF]
+        `INSERT INTO "Investimento" ("Preco","AreaTotal", "Numero", "AreaVendida","Nome", "Porcentagem","Emissor","DF","Compra") VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9) RETURNING *`,
+            [Compra,AreaTotal, 1, Area, Nome,porcentagem,userId.rows[0].id,DF,Compra]
         );
         return res.status(200).json({
             Sucess:true,
@@ -129,7 +130,7 @@ router.put('/CPFsearch', async function(req, res, next) {
             })   
         }
         const Dados = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", 
-            "Investimento"."Preco","Investimento"."Tamanho","Investimento"."Numero","Investimento"."AreaVendida","Investimento"."Porcentagem",
+            "Investimento"."Preco","Investimento"."AreaTotal","Investimento"."Numero","Investimento"."AreaVendida","Investimento"."Porcentagem",
             "Investimento"."Nome","Investimento"."Nome","Investimento"."DF"
             FROM "Investimento"
             JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"
@@ -167,7 +168,7 @@ router.put('/Namesearch', async function(req, res, next) {
             SELECT 
             "Users"."Nome" AS "DonodoInvestimento", 
             "Investimento"."Preco",
-            "Investimento"."Tamanho",
+            "Investimento"."AreaTotal",
             "Investimento"."Numero",
             "Investimento"."AreaVendida",
             "Investimento"."Porcentagem",
@@ -246,7 +247,7 @@ router.put('/:id', async function(req, res, next) {
         "Nome" = $2, 
         "Emissor" = $3, 
         "DF" = $4, 
-        "Tamanho" = $5 
+        "AreaTotal" = $5 
     WHERE "id" = $6 
     RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,id]);
         if(!userId.rows.length){
