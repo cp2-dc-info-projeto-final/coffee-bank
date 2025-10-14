@@ -6,9 +6,10 @@
     let dataerros:string[] = [];
     import ValidationCPF from "../../../Functions/CPFValidation";
     import img from "../../../assets/images/1290988.jpg"
-    let token
-    let payload
-    let user = {}
+    type UserPayload = { name?: string; CPF?: string; senha5?: string };
+    let token: string | null;
+    let payload: string = "";
+    let user: UserPayload = {};
     import Nav from "../../../Components/Navs/UserLogin.svelte"
     let errors: Record<string, string> = {
         Nome: "",
@@ -86,8 +87,18 @@
  
     onMount(() => {
         token = sessionStorage.getItem("auth_token");
-        payload = atob(token.split(".")[1]);
-        user = JSON.parse(payload);
+        if (token) {
+            try {
+                const part = token.split(".")[1];
+                if (part) {
+                    payload = atob(part);
+                    user = JSON.parse(payload) as UserPayload;
+                }
+            } catch (e) {
+                // ignore malformed token
+                user = {};
+            }
+        }
         let errors: Record<string, string> = {
         Nome: "",
         CPF: "",
@@ -166,121 +177,159 @@
 </script>
 
 <Nav/>
-<div class="mx-4 flex flex-col ">
-  <div class="w-full">
-    <form action="POST" id="meuFormulario">
-                                  <div>
-                                      <Textform 
-                                          Content="Nome"
-                                          Name="nome"
-                                          id="nome"
-                                          color="gray-100"
-                                          placeholder={user.name}
-                                      />
-                                      {#if errors.Nome}
-                                          <p class="text-xs text-red-400 mt-1">{errors.Nome}</p>
-                                      {/if}
-                                  </div>
-                                  <div>
-                                      <Textform 
-                                          Content="CPF"
-                                          Name="cpf"
-                                          id="cpf"
-                                          color="gray-100"
-                                          value={user.CPF}
-                                      />
-                                      {#if errors.CPF}
-                                          <p class="text-xs text-red-400 mt-1">{errors.CPF}</p>
-                                      {/if}
-                                  </div>
-                                  <div>
-                                      <Textform 
-                                          Content="Senha 5 dígitos"
-                                          Name="pin5"
-                                          id="pin5"
-                                          type="password"
-                                          color="gray-100"
-                                          value={user.senha5}
-                                      />
-                                      {#if errors.Senha5}
-                                          <p class="text-xs text-red-400 mt-1">{errors.Senha5}</p>
-                                      {/if}
-                                  </div>
-                                  <div>
-                                      <Textform 
-                                          Content="Confirmar senha 5 dígitos"
-                                          Name="pin5-confirm"
-                                          id="pin5-confirm"
-                                          type="password"
-                                          color="gray-100"
-                                      />
-                                      {#if errors.Senha5conf}
-                                          <p class="text-xs text-red-400 mt-1">{errors.Senha5conf}</p>
-                                      {/if}
-                                  </div>
-                                  <div>
-                                      <Textform 
-                                          Content="Senha 7 dígitos"
-                                          Name="pin7"
-                                          id="pin7"
-                                          type="password"
-                                          color="gray-100"
-                                      />
-                                      {#if errors.Senha7}
-                                          <p class="text-xs text-red-400 mt-1">{errors.Senha7}</p>
-                                      {/if}
-                                  </div>
-                                  <div>
-                                      <Textform 
-                                          Content="Confirmar senha 7 dígitos"
-                                          Name="pin7-confirm"
-                                          id="pin7-confirm"
-                                          type="password"
-                                          color="gray-100"
-                                      />
-                                      {#if errors.Senha7conf}
-                                          <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
-                                      {/if}
-                                  </div>
-                                  <div class="mb-4 flex items-center justify-center w-full">
-                                      <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-500/40 border-dashed rounded-lg cursor-pointer bg-white/5 hover:bg-white/10 my-2 backdrop-blur-sm">
-                                          <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                              <svg class="w-8 h-8 mb-2 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                              </svg>
-                                              <p class="mb-1 text-sm text-gray-200"><span class="font-semibold">Clique para enviar</span> ou arraste e solte</p>
-                                              <p class="text-xs text-gray-300">PNG, JPG ou GIF (MAX. 800x400px)</p>
-                                              {#if selectedFileName}
-                                                  <p class="mt-2 text-xs text-blue-300">Selecionado: {selectedFileName}</p>
-                                              {/if}
-                                          </div>
-                                          <input id="dropzone-file" type="file" class="hidden" />
-                                      </label>
-                                  </div>
-                                  <label for="checkbox-1" class="block cursor-pointer select-none">
-                                      <div class="flex items-start gap-3 bg-white/5 border border-white/10 hover:border-white/20 transition-colors rounded-xl p-4">
-                                          <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only">
-                                          <div class="mt-0.5 h-5 w-5 rounded-md border border-white/20 bg-white/0 flex items-center justify-center peer-checked:bg-blue-600 peer-checked:border-blue-500 transition-colors">
-                                              <svg class="h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L8.5 11.586l6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                              </svg>
-                                          </div>
-                                          <div>
-                                              <p class="text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-400 hover:underline">termos de contrato</a></p>
-                                              <p class="text-xs text-gray-300">Você deve aceitar para prosseguir com o cadastro.</p>
-                                          </div>
-                                      </div>
-                                  </label>
-                                  {#if errors.termos}
-                                      <p class="text-xs text-red-400 mt-1">{errors.termos}</p>
-                                  {/if}
-                                  <div class="w-full text-center mt-1">
-                                      <button type="submit" class="inline-flex items-center gap-2 rounded-xl px-8 py-3 bg-green-500 text-white text-base font-semibold shadow-md shadow-green-900/20 hover:bg-green-600 active:bg-green-700 transition-colors border border-white/10">
-                                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 10a7.5 7.5 0 1113.493 3.578l1.312 1.313a.75.75 0 11-1.06 1.06l-1.312-1.312A7.5 7.5 0 012.5 10zm7.5-4a.75.75 0 00-.75.75V9.5H6.75a.75.75 0 000 1.5h3a.75.75 0 00.75-.75V6.75A.75.75 0 0010 6z"/></svg>
-                                          Cadastrar
-                                      </button>
-                                  </div> 
-    </form>
+{#if toastVisible}
+  <div class="mx-4 mt-4">
+    <div class="rounded-xl border border-white/10 backdrop-blur-md px-4 py-3 shadow-lg"
+      class:bg-blue-600={toastType === 'info'}
+      class:bg-green-600={toastType === 'success'}
+      class:bg-red-600={toastType === 'error'}>
+      <ul class="list-disc list-inside text-white/95 text-sm">
+        {#each toastMessages as msg}
+          <li>{msg}</li>
+        {/each}
+      </ul>
+    </div>
   </div>
-  <div class="w-full h-full"></div>
-</div>
+{/if}
+
+<section class="mx-4 my-6">
+  <div class="mx-auto max-w-4xl">
+    <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-xl">
+      <div class="bg-gradient-to-r from-blue-600/20 via-blue-500/10 to-transparent px-6 py-6 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-xl bg-blue-600/30 border border-blue-400/30 flex items-center justify-center text-blue-100">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-3.33 0-6 2.24-6 5v1h12v-1c0-2.76-2.67-5-6-5z"/></svg>
+          </div>
+          <div>
+            <h1 class="text-white text-xl font-semibold leading-tight">Editar perfil</h1>
+            <p class="text-gray-300 text-sm">Atualize seus dados com segurança</p>
+          </div>
+        </div>
+      </div>
+
+      <form action="POST" id="meuFormulario" class="px-6 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Textform 
+              Content="Nome"
+              Name="nome"
+              id="nome"
+              color="gray-100"
+              value={user.name}
+            />
+            {#if errors.Nome}
+              <p class="text-xs text-red-400 mt-1">{errors.Nome}</p>
+            {/if}
+          </div>
+          <div>
+            <Textform 
+              Content="CPF"
+              Name="cpf"
+              id="cpf"
+              color="gray-100"
+              value={user.CPF}
+            />
+            {#if errors.CPF}
+              <p class="text-xs text-red-400 mt-1">{errors.CPF}</p>
+            {/if}
+          </div>
+          <div>
+            <Textform 
+              Content="Senha 5 dígitos"
+              Name="pin5"
+              id="pin5"
+              type="password"
+              color="gray-100"
+              value={user.senha5}
+            />
+            {#if errors.Senha5}
+              <p class="text-xs text-red-400 mt-1">{errors.Senha5}</p>
+            {/if}
+          </div>
+          <div>
+            <Textform 
+              Content="Confirmar senha 5 dígitos"
+              Name="pin5-confirm"
+              id="pin5-confirm"
+              type="password"
+              color="gray-100"
+            />
+            {#if errors.Senha5conf}
+              <p class="text-xs text-red-400 mt-1">{errors.Senha5conf}</p>
+            {/if}
+          </div>
+          <div>
+            <Textform 
+              Content="Senha 7 dígitos"
+              Name="pin7"
+              id="pin7"
+              type="password"
+              color="gray-100"
+            />
+            {#if errors.Senha7}
+              <p class="text-xs text-red-400 mt-1">{errors.Senha7}</p>
+            {/if}
+          </div>
+          <div>
+            <Textform 
+              Content="Confirmar senha 7 dígitos"
+              Name="pin7-confirm"
+              id="pin7-confirm"
+              type="password"
+              color="gray-100"
+            />
+            {#if errors.Senha7conf}
+              <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
+            {/if}
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-500/40 border-dashed rounded-xl cursor-pointer bg-white/5 hover:bg-white/10 transition-colors backdrop-blur-sm">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg class="w-8 h-8 mb-2 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+              </svg>
+              <p class="mb-1 text-sm text-gray-200"><span class="font-semibold">Foto/Documento</span> — clique para enviar ou arraste</p>
+              <p class="text-xs text-gray-300">PNG, JPG ou GIF (MAX. 800x400px)</p>
+              {#if selectedFileName}
+                <p class="mt-2 text-xs text-blue-300">Selecionado: {selectedFileName}</p>
+              {/if}
+            </div>
+            <input id="dropzone-file" type="file" class="hidden" on:change={(e) => { const files = (e.currentTarget as HTMLInputElement)?.files; selectedFileName = files && files[0] ? files[0].name : ""; }} />
+          </label>
+        </div>
+
+        <div class="mt-4">
+          <label for="checkbox-1" class="block cursor-pointer select-none">
+            <div class="flex items-start gap-3 bg-white/5 border border-white/10 hover:border-white/20 transition-colors rounded-xl p-4">
+              <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only">
+              <div class="mt-0.5 h-5 w-5 rounded-md border border-white/20 bg-white/0 flex items-center justify-center peer-checked:bg-blue-600 peer-checked:border-blue-500 transition-colors">
+                <svg class="h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L8.5 11.586l6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-400 hover:underline">termos de contrato</a></p>
+                <p class="text-xs text-gray-300">Você deve aceitar para prosseguir.</p>
+              </div>
+            </div>
+          </label>
+          {#if errors.termos}
+            <p class="text-xs text-red-400 mt-1">{errors.termos}</p>
+          {/if}
+        </div>
+
+        <div class="mt-6 flex items-center justify-end gap-3">
+          <a href="/Users" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white/90 border border-white/10 bg-white/0 hover:bg-white/10 transition-colors">
+            Cancelar
+          </a>
+          <button type="submit" class="inline-flex items-center gap-2 rounded-xl px-6 py-3 bg-green-500 text-white text-base font-semibold shadow-md shadow-green-900/20 hover:bg-green-600 active:bg-green-700 transition-colors border border-white/10">
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 10a7.5 7.5 0 1113.493 3.578l1.312 1.313a.75.75 0 11-1.06 1.06l-1.312-1.312A7.5 7.5 0 012.5 10zm7.5-4a.75.75 0 00-.75.75V9.5H6.75a.75.75 0 000 1.5h3a.75.75 0 00.75-.75V6.75A.75.75 0 0010 6z"/></svg>
+            Salvar alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
