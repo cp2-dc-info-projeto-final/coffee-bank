@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
+const {verifyToken, isAdmin} = require("../middlewares/auth")
 
 router.post('/', async function(req, res, next) {
     try{
@@ -273,4 +274,43 @@ router.put('/:id', async function(req, res, next) {
         });
     }
 })
+
+/* DELETE - Remover fundo imobiliário */
+router.delete('/:id', async function(req, res, next) {
+    try {
+    
+    const { id } = req.params;
+      
+      // Verificar se o fundo imobiliário existe
+      const userExists = await pool.query('SELECT id FROM "Investimento" WHERE id = $1', [id]);
+      if (userExists.rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Fundo imobiliário não encontrado'
+        });
+      }
+      
+      await pool.query('DELETE FROM "Investimento" WHERE id = $1', [id]);
+      try{
+        await axios.delete("http://localhost:3001/images", {
+    data: {
+      path: `uploads/${id}/main.png`
+    }
+  })
+  
+      }catch(e){
+        console.error(e)
+      }
+      res.json({
+        success: true,
+        message: 'Fundo imobiliário deletado com sucesso'
+      });
+    } catch (error) {
+      console.error('Erro ao deletar fundo imobiliário:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erro interno do servidor'
+      });
+    }
+  });
 module.exports = router;

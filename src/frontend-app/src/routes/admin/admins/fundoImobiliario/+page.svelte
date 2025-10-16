@@ -4,14 +4,13 @@
 	import axios from 'axios';
 
 	const api = axios.create({
-		baseURL: 'http://localhost:3000',
-		withCredentials: true,
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-	});
-
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Útil para CORS com cookies/sessão
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  });
 	interface FundoImobiliario {
 		id: string;
 		CPF: string;
@@ -90,6 +89,7 @@
 	function confirmDelete(fundo: FundoImobiliario) {
 		fundoToDelete = fundo;
 		showDeleteModal = true;
+		deleteFundoImobiliario();
 	}
 
 	async function updateFundoImobiliario() {
@@ -123,8 +123,12 @@
 	async function deleteFundoImobiliario() {
 		if (!fundoToDelete) return;
 
+			console.log("legal")
+
 		try {
+			console.log(fundoToDelete.id)
 			const response = await api.delete(`/investment/${fundoToDelete.id}`);
+
 			
 			if (response.data.success) {
 				success = 'Fundo Imobiliário excluído com sucesso!';
@@ -133,6 +137,8 @@
 				loadFundosImobiliarios();
 			} else {
 				error = response.data.message || 'Erro ao excluir fundo imobiliário';
+				console.log("legal")
+
 			}
 		} catch (err) {
 			console.error('Erro ao excluir fundo:', err);
