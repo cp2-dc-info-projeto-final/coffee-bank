@@ -103,7 +103,13 @@ router.post('/', async function(req, res, next) {
     }
 });
 router.get('/', async function(req, res, next) {
-    const Investimento = await pool.query(`SELECT * FROM "Investimento"`);
+    var Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"`);
+    Investimento.rows=Investimento.rows.map((dado) =>{
+        dado.AreaTotal=Number(dado.AreaTotal)
+        dado.AreaVendida=Number(dado.AreaVendida)
+        dado.Porcentagem=Number(dado.Porcentagem)
+        return dado
+    });
     return res.status(200).json({
         Sucess:true,
         Data:Investimento.rows
@@ -231,13 +237,6 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
                 Status:400
             })
         }
-        else if(typeof(CPF)!=="string" ||typeof(AreaTotal)!=="number" ||typeof(Nome)!=="string" || typeof(porcentagem)!=="number"|| typeof(DF)!="string"){
-            return res.status(400).json({
-                Sucess:false,
-                Message:"Dados Inválidos",
-                Status:400
-            })
-        }
         else if(porcentagem<=0||AreaTotal<=0){
             return res.status(400).json({
                 Sucess:false,
@@ -273,7 +272,7 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
         "Nome" = $2, 
         "Emissor" = $3, 
         "DF" = $4, 
-        "Tamanho" = $5 
+        "AreaTotal" = $5 
     WHERE "id" = $6 
     RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,id]);
         
