@@ -60,8 +60,8 @@ router.post('/', async function(req, res, next) {
             })   
         }
         const result = await pool.query(
-        `INSERT INTO "Investimento" ("Preco","Tamanho", "Numero", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-            [Compra,AreaTotal, 1, Area, Nome,porcentagem,userId.rows[0].id,DF]
+        `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING *`,
+            [Compra,AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF]
         );
 
         // Registrar criação de fundo no sistema de atividade unificada
