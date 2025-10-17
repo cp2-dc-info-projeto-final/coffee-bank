@@ -138,13 +138,12 @@
 		</div>
 	</header>
 
-	<!-- Main Content -->
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-		<!-- Hero Section -->
+
 		<div class="text-center mb-12 animate-fade-in-up">
 			<h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
 				Mercado de Investimentos
-			</h1>
+				</h1>
 			<p class="text-xl text-amber-200/80 max-w-3xl mx-auto">
 				Descubra oportunidades de investimento exclusivas e diversifique seu portfólio com segurança
 			</p>

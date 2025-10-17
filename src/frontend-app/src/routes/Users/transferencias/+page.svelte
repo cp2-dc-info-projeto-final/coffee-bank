@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import axios from "axios";
+  import logo from "../../../assets/images/coffebank_noir-removebg-preview.png";
 
   type Transfer = {
     id: string;
@@ -23,6 +24,14 @@
 
   let token: string | null = null;
   let user: { CPF?: string; Saldo?: number; Name?: string; role?: string } = {};
+  let isLoggedIn = false;
+
+  const links = {
+    login: "/LoginUser",
+    cadastro: "/Cadastro",
+    termos: "/Cadastro/termos",
+    userPage: "/Users"
+  };
 
   let pixKey = ""; // CPF do destinatário
   let amount = "";
@@ -170,9 +179,44 @@
     if (user.role && user.role !== 'user') {
       erros.push('Apenas usuários podem realizar transferências.');
     }
+    isLoggedIn = !!token;
     loading = false;
   });
 </script>
+
+<header class="relative w-full">
+  <div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <div class="flex flex-row justify-center items-center gap-1">
+      <img src={logo} alt="Coffee Bank" class="h-10 w-10 md:h-12 md:w-12" />
+      <div class="hidden sm:inline text-3xl text-white font-bold">Coffebank</div>
+    </div>
+    <nav class="flex items-center gap-2 md:gap-3">
+      <a href={links.userPage} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+        <i class="fa-solid fa-home"></i>
+        <span class="hidden sm:inline">Dashboard</span>
+      </a>
+      {#if !isLoggedIn}
+        <a href={links.login} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span class="hidden sm:inline">Entrar</span>
+        </a>
+        <a href={links.cadastro} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="hidden sm:inline">Criar conta</span>
+        </a>
+      {/if}
+    </nav>
+  </div>
+</header>
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+  <a href={links.userPage} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Voltar ao Perfil</span>
+  </a>
+  <div class="h-2"></div>
+</div>
 
 <section class="relative w-full">
   <div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
