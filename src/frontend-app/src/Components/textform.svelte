@@ -4,6 +4,7 @@
     export let id = "";
     export let type = "text";
     export let color = "";
+    export let value = "";
 </script>
 
 <div>
@@ -12,7 +13,7 @@
             type={type}
             name={Name} 
             id={id} 
-            placeholder=" " 
+            value={value}
             class="block py-2.5 px-0 w-full text-sm text-{color} bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         />
         <label 

@@ -51,7 +51,7 @@ router.post("/:id",async function(req,res,next){
     }
 })
 router.get("/",async function(req,res,next){
-    const Investimento = await pool.query('SELECT * FROM "Investimento" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+    const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
     return res.status(200).json({
         Sucess:true,
         Data:Investimento.rows

@@ -80,7 +80,12 @@
     }
     import { onMount } from 'svelte';
     import img from "../../assets/images/1290988.jpg"
-	import ts from 'typescript';
+    
+    // UI state: toggle password visibility
+    let showPin5: boolean = false;
+    let showPin5Conf: boolean = false;
+    let showPin7: boolean = false;
+    let showPin7Conf: boolean = false;
     onMount(() => {
         const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
         if (cpfInput) {
@@ -189,21 +194,51 @@
     submitButton.addEventListener("click", backToTop);
     */
 </script>
+
+<style>
+    .feature-card-animated {
+        position: relative;
+        overflow: hidden;
+    }
+    .feature-card-animated::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at top left, rgba(255,255,255,0.18), rgba(255,255,255,0) 45%);
+        transform: rotate(15deg);
+        transition: transform .6s ease, opacity .6s ease;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .feature-card-animated:hover::after {
+        transform: translateY(40%) rotate(15deg);
+        opacity: 1;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up { animation: fadeInUp .6s ease-out both; }
+</style>
 <!-- Estrutura do componente principal -->
-<div class="min-h-screen flex flex-col" style="background-color: #240f00;">
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-amber-950/20 via-amber-900/25 to-rose-950/15">
     <Nav />
     <div id="start" class="flex-1 flex overflow-auto">
         <div class="flex-1 flex overflow-auto flex-col">
-            <div class="w-full flex-1 flex overflow-auto" style="background: linear-gradient(to right, #240f00, #615145) height: 100%;">
+            <div class="w-full flex-1 flex overflow-auto">
                 <div class="flex shadow md:w-1/2 flex-wrap w-full h-full">
                    
                     <div class="flex items-center justify-center content-center flex-col w-full h-full">
                         {#if toastVisible}
                             <div class={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4`}> 
                                 <div class={`px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm 
-                                    ${toastType === 'success' ? 'bg-green-900/70 border-green-600 text-green-100' : ''}
-                                    ${toastType === 'error' ? 'bg-red-900/70 border-red-600 text-red-100' : ''}
-                                    ${toastType === 'info' ? 'bg-gray-900/70 border-gray-600 text-gray-100' : ''}
+                                    ${toastType === 'success' ? 'bg-green-900/90 border-green-600 text-green-100' : ''}
+                                    ${toastType === 'error' ? 'bg-red-900/90 border-red-600 text-red-100' : ''}
+                                    ${toastType === 'info' ? 'bg-amber-900/90 border-amber-600 text-amber-100' : ''}
                                 `}>
                                     {#if toastMessages.length === 1}
                                         <p>{toastMessages[0]}</p>
@@ -218,20 +253,22 @@
                             </div>
                         {/if}
 
-                        <h2 class="text-3xl font-extrabold tracking-tight text-white mb-2">Cadastro</h2>
-                        <p class="text-sm text-gray-300 mb-6">Crie sua conta preenchendo os dados abaixo.</p>
-                        <div class="w-full justify-center content-center mt-10 px-5">
+                        <div class="bg-amber-100/70 backdrop-blur rounded-2xl border border-amber-500/40 shadow-xl p-8 feature-card-animated animate-fade-in-up max-w-md w-full mx-4">
+                            <div class="text-center mb-8">
+                                <h2 class="text-3xl font-extrabold text-amber-900 mb-2">Criar sua conta</h2>
+                                <p class="text-amber-800/80">Junte-se ao Coffebank e tenha controle total do seu dinheiro</p>
+                            </div>
                             
-                            <form action="POST" id="meuFormulario">
+                            <form action="POST" id="meuFormulario" class="space-y-4">
                                 <div>
                                     <Textform 
                                         Content="Nome"
                                         Name="nome"
                                         id="nome"
-                                        color="gray-100"
+                                        color="amber-900"
                                     />
                                     {#if errors.Nome}
-                                        <p class="text-xs text-red-400 mt-1">{errors.Nome}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.Nome}</p>
                                     {/if}
                                 </div>
                                 <div>
@@ -239,10 +276,10 @@
                                         Content="CPF"
                                         Name="cpf"
                                         id="cpf"
-                                        color="gray-100"
+                                        color="amber-900"
                                     />
                                     {#if errors.CPF}
-                                        <p class="text-xs text-red-400 mt-1">{errors.CPF}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.CPF}</p>
                                     {/if}
                                 </div>
                                 <div>
@@ -250,11 +287,26 @@
                                         Content="Senha 5 dígitos"
                                         Name="pin5"
                                         id="pin5"
-                                        type="password"
-                                        color="gray-100"
+                                        type={showPin5 ? 'text' : 'password'}
+                                        color="amber-900"
                                     />
+                                    <div class="flex justify-end -mt-1 pr-1">
+                                        <button 
+                                            type="button" 
+                                            class="text-amber-700 hover:text-amber-900 transition-all duration-200 ease-out [transform:translateZ(0)] hover:scale-110 active:scale-95 active:rotate-6"
+                                            aria-label="Mostrar/ocultar senha 5" 
+                                            aria-pressed={showPin5}
+                                            on:click={() => showPin5 = !showPin5}
+                                        >
+                                            {#if showPin5}
+                                                <i class="fa-solid fa-eye-slash"></i>
+                                            {:else}
+                                                <i class="fa-solid fa-eye"></i>
+                                            {/if}
+                                        </button>
+                                    </div>
                                     {#if errors.Senha5}
-                                        <p class="text-xs text-red-400 mt-1">{errors.Senha5}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.Senha5}</p>
                                     {/if}
                                 </div>
                                 <div>
@@ -262,11 +314,26 @@
                                         Content="Confirmar senha 5 dígitos"
                                         Name="pin5-confirm"
                                         id="pin5-confirm"
-                                        type="password"
-                                        color="gray-100"
+                                        type={showPin5Conf ? 'text' : 'password'}
+                                        color="amber-900"
                                     />
+                                    <div class="flex justify-end -mt-1 pr-1">
+                                        <button 
+                                            type="button" 
+                                            class="text-amber-700 hover:text-amber-900 transition-all duration-200 ease-out [transform:translateZ(0)] hover:scale-110 active:scale-95 active:rotate-6"
+                                            aria-label="Mostrar/ocultar confirmação senha 5" 
+                                            aria-pressed={showPin5Conf}
+                                            on:click={() => showPin5Conf = !showPin5Conf}
+                                        >
+                                            {#if showPin5Conf}
+                                                <i class="fa-solid fa-eye-slash"></i>
+                                            {:else}
+                                                <i class="fa-solid fa-eye"></i>
+                                            {/if}
+                                        </button>
+                                    </div>
                                     {#if errors.Senha5conf}
-                                        <p class="text-xs text-red-400 mt-1">{errors.Senha5conf}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.Senha5conf}</p>
                                     {/if}
                                 </div>
                                 <div>
@@ -274,11 +341,26 @@
                                         Content="Senha 7 dígitos"
                                         Name="pin7"
                                         id="pin7"
-                                        type="password"
-                                        color="gray-100"
+                                        type={showPin7 ? 'text' : 'password'}
+                                        color="amber-900"
                                     />
+                                    <div class="flex justify-end -mt-1 pr-1">
+                                        <button 
+                                            type="button" 
+                                            class="text-amber-700 hover:text-amber-900 transition-all duration-200 ease-out [transform:translateZ(0)] hover:scale-110 active:scale-95 active:rotate-6"
+                                            aria-label="Mostrar/ocultar senha 7" 
+                                            aria-pressed={showPin7}
+                                            on:click={() => showPin7 = !showPin7}
+                                        >
+                                            {#if showPin7}
+                                                <i class="fa-solid fa-eye-slash"></i>
+                                            {:else}
+                                                <i class="fa-solid fa-eye"></i>
+                                            {/if}
+                                        </button>
+                                    </div>
                                     {#if errors.Senha7}
-                                        <p class="text-xs text-red-400 mt-1">{errors.Senha7}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.Senha7}</p>
                                     {/if}
                                 </div>
                                 <div>
@@ -286,60 +368,129 @@
                                         Content="Confirmar senha 7 dígitos"
                                         Name="pin7-confirm"
                                         id="pin7-confirm"
-                                        type="password"
-                                        color="gray-100"
+                                        type={showPin7Conf ? 'text' : 'password'}
+                                        color="amber-900"
                                     />
+                                    <div class="flex justify-end -mt-1 pr-1">
+                                        <button 
+                                            type="button" 
+                                            class="text-amber-700 hover:text-amber-900 transition-all duration-200 ease-out [transform:translateZ(0)] hover:scale-110 active:scale-95 active:rotate-6"
+                                            aria-label="Mostrar/ocultar confirmação senha 7" 
+                                            aria-pressed={showPin7Conf}
+                                            on:click={() => showPin7Conf = !showPin7Conf}
+                                        >
+                                            {#if showPin7Conf}
+                                                <i class="fa-solid fa-eye-slash"></i>
+                                            {:else}
+                                                <i class="fa-solid fa-eye"></i>
+                                            {/if}
+                                        </button>
+                                    </div>
                                     {#if errors.Senha7conf}
-                                        <p class="text-xs text-red-400 mt-1">{errors.Senha7conf}</p>
+                                        <p class="text-xs text-red-500 mt-1">{errors.Senha7conf}</p>
                                     {/if}
                                 </div>
                                 <div class="mb-4 flex items-center justify-center w-full">
-                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-500/40 border-dashed rounded-lg cursor-pointer bg-white/5 hover:bg-white/10 my-2 backdrop-blur-sm">
-                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg class="w-8 h-8 mb-2 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-amber-400/60 border-dashed rounded-xl cursor-pointer bg-amber-100/40 hover:bg-amber-100/60 transition-colors">
+                                        <div class="flex flex-col items-center justify-center pt-4 pb-4">
+                                            <svg class="w-6 h-6 mb-2 text-amber-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                             </svg>
-                                            <p class="mb-1 text-sm text-gray-200"><span class="font-semibold">Clique para enviar</span> ou arraste e solte</p>
-                                            <p class="text-xs text-gray-300">PNG, JPG ou GIF (MAX. 800x400px)</p>
-                                            {#if selectedFileName}
-                                                <p class="mt-2 text-xs text-blue-300">Selecionado: {selectedFileName}</p>
-                                            {/if}
+                                            <p class="mb-1 text-sm text-amber-800">
+                                                {#if selectedFileName}
+                                                    <span class="font-medium text-amber-800">{selectedFileName}</span>
+                                                {:else}
+                                                    <span class="font-medium">Clique para enviar</span> ou arraste e solte
+                                                {/if}
+                                            </p>
+                                            <p class="text-xs text-amber-700/70">PNG, JPG ou GIF (MAX. 800x400px)</p>
                                         </div>
                                         <input id="dropzone-file" type="file" class="hidden" />
                                     </label>
                                 </div>
                                 <label for="checkbox-1" class="block cursor-pointer select-none">
-                                    <div class="flex items-start gap-3 bg-white/5 border border-white/10 hover:border-white/20 transition-colors rounded-xl p-4">
+                                    <div class="flex items-start gap-3 bg-amber-100/50 border border-amber-300/60 hover:border-amber-400/60 transition-colors rounded-xl p-4">
                                         <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only">
-                                        <div class="mt-0.5 h-5 w-5 rounded-md border border-white/20 bg-white/0 flex items-center justify-center peer-checked:bg-blue-600 peer-checked:border-blue-500 transition-colors">
+                                        <div class="mt-0.5 h-5 w-5 rounded-md border border-amber-400 bg-white flex items-center justify-center peer-checked:bg-amber-700 peer-checked:border-amber-700 transition-colors">
                                             <svg class="h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L8.5 11.586l6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-sm text-white font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-blue-400 hover:underline">termos de contrato</a></p>
-                                            <p class="text-xs text-gray-300">Você deve aceitar para prosseguir com o cadastro.</p>
+                                            <p class="text-sm text-amber-900 font-medium">Eu aceito os <a href="./Cadastro/termos" class="text-amber-800 hover:text-amber-900 underline">termos de contrato</a></p>
+                                            <p class="text-xs text-amber-700/80">Você deve aceitar para prosseguir com o cadastro.</p>
                                         </div>
                                     </div>
                                 </label>
                                 {#if errors.termos}
-                                    <p class="text-xs text-red-400 mt-1">{errors.termos}</p>
+                                    <p class="text-xs text-red-500 mt-1">{errors.termos}</p>
                                 {/if}
-                                <div class="w-full text-center mt-1">
-                                    <button type="submit" class="inline-flex items-center gap-2 rounded-xl px-8 py-3 bg-green-500 text-white text-base font-semibold shadow-md shadow-green-900/20 hover:bg-green-600 active:bg-green-700 transition-colors border border-white/10">
-                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2.5 10a7.5 7.5 0 1113.493 3.578l1.312 1.313a.75.75 0 11-1.06 1.06l-1.312-1.312A7.5 7.5 0 012.5 10zm7.5-4a.75.75 0 00-.75.75V9.5H6.75a.75.75 0 000 1.5h3a.75.75 0 00.75-.75V6.75A.75.75 0 0010 6z"/></svg>
-                                        Cadastrar
+                                <div class="w-full text-center mt-4">
+                                    <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 bg-gradient-to-r from-amber-700 to-amber-800 text-white text-base font-semibold shadow-lg hover:from-amber-800 hover:to-amber-900 active:from-amber-900 active:to-amber-950 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M2.5 10a7.5 7.5 0 1113.493 3.578l1.312 1.313a.75.75 0 11-1.06 1.06l-1.312-1.312A7.5 7.5 0 012.5 10zm7.5-4a.75.75 0 00-.75.75V9.5H6.75a.75.75 0 000 1.5h3a.75.75 0 00.75-.75V6.75A.75.75 0 0010 6z"/>
+                                        </svg>
+                                        Criar minha conta
                                     </button>
                                 </div> 
                             </form>
                         </div>
                     </div>        
                 </div>
-                <img
-                    src={img}
-                    alt="Imagem"
-                    class="hidden md:block w-1/2 shadow"
-                />
+                <div class="hidden md:flex md:w-1/2 items-center justify-center p-8">
+                    <div class="text-center">
+                        <div class="mb-6">
+                            <h1 class="text-4xl lg:text-5xl font-extrabold text-amber-900 mb-4">
+                                Bem-vindo ao <span class="text-amber-800">Coffebank</span>
+                            </h1>
+                            <p class="text-lg text-amber-800/80 mb-6">
+                                Sua conta digital completa, segura e sem complicações. 
+                                Gerencie seu dinheiro com total transparência.
+                            </p>
+                        </div>
+
+                        <!-- Benefícios -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-shield-halved text-amber-700"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-amber-900">Segurança garantida</h3>
+                                    <p class="text-sm text-amber-700/70">Criptografia de ponta e monitoramento 24/7</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-mobile-screen text-amber-700"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-amber-900">App completo</h3>
+                                    <p class="text-sm text-amber-700/70">Transferências, pagamentos e investimentos</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex-shrink-0 w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-piggy-bank text-amber-700"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-amber-900">Sem tarifas abusivas</h3>
+                                    <p class="text-sm text-amber-700/70">Transparência total nos custos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Imagem -->
+                        <div class="relative">
+                            <img
+                                src={img}
+                                alt="Coffebank - Banco Digital"
+                                class="w-full h-64 lg:h-80 object-cover rounded-2xl shadow-lg feature-card-animated"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-amber-900/20 to-transparent rounded-2xl"></div>
+                        </div>
+                    </div>
+                </div>
         
             </div>
         </div>

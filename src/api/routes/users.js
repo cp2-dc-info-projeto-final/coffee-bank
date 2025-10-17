@@ -65,7 +65,7 @@ router.get('/:id', verifyToken, isAdmin, async function(req, res, next) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', verifyToken, isAdmin, async function(req, res, next) {
+router.post('/', async function(req, res, next) {
   try {
     console.log(req.body)
     const {
@@ -328,6 +328,7 @@ router.post('/login', async function(req, res) {
       // Cria o token com as informações do usuário logado e sua chave pública
       const token = jwt.sign(
         { 
+          id: user.id,
           Saldo:user.Saldo,
           CPF:user.CPF,
           role: user.role,
@@ -336,6 +337,23 @@ router.post('/login', async function(req, res) {
         process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
         { expiresIn: '30min' } 
       );
+
+      // Registrar login no sistema de atividade unificada
+      try {
+        await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+          user.id,
+          user.role,
+          'LOGIN',
+          `${user.role === 'admin' ? 'Administrador' : 'Usuário'} fez login no sistema`,
+          'account',
+          user.id,
+          req.ip || req.connection.remoteAddress,
+          req.get('User-Agent'),
+          JSON.stringify({ loginTime: new Date().toISOString() })
+        ]);
+      } catch (logError) {
+        console.error('Erro ao registrar login:', logError);
+      }
 
       // O token contém as informções do usuário com a chave para posterior validação
       return res.status(200).json({
@@ -361,7 +379,7 @@ router.put('/search', verifyToken, isAdmin, async function(req, res, next) {
   try {
     const { CPF } = req.body;
     const result = await pool.query(
-      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix", "Sex" FROM "Users" WHERE "CPF" LIKE $1',
+      'SELECT "id", "CPF", "Nome", "Saldo", "ChavePix" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
 
@@ -425,5 +443,31 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
 })
+router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
+  try {
+    const { CPF } = req.body;
+    const result = await pool.query(
+      'SELECT "CPF", "Nome" FROM "Users" WHERE "CPF" LIKE $1',
+      [`%${CPF}%`]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+    res.json({
+      success: true,
+      data: result.rows
+    });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
 
 module.exports = router;

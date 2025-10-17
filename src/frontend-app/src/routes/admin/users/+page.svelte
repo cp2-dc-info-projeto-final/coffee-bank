@@ -111,7 +111,7 @@
 
 <div class="space-y-8">
   <!-- Header -->
-  <div class="bg-gradient-to-r from-[#1f5f61] to-[#36544f] rounded-2xl p-8 text-white shadow-xl">
+  <div class="bg-gradient-to-r from-amber-600/90 to-amber-800/90 backdrop-blur-sm p-8 text-white shadow-xl">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-6">
         <button
@@ -125,13 +125,13 @@
         </button>
         <div>
           <h1 class="text-4xl font-bold mb-2">Gerenciar Usuários</h1>
-          <p class="text-[#0b8185] text-lg">Visualize e gerencie todos os usuários do sistema</p>
+          <p class="text-amber-200/80 text-lg">Visualize e gerencie todos os usuários do sistema</p>
         </div>
       </div>
       <div class="hidden md:block">
         <div class="bg-white/20 rounded-2xl p-4 text-center">
           <div class="text-2xl font-bold">{totalUsers}</div>
-          <div class="text-[#0b8185] text-sm">Total de Usuários</div>
+          <div class="text-amber-200/80 text-sm">Total de Usuários</div>
         </div>
       </div>
     </div>
@@ -158,14 +158,14 @@
               type="text"
               bind:value={searchTerm}
               on:keydown={(e) => e.key === 'Enter' && handleSearch()}
-              class="block w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-[#0b8185] focus:border-[#0b8185] text-lg"
+              class="block w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-amber-600 focus:border-amber-600 text-lg"
               placeholder="Buscar por nome ou CPF..."
             />
           </div>
         </div>
         <button
           on:click={handleSearch}
-          class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-[#0b8185] hover:bg-[#1f5f61] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0b8185] transition-colors duration-200"
+          class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 transition-colors duration-200"
         >
           <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -196,8 +196,8 @@
     {#if isLoading}
       <div class="flex items-center justify-center py-20">
         <div class="text-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#0b8185] mx-auto mb-4"></div>
-        <p class="text-[#0b8185] font-medium text-lg">Carregando usuários...</p>
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-amber-600 mx-auto mb-4"></div>
+        <p class="text-amber-600 font-medium text-lg">Carregando usuários...</p>
         </div>
       </div>
     {:else if users.length === 0}
@@ -228,7 +228,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-12 w-12">
-                      <div class="h-12 w-12 rounded-full bg-gradient-to-br from-[#0b8185] to-[#1f5f61] flex items-center justify-center">
+                      <div class="h-12 w-12 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center">
                         <span class="text-white font-bold text-lg">
                           {user.Nome.charAt(0).toUpperCase()}
                         </span>
@@ -246,7 +246,7 @@
                   <div class="text-sm font-medium text-gray-900">{user.CPF}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-lg font-bold text-green-600">{formatCurrency(user.Saldo)}</div>
+                  <div class="text-lg font-bold text-amber-600">{formatCurrency(user.Saldo)}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">{formatDate(user.DataCriacao)}</div>
@@ -318,7 +318,7 @@
               }).filter(Boolean) as page}
                 <button
                   on:click={() => handlePageChange(page)}
-                  class="relative inline-flex items-center px-4 py-2 border text-sm font-medium {page === currentPage ? 'z-10 bg-[#0b8185]/10 border-[#0b8185] text-[#0b8185]' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}"
+                  class="relative inline-flex items-center px-4 py-2 border text-sm font-medium {page === currentPage ? 'z-10 bg-amber-600/10 border-amber-600 text-amber-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}"
                 >
                   {page}
                 </button>

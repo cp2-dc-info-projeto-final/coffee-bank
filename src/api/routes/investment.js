@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
+const {verifyToken, isAdmin} = require("../middlewares/auth")
+const axios = require('axios');
+
 router.post('/', async function(req, res, next) {
     try{
         const {
@@ -12,6 +15,7 @@ router.post('/', async function(req, res, next) {
             DF,
             Nome,
             Compra} = req.body;
+        console.log( CPF,Area,AreaTotal,porcentagem,DF,Nome,Compra )
         if(!CPF||!Nome||!Area||!AreaTotal||!porcentagem||!DF){
             return res.status(400).json({
                 Sucess:false,
@@ -56,9 +60,33 @@ router.post('/', async function(req, res, next) {
             })   
         }
         const result = await pool.query(
-        `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4,$5,$6,$7) RETURNING *`,
+        `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING *`,
             [Compra,AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF]
         );
+
+        // Registrar criação de fundo no sistema de atividade unificada
+        try {
+            await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+                userId.rows[0].id,
+                'user',
+                'CREATE_FUNDO',
+                `Usuário criou o fundo imobiliário: ${Nome}`,
+                'fundo_imobiliario',
+                result.rows[0].id,
+                req.ip || req.connection.remoteAddress,
+                req.get('User-Agent'),
+                JSON.stringify({ 
+                    fundoNome: Nome,
+                    area: Area,
+                    tamanho: AreaTotal,
+                    porcentagem: porcentagem,
+                    distrito: DF
+                })
+            ]);
+        } catch (logError) {
+            console.error('Erro ao registrar criação de fundo:', logError);
+        }
+
         return res.status(200).json({
             Sucess:true,
             Message:"Cadastro bem sucedido",
@@ -66,10 +94,11 @@ router.post('/', async function(req, res, next) {
             Data:result.rows[0]
         })
     }catch(err){
-        console.error(err.message)
+        console.error('Erro detalhado:', err);
         return res.status(500).json({
             Success: false,
-            message: "erro interno"
+            message: "erro interno",
+            error: err.message
         });
     }
 });
@@ -79,6 +108,23 @@ router.get('/', async function(req, res, next) {
         Sucess:true,
         Data:Investimento.rows
     })
+})
+
+// Busca de CPFs de usuários
+router.get('/users-cpf', async function(req, res, next) {
+    try {
+        const result = await pool.query(`SELECT "CPF", "Nome" FROM "Users" ORDER BY "Nome"`);
+        return res.status(200).json({
+            Success: true,
+            Data: result.rows
+        });
+    } catch (error) {
+        console.error('Erro ao buscar CPFs:', error);
+        return res.status(500).json({
+            Success: false,
+            Message: 'Erro interno do servidor'
+        });
+    }
 })
 router.put('/CPFsearch', async function(req, res, next) {
     try{
@@ -172,7 +218,7 @@ router.put('/Namesearch', async function(req, res, next) {
         });
     }
 })
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
     try{
         const { id } = req.params; // pega id de req.params.id
         const {
@@ -227,24 +273,47 @@ router.put('/:id', async function(req, res, next) {
         "Nome" = $2, 
         "Emissor" = $3, 
         "DF" = $4, 
-        "AreaTotal" = $5 
+        "Tamanho" = $5 
     WHERE "id" = $6 
     RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,id]);
-        if(!userId.rows.length){
+        
+        if(!result.rows.length){
             return res.status(400).json({
                 Sucess:false,
                 Message:"Investimento não cadastrado",
                 Status:400
             })   
         }
-        else{
-            return res.status(200).json({
-                Sucess:true,
-                Message:"Update sucedido",
+
+        // Registrar atualização de fundo no sistema de atividade unificada
+        try {
+            await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+                userId.rows[0].id,
+                'user',
+                'UPDATE_FUNDO',
+                `Usuário atualizou o fundo imobiliário: ${Nome}`,
+                'fundo_imobiliario',
+                id,
+                req.ip || req.connection.remoteAddress,
+                req.get('User-Agent'),
+                JSON.stringify({ 
+                    fundoNome: Nome,
+                    area: Area,
+                    tamanho: AreaTotal,
+                    porcentagem: porcentagem,
+                    distrito: DF
+                })
+            ]);
+        } catch (logError) {
+            console.error('Erro ao registrar atualização de fundo:', logError);
+        }
+
+        return res.status(200).json({
+            Sucess:true,
+            Message:"Update sucedido",
                 Status:200,
                 data:result.rows[0]
             })
-        }
     }catch(err){
         console.error(err.message)
         return res.status(500).json({
@@ -253,4 +322,66 @@ router.put('/:id', async function(req, res, next) {
         });
     }
 })
+
+/* DELETE - Remover fundo imobiliário */
+router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
+    try {
+    
+    const { id } = req.params;
+      
+      // Verificar se o fundo imobiliário existe e obter informações
+      const fundoExists = await pool.query('SELECT "Nome", "Emissor" FROM "Investimento" WHERE id = $1', [id]);
+      if (fundoExists.rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Fundo imobiliário não encontrado'
+        });
+      }
+
+      const fundoNome = fundoExists.rows[0].Nome;
+      const userId = fundoExists.rows[0].Emissor;
+      
+      await pool.query('DELETE FROM "Investimento" WHERE id = $1', [id]);
+
+      // Registrar exclusão de fundo no sistema de atividade unificada
+      try {
+        await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+          userId,
+          'user',
+          'DELETE_FUNDO',
+          `Usuário excluiu o fundo imobiliário: ${fundoNome}`,
+          'fundo_imobiliario',
+          id,
+          req.ip || req.connection.remoteAddress,
+          req.get('User-Agent'),
+          JSON.stringify({ 
+            fundoNome: fundoNome,
+            deletedAt: new Date().toISOString()
+          })
+        ]);
+      } catch (logError) {
+        console.error('Erro ao registrar exclusão de fundo:', logError);
+      }
+      try{
+        await axios.delete("http://localhost:3001/images", {
+    data: {
+      path: `uploads/${id}/main.png`
+    }
+  })
+  
+      }catch(e){
+        console.error(e)
+      }
+      res.json({
+        success: true,
+        message: 'Fundo imobiliário deletado com sucesso'
+      });
+    } catch (error) {
+      console.error('Erro ao deletar fundo imobiliário:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erro interno do servidor'
+      });
+    }
+  });
 module.exports = router;
