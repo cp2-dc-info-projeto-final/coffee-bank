@@ -67,6 +67,24 @@ router.post('/login',async function(req, res, next) {
     process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
     { expiresIn: '30min' } 
   );
+
+    // Registrar login no sistema de atividade unificada
+    try {
+      await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+        result.rows[0].id,
+        'admin',
+        'LOGIN',
+        'Administrador fez login no sistema',
+        'account',
+        result.rows[0].id,
+        req.ip || req.connection.remoteAddress,
+        req.get('User-Agent'),
+        JSON.stringify({ loginTime: new Date().toISOString() })
+      ]);
+    } catch (logError) {
+      console.error('Erro ao registrar login:', logError);
+    }
+
     return res.json({
       success: true,
       message: 'Login bem-sucedido',
