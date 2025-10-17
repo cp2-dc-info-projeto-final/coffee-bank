@@ -31,6 +31,7 @@
 	let data: MarketItem[] = []
 	let erros: string[] = []
 	let loading = true
+	let isLoggedIn = false
 
 	// Modal state
 	let showModal = false
@@ -85,6 +86,9 @@
             user = JSON.parse(payload);
         }
 
+		// Atualiza flag de login
+		isLoggedIn = !!token
+
 		window.addEventListener('keydown', handleKeydown)
 		
 		try {
@@ -120,14 +124,16 @@
 					<i class="fa-solid fa-home"></i>
 					<span class="hidden sm:inline">Dashboard</span>
 				</a>
-				<a href={links.login} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
-					<i class="fa-solid fa-right-to-bracket"></i>
-					<span class="hidden sm:inline">Entrar</span>
-				</a>
-				<a href={links.cadastro} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
-					<i class="fa-solid fa-user-plus"></i>
-					<span class="hidden sm:inline">Criar conta</span>
-				</a>
+				{#if !isLoggedIn}
+					<a href={links.login} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+						<i class="fa-solid fa-right-to-bracket"></i>
+						<span class="hidden sm:inline">Entrar</span>
+					</a>
+					<a href={links.cadastro} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+						<i class="fa-solid fa-user-plus"></i>
+						<span class="hidden sm:inline">Criar conta</span>
+					</a>
+				{/if}
 			</nav>
 		</div>
 	</header>
@@ -144,7 +150,13 @@
 			</p>
 		</div>
 
-		<!-- Stats Section -->
+		<div class="mb-8">
+			<a href={links.userPage} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+				<i class="fa-solid fa-arrow-left"></i>
+				<span>Voltar ao Perfil</span>
+			</a>
+		</div>
+
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
 			<div class="bg-gradient-to-br from-amber-600/20 to-amber-800/20 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300">
 				<div class="flex items-center justify-between">
