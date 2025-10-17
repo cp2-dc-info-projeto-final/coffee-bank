@@ -29,7 +29,7 @@
 		id: string;
 		CPF: string;
 		Area: number;
-		Tamanho: number;
+		AreaTotal: number;
 		porcentagem: number;
 		DF: string;
 		Nome: string;
@@ -51,7 +51,7 @@
 	let formData = {
 		CPF: "",
 		Area: 0,
-		Tamanho: 0,
+		AreaTotal: 0,
 		porcentagem: 0,
 		DF: "",
 		Nome: "",
@@ -76,6 +76,7 @@
 			isLoading = true;
 			const resposta = await api.get("/investment");
 			fundoImobiliarios = resposta.data.Data || [];
+			console.log(fundoImobiliarios)
 			error = '';
 		} catch (err) {
 			console.error('Erro ao carregar fundos imobiliários:', err);
@@ -90,7 +91,7 @@
 		formData = {
 			CPF: fundo.CPF || "",
 			Area: fundo.Area || 0,
-			Tamanho: fundo.Tamanho || 0,
+			AreaTotal: fundo.AreaTotal || 0,
 			porcentagem: fundo.porcentagem || 0,
 			DF: fundo.DF || "",
 			Nome: fundo.Nome || "",
@@ -177,7 +178,7 @@
 		formData = {
 			CPF: "",
 			Area: 0,
-			Tamanho: 0,
+			AreaTotal: 0,
 			porcentagem: 0,
 			DF: "",
 			Nome: "",
@@ -240,12 +241,14 @@
 	}
 
 	function calculateTotalValue(fundo: FundoImobiliario) {
-		return (fundo.Compra || 0) * (fundo.porcentagem || 0) / 100;
+		console.log(fundo)
+		return (fundo.Compra || 0) * (fundo.Porcentagem || 0) / 100;
 	}
 
 	function calculateAreaPercentage(fundo: FundoImobiliario) {
-		if (!fundo.Tamanho || fundo.Tamanho === 0) return 0;
-		return ((fundo.Area || 0) / fundo.Tamanho) * 100;
+		console.log(fundo)
+		if (!fundo.AreaTotal || fundo.AreaVendida === 0) return 0;
+		return ((fundo.Area || 0) / fundo.AreaTotal) * 100;
 	}
 </script>
 
@@ -364,7 +367,7 @@
 		</div>
 
 		<div class="flex-1 flex items-center justify-center p-6">
-			<div class="w-full max-w-7xl mx-auto">
+			<div class="w-full mx-auto">
 				<!-- Success Message -->
 				{#if success}
 					<div class="bg-green-50 border-l-4 border-green-400 text-green-700 p-6 rounded-lg shadow-md animate-fade-in-up mb-6">
@@ -435,7 +438,7 @@
 									<div>
 										<p class="text-sm font-medium text-gray-600">Área Total (m²)</p>
 										<p class="text-3xl font-bold text-gray-900 animate-count-up">
-											{fundoImobiliarios.reduce((total, fundo) => total + (fundo.Tamanho || 0), 0).toLocaleString('pt-BR')}
+											{fundoImobiliarios.reduce((total, fundo) => total + (fundo.AreaTotal || 0), 0).toLocaleString('pt-BR')}
 										</p>
 									</div>
 									<div class="w-12 h-12 bg-amber-800/10 rounded-lg flex items-center justify-center animate-pulse">
@@ -453,9 +456,7 @@
 								<div class="space-y-4">
 									{#each fundoImobiliarios.slice(0, 3) as fundo}
 										<div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-											<div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center">
-												<span class="text-white font-bold text-sm">{fundo.Nome?.charAt(0)?.toUpperCase() || 'F'}</span>
-											</div>
+											
 											<div class="flex-1">
 												<p class="font-medium text-gray-900">{fundo.Nome || 'Sem nome'}</p>
 												<p class="text-sm text-gray-500">CPF: {fundo.CPF || 'N/A'}</p>
@@ -534,15 +535,15 @@
 														</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm font-medium text-gray-900">{fundo.CPF || 'N/A'}</div>
+														<div class="text-sm font-medium text-gray-900">{fundo.DonodoInvestimento || 'N/A'}</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm text-gray-900">{fundo.Area || 0} m²</div>
-														<div class="text-xs text-gray-500">{calculateAreaPercentage(fundo).toFixed(1)}% do total</div>
+														<div class="text-sm text-gray-900">{fundo.AreaTotal || 0} m²</div>
+														<div class="text-xs text-gray-500">{fundo.AreaVendida/fundo.AreaTotal}% do total</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm font-medium text-amber-600">R$ {calculateTotalValue(fundo).toLocaleString('pt-BR')}</div>
-														<div class="text-xs text-gray-500">{fundo.porcentagem || 0}% de R$ {(fundo.Compra || 0).toLocaleString('pt-BR')}</div>
+														<div class="text-sm font-medium text-amber-600">R$ {(fundo.Compra/(fundo.Porcentagem/100)).toLocaleString('pt-BR')}</div>
+														<div class="text-xs text-gray-500">{fundo.Porcentagem || 0}% por R$ {(fundo.Compra || 0).toLocaleString('pt-BR')}</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="flex items-center space-x-3">
@@ -710,7 +711,7 @@
 							<input
 								id="edit-areaTotal"
 								type="number"
-								bind:value={formData.Tamanho}
+								bind:value={formData.AreaTotal}
 								class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
 								placeholder="Digite a área total"
 								min="0"
