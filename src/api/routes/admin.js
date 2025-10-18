@@ -369,4 +369,237 @@ router.get('/stats', async function(req, res, next) {
   }
 });
 
+// Dados para gráfico de crescimento de usuários
+router.get('/charts/user-growth', async function(req, res, next) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        DATE_TRUNC('month', "DataCriacao") as month,
+        COUNT(*) as users_count
+      FROM "Users"
+      WHERE "DataCriacao" >= CURRENT_DATE - INTERVAL '12 months'
+      GROUP BY DATE_TRUNC('month', "DataCriacao")
+      ORDER BY month
+    `);
+    
+    const data = result.rows.map(row => ({
+      month: row.month.toISOString().substring(0, 7), // YYYY-MM
+      count: parseInt(row.users_count)
+    }));
+
+    res.json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de crescimento de usuários:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Dados para gráfico de distribuição por perfil
+router.get('/charts/user-distribution', async function(req, res, next) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        CASE 
+          WHEN "Saldo" < 100 THEN 'Iniciante'
+          WHEN "Saldo" >= 100 AND "Saldo" < 500 THEN 'Intermediário'
+          WHEN "Saldo" >= 500 AND "Saldo" < 1000 THEN 'Avançado'
+          ELSE 'Expert'
+        END as profile_type,
+        COUNT(*) as count,
+        ROUND((COUNT(*) * 100.0 / (SELECT COUNT(*) FROM "Users")), 2) as percentage
+      FROM "Users"
+      GROUP BY profile_type
+      ORDER BY count DESC
+    `);
+    
+    const data = result.rows.map(row => ({
+      label: row.profile_type,
+      value: parseInt(row.count),
+      percentage: parseFloat(row.percentage)
+    }));
+
+    res.json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de distribuição de usuários:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Dados para gráfico de volume de transferências
+router.get('/charts/transfer-volume', async function(req, res, next) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        DATE_TRUNC('day', "Data") as day,
+        COUNT(*) as transfers_count,
+        SUM("Valor") as total_volume
+      FROM "Transferencias"
+      WHERE "Data" >= CURRENT_DATE - INTERVAL '30 days'
+      GROUP BY DATE_TRUNC('day', "Data")
+      ORDER BY day
+    `);
+    
+    const data = result.rows.map(row => ({
+      day: row.day.toISOString().substring(0, 10), // YYYY-MM-DD
+      transfers: parseInt(row.transfers_count),
+      volume: parseFloat(row.total_volume) || 0
+    }));
+
+    res.json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de volume de transferências:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Dados para gráfico de tendência temporal
+router.get('/charts/temporal-trend', async function(req, res, next) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        DATE_TRUNC('week', "Data") as week,
+        COUNT(*) as transfers_count,
+        AVG("Valor") as avg_value
+      FROM "Transferencias"
+      WHERE "Data" >= CURRENT_DATE - INTERVAL '12 weeks'
+      GROUP BY DATE_TRUNC('week', "Data")
+      ORDER BY week
+    `);
+    
+    const data = result.rows.map(row => ({
+      week: row.week.toISOString().substring(0, 10),
+      transfers: parseInt(row.transfers_count),
+      avgValue: parseFloat(row.avg_value) || 0
+    }));
+
+    res.json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de tendência temporal:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Dados para gráfico de receitas
+router.get('/charts/revenue', async function(req, res, next) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        DATE_TRUNC('month', "Data") as month,
+        COUNT(*) as transactions_count,
+        SUM("Valor") as total_revenue
+      FROM "Transferencias"
+      WHERE "Data" >= CURRENT_DATE - INTERVAL '12 months'
+      GROUP BY DATE_TRUNC('month', "Data")
+      ORDER BY month
+    `);
+    
+    const data = result.rows.map(row => ({
+      month: row.month.toISOString().substring(0, 7),
+      transactions: parseInt(row.transactions_count),
+      revenue: parseFloat(row.total_revenue) || 0
+    }));
+
+    res.json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de receitas:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Dados para dashboard de métricas avançadas
+router.get('/charts/analytics', async function(req, res, next) {
+  try {
+    // Métricas de performance
+    const performanceMetrics = await pool.query(`
+      SELECT 
+        'users_per_day' as metric,
+        ROUND(COUNT(*)::numeric / NULLIF(EXTRACT(days FROM MAX("DataCriacao") - MIN("DataCriacao")), 0), 2) as value
+      FROM "Users"
+      UNION ALL
+      SELECT 
+        'avg_transfer_value' as metric,
+        ROUND(AVG("Valor"), 2) as value
+      FROM "Transferencias"
+      UNION ALL
+      SELECT 
+        'total_balance' as metric,
+        ROUND(SUM("Saldo"), 2) as value
+      FROM "Users"
+    `);
+    
+    // Análise comparativa (últimos 6 meses vs anteriores)
+    const comparativeAnalysis = await pool.query(`
+      SELECT 
+        CASE 
+          WHEN "Data" >= CURRENT_DATE - INTERVAL '6 months' THEN 'recent'
+          ELSE 'previous'
+        END as period,
+        COUNT(*) as transactions,
+        SUM("Valor") as total_value,
+        AVG("Valor") as avg_value
+      FROM "Transferencias"
+      WHERE "Data" >= CURRENT_DATE - INTERVAL '12 months'
+      GROUP BY period
+    `);
+
+    const performance = {};
+    performanceMetrics.rows.forEach(row => {
+      performance[row.metric] = parseFloat(row.value) || 0;
+    });
+
+    const comparative = {};
+    comparativeAnalysis.rows.forEach(row => {
+      comparative[row.period] = {
+        transactions: parseInt(row.transactions),
+        totalValue: parseFloat(row.total_value) || 0,
+        avgValue: parseFloat(row.avg_value) || 0
+      };
+    });
+
+    res.json({
+      success: true,
+      data: {
+        performance,
+        comparative
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao buscar dados de analytics:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
 module.exports = router;

@@ -1,8 +1,43 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import Chart from '$lib/components/Chart.svelte';
 
-  let stats = {
+  interface Stats {
+    totalUsers: number;
+    totalAdmins: number;
+    totalTransfers: number;
+    totalBalance: number;
+    todayUsers: number;
+    todayTransfers: number;
+  }
+
+  interface ChartData {
+    labels: string[];
+    datasets: any[];
+  }
+
+  interface AnalyticsData {
+    performance: {
+      users_per_day?: number;
+      avg_transfer_value?: number;
+      total_balance?: number;
+    };
+    comparative: {
+      recent?: {
+        transactions: number;
+        totalValue: number;
+        avgValue: number;
+      };
+      previous?: {
+        transactions: number;
+        totalValue: number;
+        avgValue: number;
+      };
+    };
+  }
+
+  let stats: Stats = {
     totalUsers: 0,
     totalAdmins: 0,
     totalTransfers: 0,
@@ -10,10 +45,28 @@
     todayUsers: 0,
     todayTransfers: 0
   };
-  let isLoading = true;
-  let error = '';
-  let sidebarOpen = false;
-  let activeSection = 'overview';
+  let isLoading: boolean = true;
+  let error: string = '';
+  let sidebarOpen: boolean = false;
+  let activeSection: string = 'overview';
+
+  // Dados dos gráficos
+  let userGrowthData: ChartData = { labels: [], datasets: [] };
+  let userDistributionData: ChartData = { labels: [], datasets: [] };
+  let transferVolumeData: ChartData = { labels: [], datasets: [] };
+  let temporalTrendData: ChartData = { labels: [], datasets: [] };
+  let revenueData: ChartData = { labels: [], datasets: [] };
+  let analyticsData: AnalyticsData = { performance: {}, comparative: {} };
+
+  // Estados de carregamento dos gráficos
+  let chartsLoading = {
+    userGrowth: false,
+    userDistribution: false,
+    transferVolume: false,
+    temporalTrend: false,
+    revenue: false,
+    analytics: false
+  };
 
   const sections = [
     { id: 'overview', name: 'Visão Geral', icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z' },
@@ -47,32 +100,202 @@
     }
   }
 
-  function formatCurrency(value) {
+  // Função para carregar dados de crescimento de usuários
+  async function loadUserGrowthData() {
+    try {
+      chartsLoading.userGrowth = true;
+      const response = await fetch('http://localhost:3000/admin/charts/user-growth');
+      const data = await response.json();
+      
+      if (data.success) {
+        userGrowthData = {
+          labels: data.data.map((item: any) => item.month),
+          datasets: [{
+            label: 'Usuários',
+            data: data.data.map((item: any) => item.count),
+            borderColor: '#0b8185',
+            backgroundColor: 'rgba(11, 129, 133, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        };
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de crescimento:', err);
+    } finally {
+      chartsLoading.userGrowth = false;
+    }
+  }
+
+  // Função para carregar dados de distribuição de usuários
+  async function loadUserDistributionData() {
+    try {
+      chartsLoading.userDistribution = true;
+      const response = await fetch('http://localhost:3000/admin/charts/user-distribution');
+      const data = await response.json();
+      
+      if (data.success) {
+        const colors = ['#0b8185', '#1f5f61', '#36544f', '#403831'];
+        userDistributionData = {
+          labels: data.data.map((item: any) => item.label),
+          datasets: [{
+            data: data.data.map((item: any) => item.value),
+            backgroundColor: colors.slice(0, data.data.length),
+            borderWidth: 0
+          }]
+        };
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de distribuição:', err);
+    } finally {
+      chartsLoading.userDistribution = false;
+    }
+  }
+
+  // Função para carregar dados de volume de transferências
+  async function loadTransferVolumeData() {
+    try {
+      chartsLoading.transferVolume = true;
+      const response = await fetch('http://localhost:3000/admin/charts/transfer-volume');
+      const data = await response.json();
+      
+      if (data.success) {
+        transferVolumeData = {
+          labels: data.data.map((item: any) => item.day),
+          datasets: [{
+            label: 'Transferências',
+            data: data.data.map((item: any) => item.transfers),
+            backgroundColor: '#1f5f61',
+            borderColor: '#1f5f61',
+            borderWidth: 1
+          }]
+        };
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de volume:', err);
+    } finally {
+      chartsLoading.transferVolume = false;
+    }
+  }
+
+  // Função para carregar dados de tendência temporal
+  async function loadTemporalTrendData() {
+    try {
+      chartsLoading.temporalTrend = true;
+      const response = await fetch('http://localhost:3000/admin/charts/temporal-trend');
+      const data = await response.json();
+      
+      if (data.success) {
+        temporalTrendData = {
+          labels: data.data.map((item: any) => item.week),
+          datasets: [{
+            label: 'Transferências',
+            data: data.data.map((item: any) => item.transfers),
+            borderColor: '#36544f',
+            backgroundColor: 'rgba(54, 84, 79, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        };
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de tendência:', err);
+    } finally {
+      chartsLoading.temporalTrend = false;
+    }
+  }
+
+  // Função para carregar dados de receitas
+  async function loadRevenueData() {
+    try {
+      chartsLoading.revenue = true;
+      const response = await fetch('http://localhost:3000/admin/charts/revenue');
+      const data = await response.json();
+      
+      if (data.success) {
+        revenueData = {
+          labels: data.data.map((item: any) => item.month),
+          datasets: [{
+            label: 'Receita',
+            data: data.data.map((item: any) => item.revenue),
+            borderColor: '#403831',
+            backgroundColor: 'rgba(64, 56, 49, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        };
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de receita:', err);
+    } finally {
+      chartsLoading.revenue = false;
+    }
+  }
+
+  // Função para carregar dados de analytics
+  async function loadAnalyticsData() {
+    try {
+      chartsLoading.analytics = true;
+      const response = await fetch('http://localhost:3000/admin/charts/analytics');
+      const data = await response.json();
+      
+      if (data.success) {
+        analyticsData = data.data;
+      }
+    } catch (err) {
+      console.error('Erro ao carregar dados de analytics:', err);
+    } finally {
+      chartsLoading.analytics = false;
+    }
+  }
+
+  // Função para carregar dados específicos baseado na seção ativa
+  function loadSectionData(sectionId: string): void {
+    switch (sectionId) {
+      case 'users':
+        loadUserGrowthData();
+        loadUserDistributionData();
+        break;
+      case 'transfers':
+        loadTransferVolumeData();
+        loadTemporalTrendData();
+        break;
+      case 'revenue':
+        loadRevenueData();
+        break;
+      case 'analytics':
+        loadAnalyticsData();
+        break;
+    }
+  }
+
+  function formatCurrency(value: number): string {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     }).format(value);
   }
 
-  function formatNumber(value) {
+  function formatNumber(value: number): string {
     return new Intl.NumberFormat('pt-BR').format(value);
   }
 
-  function formatPercentage(value, total) {
+  function formatPercentage(value: number, total: number): string {
     if (total === 0) return '0%';
     return ((value / total) * 100).toFixed(1) + '%';
   }
 
-  function goBack() {
+  function goBack(): void {
     goto('/admin');
   }
 
-  function toggleSidebar() {
+  function toggleSidebar(): void {
     sidebarOpen = !sidebarOpen;
   }
 
-  function setActiveSection(sectionId) {
+  function setActiveSection(sectionId: string): void {
     activeSection = sectionId;
+    loadSectionData(sectionId);
   }
 </script>
 
@@ -320,25 +543,63 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-[#0b8185]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#0b8185] mb-2">Crescimento de Usuários</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#0b8185]/10 to-[#1f5f61]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#0b8185]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                      </svg>
-                      <p class="text-[#0b8185] font-medium">Gráfico de Crescimento</p>
+                  <div class="h-64">
+                    {#if chartsLoading.userGrowth}
+                      <div class="h-full flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0b8185]"></div>
                     </div>
+                    {:else}
+                      <Chart 
+                        type="line" 
+                        data={userGrowthData} 
+                        width={400} 
+                        height={256}
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              grid: {
+                                color: 'rgba(11, 129, 133, 0.1)'
+                              }
+                            },
+                            x: {
+                              grid: {
+                                color: 'rgba(11, 129, 133, 0.1)'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    {/if}
                   </div>
                 </div>
                 <div class="bg-[#1f5f61]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#1f5f61] mb-2">Distribuição por Perfil</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#1f5f61]/10 to-[#36544f]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#1f5f61]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                      </svg>
-                      <p class="text-[#1f5f61] font-medium">Gráfico de Pizza</p>
+                  <div class="h-64">
+                    {#if chartsLoading.userDistribution}
+                      <div class="h-full flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1f5f61]"></div>
                     </div>
+                    {:else}
+                      <Chart 
+                        type="doughnut" 
+                        data={userDistributionData} 
+                        width={400} 
+                        height={256}
+                        options={{
+                          plugins: {
+                            legend: {
+                              position: 'bottom'
+                            }
+                          }
+                        }}
+                      />
+                    {/if}
                   </div>
                 </div>
               </div>
@@ -353,24 +614,76 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-[#1f5f61]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#1f5f61] mb-2">Volume de Transferências</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#1f5f61]/10 to-[#36544f]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#1f5f61]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                      </svg>
-                      <p class="text-[#1f5f61] font-medium">Gráfico de Barras</p>
+                  <div class="h-64">
+                    {#if chartsLoading.transferVolume}
+                      <div class="h-full flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1f5f61]"></div>
                     </div>
+                    {:else}
+                      <Chart 
+                        type="bar" 
+                        data={transferVolumeData} 
+                        width={400} 
+                        height={256}
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              grid: {
+                                color: 'rgba(31, 95, 97, 0.1)'
+                              }
+                            },
+                            x: {
+                              grid: {
+                                color: 'rgba(31, 95, 97, 0.1)'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    {/if}
                   </div>
                 </div>
                 <div class="bg-[#36544f]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#36544f] mb-2">Tendência Temporal</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#36544f]/10 to-[#403831]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#36544f]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
-                      </svg>
-                      <p class="text-[#36544f] font-medium">Gráfico de Linha</p>
+                  <div class="h-64">
+                    {#if chartsLoading.temporalTrend}
+                      <div class="h-full flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#36544f]"></div>
                     </div>
+                    {:else}
+                      <Chart 
+                        type="line" 
+                        data={temporalTrendData} 
+                        width={400} 
+                        height={256}
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              grid: {
+                                color: 'rgba(54, 84, 79, 0.1)'
+                              }
+                            },
+                            x: {
+                              grid: {
+                                color: 'rgba(54, 84, 79, 0.1)'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    {/if}
                   </div>
                 </div>
               </div>
@@ -385,23 +698,55 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-[#403831]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#403831] mb-2">Receita por Período</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#403831]/10 to-[#30261c]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#403831]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                      </svg>
-                      <p class="text-[#403831] font-medium">Gráfico de Receitas</p>
+                  <div class="h-64">
+                    {#if chartsLoading.revenue}
+                      <div class="h-full flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#403831]"></div>
                     </div>
+                    {:else}
+                      <Chart 
+                        type="line" 
+                        data={revenueData} 
+                        width={400} 
+                        height={256}
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              grid: {
+                                color: 'rgba(64, 56, 49, 0.1)'
+                              },
+                              ticks: {
+                                callback: function(value: any) {
+                                  return 'R$ ' + value.toLocaleString('pt-BR');
+                                }
+                              }
+                            },
+                            x: {
+                              grid: {
+                                color: 'rgba(64, 56, 49, 0.1)'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    {/if}
                   </div>
                 </div>
                 <div class="bg-[#0b8185]/5 rounded-lg p-6">
                   <h4 class="font-medium text-[#0b8185] mb-2">Projeção de Lucros</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#0b8185]/10 to-[#1f5f61]/10 rounded-lg flex items-center justify-center">
+                  <div class="h-64 flex items-center justify-center">
                     <div class="text-center">
                       <svg class="w-12 h-12 text-[#0b8185]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                       </svg>
                       <p class="text-[#0b8185] font-medium">Projeção de Crescimento</p>
+                      <p class="text-gray-500 text-sm mt-2">Em desenvolvimento</p>
                     </div>
                   </div>
                 </div>
@@ -416,26 +761,72 @@
               <h3 class="text-lg font-semibold text-gray-900 mb-4">Análises Avançadas</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-[#36544f]/5 rounded-lg p-6">
-                  <h4 class="font-medium text-[#36544f] mb-2">Métricas de Performance</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#36544f]/10 to-[#1f5f61]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#36544f]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                      </svg>
-                      <p class="text-[#36544f] font-medium">Dashboard de Métricas</p>
+                  <h4 class="font-medium text-[#36544f] mb-4">Métricas de Performance</h4>
+                  {#if chartsLoading.analytics}
+                    <div class="h-48 flex items-center justify-center">
+                      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#36544f]"></div>
+                    </div>
+                  {:else}
+                    <div class="space-y-4">
+                      <div class="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                        <span class="text-sm font-medium text-gray-600">Usuários por Dia</span>
+                        <span class="text-lg font-bold text-[#36544f]">{analyticsData.performance?.users_per_day || 0}</span>
+                      </div>
+                      <div class="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                        <span class="text-sm font-medium text-gray-600">Valor Médio Transferência</span>
+                        <span class="text-lg font-bold text-[#36544f]">{formatCurrency(analyticsData.performance?.avg_transfer_value || 0)}</span>
+                      </div>
+                      <div class="flex justify-between items-center p-3 bg-white rounded-lg shadow-sm">
+                        <span class="text-sm font-medium text-gray-600">Saldo Total Sistema</span>
+                        <span class="text-lg font-bold text-[#36544f]">{formatCurrency(analyticsData.performance?.total_balance || 0)}</span>
                     </div>
                   </div>
+                  {/if}
                 </div>
                 <div class="bg-[#1f5f61]/5 rounded-lg p-6">
-                  <h4 class="font-medium text-[#1f5f61] mb-2">Análise Comparativa</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#1f5f61]/10 to-[#36544f]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#1f5f61]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                      </svg>
-                      <p class="text-[#1f5f61] font-medium">Comparativo Anual</p>
+                  <h4 class="font-medium text-[#1f5f61] mb-4">Análise Comparativa</h4>
+                  {#if chartsLoading.analytics}
+                    <div class="h-48 flex items-center justify-center">
+                      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1f5f61]"></div>
+                    </div>
+                  {:else}
+                    <div class="space-y-4">
+                      <div class="p-4 bg-white rounded-lg shadow-sm">
+                        <h5 class="font-medium text-[#1f5f61] mb-2">Últimos 6 meses</h5>
+                        <div class="space-y-2 text-sm">
+                          <div class="flex justify-between">
+                            <span>Transações:</span>
+                            <span class="font-medium">{analyticsData.comparative?.recent?.transactions || 0}</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span>Valor Total:</span>
+                            <span class="font-medium">{formatCurrency(analyticsData.comparative?.recent?.totalValue || 0)}</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span>Valor Médio:</span>
+                            <span class="font-medium">{formatCurrency(analyticsData.comparative?.recent?.avgValue || 0)}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="p-4 bg-white rounded-lg shadow-sm">
+                        <h5 class="font-medium text-[#1f5f61] mb-2">Período Anterior</h5>
+                        <div class="space-y-2 text-sm">
+                          <div class="flex justify-between">
+                            <span>Transações:</span>
+                            <span class="font-medium">{analyticsData.comparative?.previous?.transactions || 0}</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span>Valor Total:</span>
+                            <span class="font-medium">{formatCurrency(analyticsData.comparative?.previous?.totalValue || 0)}</span>
+                          </div>
+                          <div class="flex justify-between">
+                            <span>Valor Médio:</span>
+                            <span class="font-medium">{formatCurrency(analyticsData.comparative?.previous?.avgValue || 0)}</span>
+                          </div>
+                        </div>
                     </div>
                   </div>
+                  {/if}
                 </div>
               </div>
             </div>
