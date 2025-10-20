@@ -4,14 +4,27 @@
 	import axios from 'axios';
 
 	const api = axios.create({
-		baseURL: 'http://localhost:3000',
-		withCredentials: true,
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-	});
+    baseURL: 'http://localhost:3000',
+    withCredentials: true, // Útil para CORS com cookies/sessão
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  });
 
+	// Função para obter o token de autenticação
+	function getAuthToken() {
+		if (typeof window !== 'undefined') {
+			return sessionStorage.getItem('auth_token');
+		}
+		return null;
+	}
+
+	// Função para configurar headers de autenticação
+	function getAuthHeaders() {
+		const token = getAuthToken();
+		return token ? { Authorization: `Bearer ${token}` } : {};
+	}
 	interface FundoImobiliario {
 		id: string;
 		CPF: string;
@@ -63,6 +76,7 @@
 			isLoading = true;
 			const resposta = await api.get("/investment");
 			fundoImobiliarios = resposta.data.Data || [];
+			console.log(fundoImobiliarios)
 			error = '';
 		} catch (err) {
 			console.error('Erro ao carregar fundos imobiliários:', err);
@@ -104,28 +118,38 @@
 		}
 
 		try {
-			const response = await api.put(`/investment/${fundoToEdit.id}`, formData);
+			const response = await api.put(`/investment/${fundoToEdit.id}`, formData, {
+				headers: getAuthHeaders()
+			});
 			
-			if (response.data.success) {
+			if (response.data.Sucess || response.data.success) {
 				success = 'Fundo Imobiliário atualizado com sucesso!';
 				showEditModal = false;
 				fundoToEdit = null;
 				loadFundosImobiliarios();
 			} else {
-				error = response.data.message || 'Erro ao atualizar fundo imobiliário';
+				error = response.data.Message || response.data.message || 'Erro ao atualizar fundo imobiliário';
 			}
-		} catch (err) {
+		} catch (err: any) {
 			console.error('Erro ao atualizar fundo:', err);
-			error = 'Erro de conexão';
+			if (err.response?.status === 401) {
+				error = 'Token de autenticação inválido ou expirado';
+			} else if (err.response?.status === 403) {
+				error = 'Acesso negado: requer privilégios de administrador';
+			} else {
+				error = err.response?.data?.message || err.response?.data?.Message || 'Erro de conexão';
+			}
 		}
 	}
 
-	async function deleteFundoImobiliario() {
+	async function executeDelete() {
 		if (!fundoToDelete) return;
 
 		try {
-			const response = await api.delete(`/investment/${fundoToDelete.id}`);
-			
+			const response = await api.delete(`/investment/${fundoToDelete.id}`, {
+				headers: getAuthHeaders()
+			});
+
 			if (response.data.success) {
 				success = 'Fundo Imobiliário excluído com sucesso!';
 				showDeleteModal = false;
@@ -134,9 +158,15 @@
 			} else {
 				error = response.data.message || 'Erro ao excluir fundo imobiliário';
 			}
-		} catch (err) {
+		} catch (err: any) {
 			console.error('Erro ao excluir fundo:', err);
-			error = 'Erro de conexão';
+			if (err.response?.status === 401) {
+				error = 'Token de autenticação inválido ou expirado';
+			} else if (err.response?.status === 403) {
+				error = 'Acesso negado: requer privilégios de administrador';
+			} else {
+				error = err.response?.data?.message || 'Erro de conexão';
+			}
 		}
 	}
 
@@ -211,11 +241,13 @@
 	}
 
 	function calculateTotalValue(fundo: FundoImobiliario) {
-		return (fundo.Compra || 0) * (fundo.porcentagem || 0) / 100;
+		console.log(fundo)
+		return (fundo.Compra || 0) * (fundo.Porcentagem || 0) / 100;
 	}
 
 	function calculateAreaPercentage(fundo: FundoImobiliario) {
-		if (!fundo.AreaTotal || fundo.AreaTotal === 0) return 0;
+		console.log(fundo)
+		if (!fundo.AreaTotal || fundo.AreaVendida === 0) return 0;
 		return ((fundo.Area || 0) / fundo.AreaTotal) * 100;
 	}
 </script>
@@ -335,7 +367,7 @@
 		</div>
 
 		<div class="flex-1 flex items-center justify-center p-6">
-			<div class="w-full max-w-7xl mx-auto">
+			<div class="w-full mx-auto">
 				<!-- Success Message -->
 				{#if success}
 					<div class="bg-green-50 border-l-4 border-green-400 text-green-700 p-6 rounded-lg shadow-md animate-fade-in-up mb-6">
@@ -424,9 +456,7 @@
 								<div class="space-y-4">
 									{#each fundoImobiliarios.slice(0, 3) as fundo}
 										<div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-											<div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center">
-												<span class="text-white font-bold text-sm">{fundo.Nome?.charAt(0)?.toUpperCase() || 'F'}</span>
-											</div>
+											
 											<div class="flex-1">
 												<p class="font-medium text-gray-900">{fundo.Nome || 'Sem nome'}</p>
 												<p class="text-sm text-gray-500">CPF: {fundo.CPF || 'N/A'}</p>
@@ -505,15 +535,15 @@
 														</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm font-medium text-gray-900">{fundo.CPF || 'N/A'}</div>
+														<div class="text-sm font-medium text-gray-900">{fundo.DonodoInvestimento || 'N/A'}</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm text-gray-900">{fundo.Area || 0} m²</div>
-														<div class="text-xs text-gray-500">{calculateAreaPercentage(fundo).toFixed(1)}% do total</div>
+														<div class="text-sm text-gray-900">{fundo.AreaTotal || 0} m²</div>
+														<div class="text-xs text-gray-500">{fundo.AreaVendida/fundo.AreaTotal}% do total</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
-														<div class="text-sm font-medium text-amber-600">R$ {calculateTotalValue(fundo).toLocaleString('pt-BR')}</div>
-														<div class="text-xs text-gray-500">{fundo.porcentagem || 0}% de R$ {(fundo.Compra || 0).toLocaleString('pt-BR')}</div>
+														<div class="text-sm font-medium text-amber-600">R$ {(fundo.Compra/(fundo.Porcentagem/100)).toLocaleString('pt-BR')}</div>
+														<div class="text-xs text-gray-500">{fundo.Porcentagem || 0}% por R$ {(fundo.Compra || 0).toLocaleString('pt-BR')}</div>
 													</td>
 													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="flex items-center space-x-3">
@@ -784,12 +814,26 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
 						</svg>
 					</div>
-					<h3 class="text-2xl font-bold text-gray-900 mb-4">Confirmar Exclusão</h3>
-					<p class="text-gray-600 mb-8">
-						Tem certeza que deseja excluir o fundo imobiliário <strong class="text-gray-900">{fundoToDelete.Nome || 'Sem nome'}</strong>?
-						<br><br>
-						<span class="text-red-600 font-medium">Esta ação não pode ser desfeita.</span>
-					</p>
+					<h3 class="text-2xl font-bold text-gray-900 mb-4">⚠️ Confirmar Exclusão</h3>
+					<div class="text-gray-600 mb-8">
+						<p class="mb-4">
+							Tem certeza que deseja excluir o fundo imobiliário:
+						</p>
+						<div class="bg-gray-50 rounded-lg p-4 mb-4">
+							<p class="font-semibold text-gray-900 text-lg">{fundoToDelete.Nome || 'Sem nome'}</p>
+							<p class="text-sm text-gray-600">CPF: {fundoToDelete.CPF || 'N/A'}</p>
+							<p class="text-sm text-gray-600">Distrito: {fundoToDelete.DF || 'N/A'}</p>
+							<p class="text-sm text-gray-600">Área: {fundoToDelete.Area || 0} m²</p>
+						</div>
+						<div class="bg-red-50 border border-red-200 rounded-lg p-4">
+							<p class="text-red-800 font-medium">
+								🚨 <strong>Atenção:</strong> Esta ação é irreversível!
+							</p>
+							<p class="text-red-700 text-sm mt-2">
+								Todos os dados relacionados a este fundo imobiliário serão permanentemente removidos do sistema.
+							</p>
+						</div>
+					</div>
 					<div class="flex space-x-4">
 						<button
 							on:click={cancelModal}
@@ -798,10 +842,10 @@
 							Cancelar
 						</button>
 						<button
-							on:click={deleteFundoImobiliario}
+							on:click={executeDelete}
 							class="flex-1 px-6 py-3 bg-red-600 text-white text-lg font-medium rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200"
 						>
-							Excluir
+							Confirmar Exclusão
 						</button>
 					</div>
 				</div>

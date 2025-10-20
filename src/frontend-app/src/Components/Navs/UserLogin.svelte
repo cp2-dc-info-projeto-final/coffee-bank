@@ -51,8 +51,9 @@
                     <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
                 <div class="flex flex-col">
+                    <script>console.log(user.Name)</script>
                     <h2 class="text-white font-semibold text-lg md:text-xl transition-all duration-300 hover:text-white/90" aria-label={user.Name}>
-                        {largura < 450 ? user.firstName : user.Name}
+                        {user.Name}
                     </h2>
                     <div class="flex items-center space-x-2">
                         <button 
@@ -64,6 +65,7 @@
                         </button>
                         {#if visível}
                             <span class="text-white font-medium text-md md:text-2xl animate-fade-in">
+                                {user.firstName}
                                 {user.Saldo} Coffeekg
                             </span>
                         {/if}

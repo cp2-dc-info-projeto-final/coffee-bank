@@ -328,6 +328,7 @@ router.post('/login', async function(req, res) {
       // Cria o token com as informações do usuário logado e sua chave pública
       const token = jwt.sign(
         { 
+          id: user.id,
           Saldo:user.Saldo,
           CPF:user.CPF,
           role: user.role,
@@ -336,6 +337,23 @@ router.post('/login', async function(req, res) {
         process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
         { expiresIn: '30min' } 
       );
+
+      // Registrar login no sistema de atividade unificada
+      try {
+        await pool.query('SELECT log_unified_activity($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
+          user.id,
+          user.role,
+          'LOGIN',
+          `${user.role === 'admin' ? 'Administrador' : 'Usuário'} fez login no sistema`,
+          'account',
+          user.id,
+          req.ip || req.connection.remoteAddress,
+          req.get('User-Agent'),
+          JSON.stringify({ loginTime: new Date().toISOString() })
+        ]);
+      } catch (logError) {
+        console.error('Erro ao registrar login:', logError);
+      }
 
       // O token contém as informções do usuário com a chave para posterior validação
       return res.status(200).json({

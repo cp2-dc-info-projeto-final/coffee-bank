@@ -12,6 +12,8 @@ var Investimento = require('./routes/investment');
 var mercado = require("./routes/MercadoAcoes");
 var adminRouter = require('./routes/admin');
 var transfersRouter = require('./routes/transfers');
+var activityRouter = require('./routes/activity');
+var unifiedActivityRouter = require('./routes/unified-activity');
 
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/users', usersRouter);
 app.use('/investment', Investimento);
 app.use("/mercado", mercado);
 app.use('/admin', adminRouter);
+app.use('/activity', activityRouter);
+app.use('/unified-activity', unifiedActivityRouter);
 app.use('/', transfersRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

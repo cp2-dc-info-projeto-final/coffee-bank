@@ -1,5 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { page } from '$app/stores';
+  import { get } from 'svelte/store';
   import { goto } from '$app/navigation';
   // import FundoForm from '../../../Components/Forms/FundoImobForm.svelte';
 
@@ -34,6 +36,23 @@
   let showCPFList = false;
   let isLoadingCPFs = false;
 
+  // Activity system
+  let activityLogs = [];
+  let activeSessions = [];
+  let activityStats = {};
+  let isLoadingActivity = false;
+  let isLoadingSessions = false;
+  let activityFilters = {
+    page: 1,
+    limit: 20,
+    action: '',
+    userType: '',
+    startDate: '',
+    endDate: ''
+  };
+  let activityPagination = {};
+  let refreshInterval = null;
+
   // Form data
   let formData = {
     Nome: '',
@@ -53,7 +72,32 @@
 
   onMount(() => {
     loadAdmins();
+    // Open Activity section when navigated with ?section=activity
+    try {
+      const current = get(page);
+      const sectionParam = current?.url?.searchParams?.get('section');
+      if (sectionParam === 'activity') setActiveSection('activity');
+    } catch (e) {}
   });
+
+  // Cleanup quando o componente for desmontado
+  onDestroy(() => {
+    stopRealTimeMonitoring();
+  });
+
+  // Função para obter token de autenticação
+  function getAuthToken() {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('auth_token');
+    }
+    return null;
+  }
+
+  // Função para configurar headers de autenticação
+  function getAuthHeaders() {
+    const token = getAuthToken();
+    return token ? { Authorization: `Bearer ${token}` } : { Authorization: '' };
+  }
 
   async function loadAdmins() {
     try {
@@ -215,7 +259,6 @@
       goto('/admin/admins/fundoImobiliario');
     }
     else if (sectionId === 'fundoImob') {
-
       fundoFormData = {
         Nome: '',
         Tamanho: '',
@@ -227,6 +270,14 @@
       };
       fundoError = '';
       fundoSuccess = '';
+    }
+    else if (sectionId === 'activity') {
+      loadActivityLogs();
+      loadActiveSessions();
+      loadActivityStats();
+      startRealTimeMonitoring();
+    } else {
+      stopRealTimeMonitoring();
     }
   }
 
@@ -354,6 +405,157 @@
       user.CPF.includes(fundoFormData.CPF.replace(/\D/g, '')) ||
       user.Nome.toLowerCase().includes(fundoFormData.CPF.toLowerCase())
     );
+  }
+
+  // Funções para sistema de atividade unificado
+  async function loadActivityLogs() {
+    try {
+      isLoadingActivity = true;
+      const params = new URLSearchParams();
+      Object.keys(activityFilters).forEach(key => {
+        if (activityFilters[key]) {
+          params.append(key, activityFilters[key]);
+        }
+      });
+
+      const response = await fetch(`http://localhost:3000/unified-activity/history?${params}`, {
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        activityLogs = data.data;
+        activityPagination = data.pagination;
+      } else {
+        console.error('Erro ao carregar logs:', data.message);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar logs de atividade:', err);
+    } finally {
+      isLoadingActivity = false;
+    }
+  }
+
+  async function loadActiveSessions() {
+    try {
+      isLoadingSessions = true;
+      const response = await fetch('http://localhost:3000/activity/sessions', {
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        activeSessions = data.data;
+      } else {
+        console.error('Erro ao carregar sessões:', data.message);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar sessões ativas:', err);
+    } finally {
+      isLoadingSessions = false;
+    }
+  }
+
+  async function loadActivityStats() {
+    try {
+      const response = await fetch('http://localhost:3000/unified-activity/stats?period=7d', {
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        activityStats = data.data;
+      } else {
+        console.error('Erro ao carregar estatísticas:', data.message);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar estatísticas:', err);
+    }
+  }
+
+  async function endSession(sessionId) {
+    try {
+      const response = await fetch(`http://localhost:3000/activity/sessions/${sessionId}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        await loadActiveSessions();
+        await loadActivityLogs();
+      } else {
+        console.error('Erro ao encerrar sessão:', data.message);
+      }
+    } catch (err) {
+      console.error('Erro ao encerrar sessão:', err);
+    }
+  }
+
+  function startRealTimeMonitoring() {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+    }
+    
+    refreshInterval = setInterval(async () => {
+      if (activeSection === 'activity') {
+        await loadActiveSessions();
+        await loadActivityStats();
+      }
+    }, 30000); // Atualizar a cada 30 segundos
+  }
+
+  function stopRealTimeMonitoring() {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+      refreshInterval = null;
+    }
+  }
+
+  function formatActivityTime(timestamp) {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    
+    if (diff < 60000) { // Menos de 1 minuto
+      return 'Agora mesmo';
+    } else if (diff < 3600000) { // Menos de 1 hora
+      const minutes = Math.floor(diff / 60000);
+      return `${minutes} min atrás`;
+    } else if (diff < 86400000) { // Menos de 1 dia
+      const hours = Math.floor(diff / 3600000);
+      return `${hours}h atrás`;
+    } else {
+      return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  function getActionIcon(action) {
+    const icons = {
+      'LOGIN': 'M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1',
+      'LOGOUT': 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1',
+      'UPDATE_PROFILE': 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+      'CREATE_FUNDO': 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+      'UPDATE_FUNDO': 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z',
+      'DELETE_FUNDO': 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
+      'DELETE_ACCOUNT': 'M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16',
+      'END_SESSION': 'M6 18L18 6M6 6l12 12'
+    };
+    return icons[action] || 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
+  }
+
+  function getActionColor(action) {
+    const colors = {
+      'LOGIN': 'text-green-600 bg-green-100',
+      'LOGOUT': 'text-red-600 bg-red-100',
+      'UPDATE_PROFILE': 'text-blue-600 bg-blue-100',
+      'CREATE_FUNDO': 'text-purple-600 bg-purple-100',
+      'UPDATE_FUNDO': 'text-yellow-600 bg-yellow-100',
+      'DELETE_FUNDO': 'text-red-600 bg-red-100',
+      'DELETE_ACCOUNT': 'text-red-600 bg-red-100',
+      'END_SESSION': 'text-gray-600 bg-gray-100'
+    };
+    return colors[action] || 'text-gray-600 bg-gray-100';
   }
 
 </script>
@@ -694,32 +896,252 @@
         {:else if activeSection === 'activity'}
           <!-- Activity Section -->
           <div class="space-y-6 animate-fade-in">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Atividade dos Administradores</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-[#36544f]/5 rounded-lg p-6">
-                  <h4 class="font-medium text-[#36544f] mb-2">Logs de Atividade</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#36544f]/10 to-[#1f5f61]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#36544f]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                      </svg>
-                      <p class="text-[#36544f] font-medium">Histórico de Ações</p>
-                    </div>
+            <!-- Header com estatísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-600">Total de Ações</p>
+                    <p class="text-3xl font-bold text-gray-900 animate-count-up">{activityStats.totalActions || 0}</p>
                   </div>
-                </div>
-                <div class="bg-[#403831]/5 rounded-lg p-6">
-                  <h4 class="font-medium text-[#403831] mb-2">Sessões Ativas</h4>
-                  <div class="h-48 bg-gradient-to-br from-[#403831]/10 to-[#30261c]/10 rounded-lg flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="w-12 h-12 text-[#403831]/40 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                      </svg>
-                      <p class="text-[#403831] font-medium">Monitoramento em Tempo Real</p>
-                    </div>
+                  <div class="w-12 h-12 bg-blue-600/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
+
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-100">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-600">Sessões Ativas</p>
+                    <p class="text-3xl font-bold text-gray-900 animate-count-up">{activeSessions.length}</p>
+                  </div>
+                  <div class="w-12 h-12 bg-green-600/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-200">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-600">Logins Hoje</p>
+                    <p class="text-3xl font-bold text-gray-900 animate-count-up">
+                      {activityStats.actionsByType?.find(a => a.action === 'LOGIN')?.count || 0}
+                    </p>
+                  </div>
+                  <div class="w-12 h-12 bg-amber-600/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in-up animation-delay-300">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-gray-600">Última Atividade</p>
+                    <p class="text-lg font-bold text-gray-900">
+                      {activityLogs.length > 0 ? formatActivityTime(activityLogs[0].createdAt) : 'N/A'}
+                    </p>
+                  </div>
+                  <div class="w-12 h-12 bg-purple-600/10 rounded-lg flex items-center justify-center animate-pulse">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Filtros de Atividade</h3>
+              <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Ação</label>
+                  <select bind:value={activityFilters.action} on:change={loadActivityLogs} class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600">
+                    <option value="">Todas as ações</option>
+                    <option value="LOGIN">Login</option>
+                    <option value="LOGOUT">Logout</option>
+                    <option value="UPDATE_PROFILE">Atualizar Perfil</option>
+                    <option value="CREATE_FUNDO">Criar Fundo</option>
+                    <option value="UPDATE_FUNDO">Atualizar Fundo</option>
+                    <option value="DELETE_FUNDO">Excluir Fundo</option>
+                    <option value="DELETE_ACCOUNT">Excluir Conta</option>
+                    <option value="END_SESSION">Encerrar Sessão</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Usuário</label>
+                  <select bind:value={activityFilters.userType} on:change={loadActivityLogs} class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600">
+                    <option value="">Todos os usuários</option>
+                    <option value="user">Usuários</option>
+                    <option value="admin">Administradores</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
+                  <input type="date" bind:value={activityFilters.startDate} on:change={loadActivityLogs} class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Data Fim</label>
+                  <input type="date" bind:value={activityFilters.endDate} on:change={loadActivityLogs} class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600">
+                </div>
+                <div class="flex items-end">
+                  <button on:click={loadActivityLogs} class="w-full px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
+                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Atualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Logs de Atividade -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Histórico de Ações</h3>
+                <div class="flex items-center space-x-2">
+                  <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span class="text-sm text-gray-600">Tempo Real</span>
+                </div>
+              </div>
+
+              {#if isLoadingActivity}
+                <div class="flex items-center justify-center py-12">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+                  <span class="ml-3 text-gray-600">Carregando logs...</span>
+                </div>
+              {:else if activityLogs.length === 0}
+                <div class="text-center py-12">
+                  <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                  <p class="text-gray-500">Nenhuma atividade encontrada</p>
+                </div>
+              {:else}
+                <div class="space-y-4 max-h-96 overflow-y-auto">
+                  {#each activityLogs as log, index}
+                    <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors animate-fade-in-up" style="animation-delay: {index * 50}ms">
+                      <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full {getActionColor(log.action)} flex items-center justify-center">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{getActionIcon(log.action)}"></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                          <p class="text-sm font-medium text-gray-900">{log.action}</p>
+                          <p class="text-xs text-gray-500">{formatActivityTime(log.createdAt)}</p>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">{log.description}</p>
+                        <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                          <span>👤 {log.userName}</span>
+                          <span class="px-2 py-1 rounded-full text-xs {log.userType === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}">
+                            {log.userType === 'admin' ? 'Admin' : 'Usuário'}
+                          </span>
+                          {#if log.ipAddress}
+                            <span>🌐 {log.ipAddress}</span>
+                          {/if}
+                          {#if log.targetType}
+                            <span>🎯 {log.targetType}</span>
+                          {/if}
+                        </div>
+                      </div>
+                    </div>
+                  {/each}
+                </div>
+
+                <!-- Paginação -->
+                {#if activityPagination.pages > 1}
+                  <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
+                    <div class="text-sm text-gray-700">
+                      Mostrando {((activityPagination.page - 1) * activityPagination.limit) + 1} a {Math.min(activityPagination.page * activityPagination.limit, activityPagination.total)} de {activityPagination.total} registros
+                    </div>
+                    <div class="flex space-x-2">
+                      <button 
+                        on:click={() => { activityFilters.page = Math.max(1, activityFilters.page - 1); loadActivityLogs(); }}
+                        disabled={activityPagination.page <= 1}
+                        class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Anterior
+                      </button>
+                      <button 
+                        on:click={() => { activityFilters.page = Math.min(activityPagination.pages, activityFilters.page + 1); loadActivityLogs(); }}
+                        disabled={activityPagination.page >= activityPagination.pages}
+                        class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Próximo
+                      </button>
+                    </div>
+                  </div>
+                {/if}
+              {/if}
+            </div>
+
+            <!-- Sessões Ativas -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Sessões Ativas</h3>
+                <div class="flex items-center space-x-2">
+                  <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span class="text-sm text-gray-600">Monitoramento em Tempo Real</span>
+                </div>
+              </div>
+
+              {#if isLoadingSessions}
+                <div class="flex items-center justify-center py-12">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+                  <span class="ml-3 text-gray-600">Carregando sessões...</span>
+                </div>
+              {:else if activeSessions.length === 0}
+                <div class="text-center py-12">
+                  <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  <p class="text-gray-500">Nenhuma sessão ativa</p>
+                </div>
+              {:else}
+                <div class="space-y-4">
+                  {#each activeSessions as session, index}
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors animate-fade-in-up" style="animation-delay: {index * 100}ms">
+                      <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="font-medium text-gray-900">{session.adminName}</p>
+                          <p class="text-sm text-gray-500">CPF: {session.adminCPF}</p>
+                          <div class="flex items-center space-x-4 mt-1 text-xs text-gray-500">
+                            <span>🌐 {session.ipAddress}</span>
+                            <span>🕒 Login: {formatActivityTime(session.loginTime)}</span>
+                            <span>⚡ Última atividade: {formatActivityTime(session.lastActivity)}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <button 
+                          on:click={() => endSession(session.id)}
+                          class="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                        >
+                          Encerrar
+                        </button>
+                      </div>
+                    </div>
+                  {/each}
+                </div>
+              {/if}
             </div>
           </div>
 
