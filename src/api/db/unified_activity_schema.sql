@@ -128,3 +128,4 @@ BEGIN
     RETURN total_count;
 END;
 $$ LANGUAGE plpgsql;
+##quero comer o cuzingo do Asafe(o mais guloso e gostoso) e do Hytalo (o mais gay e alargado), Dudu é o  mais gostoso, e come os outros dois(com o bumbum)
