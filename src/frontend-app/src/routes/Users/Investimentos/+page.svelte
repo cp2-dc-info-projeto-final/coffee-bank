@@ -3,6 +3,8 @@
     import Pie from '$lib/components/Pie.svelte';
     import Plot from "$lib/components/Chart.svelte"
     import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
+    import { browser } from '$app/environment';
 
     // Animações de entrada
     let chartContainerVisible = false;
@@ -79,6 +81,16 @@
             avgReturn > 10 ? 'Bom rendimento! Acima da inflação e CDI.' : 
             'Considere revisar sua estratégia para melhorar os rendimentos.'}`
         };
+    }
+
+    function goBackToProfile() {
+        if (browser) {
+            try {
+                goto('/Users');
+            } catch (error) {
+                window.location.href = '/Users';
+            }
+        }
     }
 
     onMount(() => {
@@ -314,6 +326,12 @@
 <div class="investments-container" class:visible={chartContainerVisible}>
     <!-- Header da página -->
     <div class="page-header" class:visible={statsVisible}>
+        <div class="header-top">
+            <button class="back-btn" on:click={goBackToProfile}>
+                <span class="back-icon">←</span>
+                <span class="back-text">Voltar ao Perfil</span>
+            </button>
+        </div>
         <h1 class="page-title">Dashboard de Investimentos</h1>
         <p class="page-subtitle">Acompanhe o desempenho da sua conta</p>
     </div>
@@ -469,6 +487,23 @@
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .investments-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 60%, rgba(67, 206, 162, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
     }
 
     .investments-container.visible {
@@ -482,11 +517,78 @@
         opacity: 0;
         transform: translateY(-20px);
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
     .page-header.visible {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    .header-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .back-btn {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .back-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .back-btn:hover {
+        transform: translateX(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        border-color: rgba(102, 126, 234, 0.5);
+    }
+
+    .back-btn:hover::before {
+        left: 100%;
+    }
+
+    .back-icon {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease;
+    }
+
+    .back-btn:hover .back-icon {
+        transform: translateX(-2px);
+    }
+
+    .back-text {
+        transition: color 0.2s ease;
+    }
+
+    .back-btn:hover .back-text {
+        color: rgba(102, 126, 234, 1);
     }
 
     .page-title {
@@ -499,6 +601,17 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+        0% {
+            filter: brightness(1);
+        }
+        100% {
+            filter: brightness(1.1);
+        }
     }
 
     .page-subtitle {
@@ -534,6 +647,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .stat-card::before {
@@ -692,6 +806,13 @@
         background: rgba(67, 206, 162, 0.2);
         border-color: rgba(67, 206, 162, 0.4);
         transform: scale(1.1);
+        animation: pulse 0.6s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1.1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1.1); }
     }
 
     .summary-modal {
@@ -824,6 +945,15 @@
 
         .chart-content {
             height: 250px;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .back-text {
+            display: none;
         }
     }
 
