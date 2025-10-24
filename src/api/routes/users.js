@@ -469,5 +469,7 @@ router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
     });
   }
 });
-
+router.put('/searchCPF',verifyToken, async function(req, res, next) {
+  
+})
 module.exports = router;

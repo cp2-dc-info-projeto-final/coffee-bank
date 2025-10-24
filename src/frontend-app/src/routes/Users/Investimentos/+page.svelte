@@ -29,7 +29,7 @@
             Seu portfólio está ${investedPercent > 50 ? 'bem diversificado' : 'concentrado em investimentos'}. 
             ${investedPercent > 70 ? 'Excelente! Você está investindo a maior parte do seu capital.' : 
             investedPercent > 40 ? 'Bom! Considere aumentar seus investimentos gradualmente.' : 
-            'Considere investir mais para maximizar seus retornos.'}`
+            'Considere investir mais para maximizar seus retornos.'}`,
         };
     }
 
@@ -112,8 +112,8 @@
             {
                 data: [(1200).toFixed(2), (600).toFixed(2)],
                 backgroundColor: [
-                    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+                    'rgba(102, 126, 234, 0.8)', // Laranja dourado
+                    'rgba(118, 75, 162, 0.8)'
                 ],
                 hoverOffset: 4,
                 borderWidth: 0
@@ -162,14 +162,15 @@
         datasets: [
             {
                 label: 'Crescimento do Portfólio',
+                
                 data: [120, 150, 180, 90, 250, 300],
                 tension: 0.4,
                 fill: true,
-                pointRadius: 8,
+                pointRadius: 15,
                 pointBackgroundColor: 'rgba(102, 126, 234, 1)',
                 pointBorderColor: 'rgba(255, 255, 255, 1)',
                 pointBorderWidth: 2,
-                pointHoverRadius: 12,
+                pointHoverRadius: 20,
                 backgroundColor: 'rgba(102, 126, 234, 0.1)',
                 borderColor: 'rgba(102, 126, 234, 1)',
                 borderWidth: 3
@@ -181,6 +182,18 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+            datalabels: {
+                color: '#fff',
+                formatter: (value: any, context: any) => {
+                    const label = context.chart.data.labels[context.dataIndex];
+                    return `${label}`;
+                },
+                font: {
+                    weight: 'bold',
+                    size: 15,
+                    color: '#fff'
+                }
+            },
             legend: {
                 display: true,
                 labels: { 
@@ -252,6 +265,18 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+            datalabels: {
+                color: '#fff',
+                formatter: (value: any, context: any) => {
+                    const label = context.chart.data.labels[context.dataIndex];
+                    return `${label}`;
+                },
+                font: {
+                    weight: 'bold',
+                    size: 15,
+                    color: '#fff'
+                }
+            },
             legend: {
                 display: true,
                 position: 'top',
@@ -309,11 +334,11 @@
                 data: [8.5, 12.3, 15.7, 18.2],
                 tension: 0.4,
                 fill: true,
-                pointRadius: 8,
+                pointRadius: 15,
                 pointBackgroundColor: 'rgba(67, 206, 162, 1)',
                 pointBorderColor: 'rgba(255, 255, 255, 1)',
                 pointBorderWidth: 2,
-                pointHoverRadius: 12,
+                pointHoverRadius: 20,
                 backgroundColor: 'rgba(67, 206, 162, 0.1)',
                 borderColor: 'rgba(67, 206, 162, 1)',
                 borderWidth: 3
