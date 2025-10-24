@@ -128,4 +128,4 @@ BEGIN
     RETURN total_count;
 END;
 $$ LANGUAGE plpgsql;
--- Eu como o bubum do hytalo(o mais guloso) e o hytalo(o mais gay, e alargado), sou dudu, aqule que come eles,com o bumbum
+-- Eu como o bubum do asafe76(o mais guloso) e o hytalo(o mais gay, e alargado), sou dudu, aqule que come eles,com o bumbum
