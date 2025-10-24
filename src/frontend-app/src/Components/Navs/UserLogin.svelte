@@ -65,8 +65,8 @@
                         </button>
                         {#if visível}
                             <span class="text-white font-medium text-md md:text-2xl animate-fade-in">
-                                {user.firstName}
-                                {user.Saldo} Coffeekg
+                                {user.Name}
+                                {user.Saldo} KGB
                             </span>
                         {/if}
                     </div>
