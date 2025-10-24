@@ -1,5 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
+  import { page } from '$app/stores';
+  import { get } from 'svelte/store';
   import { goto } from '$app/navigation';
   // import FundoForm from '../../../Components/Forms/FundoImobForm.svelte';
 
@@ -70,6 +72,12 @@
 
   onMount(() => {
     loadAdmins();
+    // Open Activity section when navigated with ?section=activity
+    try {
+      const current = get(page);
+      const sectionParam = current?.url?.searchParams?.get('section');
+      if (sectionParam === 'activity') setActiveSection('activity');
+    } catch (e) {}
   });
 
   // Cleanup quando o componente for desmontado

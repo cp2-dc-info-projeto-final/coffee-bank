@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "chart.js": "^2.6.0",
     "express": "^5.1.0",
     "node.js": "^0.0.1-security"
   }
