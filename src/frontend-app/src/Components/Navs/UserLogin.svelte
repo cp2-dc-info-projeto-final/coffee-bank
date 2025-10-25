@@ -7,6 +7,20 @@
 	import { goto } from "$app/navigation";
 	import axios from 'axios';
 	import User from "../../Class/User";
+    let token = null;
+if (typeof window !== 'undefined') {
+  token = sessionStorage.getItem("auth_token");
+}
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': `Barre: ${token}`
+  },
+});
     async function loading() {
         try {
             const token = sessionStorage.getItem("auth_token");
@@ -16,12 +30,17 @@
             } else {
                 console.error("No auth token found in session storage.");
             }
-            user.Name = (await axios.put("http://localhost:3000/users/Name", {"CPF":user.CPF})).data.Name
+            const data=(await api.put("./users/Name", {"CPF":user.CPF})).data
+            console.log(data)
+            user.Name = data.Name
+            user.Imagem=data.Image
+            console.log(user.Imagem)
             console.log(user.Name)
             user.firstName=user.Name.split(" ")[0]
         } catch (error) {
             console.error("Error decoding token:", error);
         }
+
     }
     function Editar(){
         goto("../Users/edit/")
@@ -67,7 +86,6 @@
                         </button>
                         {#if visível}
                             <span class="text-white font-medium text-md md:text-2xl animate-fade-in">
-                                {user.Name}
                                 {user.Saldo} KGB
                             </span>
                         {/if}

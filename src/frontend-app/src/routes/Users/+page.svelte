@@ -38,7 +38,7 @@
         </div>
 
         <!-- Cards de Ações Principais -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
             <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
                 <LinkButton 
                     text="Faça uma transferência para alguém" 

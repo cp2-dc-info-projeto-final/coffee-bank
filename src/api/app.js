@@ -23,7 +23,7 @@ app.use(cors({
 }));
 
 app.use(logger('dev'));
-app.use(express.json({ limit: '1024mb' })); // ou qualquer tamanho que você desejar
+app.use(express.json({ limit: '2048mb' })); // ou qualquer tamanho que você desejar
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 

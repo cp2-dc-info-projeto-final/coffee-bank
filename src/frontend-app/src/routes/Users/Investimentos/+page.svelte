@@ -2,10 +2,23 @@
     import Nav from "../../../Components/Navs/UserLogin.svelte"
     import Pie from '$lib/components/Pie.svelte';
     import Plot from "$lib/components/Chart.svelte"
+    import axios from "axios";
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { browser } from '$app/environment';
-
+    let token = null;
+if (typeof window !== 'undefined') {
+  token = sessionStorage.getItem("auth_token");
+}
+    const api = axios.create({
+        baseURL: 'http://localhost:3000',
+        withCredentials: true,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Barre: ${token}`
+        },
+    });
     // Animações de entrada
     let chartContainerVisible = false;
     let statsVisible = false;
@@ -92,7 +105,7 @@
             }
         }
     }
-
+    let proporcaoIvestidoNinvestido=[0,0]
     onMount(() => {
         setTimeout(() => {
             chartContainerVisible = true;
@@ -103,6 +116,14 @@
         setTimeout(() => {
             chartsVisible = true;
         }, 500);
+        proporcaoIvestidoNinvestido=api.get('./Users/SaldoCarteiraUsuario')
+  .then(response => {
+    console.log(response.data); // dados vindos do servidor
+  })
+  .catch(error => {
+    console.error('Erro na requisição:', error);
+  });
+
     });
 
     // Dados do gráfico de pizza
@@ -110,7 +131,7 @@
         labels: ['Investido', 'Não investido'],
         datasets: [
             {
-                data: [(1200).toFixed(2), (600).toFixed(2)],
+                data: proporcaoIvestidoNinvestido,
                 backgroundColor: [
                     'rgba(102, 126, 234, 0.8)', // Laranja dourado
                     'rgba(118, 75, 162, 0.8)'
