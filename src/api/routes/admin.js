@@ -510,7 +510,7 @@ router.get('/charts/revenue', async function(req, res, next) {
       SELECT 
         DATE_TRUNC('month', "Data") as month,
         COUNT(*) as transactions_count,
-        SUM("Valor") as total_revenue
+        SUM("VALOR") as total_revenue
       FROM "Transferencias"
       WHERE "Data" >= CURRENT_DATE - INTERVAL '12 months'
       GROUP BY DATE_TRUNC('month', "Data")
