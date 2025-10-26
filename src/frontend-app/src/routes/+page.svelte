@@ -58,7 +58,7 @@
                     Ao continuar você concorda com nossos <a href={links.termos} class="underline-none text-amber-400/70 decoration-2 underline-offset-2 hover:text-amber-700">Termos & Condições</a>.
 				</p>
 			</div>
-            <div class="relative animate-fade-in-up" style="animation-delay: .1s;">
+            <div class="relative animate-fade-in-up" style="afnimation-delay: .1s;">
                 <div class="rounded-2xl border border-amber-200/70 dark:border-amber-800/60 bg-amber-50/70 dark:bg-amber-950/40 backdrop-blur p-6 shadow-md feature-card-animated">
 					<ul class="space-y-4">
                         <li class="flex items-start gap-3">
@@ -109,19 +109,19 @@
 				<div class="mt-5 grid sm:grid-cols-2 gap-4">
 					<div class="security-item">
 						<i class="fa-solid fa-lock"></i>
-						<span>Criptografia e autenticação forte</span>
+						<span class="text-amber-900/90 dark:text-amber-100/90">Criptografia e autenticação forte</span>
 					</div>
 					<div class="security-item">
 						<i class="fa-solid fa-headset"></i>
-						<span>Atendimento humano e eficiente</span>
+						<span class="text-amber-900/90 dark:text-amber-100/90">Atendimento humano e eficiente</span>
 					</div>
 					<div class="security-item">
 						<i class="fa-solid fa-bug"></i>
-						<span>Monitoramento e prevenção de fraudes</span>
+						<span class="text-amber-900/90 dark:text-amber-100/90">Monitoramento e prevenção de fraudes</span>
 					</div>
 					<div class="security-item">
 						<i class="fa-solid fa-file-shield"></i>
-						<span>Transparência e responsabilidade</span>
+						<span class="text-amber-900/90 dark:text-amber-100/90">Transparência e responsabilidade</span>
 					</div>
 				</div>
 			</div>

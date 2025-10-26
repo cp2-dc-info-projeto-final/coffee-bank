@@ -602,4 +602,245 @@ router.get('/charts/analytics', async function(req, res, next) {
   }
 });
 
+// Endpoint para exportar relatório PDF
+router.get('/export/pdf', async function(req, res, next) {
+  try {
+    const { startDate, endDate, type = 'full' } = req.query;
+    
+    // Buscar dados baseado no tipo de relatório
+    let data = {};
+    
+    if (type === 'full' || type === 'users') {
+      // Dados de usuários
+      const usersResult = await pool.query(`
+        SELECT 
+          u.id,
+          u."CPF",
+          u."Nome",
+          u."Saldo",
+          u."DataCriacao",
+          COUNT(t.id) as total_transfers,
+          COALESCE(SUM(t."Valor"), 0) as total_volume
+        FROM "Users" u
+        LEFT JOIN "Transferencias" t ON u.id = t."UsuarioOrigem"
+        ${startDate && endDate ? 'WHERE u."DataCriacao" BETWEEN $1 AND $2' : ''}
+        GROUP BY u.id, u."CPF", u."Nome", u."Saldo", u."DataCriacao"
+        ORDER BY u."DataCriacao" DESC
+      `, startDate && endDate ? [startDate, endDate] : []);
+      
+      data.users = usersResult.rows;
+    }
+    
+    if (type === 'full' || type === 'transfers') {
+      // Dados de transferências
+      const transfersResult = await pool.query(`
+        SELECT 
+          t.id,
+          t."Valor",
+          t."Data",
+          uo."Nome" as origem_nome,
+          ud."Nome" as destino_nome,
+          t."Descricao"
+        FROM "Transferencias" t
+        JOIN "Users" uo ON t."UsuarioOrigem" = uo.id
+        JOIN "Users" ud ON t."UsuarioDestino" = ud.id
+        ${startDate && endDate ? 'WHERE t."Data" BETWEEN $1 AND $2' : ''}
+        ORDER BY t."Data" DESC
+      `, startDate && endDate ? [startDate, endDate] : []);
+      
+      data.transfers = transfersResult.rows;
+    }
+    
+    if (type === 'full' || type === 'stats') {
+      // Estatísticas gerais
+      const statsResult = await pool.query(`
+        SELECT 
+          COUNT(DISTINCT u.id) as total_users,
+          COUNT(DISTINCT t.id) as total_transfers,
+          COALESCE(SUM(u."Saldo"), 0) as total_balance,
+          COALESCE(SUM(t."Valor"), 0) as total_volume
+        FROM "Users" u
+        LEFT JOIN "Transferencias" t ON u.id = t."UsuarioOrigem"
+        ${startDate && endDate ? 'WHERE u."DataCriacao" BETWEEN $1 AND $2' : ''}
+      `, startDate && endDate ? [startDate, endDate] : []);
+      
+      data.stats = statsResult.rows[0];
+    }
+    
+    // Configurar headers para download
+    const filename = `relatorio_coffee_bank_${new Date().toISOString().split('T')[0]}.json`;
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    
+    res.json({
+      success: true,
+      data: {
+        reportType: type,
+        generatedAt: new Date().toISOString(),
+        period: {
+          startDate: startDate || null,
+          endDate: endDate || null
+        },
+        ...data
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao gerar relatório PDF:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Endpoint para exportar relatório Excel
+router.get('/export/excel', async function(req, res, next) {
+  try {
+    const { startDate, endDate, type = 'full' } = req.query;
+    
+    // Buscar dados estruturados para Excel
+    let excelData = [];
+    
+    if (type === 'users' || type === 'full') {
+      const usersResult = await pool.query(`
+        SELECT 
+          u."CPF",
+          u."Nome",
+          u."Saldo",
+          u."DataCriacao",
+          COUNT(t.id) as total_transfers,
+          COALESCE(SUM(t."Valor"), 0) as total_volume
+        FROM "Users" u
+        LEFT JOIN "Transferencias" t ON u.id = t."UsuarioOrigem"
+        ${startDate && endDate ? 'WHERE u."DataCriacao" BETWEEN $1 AND $2' : ''}
+        GROUP BY u.id, u."CPF", u."Nome", u."Saldo", u."DataCriacao"
+        ORDER BY u."DataCriacao" DESC
+      `, startDate && endDate ? [startDate, endDate] : []);
+      
+      excelData.push({
+        sheet: 'Usuários',
+        headers: ['CPF', 'Nome', 'Saldo', 'Data Criação', 'Total Transferências', 'Volume Total'],
+        data: usersResult.rows.map(row => [
+          row.CPF,
+          row.Nome,
+          parseFloat(row.Saldo),
+          new Date(row.DataCriacao).toLocaleDateString('pt-BR'),
+          parseInt(row.total_transfers),
+          parseFloat(row.total_volume)
+        ])
+      });
+    }
+    
+    if (type === 'transfers' || type === 'full') {
+      const transfersResult = await pool.query(`
+        SELECT 
+          t."Valor",
+          t."Data",
+          uo."Nome" as origem_nome,
+          ud."Nome" as destino_nome,
+          t."Descricao"
+        FROM "Transferencias" t
+        JOIN "Users" uo ON t."UsuarioOrigem" = uo.id
+        JOIN "Users" ud ON t."UsuarioDestino" = ud.id
+        ${startDate && endDate ? 'WHERE t."Data" BETWEEN $1 AND $2' : ''}
+        ORDER BY t."Data" DESC
+      `, startDate && endDate ? [startDate, endDate] : []);
+      
+      excelData.push({
+        sheet: 'Transferências',
+        headers: ['Valor', 'Data', 'Origem', 'Destino', 'Descrição'],
+        data: transfersResult.rows.map(row => [
+          parseFloat(row.Valor),
+          new Date(row.Data).toLocaleDateString('pt-BR'),
+          row.origem_nome,
+          row.destino_nome,
+          row.Descricao
+        ])
+      });
+    }
+    
+    // Configurar headers para download
+    const filename = `relatorio_excel_coffee_bank_${new Date().toISOString().split('T')[0]}.json`;
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    
+    res.json({
+      success: true,
+      data: {
+        reportType: type,
+        generatedAt: new Date().toISOString(),
+        period: {
+          startDate: startDate || null,
+          endDate: endDate || null
+        },
+        excelData
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao gerar relatório Excel:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+// Endpoint para relatório mensal
+router.get('/export/monthly', async function(req, res, next) {
+  try {
+    const { year = new Date().getFullYear(), month = new Date().getMonth() + 1 } = req.query;
+    
+    // Dados do mês específico
+    const monthlyData = await pool.query(`
+      SELECT 
+        DATE_TRUNC('day', "Data") as day,
+        COUNT(*) as transfers_count,
+        SUM("Valor") as daily_volume,
+        AVG("Valor") as avg_value
+      FROM "Transferencias"
+      WHERE EXTRACT(YEAR FROM "Data") = $1 
+        AND EXTRACT(MONTH FROM "Data") = $2
+      GROUP BY DATE_TRUNC('day', "Data")
+      ORDER BY day
+    `, [year, month]);
+    
+    // Estatísticas do mês
+    const monthStats = await pool.query(`
+      SELECT 
+        COUNT(DISTINCT u.id) as new_users,
+        COUNT(t.id) as total_transfers,
+        SUM(t."Valor") as total_volume,
+        AVG(t."Valor") as avg_transfer_value
+      FROM "Users" u
+      LEFT JOIN "Transferencias" t ON u.id = t."UsuarioOrigem"
+      WHERE EXTRACT(YEAR FROM u."DataCriacao") = $1 
+        AND EXTRACT(MONTH FROM u."DataCriacao") = $2
+        OR EXTRACT(YEAR FROM t."Data") = $1 
+        AND EXTRACT(MONTH FROM t."Data") = $2
+    `, [year, month]);
+    
+    // Configurar headers para download
+    const filename = `relatorio_mensal_${year}_${month.toString().padStart(2, '0')}.json`;
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    
+    res.json({
+      success: true,
+      data: {
+        reportType: 'monthly',
+        period: { year: parseInt(year), month: parseInt(month) },
+        generatedAt: new Date().toISOString(),
+        dailyData: monthlyData.rows,
+        statistics: monthStats.rows[0]
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao gerar relatório mensal:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
 module.exports = router;

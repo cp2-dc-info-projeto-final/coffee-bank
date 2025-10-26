@@ -68,6 +68,15 @@
     analytics: false
   };
 
+  // Estados para relatórios e exportações
+  let isExporting = {
+    pdf: false,
+    excel: false,
+    monthly: false
+  };
+  let showChartsModal = false;
+  let exportError = '';
+
   const sections = [
     { id: 'overview', name: 'Visão Geral', icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z' },
     { id: 'users', name: 'Usuários', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z' },
@@ -296,6 +305,95 @@
   function setActiveSection(sectionId: string): void {
     activeSection = sectionId;
     loadSectionData(sectionId);
+  }
+
+  // Função para exportar relatórios
+  async function exportReport(type: 'pdf' | 'excel'): Promise<void> {
+    try {
+      isExporting[type] = true;
+      exportError = '';
+
+      const params = new URLSearchParams({
+        type: 'full'
+      });
+
+      const response = await fetch(`http://localhost:3000/admin/export/${type}?${params}`);
+      
+      if (!response.ok) {
+        throw new Error('Erro ao gerar relatório');
+      }
+
+      const data = await response.json();
+      
+      if (data.success) {
+        // Criar e baixar arquivo
+        const blob = new Blob([JSON.stringify(data.data, null, 2)], { 
+          type: 'application/json' 
+        });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `relatorio_${type}_coffee_bank_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } else {
+        throw new Error(data.message || 'Erro ao gerar relatório');
+      }
+    } catch (err) {
+      console.error('Erro ao exportar relatório:', err);
+      exportError = err instanceof Error ? err.message : 'Erro desconhecido';
+    } finally {
+      isExporting[type] = false;
+    }
+  }
+
+  // Função para exportar relatório mensal
+  async function exportMonthlyReport(): Promise<void> {
+    try {
+      isExporting.monthly = true;
+      exportError = '';
+
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+
+      const params = new URLSearchParams({
+        year: year.toString(),
+        month: month.toString()
+      });
+
+      const response = await fetch(`http://localhost:3000/admin/export/monthly?${params}`);
+      
+      if (!response.ok) {
+        throw new Error('Erro ao gerar relatório mensal');
+      }
+
+      const data = await response.json();
+      
+      if (data.success) {
+        // Criar e baixar arquivo
+        const blob = new Blob([JSON.stringify(data.data, null, 2)], { 
+          type: 'application/json' 
+        });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `relatorio_mensal_${year}_${month.toString().padStart(2, '0')}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } else {
+        throw new Error(data.message || 'Erro ao gerar relatório mensal');
+      }
+    } catch (err) {
+      console.error('Erro ao exportar relatório mensal:', err);
+      exportError = err instanceof Error ? err.message : 'Erro desconhecido';
+    } finally {
+      isExporting.monthly = false;
+    }
   }
 </script>
 
@@ -838,31 +936,50 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <h3 class="text-lg font-semibold text-gray-900 mb-4">Relatórios e Exportações</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <button class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  on:click={() => exportReport('pdf')}
+                  class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  disabled={isExporting.pdf}
+                >
                   <div class="flex flex-col items-center text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                      </svg>
+                      {#if isExporting.pdf}
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                      {:else}
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                      {/if}
                     </div>
                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Relatório PDF</h4>
                     <p class="text-sm text-gray-600">Exportar dados em PDF</p>
                   </div>
                 </button>
                 
-                <button class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  on:click={() => exportReport('excel')}
+                  class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  disabled={isExporting.excel}
+                >
                   <div class="flex flex-col items-center text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                      </svg>
+                      {#if isExporting.excel}
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                      {:else}
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                      {/if}
                     </div>
                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Relatório Excel</h4>
                     <p class="text-sm text-gray-600">Exportar dados em Excel</p>
                   </div>
                 </button>
                 
-                <button class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  on:click={() => showChartsModal = true}
+                  class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                >
                   <div class="flex flex-col items-center text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                       <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -874,12 +991,20 @@
                   </div>
                 </button>
                 
-                <button class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  on:click={() => exportMonthlyReport()}
+                  class="group relative bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  disabled={isExporting.monthly}
+                >
                   <div class="flex flex-col items-center text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                      </svg>
+                      {#if isExporting.monthly}
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                      {:else}
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                      {/if}
                     </div>
                     <h4 class="text-lg font-semibold text-gray-900 mb-2">Relatório Mensal</h4>
                     <p class="text-sm text-gray-600">Gerar relatório mensal</p>
@@ -893,6 +1018,176 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal de Gráficos -->
+  {#if showChartsModal}
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 animate-fade-in">
+      <div class="bg-white rounded-xl shadow-2xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto animate-fade-in-up">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-gray-900">Visualização de Gráficos</h3>
+            <button
+              on:click={() => showChartsModal = false}
+              class="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300"
+              aria-label="Fechar modal de gráficos"
+            >
+              <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-6 space-y-6">
+          <!-- Gráfico de Crescimento de Usuários -->
+          <div class="bg-[#0b8185]/5 rounded-lg p-6">
+            <h4 class="font-medium text-[#0b8185] mb-4">Crescimento de Usuários</h4>
+            <div class="h-64">
+              {#if chartsLoading.userGrowth}
+                <div class="h-full flex items-center justify-center">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0b8185]"></div>
+                </div>
+              {:else}
+                <Chart 
+                  type="line" 
+                  data={userGrowthData} 
+                  width={600} 
+                  height={256}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(11, 129, 133, 0.1)'
+                        }
+                      },
+                      x: {
+                        grid: {
+                          color: 'rgba(11, 129, 133, 0.1)'
+                        }
+                      }
+                    }
+                  }}
+                />
+              {/if}
+            </div>
+          </div>
+
+          <!-- Gráfico de Volume de Transferências -->
+          <div class="bg-[#1f5f61]/5 rounded-lg p-6">
+            <h4 class="font-medium text-[#1f5f61] mb-4">Volume de Transferências</h4>
+            <div class="h-64">
+              {#if chartsLoading.transferVolume}
+                <div class="h-full flex items-center justify-center">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1f5f61]"></div>
+                </div>
+              {:else}
+                <Chart 
+                  type="bar" 
+                  data={transferVolumeData} 
+                  width={600} 
+                  height={256}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(31, 95, 97, 0.1)'
+                        }
+                      },
+                      x: {
+                        grid: {
+                          color: 'rgba(31, 95, 97, 0.1)'
+                        }
+                      }
+                    }
+                  }}
+                />
+              {/if}
+            </div>
+          </div>
+
+          <!-- Gráfico de Receitas -->
+          <div class="bg-[#403831]/5 rounded-lg p-6">
+            <h4 class="font-medium text-[#403831] mb-4">Receita por Período</h4>
+            <div class="h-64">
+              {#if chartsLoading.revenue}
+                <div class="h-full flex items-center justify-center">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#403831]"></div>
+                </div>
+              {:else}
+                <Chart 
+                  type="line" 
+                  data={revenueData} 
+                  width={600} 
+                  height={256}
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(64, 56, 49, 0.1)'
+                        },
+                        ticks: {
+                          callback: function(value: any) {
+                            return 'R$ ' + value.toLocaleString('pt-BR');
+                          }
+                        }
+                      },
+                      x: {
+                        grid: {
+                          color: 'rgba(64, 56, 49, 0.1)'
+                        }
+                      }
+                    }
+                  }}
+                />
+              {/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  <!-- Mensagem de Erro de Exportação -->
+  {#if exportError}
+    <div class="fixed top-4 right-4 z-50 bg-red-50 border-l-4 border-red-400 text-red-700 p-4 rounded-lg shadow-lg animate-fade-in-up">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+          <h4 class="font-semibold">Erro na Exportação</h4>
+          <p class="text-sm">{exportError}</p>
+        </div>
+        <button
+          on:click={() => exportError = ''}
+          class="ml-4 p-1 rounded hover:bg-red-100 transition-colors"
+          aria-label="Fechar mensagem de erro"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {/if}
 </div>
 
 <style>

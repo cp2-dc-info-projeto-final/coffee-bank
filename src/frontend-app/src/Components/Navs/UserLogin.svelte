@@ -7,6 +7,20 @@
 	import { goto } from "$app/navigation";
 	import axios from 'axios';
 	import User from "../../Class/User";
+    let token = null;
+if (typeof window !== 'undefined') {
+  token = sessionStorage.getItem("auth_token");
+}
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': `Barre: ${token}`
+  },
+});
     async function loading() {
         try {
             const token = sessionStorage.getItem("auth_token");
@@ -16,12 +30,17 @@
             } else {
                 console.error("No auth token found in session storage.");
             }
-            user.Name = (await axios.put("http://localhost:3000/users/Name", {"CPF":user.CPF})).data.Name
+            const data=(await api.put("./users/Name", {"CPF":user.CPF})).data
+            console.log(data)
+            user.Name = data.Name
+            user.Imagem=data.Image
+            console.log(user.Imagem)
             console.log(user.Name)
             user.firstName=user.Name.split(" ")[0]
         } catch (error) {
             console.error("Error decoding token:", error);
         }
+
     }
     function Editar(){
         goto("../Users/edit/")
@@ -37,8 +56,10 @@
     onMount(loading);  // Call loading() once the component is mounted
 </script>
 <svelte:window bind:innerWidth={largura} />
-<nav class="w-full bg-gradient-to-r from-[#3a1800] to-[#5d2a00] shadow-lg animate-slide-down">
-    <div class="max-w-7xl mx-auto px-4 py-4">
+<nav class="w-full bg-gradient-to-r from-[#3a1900] to-[#351d01] shadow-lg animate-slide-down border">
+    <div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-5 z-0"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-4 z-1 relative">
         <div class="flex items-center justify-between">
             <!-- Perfil do Usuário -->
             <div class="flex items-center space-x-4 animate-fade-in-left">
@@ -65,8 +86,7 @@
                         </button>
                         {#if visível}
                             <span class="text-white font-medium text-md md:text-2xl animate-fade-in">
-                                {user.firstName}
-                                {user.Saldo} Coffeekg
+                                {user.Saldo} KGB
                             </span>
                         {/if}
                     </div>

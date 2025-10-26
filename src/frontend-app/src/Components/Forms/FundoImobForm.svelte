@@ -8,7 +8,7 @@
       'Accept': 'application/json',
     },
   })  
-    import Textform from '../../Components/textform.svelte';
+    import Textform from '../textform.svelte';
     let sucesss:string=""
     let dataerros:string[] = [];
     import { onMount } from 'svelte';

@@ -320,11 +320,6 @@ router.post('/login', async function(req, res) {
           message: 'Credenciais não cadastradas'
         });
       }
-      let imagem=null
-      try{
-        imagem = await axios.put("http://localhost:3001/images", {"path": `uploads/${user.id}/main.png`})
-      }
-      catch(e){}
       // Cria o token com as informações do usuário logado e sua chave pública
       const token = jwt.sign(
         { 
@@ -332,7 +327,6 @@ router.post('/login', async function(req, res) {
           Saldo:user.Saldo,
           CPF:user.CPF,
           role: user.role,
-          Imagem:imagem ? imagem.data.data : null
         }, 
         process.env.JWT_SECRET, //chave secreta, nunca exponha!! >>> PERIGO <<<
         { expiresIn: '30min' } 
@@ -436,11 +430,20 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
   else{
-    return res.status(200).json({
+    const id = await pool.query(
+      'SELECT "id" FROM "Users" WHERE "CPF" LIKE $1',
+      [`%${CPF}%`]
+    );
+    let Imagem = await axios.put("http://localhost:3001/images", {
+      "path": `uploads/${id.rows[0].id}/main.png`
+    })
+    const response={
       "status":200,
       "message":"Consulta realizada",
+      "Image":Imagem.data.data,
       "Name":result.rows[0].Nome
-    })
+    }
+    return res.status(200).json(response)
   }
 })
 router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
@@ -463,11 +466,21 @@ router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erro interno do servidor'
     });
   }
 });
-
+router.get('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
+  const { CPF } = req.body;
+  const result = await pool.query(
+    'SELECT u."Saldo", c."Valor" FROM "Carteira" c INNER JOIN "Users" u ON u."id" = c."Dono" WHERE u."CPF" = $1;',
+    [CPF]
+  );
+  res.json({
+    success: true,
+    data: result.rows[0]
+  });
+})
 module.exports = router;
