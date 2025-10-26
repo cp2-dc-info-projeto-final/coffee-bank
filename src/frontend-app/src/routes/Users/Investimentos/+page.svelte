@@ -1,6 +1,6 @@
 <script lang="ts">
     import Nav from "../../../Components/Navs/UserLogin.svelte"
-    import Pie from '$lib/components/Pie.svelte';
+    import Pie from '$lib/components/Graphic/Investiment/Pie.svelte';
     import Plot from "$lib/components/Chart.svelte"
     import axios from "axios";
     import { onMount } from 'svelte';
@@ -106,7 +106,9 @@ if (typeof window !== 'undefined') {
         }
     }
     let proporcaoIvestidoNinvestido=[0,0]
-    onMount(() => {
+    let data={}
+    let re=api.put('./users/SaldoCarteiraUsuario')
+    onMount(async () => {
         setTimeout(() => {
             chartContainerVisible = true;
         }, 100);
@@ -116,66 +118,7 @@ if (typeof window !== 'undefined') {
         setTimeout(() => {
             chartsVisible = true;
         }, 500);
-        proporcaoIvestidoNinvestido=api.get('./Users/SaldoCarteiraUsuario')
-  .then(response => {
-    console.log(response.data); // dados vindos do servidor
-  })
-  .catch(error => {
-    console.error('Erro na requisição:', error);
-  });
-
     });
-
-    // Dados do gráfico de pizza
-    const data = {
-        labels: ['Investido', 'Não investido'],
-        datasets: [
-            {
-                data: proporcaoIvestidoNinvestido,
-                backgroundColor: [
-                    'rgba(102, 126, 234, 0.8)', // Laranja dourado
-                    'rgba(118, 75, 162, 0.8)'
-                ],
-                hoverOffset: 4,
-                borderWidth: 0
-            }
-        ]
-    };
-
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    color: '#fff',
-                    font: { size: 14, weight: '500' },
-                    padding: 20,
-                    usePointStyle: true,
-                    pointStyle: 'circle'
-                }
-            },
-            datalabels: {
-                color: '#fff',
-                formatter: (value: any, context: any) => {
-                    const label = context.chart.data.labels[context.dataIndex];
-                    return `${label}`;
-                },
-                font: {
-                    weight: 'bold',
-                    size: 15,
-                    color: '#fff'
-                }
-            },
-            title: {
-                display: true,
-                text: '💰 Distribuição de Investimentos',
-                color: '#fff',
-                font: { size: 18, weight: 'bold' }
-            }
-        }
-    };
 
     // Dados do gráfico de linha
     let Linedata = {
@@ -434,8 +377,8 @@ if (typeof window !== 'undefined') {
                     </button>
                 </div>
             </div>
-            <div class="chart-content">
-                <Pie {data} {options}/>
+            <div class="chart-content flex flex-row items-center">
+                <Pie/>
             </div>
             {#if showPieSummary}
                 <div class="summary-modal">

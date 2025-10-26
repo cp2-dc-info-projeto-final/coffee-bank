@@ -39,6 +39,7 @@ const verifyToken = (req, res, next) => {
 
 // Middleware para verificar se o usuário é admin
 const isAdmin = (req, res, next) => {
+  console.log("pq caralhos tá entrando aqui")
   if (req.user && req.user.role === 'admin') {
     next();
   } else {

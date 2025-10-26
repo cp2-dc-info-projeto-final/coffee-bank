@@ -8,6 +8,20 @@ const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
 
 /* GET - Buscar todos os usuários */
+router.put('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
+  const { CPF } = req.user;
+  console.log(req.body)
+  const result = await pool.query(
+    'SELECT u."Saldo", c."Valor" FROM "Carteira" c INNER JOIN "Users" u ON u."id" = c."Dono" WHERE u."CPF" = $1;',
+    [CPF]
+  );
+  console.log(result.rows,CPF)
+  res.json({
+    success: true,
+    data: result.rows[0]
+  });
+})
+
 router.get('/',  verifyToken, isAdmin, async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
@@ -472,15 +486,4 @@ router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
     });
   }
 });
-router.get('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
-  const { CPF } = req.body;
-  const result = await pool.query(
-    'SELECT u."Saldo", c."Valor" FROM "Carteira" c INNER JOIN "Users" u ON u."id" = c."Dono" WHERE u."CPF" = $1;',
-    [CPF]
-  );
-  res.json({
-    success: true,
-    data: result.rows[0]
-  });
-})
 module.exports = router;
