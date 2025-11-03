@@ -2,8 +2,9 @@
 	import axios from "axios";
 	import LinkButton from "../../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";
-    import logo from "../../../assets/images/coffebank_noir-removebg-preview.png";
+    import logo from "../../../../assets/images/coffebank_noir-removebg-preview.png";
 	import { onDestroy } from 'svelte';
+	import { goto } from "$app/navigation";
 	
 	type MarketItem = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
 	type BackendDetail = { DonodoInvestimento: string, Preco: number, Tamanho: number, Numero: number, AreaVendida: number, Porcentagem: number, Nome: string, DF: string }
@@ -109,6 +110,9 @@
 	onDestroy(() => {
 		window.removeEventListener('keydown', handleKeydown)
 	})
+	async function investmentDetails(){
+		sessionStorage.setItem(investment)
+	}
 </script>
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-amber-900/20 to-gray-800">
 	<!-- Header -->
@@ -313,7 +317,7 @@
 						</div>
 						<div class="bg-white/5 rounded-lg p-4 border border-white/10">
 							<p class="text-gray-300 text-sm">Área Total</p>
-							<p class="text-white font-medium">{detail.Tamanho}</p>
+							<p class="text-white font-medium">{detail.AreaTotal}</p>
 						</div>
 						<div class="bg-white/5 rounded-lg p-4 border border-white/10">
 							<p class="text-gray-300 text-sm">Área Vendida</p>
@@ -329,7 +333,7 @@
 
 			<div class="mt-6 flex justify-end gap-3">
 				<button class="px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition" on:click={closeModal}>Fechar</button>
-				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button">
+				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={{investmentDetails}}>
 					<i class="fa-solid fa-cart-shopping mr-2"></i>
 					Investir
 				</button>
