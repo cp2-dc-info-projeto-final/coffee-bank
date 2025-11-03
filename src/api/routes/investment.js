@@ -162,7 +162,7 @@ router.put('/CPFsearch', async function(req, res, next) {
             })   
         }
         const Dados = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", 
-            "Investimento"."Preco","Investimento"."Tamanho","Investimento"."Numero","Investimento"."AreaVendida","Investimento"."Porcentagem",
+            "Investimento"."Preco","Investimento"."AreaTotal","Investimento"."Numero","Investimento"."AreaVendida","Investimento"."Porcentagem",
             "Investimento"."Nome","Investimento"."Nome","Investimento"."DF"
             FROM "Investimento"
             JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"
@@ -200,7 +200,7 @@ router.put('/Namesearch', async function(req, res, next) {
             SELECT 
             "Users"."Nome" AS "DonodoInvestimento", 
             "Investimento"."Preco",
-            "Investimento"."Tamanho",
+            "Investimento"."AreaTotal",
             "Investimento"."Numero",
             "Investimento"."AreaVendida",
             "Investimento"."Porcentagem",
@@ -210,6 +210,7 @@ router.put('/Namesearch', async function(req, res, next) {
             JOIN "Users" ON "Investimento"."Emissor" = "Users"."id"
             WHERE "Users"."Nome" ILIKE $1;
         `, [`%${Name}%`]);
+        console.log(Dados.rows)
         return res.json({
             Sucess:true,
             Message:"Consulta sucedida",

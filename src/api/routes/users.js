@@ -448,9 +448,15 @@ router.put('/Name', verifyToken, async function(req, res, next) {
       'SELECT "id" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
-    let Imagem = await axios.put("http://localhost:3001/images", {
-      "path": `uploads/${id.rows[0].id}/main.png`
-    })
+    var Imagem={data:{data:null}}
+    try{
+      Imagem = await axios.put("http://localhost:3001/images", {
+        "path": `uploads/${id.rows[0].id}/main.png`
+      })
+    }
+    catch(e){
+      console.log(e)
+    }
     const response={
       "status":200,
       "message":"Consulta realizada",
