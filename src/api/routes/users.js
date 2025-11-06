@@ -6,7 +6,12 @@ const bcrypt = require('bcrypt');
 const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
-
+router.get('/tokenTeste',  verifyToken, async function(req, res, next) {
+  return res.status(200).json({
+    "status":200,
+    "message":"token válido"
+  })
+})
 /* GET - Buscar todos os usuários */
 router.put('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
   const { CPF } = req.user;

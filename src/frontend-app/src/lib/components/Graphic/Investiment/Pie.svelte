@@ -62,7 +62,7 @@ if (typeof window !== 'undefined') {
     let json=await api.put('./users/SaldoCarteiraUsuario')
         console.log(json)
         let data={
-    labels: ['Investido', 'Não investido'],
+    labels: ['Não investido','Investido'],
     datasets: [
       {
         data: [json.data.data.Saldo,Number(json.data.data.Valor)],

@@ -43,15 +43,19 @@ const api = axios.create({
 
     }
     function Editar(){
-        goto("../Users/edit/")
+        goto("/Users/edit/")
     }
     function home(){
-        goto("../Users/")
+        goto("/Users")
     }
     async function logout(){
         sessionStorage.removeItem("auth_token")
+<<<<<<< HEAD
         localStorage.setItem('Logout', "true");
         goto("../")
+=======
+        goto("/")
+>>>>>>> df0ffb0 (Vitória do Cléssio)
     }
 
     onMount(loading);  // Call loading() once the component is mounted

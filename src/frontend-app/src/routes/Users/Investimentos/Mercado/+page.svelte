@@ -159,6 +159,7 @@
 				<span>Voltar ao Perfil</span>
 			</a>
 		</div>
+		
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
 			<div class="bg-gradient-to-br from-amber-600/20 to-amber-800/20 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300">
@@ -333,7 +334,7 @@
 
 			<div class="mt-6 flex justify-end gap-3">
 				<button class="px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition" on:click={closeModal}>Fechar</button>
-				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={{investmentDetails}}>
+				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
 					<i class="fa-solid fa-cart-shopping mr-2"></i>
 					Investir
 				</button>
