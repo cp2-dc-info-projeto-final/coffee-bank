@@ -314,17 +314,24 @@ if (typeof window !== 'undefined') {
 
 <div class="investments-container" class:visible={chartContainerVisible}>
     <!-- Header da página -->
-    <div class="page-header" class:visible={statsVisible}>
+    <div class="flex w-full justify-between">
+        <button class="back-btn hover:bg-amber-950" on:click={()=>{goto("/Users")}}>
+            <span class="back-icon">←</span>
+            <span class="back-text">Voltar ao Perfil</span>
+        </button>
+        <button class="back-btn hover:bg-amber-950" on:click={()=>{goto("Investimentos/Mercado")}}>
+            <span class="back-text">Mercado</span>
+            <span class="back-icon">→</span>
+        </button>
+    </div>
+
+    <div class="page-header relative" class:visible={statsVisible}>
         <div class="header-top">
-            <button class="back-btn" on:click={goBackToProfile}>
-                <span class="back-icon">←</span>
-                <span class="back-text">Voltar ao Perfil</span>
-            </button>
         </div>
         <h1 class="page-title">Dashboard de Investimentos</h1>
         <p class="page-subtitle">Acompanhe o desempenho da sua conta</p>
     </div>
-
+    
     <!-- Cards de estatísticas -->
     <div class="stats-grid" class:visible={statsVisible}>
         <div class="stat-card">
@@ -464,8 +471,11 @@ if (typeof window !== 'undefined') {
                     </div>
                 </div>
             {/if}
+
+            
         </div>
     </div>
+        
 </div>
 
 <style>

@@ -43,14 +43,14 @@ const api = axios.create({
 
     }
     function Editar(){
-        goto("../Users/edit/")
+        goto("/Users/edit/")
     }
     function home(){
-        goto("../Users/")
+        goto("/Users")
     }
     async function logout(){
         sessionStorage.removeItem("auth_token")
-        goto("../")
+        goto("/")
     }
 
     onMount(loading);  // Call loading() once the component is mounted

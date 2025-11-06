@@ -1,7 +1,10 @@
 <script>
     import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
     import Image404 from "../../assets/images/Error404.png";
-
+    import axios from 'axios';
+	import User from "../../Class/User";
+	import { goto } from '$app/navigation';
     let token = null;
     let role=null
     if (browser) {
@@ -12,7 +15,29 @@
           role = user.role
         }
     }
-    let logado=role&&role==="user"
+    const api = axios.create({
+      baseURL: 'http://localhost:3000',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Barre: ${token}`
+      },
+    });
+    function leave(){
+      goto("/")
+    }
+    let status=null
+    let logado=false
+    onMount(async ()=>{
+      try{
+        status = (await api.get("/Users/tokenTeste")).status
+        logado=role&&role==="user"&&status==200
+      }catch(e){
+        leave()
+      }
+      
+    })
 </script>
 
 {#if logado}
@@ -23,9 +48,5 @@
     >
       <slot />
     </div>
-  </div>
-{:else}
-  <div class="min-h-screen flex flex-1 flex-col items-center justify-center" style="background-color: #240f00;">
-    <img src={Image404} alt="Erro 404 - Página não encontrada" class="flex flex-1" />
   </div>
 {/if}

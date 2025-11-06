@@ -57,6 +57,14 @@ router.get("/",async function(req,res,next){
         Data:Investimento.rows
     })
 })
+router.get("/:id",async function(req,res,next){
+    const { id } = req.params; // pega id de req.params.id
+    const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    return res.status(200).json({
+        Sucess:true,
+        Data:Investimento.rows
+    })
+})
 router.put("/filter/price",async function(req,res,next){
     try {
     let { min, max } = req.body;
