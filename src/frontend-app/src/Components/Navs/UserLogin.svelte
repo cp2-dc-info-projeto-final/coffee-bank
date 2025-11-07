@@ -56,7 +56,7 @@ const api = axios.create({
     onMount(loading);  // Call loading() once the component is mounted
 </script>
 <svelte:window bind:innerWidth={largura} />
-<nav class="w-full bg-gradient-to-r from-[#3a1900] to-[#351d01] shadow-lg animate-slide-down border">
+<nav class="w-full bg-gradient-to-r from-gray-900 to-amber-900/20 shadow-lg animate-slide-down border">
     <div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-5 z-0"></div>
 
     <div class="max-w-7xl mx-auto px-4 py-4 z-1 relative">
@@ -73,7 +73,7 @@ const api = axios.create({
                 </div>
                 <div class="flex flex-col">
                     <script>console.log(user.Name)</script>
-                    <h2 class="text-white font-semibold text-lg md:text-xl transition-all duration-300 hover:text-white/90" aria-label={user.Name}>
+                    <h2 class="text-white font-semibold text-lg md:text-xl transition-all duration-300 hover:text-white/90 hidden sm:inline" aria-label={user.Name}>
                         {user.Name}
                     </h2>
                     <div class="flex items-center space-x-2">
