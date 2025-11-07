@@ -6,8 +6,27 @@ const bcrypt = require('bcrypt');
 const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
-
+router.get('/tokenTeste',  verifyToken, async function(req, res, next) {
+  return res.status(200).json({
+    "status":200,
+    "message":"token válido"
+  })
+})
 /* GET - Buscar todos os usuários */
+router.put('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
+  const { CPF } = req.user;
+  console.log(req.body)
+  const result = await pool.query(
+    'SELECT u."Saldo", c."Valor" FROM "Carteira" c INNER JOIN "Users" u ON u."id" = c."Dono" WHERE u."CPF" = $1;',
+    [CPF]
+  );
+  console.log(result.rows,CPF)
+  res.json({
+    success: true,
+    data: result.rows[0]
+  });
+})
+
 router.get('/',  verifyToken, isAdmin, async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM "Users"  LIMIT 100');
@@ -434,9 +453,15 @@ router.put('/Name', verifyToken, async function(req, res, next) {
       'SELECT "id" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
-    let Imagem = await axios.put("http://localhost:3001/images", {
-      "path": `uploads/${id.rows[0].id}/main.png`
-    })
+    var Imagem={data:{data:null}}
+    try{
+      Imagem = await axios.put("http://localhost:3001/images", {
+        "path": `uploads/${id.rows[0].id}/main.png`
+      })
+    }
+    catch(e){
+      console.log(e)
+    }
     const response={
       "status":200,
       "message":"Consulta realizada",
@@ -472,15 +497,4 @@ router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
     });
   }
 });
-router.get('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
-  const { CPF } = req.body;
-  const result = await pool.query(
-    'SELECT u."Saldo", c."Valor" FROM "Carteira" c INNER JOIN "Users" u ON u."id" = c."Dono" WHERE u."CPF" = $1;',
-    [CPF]
-  );
-  res.json({
-    success: true,
-    data: result.rows[0]
-  });
-})
 module.exports = router;

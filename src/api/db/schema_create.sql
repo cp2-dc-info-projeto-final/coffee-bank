@@ -36,7 +36,7 @@ CREATE TABLE "public"."Transferencias" (
   "Emissor" INTEGER NOT NULL REFERENCES "Users"("id"),
   "Destinatario" INTEGER NOT NULL REFERENCES "Users"("id"),
   "Data" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "VALORr" Integer NOT NULL
+  "VALOR" Integer NOT NULL
 );
 
 CREATE TABLE "public"."Emprestimos" (
