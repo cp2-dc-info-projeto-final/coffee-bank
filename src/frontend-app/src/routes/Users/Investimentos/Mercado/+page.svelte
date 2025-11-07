@@ -184,13 +184,20 @@
 				</div>
 			</div>
 			
-			<div class="bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
-				<div class="flex items-center justify-between">
+			<div class="flex items-center content-center bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
+				<div class="flex flex-1 items-center content-center justify-between">
 					<div>
-						<p class="text-blue-200/70 text-sm font-medium">Diversificação</p>
-						<p class="text-3xl font-bold text-white">Alta</p>
+						<form class="w-full relative flex flex-1 items-center content-center justify-between">
+							<i class="fa-solid fa-magnifying-glass-dollar absolute ms-32 bg-gray-700 text-white"></i>
+							<select id="countries" class="w-20 bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block w-full focus:ring-blue-500 focus:border-blue-500">
+								<option selected>Choose the filter</option>
+								<option value="US">Nome</option>
+								<option value="CA">Valor</option>
+								<option value="FR">Taxa de Retorno</option>
+								<option value="DE">Nazist Germany</option>
+							</select>
+						</form>
 					</div>
-					<i class="fa-solid fa-shield-halved text-3xl text-blue-400"></i>
 				</div>
 			</div>
 		</div>
