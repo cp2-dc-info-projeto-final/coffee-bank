@@ -45,7 +45,7 @@
 </script>
 
 <!-- Header-->
-<header class="relative w-full">
+<header class="relative w-full divide-y-3 divide-amber-900 divide-solid">
 	<div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
 	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <div class="flex flex-row justify-center items-center gap-1">
