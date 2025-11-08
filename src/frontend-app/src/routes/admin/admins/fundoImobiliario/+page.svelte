@@ -518,7 +518,7 @@
 										</thead>
 										<tbody class="bg-white divide-y divide-gray-200">
 											{#each fundoImobiliarios as fundo, index}
-												<tr class="hover:bg-gray-50 transition-all duration-300 hover:scale-[1.02] animate-fade-in-up" style="animation-delay: {index * 100}ms">
+												<tr class="hover:bg-gray-100 transition-all duration-300 hover:scale-[1.0005] animate-fade-in-up" style="animation-delay: {index * 100}ms">
 													<td class="px-6 py-4 whitespace-nowrap">
 														<div class="flex items-center">
 															<div class="flex-shrink-0 h-12 w-12">
