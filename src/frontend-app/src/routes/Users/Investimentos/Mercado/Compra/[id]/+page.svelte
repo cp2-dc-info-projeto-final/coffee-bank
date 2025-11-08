@@ -94,56 +94,572 @@
 <div class="absolute w-full">
 	<Nav/>
 </div>
-<div class="text-center my-20 animate-fade-in-up text-white">
-		<div class=" text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-			<h1 class="text-4xl md:text-6xl font-extrabol m-4">
-				Fundo Imobiliário {data.Nome}
-				</h1>
+
+<div class="text-center my-20 animate-fade-in-up text-white ">
+		<div class=" text-gray-900   dark:text-white ">
+			<div>
+				<h1 class="text-4xl md:text-6xl font-extrabold text-white  m-4">
+					Fundo Imobiliário {data.Nome}
+					</h1>
+					<p class="text-xl text-amber-200/80 max-w-3xl mx-auto mb-2">
+						Descubra mais sobre o investimento de {data.Nome}
+					</p>
 				<div class="mb-8">
 					<a href="/Users/Investimentos/Mercado" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
 						<i class="fa-solid fa-arrow-left"></i>   
 						<span>Voltar ao Mercado</span>
 					</a>
 				</div>
-				<div class="flex flex-row justify-between m-10">
-					<div class="flex flex-col">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dono do investimento</dt>
-						<dd class="text-lg font-semibold">{data.DonodoInvestimento}</dd>
-					</div>
-
+			</div>
+			<div class="flex flex-row justify-between m-10">
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Dono do investimento
+								<div class="text-lg font-semibold stat-value">{data.DonodoInvestimento} </div>
+							</div>
+						</div>
 					
-					<div class="flex flex-col pb-3">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Compra</dt>
-						<dd class="text-lg font-semibold">{data.Compra}</dd>
+				
+					<div class="flex flex-col mx-1 w-full ">
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Compra
+								<div class="text-lg font-semibold stat-value">{data.Compra} KGB</div>
+							</div>
+						</div>
+		
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Preco
+								<div class="text-lg font-semibold stat-value">{data.Preco} KGB</div>
+							</div>
+						</div>
 					</div>
-
+					<div class="w-full">
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Area Total
+								<div class="text-lg font-semibold stat-value">{data.AreaTotal} hectares</div>
+							</div>
+						</div>
+						
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Area Vendida
+								<div class="text-lg font-semibold stat-value">{data.AreaVendida} hectares</div>
+							</div>
+						</div>
+	
+						<div class="flex flex-row pb-3 stat-card">
+							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Porcentagem do invetimento
+								<div class="text-lg font-semibold stat-value">{data.Porcentagem}% </div>
+							</div>
+						</div>
+					</div>
 					
-					<div class="flex flex-col pb-3">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Preco</dt>
-						<dd class="text-lg font-semibold">{data.Preco}</dd>
-					</div>
-
-					
-					<div class="flex flex-col pb-3">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Area Total</dt>
-						<dd class="text-lg font-semibold">{data.AreaTotal}</dd>
-					</div>
-
-					
-					<div class="flex flex-col pb-3">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400"> Area Vendida</dt>
-						<dd class="text-lg font-semibold">{data.AreaVendida}</dd>
-					</div>
-
-					<div class="flex flex-col pb-3">
-						<dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400"> Distrito Federal</dt>
-						<dd class="text-lg font-semibold">{data.DF}</dd>
-					</div>
 				</div>
 
-				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
+				<div class="m-10">
+					<div class="flex flex-row pb-3 stat-card">
+						<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Distrito Federal
+							<div class="text-lg font-semibold stat-value">{data.DF}</div>
+						</div>
+					</div>
+				</div>
+				
+				
+
+				<button class="w-1/2 py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
 					<i class="fa-solid fa-cart-shopping mr-2"></i>
 					Investir
 				</button>
 		</div>
 </div>
+
+<style>
+    .investments-container {
+        min-height: 100vh;
+        padding: 2rem;
+        background: linear-gradient(135deg, #240f00 0%, #1a0a00 50%, #0f0500 100%);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .investments-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 60%, rgba(67, 206, 162, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .investments-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .page-header.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .header-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .back-btn {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .back-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .back-btn:hover {
+        transform: translateX(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        border-color: rgba(102, 126, 234, 0.5);
+    }
+
+    .back-btn:hover::before {
+        left: 100%;
+    }
+
+    .back-icon {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease;
+    }
+
+    .back-btn:hover .back-icon {
+        transform: translateX(-2px);
+    }
+
+    .back-text {
+        transition: color 0.2s ease;
+    }
+
+    .back-btn:hover .back-text {
+        color: rgba(102, 126, 234, 1);
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+        0% {
+            filter: brightness(1);
+        }
+        100% {
+            filter: brightness(1.1);
+        }
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 300;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stats-grid.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-card:hover::before {
+        opacity: 1;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .stat-content h3 {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 0 0 0.5rem 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0 0 0.25rem 0;
+    }
+
+    .stat-change {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+    }
+
+    .stat-change.positive {
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.1);
+    }
+
+    .stat-change.neutral {
+        color: #94a3b8;
+        background: rgba(148, 163, 184, 0.1);
+    }
+
+    .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .charts-grid.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .chart-container {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.5rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .chart-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+
+    .chart-container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .chart-container:hover::before {
+        opacity: 1;
+    }
+
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .chart-header h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .chart-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 0.5rem;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+    }
+
+    .action-btn:hover {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: rgba(102, 126, 234, 0.4);
+        transform: scale(1.05);
+    }
+
+    .eye-btn {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .eye-btn:hover {
+        background: rgba(67, 206, 162, 0.2);
+        border-color: rgba(67, 206, 162, 0.4);
+        transform: scale(1.1);
+        animation: pulse 0.6s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1.1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1.1); }
+    }
+
+    .summary-modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .summary-content {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 90%;
+        max-height: 80%;
+        position: relative;
+        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .summary-content h4 {
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .summary-content p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0;
+        text-align: justify;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+    }
+
+    .close-btn:hover {
+        background: rgba(245, 87, 108, 0.3);
+        border-color: rgba(245, 87, 108, 0.5);
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .chart-content {
+        position: relative;
+        height: 300px;
+    }
+
+    /* Animações específicas para cada tipo de gráfico */
+    .pie-chart {
+        animation-delay: 0.1s;
+    }
+
+    .line-chart {
+        animation-delay: 0.2s;
+    }
+
+    .bar-chart {
+        animation-delay: 0.3s;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .investments-container {
+            padding: 1rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .charts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .chart-content {
+            height: 250px;
+        }
+
+        .back-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .back-text {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 1.5rem;
+        }
+
+        .stat-card {
+            padding: 1rem;
+        }
+
+        .chart-container {
+            padding: 1rem;
+        }
+    }
+</style>
