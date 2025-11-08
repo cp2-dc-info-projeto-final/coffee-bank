@@ -40,7 +40,9 @@
 	let detail: BackendDetail | null = null
 	let detailLoading = false
 	let detailError: string | null = null
-
+	
+	let filtroSelecionado = '';
+    
 	async function openDetails(investimento: MarketItem) {
 		showModal = true
 		selected = investimento
@@ -186,16 +188,45 @@
 			
 			<div class="flex items-center content-center bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
 				<div class="flex flex-1 items-center content-center justify-between">
-					<div>
-						<form class="w-full relative flex flex-1 items-center content-center justify-between">
-							<i class="fa-solid fa-magnifying-glass-dollar absolute ms-32 bg-gray-700 text-white"></i>
-							<select id="countries" class="w-20 bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block w-full focus:ring-blue-500 focus:border-blue-500">
-								<option selected>Choose the filter</option>
-								<option value="US">Nome</option>
-								<option value="CA">Valor</option>
-								<option value="FR">Taxa de Retorno</option>
-								<option value="DE">Nazist Germany</option>
+					<div class="w-full">
+						<form class="w-full relative flex flex-1 flex-col items-center content-center justify-between">
+							<select 
+								id="Filtro"
+								bind:value={filtroSelecionado}
+								class="flex-1 w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg transition-all duration-200 hover:border-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 cursor-pointer">
+									<option value="" selected disabled>Selecione o filtro</option>
+									<option value="Nome">Nome</option>
+									<option value="Valor">Valor</option>
+									<option value="Dono">Dono</option>
+									<option value="Distrito">Distrito</option>
 							</select>
+							{#if filtroSelecionado=="Nome"}
+								<i class="fa-solid fa-money-bill-trend-up absolute end-5 top-18 text-white bg-gray-700"></i>
+								<input type="text" id="NomeInvestimento" placeholder="Nome do investimento" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+							{:else if filtroSelecionado=="Valor"}
+								<div class="mt-5 w-full flex flex-row gap-2">
+									<div class="w-[50%] w-max-[100px] relative">
+										<i class="fa-solid fa-plus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
+										<input type="number" id="max" min="1" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Max">
+									</div> 
+									<div class="w-[50%] w-max-[100px] relative">
+										<i class="fa-solid fa-minus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
+										<input type="number" id="min" min="0" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Min">
+									</div>
+								</div>
+							{:else if filtroSelecionado=="Dono"}
+								<i class="fa-solid fa-user-tie absolute end-5 top-18 text-white bg-gray-700"></i>
+								<input type="text" id="Dono" placeholder="Nome do Dono" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+							{:else if filtroSelecionado=="Distrito"}
+								<i class="fa-solid fa-map-location absolute end-3 top-17 text-white bg-gray-700"></i>
+								<select id="distrito" class="mt-5 flex-1 w-full bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block focus:ring-blue-500 focus:border-blue-500">
+									<option selected>Selecione o Distrito</option>
+									<option value="1">Distrito 1</option>
+									<option value="2">Distrito 2</option>
+									<option value="3">Distrito 3</option>
+									<option value="5">Distrito 4</option>
+								</select>
+							{/if}
 						</form>
 					</div>
 				</div>
