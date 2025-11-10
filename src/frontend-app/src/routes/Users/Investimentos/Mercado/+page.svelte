@@ -5,6 +5,7 @@
     import logo from "../../../../assets/images/coffebank_noir-removebg-preview.png";
 	import { onDestroy } from 'svelte';
 	import { goto } from "$app/navigation";
+	import { get } from "svelte/store";
 	
 	type MarketItem = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
 	type BackendDetail = { DonodoInvestimento: string, Preco: number, Tamanho: number, Numero: number, AreaVendida: number, Porcentagem: number, Nome: string, DF: string }
@@ -107,7 +108,19 @@
 
 		}
 	}
-
+	async function getFilter(){
+		try {
+			const resultado = await api.get("/mercado")
+			if(resultado.status == 200){
+				data = resultado.data.Data
+				console.log(data)
+			} else {
+				erros.push("Problema na consulta")
+			}
+		} catch (error) {
+			erros.push("Erro ao carregar investimentos")
+		}
+	}
 	async function ValueFilter(){
 		console.log("Ativada")
 		try{
@@ -250,6 +263,7 @@
 							<select 
 								id="Filtro"
 								bind:value={filtroSelecionado}
+								on:input={getFilter}
 								class="flex-1 w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg transition-all duration-200 hover:border-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 cursor-pointer">
 									<option value="" selected disabled>Selecione o filtro</option>
 									<option value="Nome">Nome</option>
