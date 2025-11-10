@@ -81,7 +81,64 @@
 			closeModal()
 		}
 	}
+	async function NameFilter(){
+		console.log("Ativada")
+		try{
+			const Nome=document.getElementById("NomeInvestimento").value
+			const resultado = await api.put("/mercado/NameFilter",{Nome:Nome})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+	async function OwnerFilter(){
+		console.log("Ativada")
+		try{
+			const Nome=document.getElementById("Dono").value
+			const resultado = await api.put("/mercado/OwnerFilter",{Nome:Nome})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+
+	async function ValueFilter(){
+		console.log("Ativada")
+		try{
+			const ValorMaximo=document.getElementById("max").value
+			const ValorMinimo=document.getElementById("min").value
+			const Valor = [ValorMaximo, ValorMinimo]
+			const resultado = await api.put("/mercado/ValueFilter",{valor:Valor})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
 	
+	async function DistrictFilter(){
+		console.log("Ativada")
+		try{
+			const DF=document.getElementById("distrito").value
+
+			const resultado = await api.put("/mercado/DistrictFilter",{Df:DF})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+
     onMount(async() => {
         token = sessionStorage.getItem("auth_token");
         if (token) {
@@ -202,25 +259,25 @@
 							</select>
 							{#if filtroSelecionado=="Nome"}
 								<i class="fa-solid fa-money-bill-trend-up absolute end-5 top-18 text-white bg-gray-700"></i>
-								<input type="text" id="NomeInvestimento" placeholder="Nome do investimento" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+								<input type="text" id="NomeInvestimento" on:input={NameFilter} placeholder="Nome do investimento" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
 							{:else if filtroSelecionado=="Valor"}
 								<div class="mt-5 w-full flex flex-row gap-2">
 									<div class="w-[50%] w-max-[100px] relative">
 										<i class="fa-solid fa-plus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
-										<input type="number" id="max" min="1" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Max">
+										<input type="number" id="max" min="1" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Max" on:input={ValueFilter}>
 									</div> 
 									<div class="w-[50%] w-max-[100px] relative">
 										<i class="fa-solid fa-minus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
-										<input type="number" id="min" min="0" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Min">
+										<input type="number" id="min" min="0" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Min" on:input={ValueFilter}>
 									</div>
 								</div>
 							{:else if filtroSelecionado=="Dono"}
 								<i class="fa-solid fa-user-tie absolute end-5 top-18 text-white bg-gray-700"></i>
-								<input type="text" id="Dono" placeholder="Nome do Dono" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+								<input type="text" id="Dono" on:input={OwnerFilter} placeholder="Nome do Dono" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
 							{:else if filtroSelecionado=="Distrito"}
 								<i class="fa-solid fa-map-location absolute end-3 top-17 text-white bg-gray-700"></i>
-								<select id="distrito" class="mt-5 flex-1 w-full bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block focus:ring-blue-500 focus:border-blue-500">
-									<option selected>Selecione o Distrito</option>
+								<select on:input={DistrictFilter} id="distrito" class="mt-5 flex-1 w-full bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block focus:ring-blue-500 focus:border-blue-500">
+									<option value="">Todos</option>
 									<option value="1">Distrito 1</option>
 									<option value="2">Distrito 2</option>
 									<option value="3">Distrito 3</option>

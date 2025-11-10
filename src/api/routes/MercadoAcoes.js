@@ -125,4 +125,108 @@ router.put("/filter/price",async function(req,res,next){
 }
 
 })
+router.put("/NameFilter",async function(req,res,next){
+    try{
+        const {Nome}=req.body
+        if(!Nome){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Investimento"."Nome" ILIKE '%' || $1 || '%';`,[Nome]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+router.put("/OwnerFilter",async function(req,res,next){
+    try{
+        const {Nome}=req.body
+        if(!Nome){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Users"."Nome" ILIKE '%' || $1 || '%';`,[Nome]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+
+router.put("/ValueFilter",async function(req,res,next){
+    try{
+        const {valor}=req.body
+        console.log(valor)
+        const valor1 = valor[1]
+        const valor2 = valor[0]
+        console.log(valor,valor1,valor2)
+    
+        if(!valor1 | !valor2){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" >= $1  AND   "Preco" <= $2 AND "Numero" IS NOT NULL;`,[valor1, valor2]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+
+router.put("/DistrictFilter",async function(req,res,next){
+    try{
+        const {Df}=req.body
+        if(!Df){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Investimento"."DF" = $1;`,[Df]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
 module.exports = router;
