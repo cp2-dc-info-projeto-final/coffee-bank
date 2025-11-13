@@ -11,19 +11,20 @@ router.post('/', async function(req, res, next) {
             CPF,
             Area,
             AreaTotal,
+            Numero,
             porcentagem,
             DF,
             Nome,
             Compra} = req.body;
-        console.log( CPF,Area,AreaTotal,porcentagem,DF,Nome,Compra )
-        if(!CPF||!Nome||!Area||!AreaTotal||!porcentagem||!DF){
+        console.log( CPF,Area,AreaTotal,Numero, porcentagem,DF,Nome,Compra )
+        if(!CPF||!Nome||!Area||!AreaTotal||!Numero||!porcentagem||!DF){
             return res.status(400).json({
                 Sucess:false,
                 Message:"Dados nulos",
                 Status:400
             })
         }
-        else if(typeof(CPF)!=="string" || typeof(Nome)!=="string" || typeof(Area)!=='number' || typeof(AreaTotal)!=="number" || typeof(porcentagem)!=="number"|| typeof(DF)!="string"){
+        else if(typeof(CPF)!=="string" || typeof(Nome)!=="string" || typeof(Area)!=='number' || typeof(AreaTotal)!=="number" || typeof(Numero)!=="number" || typeof(porcentagem)!=="number"|| typeof(DF)!="string"){
             return res.status(400).json({
                 Sucess:false,
                 Message:"Dados Inválidos",
@@ -40,7 +41,7 @@ router.post('/', async function(req, res, next) {
         else if (porcentagem>100){
             return res.status(400).json({
                 Sucess:false,
-                Message:"Procentagem superior a 100%",
+                Message:"Porcentagem superior a 100%",
                 Status:400
             })
         }
@@ -60,8 +61,8 @@ router.post('/', async function(req, res, next) {
             })   
         }
         const result = await pool.query(
-        `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING *`,
-            [Compra,AreaTotal, Area, Nome,porcentagem,userId.rows[0].id,DF]
+        `INSERT INTO "Investimento" ("Compra","AreaTotal", "AreaVendida","Numero","Nome", "Porcentagem","Emissor","DF") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+            [Compra,AreaTotal, Area, Numero, Nome, porcentagem, userId.rows[0].id, DF]
         );
 
         // Registrar criação de fundo no sistema de atividade unificada
@@ -229,9 +230,9 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
     try{
         const { id } = req.params; // pega id de req.params.id
         const {
-            porcentagem,Nome,CPF,DF,AreaTotal
+            porcentagem,Nome,Numero, CPF,DF,AreaTotal
         }=req.body
-        if(!CPF||!Nome||!porcentagem||!DF||!AreaTotal){
+        if(!CPF||!Nome||!porcentagem||!DF||!AreaTotal||!Numero){
             return res.status(400).json({
                 Sucess:false,
                 Message:"Dados nulos",
@@ -273,9 +274,10 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
         "Nome" = $2, 
         "Emissor" = $3, 
         "DF" = $4, 
-        "AreaTotal" = $5 
-    WHERE "id" = $6 
-    RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,id]);
+        "AreaTotal" = $5
+        "Numero" = $6
+    WHERE "id" = $7 
+    RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,Numero, id]);
         
         if(!result.rows.length){
             return res.status(400).json({

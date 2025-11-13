@@ -122,6 +122,7 @@
 		}
 	}
 	async function ValueFilter(){
+		console.log("fecha a porra do wsl")
 		console.log("Ativada")
 		try{
 			const ValorMaximo=document.getElementById("max").value
