@@ -3,14 +3,19 @@
 	import { goto } from '$app/navigation';
 	import axios from 'axios';
 
-	const api = axios.create({
-    baseURL: 'http://localhost:3000',
-    withCredentials: true, // Útil para CORS com cookies/sessão
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  });
+	let token = null;
+    if (typeof window !== 'undefined') {
+      token = sessionStorage.getItem("auth_token");
+    }
+    const api = axios.create({
+        baseURL: 'http://localhost:3000',
+        withCredentials: true,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Barre: ${token}`
+        },
+    });
 
 	// Função para obter o token de autenticação
 	function getAuthToken() {
@@ -30,6 +35,7 @@
 		CPF: string;
 		Area: number;
 		AreaTotal: number;
+		Numero: number;
 		porcentagem: number;
 		DF: string;
 		Nome: string;
@@ -52,6 +58,7 @@
 		CPF: "",
 		Area: 0,
 		AreaTotal: 0,
+		Numero:0,
 		porcentagem: 0,
 		DF: "",
 		Nome: "",
@@ -88,10 +95,12 @@
 
 	function openEditModal(fundo: FundoImobiliario) {
 		fundoToEdit = fundo;
+		console.log(fundo.AreaVendida)
 		formData = {
 			CPF: fundo.CPF || "",
-			Area: fundo.Area || 0,
+			AreaVendida: fundo.AreaVendida || 0,
 			AreaTotal: fundo.AreaTotal || 0,
+			Numero: fundo.Numero || 0,
 			porcentagem: fundo.porcentagem || 0,
 			DF: fundo.DF || "",
 			Nome: fundo.Nome || "",
@@ -107,6 +116,7 @@
 	}
 
 	async function updateFundoImobiliario() {
+		console.log(formData)
 		if (!formData.Nome || !formData.CPF) {
 			error = 'Nome e CPF são obrigatórios';
 			return;
@@ -179,6 +189,7 @@
 			CPF: "",
 			Area: 0,
 			AreaTotal: 0,
+			Numero: 0,
 			porcentagem: 0,
 			DF: "",
 			Nome: "",
@@ -242,12 +253,12 @@
 
 	function calculateTotalValue(fundo: FundoImobiliario) {
 		console.log(fundo)
-		return (fundo.Compra || 0) * (fundo.Porcentagem || 0) / 100;
+		return (fundo.Compra || 0) * (fundo.porcentagem || 0) / 100;
 	}
 
 	function calculateAreaPercentage(fundo: FundoImobiliario) {
 		console.log(fundo)
-		if (!fundo.AreaTotal || fundo.AreaVendida === 0) return 0;
+		if (!fundo.AreaTotal || fundo.Area === 0) return 0;
 		return ((fundo.Area || 0) / fundo.AreaTotal) * 100;
 	}
 </script>
@@ -716,6 +727,21 @@
 								placeholder="Digite a área total"
 								min="0"
 								step="0.01"
+								required
+							/>
+						</div>
+
+						<!-- Número -->
+						<div>
+							<label for="edit-numero" class="block text-sm font-medium text-gray-700 mb-2">Número de Investimentos</label>
+							<input
+								id="edit-numero"
+								type="number"
+								bind:value={formData.Numero}
+								class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+								placeholder="Digite o número total de invesimmentos"
+								min="0"
+								step="0"
 								required
 							/>
 						</div>
