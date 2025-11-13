@@ -11,13 +11,13 @@ const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
     // http status 401 = Unauthorized
-    return res.status(401).json({ message: 'Token não fornecido' });
+  return res.status(401).json({ message: 'Token não fornecido' });
   }
   
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
-    
+    console.log(decoded)
     // Atualizar última atividade se for admin
     if (decoded.role === 'admin' && decoded.id) {
       pool.query('SELECT update_last_activity($1)', [token]).catch(err => {
@@ -33,7 +33,8 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     // http status 401 = Unauthorized
-    return res.status(401).json({ message: 'Token inválido' });
+  console.log(error)
+  return res.status(401).json({ message: 'Token inválido' });
   }
 };
 

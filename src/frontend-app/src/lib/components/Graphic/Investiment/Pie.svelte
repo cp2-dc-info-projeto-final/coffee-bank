@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import axios from 'axios';
-        let token = null;
-if (typeof window !== 'undefined') {
-  token = sessionStorage.getItem("auth_token");
-}
+    let token = null;
+    if (typeof window !== 'undefined') {
+      token = sessionStorage.getItem("auth_token");
+    }
     const api = axios.create({
         baseURL: 'http://localhost:3000',
         withCredentials: true,

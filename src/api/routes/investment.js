@@ -230,9 +230,10 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
     try{
         const { id } = req.params; // pega id de req.params.id
         const {
-            porcentagem,Nome,Numero, CPF,DF,AreaTotal
+            porcentagem,Nome,Numero, CPF,DF,AreaTotal, AreaVendida, Compra, Preco
         }=req.body
-        if(!CPF||!Nome||!porcentagem||!DF||!AreaTotal||!Numero){
+        console.log([AreaVendida])
+        if(!CPF||!Nome||!porcentagem||!DF||!AreaTotal||!Numero||!AreaVendida){
             return res.status(400).json({
                 Sucess:false,
                 Message:"Dados nulos",
@@ -268,16 +269,20 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
                 Status:400
             })   
         }
+        console.log(Preco)
         const result = await pool.query(` UPDATE "Investimento" 
     SET 
         "Porcentagem" = $1, 
         "Nome" = $2, 
         "Emissor" = $3, 
-        "DF" = $4, 
-        "AreaTotal" = $5
-        "Numero" = $6
-    WHERE "id" = $7 
-    RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,Numero, id]);
+        "DF" = $4,
+        "AreaTotal" = $5,
+        "AreaVendida" = $6,
+        "Preco" = $7,
+        "Compra" = $8,
+        "Numero" = $9
+    WHERE "id" = $10
+    RETURNING *;`,[porcentagem,Nome,userId.rows[0].id,DF,AreaTotal,AreaVendida,  Preco, Compra,Numero, id]);
         
         if(!result.rows.length){
             return res.status(400).json({
@@ -300,10 +305,11 @@ router.put('/:id', verifyToken, isAdmin, async function(req, res, next) {
                 req.get('User-Agent'),
                 JSON.stringify({ 
                     fundoNome: Nome,
-                    area: Area,
+                    area: AreaVendida,
                     tamanho: AreaTotal,
                     porcentagem: porcentagem,
                     distrito: DF
+
                 })
             ]);
         } catch (logError) {
