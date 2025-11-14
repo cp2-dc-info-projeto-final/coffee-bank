@@ -59,7 +59,16 @@ router.get("/",async function(req,res,next){
 })
 router.get("/:id",async function(req,res,next){
     const { id } = req.params; // pega id de req.params.id
-    const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento"."DF","Investimento"."Nome","Investimento"."AreaVendida","Investimento"."Porcentagem","Investimento"."Preco" FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    return res.status(200).json({
+        Sucess:true,
+        Data:Investimento.rows
+    })
+})
+router.get("/pieGraphic/:id",async function(req,res,next){
+    console.log(req)
+    const { id } = req.params; // pega id de req.params.id
+    const Investimento = await pool.query('SELECT "Investimento"."Porcentagem" FROM "Investimento" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
     return res.status(200).json({
         Sucess:true,
         Data:Investimento.rows

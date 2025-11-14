@@ -8,7 +8,7 @@
 	import { get } from "svelte/store";
     import Nav from "../../../../../../Components/Navs/UserLogin.svelte"
 
-	
+    import Pie from '$lib/components/Graphic/InvestmentBuy/Pie.svelte';
 	const { id } = get(page).params;
 	console.log(id)
 	type Investment = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
@@ -95,15 +95,32 @@
 	<Nav/>
 </div>
 
-<div class="text-center my-20 animate-fade-in-up text-white ">
-		<div class=" text-gray-900   dark:text-white ">
+<div class="text-center my-23 animate-fade-in-up text-white ">
+	
+
+    <div class="max-w-[800px] bg-neutral-primary-soft block rounded-base shadow-xs mx-auto">
+        <img class="rounded-t-base w-full" src="https://png.pngtree.com/background/20250127/original/pngtree-black-cup-filled-with-fresh-coffee-surrounded-by-beans-picture-image_16243443.jpg" alt="" />
+        <div class="flex flex-col w-full items-center">
+            <span class="text-center inline-flex items-center text-xl font-medium pt-5 pb-1">
+                <i class="fa-solid fa-user-tie px-5"></i>
+                {data.DonodoInvestimento}
+            </span>
+            <span class="text-center inline-flex items-center text-xl font-medium pb-5 pt-1">
+                <i class="fa-solid fa-earth-americas px-5"></i>
+                Fazenda em {data.DF}
+            </span>
+        </div>
+        <div class="p-6 text-center">
+            <h5 class="mt-3 mb-6 text-6xl font-semibold tracking-tight text-heading">{data.Nome}</h5>
+        
+        </div>
+    </div>
+	
+    <div class=" text-gray-900   dark:text-white ">
 			<div>
 				<h1 class="text-4xl md:text-6xl font-extrabold text-white  m-4">
-					Fundo Imobiliário {data.Nome}
+					
 					</h1>
-					<p class="text-xl text-amber-200/80 max-w-3xl mx-auto mb-2">
-						Descubra mais sobre o investimento de {data.Nome}
-					</p>
 				<div class="mb-8">
 					<a href="/Users/Investimentos/Mercado" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
 						<i class="fa-solid fa-arrow-left"></i>   
@@ -111,34 +128,8 @@
 					</a>
 				</div>
 			</div>
-			<div class="flex flex-row justify-between m-10">
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Dono do investimento
-								<div class="text-lg font-semibold stat-value">{data.DonodoInvestimento} </div>
-							</div>
-						</div>
-					
-				
-					<div class="flex flex-col mx-1 w-full ">
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Compra
-								<div class="text-lg font-semibold stat-value">{data.Compra} KGB</div>
-							</div>
-						</div>
-		
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Preco
-								<div class="text-lg font-semibold stat-value">{data.Preco} KGB</div>
-							</div>
-						</div>
-					</div>
+			<div class="flex flex-row justify-between m-10">				
 					<div class="w-full">
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Area Total
-								<div class="text-lg font-semibold stat-value">{data.AreaTotal} hectares</div>
-							</div>
-						</div>
-						
 						<div class="flex flex-row pb-3 stat-card">
 							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Area Vendida
 								<div class="text-lg font-semibold stat-value">{data.AreaVendida} hectares</div>
@@ -153,21 +144,11 @@
 					</div>
 					
 				</div>
-
-				<div class="m-10">
-					<div class="flex flex-row pb-3 stat-card">
-						<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Distrito Federal
-							<div class="text-lg font-semibold stat-value">{data.DF}</div>
-						</div>
-					</div>
-				</div>
-				
-				
-
 				<button class="w-1/2 py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
 					<i class="fa-solid fa-cart-shopping mr-2"></i>
-					Investir
+					{data.Preco} KGB
 				</button>
+                <Pie id={id}/>
 		</div>
 </div>
 
