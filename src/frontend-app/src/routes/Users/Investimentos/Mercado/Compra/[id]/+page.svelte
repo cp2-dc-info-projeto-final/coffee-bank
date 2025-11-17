@@ -3,6 +3,7 @@
 	import LinkButton from "../../../../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";
     import logo from "../../../../../../assets/images/coffebank_noir-removebg-preview.png";
+    import BG from "../../../../../../assets/images/tipos-de-cafe.jpg"
 	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { get } from "svelte/store";
@@ -93,65 +94,53 @@
 <sveltehead> Fundo Imobiliário</sveltehead>
 <div class="absolute w-full">
 	<Nav/>
-</div>
-
-<div class="text-center my-23 animate-fade-in-up text-white ">
-	
-
-    <div class="max-w-[800px] bg-neutral-primary-soft block rounded-base shadow-xs mx-auto">
-        <img class="rounded-t-base w-full" src="https://png.pngtree.com/background/20250127/original/pngtree-black-cup-filled-with-fresh-coffee-surrounded-by-beans-picture-image_16243443.jpg" alt="" />
-        <div class="flex flex-col w-full items-center">
-            <span class="text-center inline-flex items-center text-xl font-medium pt-5 pb-1">
-                <i class="fa-solid fa-user-tie px-5"></i>
-                {data.DonodoInvestimento}
-            </span>
-            <span class="text-center inline-flex items-center text-xl font-medium pb-5 pt-1">
-                <i class="fa-solid fa-earth-americas px-5"></i>
-                Fazenda em {data.DF}
-            </span>
+</div>`
+<div class="flex flex-1 mt-12 sm:mt-16 " style="background-image: url({BG}); backgroundSize: 'cover';">
+    <div class="flex flex-1 bg-black/60 backdrop-blur">
+    <div class="w-full flex mt-[200px] flex-col lg:flex-row  justify-evenly lg:items-center px-7 ">
+        <div class="lg:w-[800px] bg-neutral-primary-soft block rounded-base shadow-xs text-center">
+            <div class="w-[75%] justify-center items-center mx-auto transition-all duration-300 hover:-translate-y-1 hover:shadow">
+                <Pie id={id} />
+            </div>
         </div>
-        <div class="p-6 text-center">
-            <h5 class="mt-3 mb-6 text-6xl font-semibold tracking-tight text-heading">{data.Nome}</h5>
-        
+        <div class="flex flex-col">
+            <div class="animate-fade-in-up text-white mb-40 ">
+                <div class="p-6 text-center">
+                    <h5 class="mt-3 mb-6 text-6xl font-semibold tracking-tight text-heading transition-all duration-300 hover:-translate-y-1 hover:shadow ">{data.Nome}</h5>
+                
+                </div>
+                <div class="flex flex-col w-full">
+                    <span class="text-center text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
+                        <i class="fa-solid fa-user-tie px-5"></i>
+                        {data.DonodoInvestimento}
+                    </span>
+                    <span class="text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
+                        <i class="fa-solid fa-earth-americas px-5 "></i>
+                        Fazenda em {data.DF}
+                    </span>
+                    <span class="text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
+                        <i class="fa-solid fa-maximize px-5"></i>
+                        {data.AreaVendida}m² à venda
+                    </span>
+                </div>
+            </div>
+            <div class=" text-gray-900 dark:text-white mb-5 w-full">
+                        <button class="mx-auto w-full lg:max-w-md py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition text-6xl lg:text-7xl transition-all duration-300 hover:-translate-y-1 hover:shadow" type="button" >
+                            <i class="fa-solid fa-cart-shopping mr-2"></i>
+                            {data.Preco} KGB
+                        </button>
+                        <div class="mt-8">
+                            <a href="/Users/Investimentos/Mercado" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+                                <i class="fa-solid fa-arrow-left"></i>   
+                                <span>Voltar ao Mercado</span>
+                            </a>
+                        </div>
+                </div>
+        </div>
         </div>
     </div>
-	
-    <div class=" text-gray-900   dark:text-white ">
-			<div>
-				<h1 class="text-4xl md:text-6xl font-extrabold text-white  m-4">
-					
-					</h1>
-				<div class="mb-8">
-					<a href="/Users/Investimentos/Mercado" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
-						<i class="fa-solid fa-arrow-left"></i>   
-						<span>Voltar ao Mercado</span>
-					</a>
-				</div>
-			</div>
-			<div class="flex flex-row justify-between m-10">				
-					<div class="w-full">
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Area Vendida
-								<div class="text-lg font-semibold stat-value">{data.AreaVendida} hectares</div>
-							</div>
-						</div>
-	
-						<div class="flex flex-row pb-3 stat-card">
-							<div class="mb-1 text-gray-500 md:text-lg dark:text-gray-400 stat-content">Porcentagem do invetimento
-								<div class="text-lg font-semibold stat-value">{data.Porcentagem}% </div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-				<button class="w-1/2 py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
-					<i class="fa-solid fa-cart-shopping mr-2"></i>
-					{data.Preco} KGB
-				</button>
-                <Pie id={id}/>
-		</div>
 </div>
-
+    
 <style>
     .investments-container {
         min-height: 100vh;

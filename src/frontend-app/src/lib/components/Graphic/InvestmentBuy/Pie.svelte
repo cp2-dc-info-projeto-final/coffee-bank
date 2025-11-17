@@ -78,7 +78,7 @@
   }
   console.log(data)
       chart = new ChartJS(canvas, {
-        type: 'pie',
+        type: 'doughnut',
         data,
         options
       });
@@ -89,4 +89,4 @@
     });
   </script>
 
-<canvas bind:this={canvas} class="mx-auto"></canvas>
+<canvas bind:this={canvas} style="display: flex; flex: 1;"></canvas>
