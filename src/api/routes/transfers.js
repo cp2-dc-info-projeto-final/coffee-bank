@@ -6,11 +6,13 @@ const { verifyToken } = require('../middlewares/auth');
 const bcrypt = require('bcrypt');
 
 //Transferência de saldo entre usuários
-router.put('/trasferencia', async function(req, res) {
+router.put('/trasferencia',verifyToken, async function(req, res) {
   try {
     const { ChavePix, valor, senha7 } = req.body;
+    console.log(ChavePix, valor, senha7) 
     const { CPF } = req.user || {};
-    if (!CPF || !ChavePix || valor == null) {
+    console.log(CPF)
+    if (!CPF || !ChavePix || !valor) {
       return res.status(400).json({ success: false, message: 'Valores nulos' });
     }
     if (!senha7) {
@@ -31,18 +33,20 @@ router.put('/trasferencia', async function(req, res) {
     if(!emissor.rows){
       return res.status(404).json({ success: false, message: 'emissor não encontrado' });
     }
-    const Destinatario=await pool.query('SELECT * FROM "Users" WHERE "Users"."ChavePix"=$1',[ChavePix])
+    FormatadedChavePix=ChavePix.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+    const Destinatario=await pool.query('SELECT * FROM "Users" WHERE "Users"."ChavePix"=$1;',[FormatadedChavePix])
     if(!Destinatario.rows){
       return res.status(404).json({ success: false, message: 'Destinatario não encontrado' });
     }
     else if(emissor.rows[0].Saldo<valor){
       return res.status(402).json({ success: false, message: "Saldo insuficiente" });
     }
-    const Destinatario_novo_saldo=emissor.rows[0].Saldo-valor
-    const Emissor_novo_saldo=Destinatario.rows[0].Saldo+valor
+    const Destinatario_novo_saldo=Number(emissor.rows[0].Saldo)+Number(valor)
+    const Emissor_novo_saldo=Number(Destinatario.rows[0].Saldo)-Number(valor)
+    console.log(Destinatario_novo_saldo,Emissor_novo_saldo)
     
-    await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor])
-    await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario])
+    await pool.query('UPDATE "Users" SET "Saldo" = $1 WHERE id = $2;', [Emissor_novo_saldo, emissor.rows[0].id])
+    await pool.query('UPDATE "Users" SET "Saldo" = $1 WHERE id = $2;', [Destinatario_novo_saldo, Destinatario.rows[0].id])
 
 
     return res.status(200).json({ success: true, message: 'Transação bem sucedida'})
@@ -60,7 +64,7 @@ router.get('/transfer/history', verifyToken, async function(req, res) {
     if (!CPF) return res.status(401).json({ success: false, message: 'Não autenticado' });
 
     const result = await pool.query(
-      `SELECT t.id, t."Data", t."VALORr" as valor,
+      `SELECT t.id, t."Data", t."Valor" as valor,
               u_from."CPF" as emissorCPF, u_to."CPF" as destinatarioCPF,
               u_to."Nome" as destinatarioNome
          FROM "Transferencias" t
