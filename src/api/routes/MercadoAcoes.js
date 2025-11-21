@@ -65,6 +65,67 @@ router.get("/:id",async function(req,res,next){
         Data:Investimento.rows
     })
 })
+router.put('/compraInvestimento', async function(req, res) {
+    try {
+      const { ChavePix, valor, senha7, id } = req.body;
+      const { CPF } = req.user || {};
+      if (!CPF || !ChavePix || valor == null) {
+        return res.status(400).json({ success: false, message: 'Valores nulos' });
+      }
+      if (!senha7) {
+        return res.status(400).json({ success: false, message: 'Senha de transação (Senha7) é obrigatória' });
+      }
+      if (
+        typeof ChavePix !== 'string' ||
+        typeof CPF !== 'string' ||
+        (typeof valor !== 'number' && typeof valor !== 'string') ||
+        !(Number(valor) > 0)
+      ) {
+        return res.status(400).json({ success: false, message: 'Valores inválidos' });
+      }
+      if (!ValidationCPF(CPF) || !ValidationCPF(ChavePix)) {
+        return res.status(400).json({ success: false, message: 'CPF ou chave pix inválidos' });
+      }
+
+      const emissor=await pool.query('SELECT * FROM "Users" WHERE "Users"."CPF"=$1',[CPF])
+
+      if(!emissor.rows){
+        return res.status(404).json({ success: false, message: 'Emissor não encontrado' });
+      }
+
+      const carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.id]);
+
+      if(!carteira){
+        return res.status(404).json({ success: false, message: 'Carteiro não encontrado' });
+      }
+      
+      const Destinatario = await pool.query('SELECT DonodoInvestimento FROM "Investimento" WHERE "Investimento"."id"=$1',[id]);
+
+      if(!Destinatario.rows){
+        return res.status(404).json({ success: false, message: 'Destinatario não encontrado' });
+      }
+
+      else if(emissor.rows[0].Saldo<valor){
+        return res.status(402).json({ success: false, message: "Saldo insuficiente" });
+      }
+
+      const Destinatario_novo_saldo=emissor.rows[0].Saldo-valor
+      const Emissor_novo_saldo=Destinatario.rows[0].Saldo+valor
+      const carteiraSaldo = await pool.query('SELECT Valor FROM "Carteira" WHERE "Carteira".id =$1', [carteira]);
+      const carteira_novo_saldo=carteiraSaldo.rows[0].Valor-valor
+      
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor])
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario])
+      await pool.query('UPDATE "Carteira" SET Valor=$1 FROM "Carteira" WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira])
+
+      return res.status(200).json({ success: true, message: 'Investimento feito com sucesso'})
+
+
+    } catch (error) {
+      console.error('Erro na rota /compraInvestimento:', error);
+      return res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+    }
+  });
 router.get("/pieGraphic/:id",async function(req,res,next){
     console.log(req)
     const { id } = req.params; // pega id de req.params.id

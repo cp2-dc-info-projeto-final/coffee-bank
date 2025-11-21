@@ -41,6 +41,12 @@ router.put('/trasferencia', async function(req, res) {
     const Destinatario_novo_saldo=emissor.rows[0].Saldo-valor
     const Emissor_novo_saldo=Destinatario.rows[0].Saldo+valor
     
+    await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor])
+    await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario])
+    
+
+    return res.status(200).json({ success: true, message: 'Transação bem sucedida'})
+    
   } catch (error) {
     console.error('Erro na rota /trasferencia:', error);
     return res.status(500).json({ success: false, message: 'Erro interno do servidor' });
