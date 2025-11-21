@@ -142,6 +142,7 @@
         { ChavePix: normalize(pixKey) || pixKey, valor: amountNum, senha7 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      console.log(response)
       if (response.status === 200 || response.data?.success) {
         balance = Number((balance - amountNum).toFixed(2));
         transfers = [
