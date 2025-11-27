@@ -65,11 +65,12 @@ router.get("/:id",async function(req,res,next){
         Data:Investimento.rows
     })
 })
-router.put('/compraInvestimento', async function(req, res) {
+router.put('/compraInvestimento/:id', async function(req, res) {
     try {
-      const { ChavePix, valor, senha7, id } = req.body;
+      const { ChavePix, senha7,Numero } = req.body;
+      const { id } = req.params;
       const { CPF } = req.user || {};
-      if (!CPF || !ChavePix || valor == null) {
+      if (!CPF || !ChavePix || valor == null ||!Numero) {
         return res.status(400).json({ success: false, message: 'Valores nulos' });
       }
       if (!senha7) {
@@ -77,6 +78,7 @@ router.put('/compraInvestimento', async function(req, res) {
       }
       if (
         typeof ChavePix !== 'string' ||
+        typeof Numero !=="number"||
         typeof CPF !== 'string' ||
         (typeof valor !== 'number' && typeof valor !== 'string') ||
         !(Number(valor) > 0)
