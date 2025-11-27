@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Textform from './../../../../../../Components/textform.svelte';
 	import axios from "axios";
 	import LinkButton from "../../../../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";
@@ -8,8 +9,9 @@
 	import { page } from '$app/stores';
 	import { get } from "svelte/store";
     import Nav from "../../../../../../Components/Navs/UserLogin.svelte"
-
     import Pie from '$lib/components/Graphic/InvestmentBuy/Pie.svelte';
+    
+    var modal=false
 	const { id } = get(page).params;
 	console.log(id)
 	type Investment = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
@@ -125,7 +127,7 @@
                 </div>
             </div>
             <div class=" text-gray-900 dark:text-white mb-5 w-full">
-                        <button class="mx-auto w-full lg:max-w-md py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition text-6xl lg:text-7xl transition-all duration-300 hover:-translate-y-1 hover:shadow" type="button" >
+                        <button class="mx-auto w-full lg:max-w-md py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition text-6xl lg:text-7xl transition-all duration-300 hover:-translate-y-1 hover:shadow" type="button" on:click={()=>{modal=true}} >
                             <i class="fa-solid fa-cart-shopping mr-2"></i>
                             {data.Preco} KGB
                         </button>
@@ -140,7 +142,34 @@
         </div>
     </div>
 </div>
-    
+{#if modal}
+    <div class="absolute w-full h-full flex bg-[#ffffff2b] backdrop-blur-3xl" style="z-index: 2;">
+        <button class="absolute right-10 top-10 text-5xl text-white hover:cursor-pointer" on:click={()=>{modal=false}}>X</button>
+        <div class="absolute w-100 h-100 bg-amber-950 top-[50%] left-[calc(50%-540px)] rounded-l-full" style="transform: translate(-25%, -90%); mask: radial-gradient(circle 90px at center, transparent 0 90px, black 41px);"></div>
+        <div class="absolute w-200 h-200 bg-amber-950 top-[50%] left-[50%] rounded-b-full rounded-t-4xl flex flex-col m-5" style="transform: translate(-50%, -50%);">
+            
+            <div class="flex flex-row m-5 w-full" style="z-index: 1;">
+                <Textform 
+                Content="senha7"
+                Name="senha7"
+                id="senha7"
+                color="amber-900"/>
+                
+            </div>
+            <div class="flex flex-row m-5 w-full" style="z-index: 1;">
+                <Textform 
+                Content="Numero"
+                Name="Numero"
+                id="Numero"
+                color="amber-900"/>
+                
+            </div>
+
+        </div>
+       
+    </div>
+{/if}
+
 <style>
     .investments-container {
         min-height: 100vh;
@@ -152,7 +181,6 @@
         position: relative;
         overflow: hidden;
     }
-
     .investments-container::before {
         content: '';
         position: absolute;
