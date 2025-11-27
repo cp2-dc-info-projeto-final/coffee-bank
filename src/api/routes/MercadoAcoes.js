@@ -114,9 +114,9 @@ router.put('/compraInvestimento', async function(req, res) {
       const carteiraSaldo = await pool.query('SELECT Valor FROM "Carteira" WHERE "Carteira".id =$1', [carteira]);
       const carteira_novo_saldo=carteiraSaldo.rows[0].Valor-valor
       
-      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor])
-      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario])
-      await pool.query('UPDATE "Carteira" SET Valor=$1 FROM "Carteira" WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira])
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor.rows[0].id])
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario.rows[0].id])
+      await pool.query('UPDATE "Carteira" SET Valor=$1 FROM "Carteira" WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
 
       return res.status(200).json({ success: true, message: 'Investimento feito com sucesso'})
 
