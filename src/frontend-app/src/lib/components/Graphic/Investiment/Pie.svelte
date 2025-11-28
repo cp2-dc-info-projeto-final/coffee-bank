@@ -87,4 +87,4 @@ if (typeof window !== 'undefined') {
     });
   </script>
 
-<canvas bind:this={canvas} class="mx-auto"></canvas>s
+<canvas bind:this={canvas} class="mx-auto"></canvas>

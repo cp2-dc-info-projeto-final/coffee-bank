@@ -35,7 +35,6 @@
     if(adminLogado){
       const resposta= await api.get("./admin/validation")
       loginvalido= resposta.status===200
-      console.log(resposta)
     }
   }
   if (browser) {
@@ -46,7 +45,6 @@
       }
       adminLogado=role&&role==="admin"
       validadordeToken()
-      console.log(adminLogado)
   }
   let isLoading = false;
 
@@ -62,5 +60,8 @@
     <slot />
   </div>
 {:else}
+  {#if token}
+    
+  {/if}
   <Login/>
 {/if}
