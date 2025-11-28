@@ -28,7 +28,7 @@
     );
     return JSON.parse(jsonPayload);
   }
-  
+  let regra:string=""
   let adminLogado:boolean|null=null;
   let loginvalido=false
   async  function validadordeToken() {
@@ -38,13 +38,15 @@
     }
   }
   if (browser) {
-      token = sessionStorage.getItem("auth_token");
-      if(token){
-        let user = parseJwt(token);
-        role = user.role
-      }
-      adminLogado=role&&role==="admin"
-      validadordeToken()
+    token = sessionStorage.getItem("auth_token");
+    if(token){
+      let user = parseJwt(token);
+      role = user?.role
+      regra = user?.role
+    }
+    adminLogado=role&&role==="admin"
+    console.log(regra, token,adminLogado)
+    validadordeToken()
   }
   let isLoading = false;
 
@@ -52,7 +54,6 @@
   function logout() {
     localStorage.removeItem('adminData');
     goto('/admin');
-      validadordeToken()
   }
 </script>
 {#if loginvalido}
@@ -60,8 +61,24 @@
     <slot />
   </div>
 {:else}
-  {#if token}
-    
+  {#if !token }
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+        <div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+            <p>Você não possui um token.</p>
+        </div>
+    </div>  
+  {:else if regra!=="admin"}
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+        <div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+            <p>Você não possui permissão para entrar.</p>
+        </div>
+    </div>
+  {:else}
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+        <div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+            <p>Token expirou, ou é inválido</p>
+        </div>
+    </div>
   {/if}
   <Login/>
 {/if}

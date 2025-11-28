@@ -3,7 +3,7 @@
   import { goto } from '$app/navigation';
   import Card from '../../Components/cards/adminCards.svelte'
 	import { log10 } from 'chart.js/helpers';
-
+  import {removeToken} from "$lib/auth"
   let stats = {
     totalUsers: 0,
     totalAdmins: 0,
@@ -57,7 +57,8 @@
 
   ]
   function logout() {
-    localStorage.removeItem('auth_token');
+    removeToken()
+    localStorage.setItem('Logout', "true");
     goto('/');
   }
   onMount(async () => {

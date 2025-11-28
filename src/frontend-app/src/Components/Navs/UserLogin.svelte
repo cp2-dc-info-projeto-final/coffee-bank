@@ -50,6 +50,7 @@ const api = axios.create({
     }
     async function logout(){
         sessionStorage.removeItem("auth_token")
+        localStorage.setItem('Logout', "true");
         goto("../")
     }
 

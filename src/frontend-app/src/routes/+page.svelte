@@ -1,6 +1,8 @@
 <script lang="ts">
+  	import { browser } from '$app/environment';
 	import { text } from "@sveltejs/kit";
     import logo from "../assets/images/coffebank_noir-removebg-preview.png";
+	import { logout } from '$lib/auth';
 	// Links principais
 	const links = {
 		login: "/LoginUser",
@@ -8,6 +10,38 @@
 		termos: "/Cadastro/termos",
         adminLogin:"/admin"
 	};
+	let token = null;
+	let retornoForçado = null;
+	let regra:string=""
+  	let loginvalido=false
+	function parseJwt(token:string):string {
+		const base64Url = token.split(".")[1]; // pega só o payload
+		const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // converte Base64URL p/ Base64 normal
+		const jsonPayload = decodeURIComponent(
+		atob(base64)
+			.split("")
+			.map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+			.join("")
+		);
+		return JSON.parse(jsonPayload);
+	}
+	let logoutReturn=null
+	if (browser) {
+		token = sessionStorage.getItem("auth_token");
+		retornoForçado=localStorage.getItem("ForcedReturn");
+		if(retornoForçado){
+			localStorage.removeItem('ForcedReturn');
+		}
+		logoutReturn = localStorage.getItem("Logout");
+		if(logoutReturn){
+			localStorage.removeItem('Logout');
+		}
+		if(token){
+			let user = parseJwt(token);
+			regra = user?.role
+		}
+		console.log(token,retornoForçado,regra)
+  	}
 </script>
 
 <!-- Header-->
@@ -151,6 +185,34 @@
 		</nav>
 	</div>
 </footer>
+{#if retornoForçado }
+	{#if !token}
+		<div class="fixed pop-up top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+			<div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+				<p>Você não possui login.</p>
+			</div>
+		</div>
+	{:else if token && regra!="user"}
+		<div class="fixed pop-up top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+			<div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+				<p>Você não possui permissão para entrar.</p>
+			</div>
+		</div>  
+	{:else}
+		<div class="fixed pop-up top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+			<div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-red-900/90 border-red-600 text-red-100">
+				<p>token inválido ou expirado</p>
+			</div>
+		</div>
+	{/if}
+{/if}
+{#if logoutReturn}
+	<div class="fixed pop-up top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"> 
+		<div class="px-4 py-3 rounded-xl shadow-lg border text-sm backdrop-blur-sm bg-green-500 border-green-600">
+			<p>Logout bem sucedido</p>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.feature-card {
@@ -213,4 +275,16 @@
 		to { opacity: 1; transform: translateY(0); }
 	}
 	.animate-fade-in-up { animation: fadeInUp .6s ease-out both; }
+	.pop-up{
+		opacity: 0;
+		animation-name: fadeIn;
+		animation-duration: 3s;
+		
+	}
+	@keyframes fadeIn {
+		0%{opacity: 0;transform: translateY(-20px)}
+		10% { opacity: 1;transform:translateY(0px)}
+		90%{opacity: 1;transform:translateY(0px)}
+		100% { opacity: 0;transform: translateY(-20px)}
+	}
 </style>
