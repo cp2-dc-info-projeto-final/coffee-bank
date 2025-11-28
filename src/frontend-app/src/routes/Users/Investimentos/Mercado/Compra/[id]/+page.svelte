@@ -1,21 +1,26 @@
 <script lang="ts">
-	import Textform from './../../../../../../Components/textform.svelte';
 	import axios from "axios";
-	import LinkButton from "../../../../../../Components/cards/userMainlinknavigacion.svelte"
-    import { onMount } from "svelte";
-    import logo from "../../../../../../assets/images/coffebank_noir-removebg-preview.png";
-    import BG from "../../../../../../assets/images/tipos-de-cafe.jpg"
+	import { onMount } from "svelte";
+	import logo from "../../../../../../assets/images/coffebank_noir-removebg-preview.png";
 	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { get } from "svelte/store";
-    import Nav from "../../../../../../Components/Navs/UserLogin.svelte"
-    import Pie from '$lib/components/Graphic/InvestmentBuy/Pie.svelte';
-    
-    var modal=false
+	import { goto } from '$app/navigation';
+	import Pie from '$lib/components/Graphic/InvestmentBuy/Pie.svelte';
+
 	const { id } = get(page).params;
-	console.log(id)
-	type Investment = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
-	type BackendDetail = { DonodoInvestimento: string, Preco: number, Tamanho: number, Numero: number, AreaVendida: number, Porcentagem: number, Nome: string, DF: string }
+
+	type Investment = {
+		id: number,
+		Compra: number,
+		Preco: number,
+		AreaTotal: string,
+		Nome: string,
+		DonodoInvestimento: string,
+		DF: string,
+		AreaVendida: number,
+		Porcentagem: number
+	}
 
 	// Links principais
 	const api = axios.create({
@@ -26,638 +31,363 @@
 			'Accept': 'application/json',
 		},
 	})
-	
+
 	const links = {
 		login: "/LoginUser",
 		cadastro: "/Cadastro",
 		termos: "/Cadastro/termos",
-		userPage: "/Users"
+		userPage: "/Users",
+		mercado: "/Users/Investimentos/Mercado"
 	};
-	
-    let token
-    let payload
-    let user = {}
-	let data: Investment[] = []
-	let erros: string[] = []
-	let loading = true
-	let isLoggedIn = false
 
-	// Modal state
-	let showModal = false
-	let selected: Investment | null = null
-	let detail: BackendDetail | null = null
-	let detailLoading = false
-	let detailError: string | null = null
+	let token: string | null = null;
+	let payload: string;
+	let user: any = {};
+	let data: Investment;
+	let erros: string[] = [];
+	let loading = true;
+	let isLoggedIn = false;
 
+	// Modal de confirmação
+	let showConfirmModal = false;
+	let confirmPassword = '';
+	let confirmLoading = false;
+	let confirmError = '';
 
-	function closeModal() {
-		showModal = false
-		selected = null
-		detail = null
-		detailError = null
-	}
+	// Estados para compra
+	let compraSuccess = false;
+	let compraError = '';
 
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape' && showModal) {
-			closeModal()
+		if (event.key === 'Escape' && showConfirmModal) {
+			closeConfirmModal();
 		}
 	}
-	
-    onMount(async() => {
-        token = sessionStorage.getItem("auth_token");
-        if (token) {
-            payload = atob(token.split(".")[1]);
-            user = JSON.parse(payload);
-        }
 
-		// Atualiza flag de login
-		isLoggedIn = !!token
-
-		window.addEventListener('keydown', handleKeydown)
-		
+	async function loadInvestment() {
 		try {
-			const resultado = await api.get(`/mercado/${id}`)
-			if(resultado.status == 200){
-				data = resultado.data.Data[0]
-				console.log(data)
+			loading = true;
+			const resultado = await api.get(`/mercado/${id}`);
+			if (resultado.status == 200) {
+				data = resultado.data.Data[0];
+				console.log(data);
 			} else {
-				erros.push("Problema na consulta")
+				erros.push("Problema na consulta");
 			}
 		} catch (error) {
-			erros.push("Erro ao carregar investimentos")
+			erros.push("Erro ao carregar investimento");
 		} finally {
-			loading = false
+			loading = false;
 		}
-    })  
+	}
+
+	function openConfirmModal() {
+		showConfirmModal = true;
+		confirmPassword = '';
+		confirmError = '';
+	}
+
+	function closeConfirmModal() {
+		showConfirmModal = false;
+		confirmPassword = '';
+		confirmError = '';
+	}
+
+	async function confirmarCompra() {
+		if (!confirmPassword || confirmPassword.length !== 7) {
+			confirmError = 'A senha deve ter exatamente 7 dígitos';
+			return;
+		}
+
+		try {
+			confirmLoading = true;
+			confirmError = '';
+
+			const compraData = {
+				ChavePix: user.CPF,
+				senha7: confirmPassword,
+				Numero: 1 // Quantidade padrão
+			};
+
+			const response = await api.put(`/mercado/compraInvestimento/${id}`, compraData);
+
+			if (response.status === 200) {
+				compraSuccess = true;
+				closeConfirmModal();
+				// Redirecionar após alguns segundos
+				setTimeout(() => {
+					goto('/Users');
+				}, 3000);
+			} else {
+				confirmError = response.data.message || 'Erro na compra';
+			}
+		} catch (error: any) {
+			console.error('Erro na compra:', error);
+			confirmError = error.response?.data?.message || 'Erro ao processar compra';
+		} finally {
+			confirmLoading = false;
+		}
+	}
+
+	onMount(async() => {
+		token = sessionStorage.getItem("auth_token");
+		if (token) {
+			payload = atob(token.split(".")[1]);
+			user = JSON.parse(payload);
+		}
+
+		isLoggedIn = !!token;
+		window.addEventListener('keydown', handleKeydown);
+
+		await loadInvestment();
+	})
+
 	onDestroy(() => {
-		window.removeEventListener('keydown', handleKeydown)
+		window.removeEventListener('keydown', handleKeydown);
 	})
 </script>
-<sveltehead> Fundo Imobiliário</sveltehead>
-<div class="absolute w-full">
-	<Nav/>
-</div>`
-<div class="flex flex-1 mt-12 sm:mt-16 " style="background-image: url({BG}); backgroundSize: 'cover';">
-    <div class="flex flex-1 bg-black/60 backdrop-blur">
-    <div class="w-full flex mt-[200px] flex-col lg:flex-row  justify-evenly lg:items-center px-7 ">
-        <div class="lg:w-[800px] bg-neutral-primary-soft block rounded-base shadow-xs text-center">
-            <div class="w-[75%] justify-center items-center mx-auto transition-all duration-300 hover:-translate-y-1 hover:shadow">
-                <Pie id={id} />
-            </div>
-        </div>
-        <div class="flex flex-col">
-            <div class="animate-fade-in-up text-white mb-40 ">
-                <div class="p-6 text-center">
-                    <h5 class="mt-3 mb-6 text-6xl font-semibold tracking-tight text-heading transition-all duration-300 hover:-translate-y-1 hover:shadow ">{data.Nome}</h5>
-                
-                </div>
-                <div class="flex flex-col w-full">
-                    <span class="text-center text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
-                        <i class="fa-solid fa-user-tie px-5"></i>
-                        {data.DonodoInvestimento}
-                    </span>
-                    <span class="text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
-                        <i class="fa-solid fa-earth-americas px-5 "></i>
-                        Fazenda em {data.DF}
-                    </span>
-                    <span class="text-xl font-medium py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow">
-                        <i class="fa-solid fa-maximize px-5"></i>
-                        {data.AreaVendida}m² à venda
-                    </span>
-                </div>
-            </div>
-            <div class=" text-gray-900 dark:text-white mb-5 w-full">
-                        <button class="mx-auto w-full lg:max-w-md py-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition text-6xl lg:text-7xl transition-all duration-300 hover:-translate-y-1 hover:shadow" type="button" on:click={()=>{modal=true}} >
-                            <i class="fa-solid fa-cart-shopping mr-2"></i>
-                            {data.Preco} KGB
-                        </button>
-                        <div class="mt-8">
-                            <a href="/Users/Investimentos/Mercado" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
-                                <i class="fa-solid fa-arrow-left"></i>   
-                                <span>Voltar ao Mercado</span>
-                            </a>
-                        </div>
-                </div>
-        </div>
-        </div>
-    </div>
-</div>
-{#if modal}
-    <div class="absolute w-full h-full flex bg-[#ffffff2b] backdrop-blur-3xl" style="z-index: 2;">
-        <button class="absolute right-10 top-10 text-5xl text-white hover:cursor-pointer" on:click={()=>{modal=false}}>X</button>
-        <div class="absolute w-100 h-100 bg-amber-950 top-[50%] left-[calc(50%-540px)] rounded-l-full" style="transform: translate(-25%, -90%); mask: radial-gradient(circle 90px at center, transparent 0 90px, black 41px);"></div>
-        <div class="absolute w-200 h-200 bg-amber-950 top-[50%] left-[50%] rounded-b-full rounded-t-4xl flex flex-col m-5" style="transform: translate(-50%, -50%);">
-            
-            <div class="flex flex-row m-5 w-full" style="z-index: 1;">
-                <Textform 
-                Content="senha7"
-                Name="senha7"
-                id="senha7"
-                color="amber-900"/>
-                
-            </div>
-            <div class="flex flex-row m-5 w-full" style="z-index: 1;">
-                <Textform 
-                Content="Numero"
-                Name="Numero"
-                id="Numero"
-                color="amber-900"/>
-                
-            </div>
+<svelte:head>
+	<title>{data?.Nome || 'Compra de Investimento'} - Coffee Bank</title>
+</svelte:head>
 
-        </div>
-       
-    </div>
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-amber-900/20 to-gray-800">
+	<!-- Header -->
+	<header class="relative w-full">
+		<div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
+		<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+			<div class="flex flex-row justify-center items-center gap-1">
+				<img src={logo} alt="Coffee Bank" class="h-10 w-10 md:h-12 md:w-12" />
+				<div class="hidden sm:inline text-3xl text-white font-bold">Coffebank</div>
+			</div>
+			<nav class="flex items-center gap-2 md:gap-3">
+				<a href={links.userPage} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+					<i class="fa-solid fa-home"></i>
+					<span class="hidden sm:inline">Dashboard</span>
+				</a>
+				{#if !isLoggedIn}
+					<a href={links.login} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+						<i class="fa-solid fa-right-to-bracket"></i>
+						<span class="hidden sm:inline">Entrar</span>
+					</a>
+					<a href={links.cadastro} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+						<i class="fa-solid fa-user-plus"></i>
+						<span class="hidden sm:inline">Criar conta</span>
+					</a>
+				{/if}
+			</nav>
+		</div>
+	</header>
+
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+		<!-- Breadcrumb -->
+		<div class="mb-8 animate-fade-in-up">
+			<a href={links.mercado} class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white/90 bg-white/10 hover:bg-white/20 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:shadow">
+				<i class="fa-solid fa-arrow-left"></i>
+				<span>Voltar ao Mercado</span>
+			</a>
+		</div>
+
+		{#if loading}
+			<div class="flex justify-center items-center py-20">
+				<div class="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-500"></div>
+			</div>
+		{:else if erros.length > 0}
+			<!-- Error State -->
+			<div class="bg-red-600/20 backdrop-blur-sm rounded-xl p-8 border border-red-500/30 text-center">
+				<i class="fa-solid fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+				<h3 class="text-xl font-semibold text-white mb-2">Erro ao carregar investimento</h3>
+				<p class="text-red-200/80">{erros[0]}</p>
+			</div>
+		{:else if data}
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in-up">
+				<!-- Investment Chart -->
+				<div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-600/30 hover:border-amber-500/50 transition-all duration-300">
+					<div class="text-center mb-6">
+						<h3 class="text-2xl font-bold text-white mb-2">Distribuição do Investimento</h3>
+						<p class="text-amber-200/70">Visualização gráfica da participação</p>
+					</div>
+					<div class="w-full max-w-md mx-auto">
+						<Pie id={id} />
+					</div>
+				</div>
+
+				<!-- Investment Details -->
+				<div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-600/30 hover:border-amber-500/50 transition-all duration-300">
+					<div class="text-center mb-8">
+						<h2 class="text-4xl font-extrabold text-white mb-4">{data.Nome}</h2>
+						<div class="w-20 h-1 bg-gradient-to-r from-amber-500 to-amber-700 mx-auto rounded-full"></div>
+					</div>
+
+					<div class="space-y-6">
+						<!-- Owner Info -->
+						<div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+							<div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-full flex items-center justify-center">
+								<i class="fa-solid fa-user-tie text-white"></i>
+							</div>
+							<div>
+								<p class="text-amber-200/70 text-sm">Proprietário</p>
+								<p class="text-white font-semibold">{data.DonodoInvestimento}</p>
+							</div>
+						</div>
+
+						<!-- Location Info -->
+						<div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+							<div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center">
+								<i class="fa-solid fa-map-marker-alt text-white"></i>
+							</div>
+							<div>
+								<p class="text-green-200/70 text-sm">Localização</p>
+								<p class="text-white font-semibold">Fazenda em {data.DF}</p>
+							</div>
+						</div>
+
+						<!-- Area Info -->
+						<div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+							<div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center">
+								<i class="fa-solid fa-maximize text-white"></i>
+							</div>
+							<div>
+								<p class="text-blue-200/70 text-sm">Área Disponível</p>
+								<p class="text-white font-semibold">{data.AreaVendida}m² à venda</p>
+							</div>
+						</div>
+
+						<!-- Price Info -->
+						<div class="bg-gradient-to-r from-amber-600/20 to-amber-800/20 rounded-xl p-6 border border-amber-500/30">
+							<div class="text-center">
+								<p class="text-amber-200/70 text-sm mb-2">Preço por Unidade</p>
+								<p class="text-4xl font-bold text-amber-400 mb-4">{data.Preco} KGB</p>
+								<p class="text-gray-300 text-sm">Quantidade: 1 unidade</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Buy Button -->
+					<div class="mt-8">
+						<button
+							on:click={openConfirmModal}
+							class="w-full bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl flex items-center justify-center gap-3"
+						>
+							<i class="fa-solid fa-cart-shopping text-xl"></i>
+							<span class="text-lg">Comprar Investimento</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		{/if}
+	</div>
+</div>
+
+<!-- Success Modal -->
+{#if compraSuccess}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+		<div class="bg-gradient-to-br from-green-600/90 to-green-800/90 backdrop-blur-sm rounded-xl p-8 border border-green-500/30 shadow-2xl max-w-md w-full animate-fade-in-up">
+			<div class="text-center">
+				<div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+					<i class="fa-solid fa-check text-white text-2xl"></i>
+				</div>
+				<h3 class="text-2xl font-bold text-white mb-4">Compra Realizada!</h3>
+				<p class="text-green-100 mb-6">Seu investimento foi processado com sucesso.</p>
+				<p class="text-sm text-green-200">Redirecionando para o dashboard...</p>
+			</div>
+		</div>
+	</div>
+{/if}
+
+<!-- Confirmation Modal -->
+{#if showConfirmModal}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+		<div class="bg-gradient-to-br from-gray-900 to-gray-800 backdrop-blur-sm rounded-xl p-8 border border-amber-500/30 shadow-2xl max-w-md w-full animate-fade-in-up">
+			<div class="flex items-start justify-between mb-6">
+				<h2 class="text-2xl font-bold text-white">Confirmar Compra</h2>
+				<button
+					on:click={closeConfirmModal}
+					class="text-white/70 hover:text-white transition-colors"
+					aria-label="Fechar"
+				>
+					<i class="fa-solid fa-xmark text-xl"></i>
+				</button>
+			</div>
+
+			<div class="space-y-6">
+				<!-- Investment Summary -->
+				<div class="bg-white/5 rounded-lg p-4 border border-white/10">
+					<h4 class="text-amber-400 font-semibold mb-3">Resumo da Compra</h4>
+					<div class="space-y-2 text-sm">
+						<div class="flex justify-between">
+							<span class="text-gray-300">Investimento:</span>
+							<span class="text-white font-medium">{data?.Nome}</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="text-gray-300">Quantidade:</span>
+							<span class="text-white font-medium">1 unidade</span>
+						</div>
+						<div class="flex justify-between">
+							<span class="text-gray-300">Valor:</span>
+							<span class="text-amber-400 font-bold">{data?.Preco} KGB</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Password Input -->
+				<div>
+					<label for="confirmPassword" class="block text-sm font-medium text-gray-300 mb-2">
+						Senha de 7 dígitos
+					</label>
+					<input
+						id="confirmPassword"
+						type="password"
+						bind:value={confirmPassword}
+						maxlength="7"
+						class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+						placeholder="Digite sua senha de 7 dígitos"
+						required
+					/>
+					{#if confirmError}
+						<p class="mt-2 text-sm text-red-400">{confirmError}</p>
+					{/if}
+				</div>
+
+				<!-- Action Buttons -->
+				<div class="flex gap-3">
+					<button
+						on:click={closeConfirmModal}
+						class="flex-1 px-4 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors font-medium"
+					>
+						Cancelar
+					</button>
+					<button
+						on:click={confirmarCompra}
+						disabled={confirmLoading}
+						class="flex-1 px-4 py-3 bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 text-white rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed font-medium flex items-center justify-center gap-2"
+					>
+						{#if confirmLoading}
+							<div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+							Processando...
+						{:else}
+							<i class="fa-solid fa-check"></i>
+							Confirmar Compra
+						{/if}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {/if}
 
 <style>
-    .investments-container {
-        min-height: 100vh;
-        padding: 2rem;
-        background: linear-gradient(135deg, #240f00 0%, #1a0a00 50%, #0f0500 100%);
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-    .investments-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 60%, rgba(67, 206, 162, 0.05) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: -1;
-    }
+	@keyframes fade-in-up {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 
-    .investments-container.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .page-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-    }
-
-    .page-header.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .header-top {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 2rem;
-    }
-
-    .back-btn {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(102, 126, 234, 0.3);
-        border-radius: 12px;
-        padding: 0.75rem 1.5rem;
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 500;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .back-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        transition: left 0.5s ease;
-    }
-
-    .back-btn:hover {
-        transform: translateX(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        border-color: rgba(102, 126, 234, 0.5);
-    }
-
-    .back-btn:hover::before {
-        left: 100%;
-    }
-
-    .back-icon {
-        font-size: 1.1rem;
-        transition: transform 0.2s ease;
-    }
-
-    .back-btn:hover .back-icon {
-        transform: translateX(-2px);
-    }
-
-    .back-text {
-        transition: color 0.2s ease;
-    }
-
-    .back-btn:hover .back-text {
-        color: rgba(102, 126, 234, 1);
-    }
-
-    .page-title {
-        font-size: 3rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        position: relative;
-        animation: titleGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes titleGlow {
-        0% {
-            filter: brightness(1);
-        }
-        100% {
-            filter: brightness(1.1);
-        }
-    }
-
-    .page-subtitle {
-        font-size: 1.2rem;
-        color: rgba(255, 255, 255, 0.8);
-        font-weight: 300;
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .stats-grid.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .stat-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: -1;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        border-color: rgba(102, 126, 234, 0.3);
-    }
-
-    .stat-card:hover::before {
-        opacity: 1;
-    }
-
-    .stat-icon {
-        font-size: 2.5rem;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    }
-
-    .stat-content h3 {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin: 0 0 0.5rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .stat-value {
-        color: #fff;
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin: 0 0 0.25rem 0;
-    }
-
-    .stat-change {
-        font-size: 0.85rem;
-        font-weight: 600;
-        padding: 0.25rem 0.5rem;
-        border-radius: 12px;
-    }
-
-    .stat-change.positive {
-        color: #4ade80;
-        background: rgba(74, 222, 128, 0.1);
-    }
-
-    .stat-change.neutral {
-        color: #94a3b8;
-        background: rgba(148, 163, 184, 0.1);
-    }
-
-    .charts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 2rem;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .charts-grid.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .chart-container {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 1.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .chart-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: -1;
-    }
-
-    .chart-container:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        border-color: rgba(102, 126, 234, 0.3);
-    }
-
-    .chart-container:hover::before {
-        opacity: 1;
-    }
-
-    .chart-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .chart-header h3 {
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .chart-actions {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .action-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 0.5rem;
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-    }
-
-    .action-btn:hover {
-        background: rgba(102, 126, 234, 0.2);
-        border-color: rgba(102, 126, 234, 0.4);
-        transform: scale(1.05);
-    }
-
-    .eye-btn {
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .eye-btn:hover {
-        background: rgba(67, 206, 162, 0.2);
-        border-color: rgba(67, 206, 162, 0.4);
-        transform: scale(1.1);
-        animation: pulse 0.6s ease-in-out;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1.1); }
-        50% { transform: scale(1.15); }
-        100% { transform: scale(1.1); }
-    }
-
-    .summary-modal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 100;
-        animation: fadeIn 0.3s ease;
-    }
-
-    .summary-content {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
-        padding: 2rem;
-        max-width: 90%;
-        max-height: 80%;
-        position: relative;
-        animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .summary-content h4 {
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin: 0 0 1rem 0;
-        text-align: center;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .summary-content p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
-        line-height: 1.6;
-        margin: 0;
-        text-align: justify;
-    }
-
-    .close-btn {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-    }
-
-    .close-btn:hover {
-        background: rgba(245, 87, 108, 0.3);
-        border-color: rgba(245, 87, 108, 0.5);
-        transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-
-    .chart-content {
-        position: relative;
-        height: 300px;
-    }
-
-    /* Animações específicas para cada tipo de gráfico */
-    .pie-chart {
-        animation-delay: 0.1s;
-    }
-
-    .line-chart {
-        animation-delay: 0.2s;
-    }
-
-    .bar-chart {
-        animation-delay: 0.3s;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-        .investments-container {
-            padding: 1rem;
-        }
-
-        .page-title {
-            font-size: 2rem;
-        }
-
-        .charts-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .chart-content {
-            height: 250px;
-        }
-
-        .back-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-        }
-
-        .back-text {
-            display: none;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .page-title {
-            font-size: 1.5rem;
-        }
-
-        .stat-card {
-            padding: 1rem;
-        }
-
-        .chart-container {
-            padding: 1rem;
-        }
-    }
+	.animate-fade-in-up {
+		animation: fade-in-up 0.6s ease-out;
+	}
 </style>

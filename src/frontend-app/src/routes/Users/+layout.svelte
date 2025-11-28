@@ -35,7 +35,6 @@
       goto("/")
     }
     let status=null
-    let logado=false
     onMount(async ()=>{
       try{
         status = (await api.get("/Users/tokenTeste")).status
