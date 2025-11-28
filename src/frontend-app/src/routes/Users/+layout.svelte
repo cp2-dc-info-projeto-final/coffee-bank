@@ -1,16 +1,11 @@
 <script>
     import { browser } from '$app/environment';
-<<<<<<< HEAD
-	import { goto } from '$app/navigation';
+	  import { goto } from '$app/navigation';
     import Image404 from "../../assets/images/Error404.png";
-      let logado=false
-=======
-	import { onMount } from 'svelte';
-    import Image404 from "../../assets/images/Error404.png";
+	  import { onMount } from 'svelte';
     import axios from 'axios';
-	import User from "../../Class/User";
-	import { goto } from '$app/navigation';
->>>>>>> df0ffb0 (Vitória do Cléssio)
+	  import User from "../../Class/User";
+    let logado=false
     let token = null;
     let role=null
     if (browser) {
@@ -26,9 +21,7 @@
           goto("/")
         }
     }
-<<<<<<< HEAD
     
-=======
     const api = axios.create({
       baseURL: 'http://localhost:3000',
       withCredentials: true,
@@ -52,9 +45,9 @@
       }
       
     })
->>>>>>> df0ffb0 (Vitória do Cléssio)
 </script>
-{#if logado}
+
+    {#if logado}
 <div class="min-h-screen">
   <div
     class="min-h-screen flex flex-1 flex-col"
@@ -62,9 +55,5 @@
   >
     <slot />
   </div>
-<<<<<<< HEAD
 </div>
 {/if}
-=======
-{/if}
->>>>>>> df0ffb0 (Vitória do Cléssio)
