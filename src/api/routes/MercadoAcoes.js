@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
+const { verifyToken } = require('../middlewares/auth');
 
 router.post("/:id",async function(req,res,next){
     try{
@@ -65,12 +66,13 @@ router.get("/:id",async function(req,res,next){
         Data:Investimento.rows
     })
 })
-router.put('/compraInvestimento/:id', async function(req, res) {
+router.put('/compraInvestimento/:id',verifyToken, async function(req, res) {
     try {
       const { ChavePix, senha7,Numero } = req.body;
       const { id } = req.params;
       const { CPF } = req.user || {};
-      if (!CPF || !ChavePix || valor == null ||!Numero) {
+      console.log(CPF)
+      if (!CPF || !ChavePix || !Numero) {
         return res.status(400).json({ success: false, message: 'Valores nulos' });
       }
       if (!senha7) {
@@ -79,9 +81,7 @@ router.put('/compraInvestimento/:id', async function(req, res) {
       if (
         typeof ChavePix !== 'string' ||
         typeof Numero !=="number"||
-        typeof CPF !== 'string' ||
-        (typeof valor !== 'number' && typeof valor !== 'string') ||
-        !(Number(valor) > 0)
+        typeof CPF !== 'string' 
       ) {
         return res.status(400).json({ success: false, message: 'Valores inválidos' });
       }
@@ -95,30 +95,33 @@ router.put('/compraInvestimento/:id', async function(req, res) {
         return res.status(404).json({ success: false, message: 'Emissor não encontrado' });
       }
 
-      const carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.id]);
+      const carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.rows[0].id]);
 
       if(!carteira){
         return res.status(404).json({ success: false, message: 'Carteiro não encontrado' });
       }
       
-      const Destinatario = await pool.query('SELECT DonodoInvestimento FROM "Investimento" WHERE "Investimento"."id"=$1',[id]);
-
+      const Destinatario = await pool.query('SELECT "Investimento"."Emissor","Investimento"."Preco","Investimento"."AreaVendida","Investimento"."Numero","Users"."Saldo" FROM "Investimento" JOIN "Users" ON "Users".id = "Investimento"."Emissor" WHERE "Investimento"."id"=$1;',[id]);
       if(!Destinatario.rows){
         return res.status(404).json({ success: false, message: 'Destinatario não encontrado' });
       }
-
-      else if(emissor.rows[0].Saldo<valor){
+      const valor=Destinatario.rows[0].Preco
+      if(Number(emissor.rows[0].Saldo)<Number(valor)*Numero){
         return res.status(402).json({ success: false, message: "Saldo insuficiente" });
       }
 
-      const Destinatario_novo_saldo=emissor.rows[0].Saldo-valor
-      const Emissor_novo_saldo=Destinatario.rows[0].Saldo+valor
-      const carteiraSaldo = await pool.query('SELECT Valor FROM "Carteira" WHERE "Carteira".id =$1', [carteira]);
+      const Destinatario_novo_saldo=Number(emissor.rows[0].Saldo)-Number(valor)
+      const Emissor_novo_saldo=Number(Destinatario.rows[0].Saldo)+Number(valor)
+      console.log(carteira.rows)
+      const carteiraSaldo = await pool.query('SELECT "Valor" FROM "Carteira" WHERE "Carteira".id =$1', [carteira.rows[0].id]);
       const carteira_novo_saldo=carteiraSaldo.rows[0].Valor-valor
+      console.log(Destinatario.rows[0].Saldo,"legal, o asafe é gay")
+      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor.rows[0].id])
+      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario.rows[0].id])
+      await pool.query('UPDATE "Carteira" SET "Valor"=$1 WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
+
+      await pool.query('INSERT INTO "CarteiraInvestimento" ("Investimento_id", "Carteira_id", "Area") VALUES ($1, $2, $3)', [id, carteira.rows[0].id, Destinatario.rows[0].AreaVendida/Destinatario.rows[0].Numero]);
       
-      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor.rows[0].id])
-      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario.rows[0].id])
-      await pool.query('UPDATE "Carteira" SET Valor=$1 FROM "Carteira" WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
 
       return res.status(200).json({ success: true, message: 'Investimento feito com sucesso'})
 

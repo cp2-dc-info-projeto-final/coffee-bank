@@ -1,4 +1,4 @@
-\<script lang="ts">
+<script lang="ts">
 	import axios from "axios";
 	import LinkButton from "../../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";

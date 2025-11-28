@@ -23,14 +23,20 @@
 	}
 
 	// Links principais
-	const api = axios.create({
-		baseURL: 'http://localhost:3000',
-		withCredentials: true,
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-	})
+	let login = null;
+    if (typeof window !== 'undefined') {
+    login = sessionStorage.getItem("auth_token");
+    }
+
+    const api = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Barre: ${login}`
+    },
+    });
 
 	const links = {
 		login: "/LoginUser",
