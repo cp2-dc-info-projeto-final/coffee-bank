@@ -297,7 +297,17 @@
 <!-- Confirmation Modal -->
 {#if showConfirmModal}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-		<div class="bg-gradient-to-br from-gray-900 to-gray-800 backdrop-blur-sm rounded-xl p-8 border border-amber-500/30 shadow-2xl max-w-md w-full animate-fade-in-up">
+		<!-- Decorative Coffee Cup -->
+		<div class="coffee-cup-decoration">
+			<div class="steam"></div>
+			<div class="steam"></div>
+			<div class="steam"></div>
+			<div class="handle"></div>
+			<div class="coffee"></div>
+			<div class="froth"></div>
+		</div>
+
+		<div class="bg-gradient-to-br from-gray-900 to-gray-800 backdrop-blur-sm rounded-xl p-8 border border-amber-500/30 shadow-2xl max-w-md w-full animate-fade-in-up relative z-10">
 			<div class="flex items-start justify-between mb-6">
 				<h2 class="text-2xl font-bold text-white">Confirmar Compra</h2>
 				<button
@@ -389,5 +399,143 @@
 
 	.animate-fade-in-up {
 		animation: fade-in-up 0.6s ease-out;
+	}
+
+	.coffee-cup-decoration {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 200px;
+		height: 200px;
+		animation: float 6s ease-in-out infinite;
+		z-index: 1;
+	}
+
+	.coffee-cup-decoration::before {
+		content: '';
+		position: absolute;
+		top: 40px;
+		left: 70px;
+		width: 60px;
+		height: 80px;
+		background: linear-gradient(145deg, #8B4513, #A0522D);
+		border-radius: 0 0 40px 40px;
+		box-shadow:
+			inset -5px 0 10px rgba(0,0,0,0.3),
+			inset 5px 0 10px rgba(255,255,255,0.1),
+			0 4px 15px rgba(0,0,0,0.3);
+	}
+
+	.coffee-cup-decoration::after {
+		content: '';
+		position: absolute;
+		top: 35px;
+		left: 75px;
+		width: 50px;
+		height: 8px;
+		background: linear-gradient(90deg, #D2B48C, #F5DEB3);
+		border-radius: 50%;
+		box-shadow:
+			inset 0 2px 4px rgba(0,0,0,0.2),
+			0 2px 8px rgba(0,0,0,0.1);
+		animation: steam 3s ease-in-out infinite;
+	}
+
+	/* Coffee steam */
+	.coffee-cup-decoration .steam {
+		position: absolute;
+		top: 25px;
+		left: 85px;
+		width: 30px;
+		height: 15px;
+		background: rgba(255,255,255,0.6);
+		border-radius: 50%;
+		animation: steam 4s ease-in-out infinite;
+	}
+
+	.coffee-cup-decoration .steam:nth-child(2) {
+		left: 95px;
+		animation-delay: 0.5s;
+		animation-duration: 3.5s;
+	}
+
+	.coffee-cup-decoration .steam:nth-child(3) {
+		left: 105px;
+		animation-delay: 1s;
+		animation-duration: 4.5s;
+	}
+
+	/* Handle of the cup */
+	.coffee-cup-decoration .handle {
+		position: absolute;
+		top: 60px;
+		left: 120px;
+		width: 20px;
+		height: 30px;
+		border: 3px solid #8B4513;
+		border-left: none;
+		border-radius: 0 50px 50px 0;
+		background: linear-gradient(145deg, #A0522D, #8B4513);
+		box-shadow: inset 2px 0 5px rgba(0,0,0,0.3);
+	}
+
+	/* Coffee inside the cup */
+	.coffee-cup-decoration .coffee {
+		position: absolute;
+		top: 50px;
+		left: 80px;
+		width: 40px;
+		height: 60px;
+		background: linear-gradient(180deg, #3E2723, #5D4037);
+		border-radius: 0 0 30px 30px;
+		box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+	}
+
+	/* Coffee froth */
+	.coffee-cup-decoration .froth {
+		position: absolute;
+		top: 48px;
+		left: 82px;
+		width: 36px;
+		height: 8px;
+		background: linear-gradient(90deg, #D7CCC8, #BCAAA4);
+		border-radius: 50%;
+		box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+	}
+
+	@keyframes float {
+		0%, 100% {
+			transform: translate(-50%, -50%) translateY(0px) rotate(0deg);
+		}
+		25% {
+			transform: translate(-50%, -50%) translateY(-5px) rotate(1deg);
+		}
+		50% {
+			transform: translate(-50%, -50%) translateY(-10px) rotate(0deg);
+		}
+		75% {
+			transform: translate(-50%, -50%) translateY(-5px) rotate(-1deg);
+		}
+	}
+
+	@keyframes steam {
+		0%, 100% {
+			opacity: 0;
+			transform: translateY(0px) scale(0.8);
+		}
+		50% {
+			opacity: 0.7;
+			transform: translateY(-15px) scale(1.2);
+		}
+	}
+
+	/* Add the decorative elements */
+	.coffee-cup-decoration .steam,
+	.coffee-cup-decoration .handle,
+	.coffee-cup-decoration .coffee,
+	.coffee-cup-decoration .froth {
+		content: '';
+		position: absolute;
 	}
 </style>
