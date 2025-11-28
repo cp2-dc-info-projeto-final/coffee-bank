@@ -6,7 +6,12 @@ const bcrypt = require('bcrypt');
 const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { verifyToken, isAdmin } = require('../middlewares/auth');
-
+router.get('/tokenTeste',  verifyToken, async function(req, res, next) {
+  return res.status(200).json({
+    "status":200,
+    "message":"token válido"
+  })
+})
 /* GET - Buscar todos os usuários */
 router.put('/SaldoCarteiraUsuario',verifyToken, async function(req, res, next) {
   const { CPF } = req.user;
@@ -448,9 +453,15 @@ router.put('/Name', verifyToken, async function(req, res, next) {
       'SELECT "id" FROM "Users" WHERE "CPF" LIKE $1',
       [`%${CPF}%`]
     );
-    let Imagem = await axios.put("http://localhost:3001/images", {
-      "path": `uploads/${id.rows[0].id}/main.png`
-    })
+    var Imagem={data:{data:null}}
+    try{
+      Imagem = await axios.put("http://localhost:3001/images", {
+        "path": `uploads/${id.rows[0].id}/main.png`
+      })
+    }
+    catch(e){
+      console.log(e)
+    }
     const response={
       "status":200,
       "message":"Consulta realizada",

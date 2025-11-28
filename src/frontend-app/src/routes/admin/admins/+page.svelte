@@ -23,6 +23,7 @@
     Tamanho: '',
     DistritoFederal: '',
     AreaVendida: '',
+    Numero: '',
     Preco: '',
     Porcentagem: '',
     CPF: ''
@@ -264,6 +265,7 @@
         Tamanho: '',
         DistritoFederal: '',
         AreaVendida: '',
+        Numero: '',
         Preco: '',
         Porcentagem: '',
         CPF: ''
@@ -283,7 +285,7 @@
 
   async function createFundoImobiliario() {
     if (!fundoFormData.Nome || !fundoFormData.Tamanho || !fundoFormData.DistritoFederal || 
-        !fundoFormData.AreaVendida || !fundoFormData.Preco || !fundoFormData.Porcentagem || !fundoFormData.CPF) {
+        !fundoFormData.AreaVendida || !fundoFormData.Numero|| !fundoFormData.Preco || !fundoFormData.Porcentagem || !fundoFormData.CPF) {
       fundoError = 'Todos os campos são obrigatórios';
       return;
     }
@@ -295,6 +297,10 @@
     }
     if (isNaN(Number(fundoFormData.AreaVendida)) || Number(fundoFormData.AreaVendida) <= 0) {
       fundoError = 'Área vendida deve ser um número positivo';
+      return;
+    }
+    if (isNaN(Number(fundoFormData.Numero)) || Number(fundoFormData.Numero) <= 0) {
+      fundoError = 'Numero deve ser um número positivo';
       return;
     }
     if (isNaN(Number(fundoFormData.Preco)) || Number(fundoFormData.Preco) <= 0) {
@@ -314,6 +320,7 @@
         CPF: fundoFormData.CPF,
         Area: Number(fundoFormData.AreaVendida),
         AreaTotal: Number(fundoFormData.Tamanho),
+        Numero: Number(fundoFormData.Numero),
         porcentagem: Number(fundoFormData.Porcentagem),
         DF: fundoFormData.DistritoFederal,
         Nome: fundoFormData.Nome,
@@ -338,6 +345,7 @@
           Tamanho: '',
           DistritoFederal: '',
           AreaVendida: '',
+          Numero: '',
           Preco: '',
           Porcentagem: '',
           CPF: ''
@@ -1299,7 +1307,22 @@
                       required
                     />
                   </div>
-
+                   <!-- Número -->
+                   <div class="space-y-2">
+                    <label for="fundo-numero" class="block text-sm font-medium text-gray-700">
+                      Número de investimentos disponíveis
+                    </label>
+                    <input
+                      id="fundo-numero"
+                      type="number"
+                      bind:value={fundoFormData.Numero}
+                      class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
+                      placeholder="Ex: 1000"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
                   <!-- Distrito Federal -->
                   <div class="space-y-2">
                     <label for="fundo-distrito" class="block text-sm font-medium text-gray-700">

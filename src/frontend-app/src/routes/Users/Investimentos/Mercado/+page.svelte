@@ -1,9 +1,11 @@
-<script lang="ts">
+\<script lang="ts">
 	import axios from "axios";
 	import LinkButton from "../../../../Components/cards/userMainlinknavigacion.svelte"
     import { onMount } from "svelte";
-    import logo from "../../../assets/images/coffebank_noir-removebg-preview.png";
+    import logo from "../../../../assets/images/coffebank_noir-removebg-preview.png";
 	import { onDestroy } from 'svelte';
+	import { goto } from "$app/navigation";
+	import { get } from "svelte/store";
 	
 	type MarketItem = { id: number, Compra: number, Preco: number, AreaTotal: string, Nome: string, DonodoInvestimento: string }
 	type BackendDetail = { DonodoInvestimento: string, Preco: number, Tamanho: number, Numero: number, AreaVendida: number, Porcentagem: number, Nome: string, DF: string }
@@ -39,7 +41,9 @@
 	let detail: BackendDetail | null = null
 	let detailLoading = false
 	let detailError: string | null = null
-
+	
+	let filtroSelecionado = '';
+    
 	async function openDetails(investimento: MarketItem) {
 		showModal = true
 		selected = investimento
@@ -78,7 +82,77 @@
 			closeModal()
 		}
 	}
+	async function NameFilter(){
+		console.log("Ativada")
+		try{
+			const Nome=document.getElementById("NomeInvestimento").value
+			const resultado = await api.put("/mercado/NameFilter",{Nome:Nome})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+	async function OwnerFilter(){
+		console.log("Ativada")
+		try{
+			const Nome=document.getElementById("Dono").value
+			const resultado = await api.put("/mercado/OwnerFilter",{Nome:Nome})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+	async function getFilter(){
+		try {
+			const resultado = await api.get("/mercado")
+			if(resultado.status == 200){
+				data = resultado.data.Data
+				console.log(data)
+			} else {
+				erros.push("Problema na consulta")
+			}
+		} catch (error) {
+			erros.push("Erro ao carregar investimentos")
+		}
+	}
+	async function ValueFilter(){
+		console.log("fecha a porra do wsl")
+		console.log("Ativada")
+		try{
+			const ValorMaximo=document.getElementById("max").value
+			const ValorMinimo=document.getElementById("min").value
+			const Valor = [ValorMaximo, ValorMinimo]
+			const resultado = await api.put("/mercado/ValueFilter",{valor:Valor})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
 	
+	async function DistrictFilter(){
+		console.log("Ativada")
+		try{
+			const DF=document.getElementById("distrito").value
+
+			const resultado = await api.put("/mercado/DistrictFilter",{Df:DF})
+			console.log(data)
+			data = resultado.data.Data
+			console.log(data)
+		}
+		catch(e){
+
+		}
+	}
+
     onMount(async() => {
         token = sessionStorage.getItem("auth_token");
         if (token) {
@@ -109,6 +183,9 @@
 	onDestroy(() => {
 		window.removeEventListener('keydown', handleKeydown)
 	})
+	async function investmentDetails(){
+		sessionStorage.setItem(investment)
+	}
 </script>
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-amber-900/20 to-gray-800">
 	<!-- Header -->
@@ -155,6 +232,7 @@
 				<span>Voltar ao Perfil</span>
 			</a>
 		</div>
+		
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
 			<div class="bg-gradient-to-br from-amber-600/20 to-amber-800/20 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300">
@@ -179,13 +257,50 @@
 				</div>
 			</div>
 			
-			<div class="bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
-				<div class="flex items-center justify-between">
-					<div>
-						<p class="text-blue-200/70 text-sm font-medium">Diversificação</p>
-						<p class="text-3xl font-bold text-white">Alta</p>
+			<div class="flex items-center content-center bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm rounded-xl p-6 border border-blue-500/30 animate-fade-in-up hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
+				<div class="flex flex-1 items-center content-center justify-between">
+					<div class="w-full">
+						<form class="w-full relative flex flex-1 flex-col items-center content-center justify-between">
+							<select 
+								id="Filtro"
+								bind:value={filtroSelecionado}
+								on:input={getFilter}
+								class="flex-1 w-full bg-gray-700 border border-gray-600 text-white text-sm rounded-lg transition-all duration-200 hover:border-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 cursor-pointer">
+									<option value="" selected disabled>Selecione o filtro</option>
+									<option value="Nome">Nome</option>
+									<option value="Valor">Valor</option>
+									<option value="Dono">Dono</option>
+									<option value="Distrito">Distrito</option>
+							</select>
+							{#if filtroSelecionado=="Nome"}
+								<i class="fa-solid fa-money-bill-trend-up absolute end-5 top-18 text-white bg-gray-700"></i>
+								<input type="text" id="NomeInvestimento" on:input={NameFilter} placeholder="Nome do investimento" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+							{:else if filtroSelecionado=="Valor"}
+								<div class="mt-5 w-full flex flex-row gap-2">
+									<div class="w-[50%] w-max-[100px] relative">
+										<i class="fa-solid fa-plus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
+										<input type="number" id="max" min="1" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Max" on:input={ValueFilter}>
+									</div> 
+									<div class="w-[50%] w-max-[100px] relative">
+										<i class="fa-solid fa-minus absolute end-3 top-2 text-white bg-gray-700 text-2xl"></i>
+										<input type="number" id="min" min="0" step="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg" placeholder="Min" on:input={ValueFilter}>
+									</div>
+								</div>
+							{:else if filtroSelecionado=="Dono"}
+								<i class="fa-solid fa-user-tie absolute end-5 top-18 text-white bg-gray-700"></i>
+								<input type="text" id="Dono" on:input={OwnerFilter} placeholder="Nome do Dono" class="mt-5 w-full bg-gray-700 border border-gray-600 text-white rounded-full">
+							{:else if filtroSelecionado=="Distrito"}
+								<i class="fa-solid fa-map-location absolute end-3 top-17 text-white bg-gray-700"></i>
+								<select on:input={DistrictFilter} id="distrito" class="mt-5 flex-1 w-full bg-gray-700 border border-gray-600  text-white text-sm rounded-lg placeholder-gray-400 block focus:ring-blue-500 focus:border-blue-500">
+									<option value="">Todos</option>
+									<option value="1">Distrito 1</option>
+									<option value="2">Distrito 2</option>
+									<option value="3">Distrito 3</option>
+									<option value="5">Distrito 4</option>
+								</select>
+							{/if}
+						</form>
 					</div>
-					<i class="fa-solid fa-shield-halved text-3xl text-blue-400"></i>
 				</div>
 			</div>
 		</div>
@@ -313,7 +428,7 @@
 						</div>
 						<div class="bg-white/5 rounded-lg p-4 border border-white/10">
 							<p class="text-gray-300 text-sm">Área Total</p>
-							<p class="text-white font-medium">{detail.Tamanho}</p>
+							<p class="text-white font-medium">{detail.AreaTotal}</p>
 						</div>
 						<div class="bg-white/5 rounded-lg p-4 border border-white/10">
 							<p class="text-gray-300 text-sm">Área Vendida</p>
@@ -329,7 +444,7 @@
 
 			<div class="mt-6 flex justify-end gap-3">
 				<button class="px-4 py-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition" on:click={closeModal}>Fechar</button>
-				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button">
+				<button class="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-amber-800 text-white hover:from-amber-700 hover:to-amber-900 transition" type="button" on:click={()=>{goto(`./Mercado/Compra/${selected.id}`)}}>
 					<i class="fa-solid fa-cart-shopping mr-2"></i>
 					Investir
 				</button>

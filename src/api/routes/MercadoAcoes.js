@@ -57,6 +57,86 @@ router.get("/",async function(req,res,next){
         Data:Investimento.rows
     })
 })
+router.get("/:id",async function(req,res,next){
+    const { id } = req.params; // pega id de req.params.id
+    const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento"."DF","Investimento"."Nome","Investimento"."AreaVendida","Investimento"."Porcentagem","Investimento"."Preco" FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    return res.status(200).json({
+        Sucess:true,
+        Data:Investimento.rows
+    })
+})
+router.put('/compraInvestimento/:id', async function(req, res) {
+    try {
+      const { ChavePix, senha7,Numero } = req.body;
+      const { id } = req.params;
+      const { CPF } = req.user || {};
+      if (!CPF || !ChavePix || valor == null ||!Numero) {
+        return res.status(400).json({ success: false, message: 'Valores nulos' });
+      }
+      if (!senha7) {
+        return res.status(400).json({ success: false, message: 'Senha de transação (Senha7) é obrigatória' });
+      }
+      if (
+        typeof ChavePix !== 'string' ||
+        typeof Numero !=="number"||
+        typeof CPF !== 'string' ||
+        (typeof valor !== 'number' && typeof valor !== 'string') ||
+        !(Number(valor) > 0)
+      ) {
+        return res.status(400).json({ success: false, message: 'Valores inválidos' });
+      }
+      if (!ValidationCPF(CPF) || !ValidationCPF(ChavePix)) {
+        return res.status(400).json({ success: false, message: 'CPF ou chave pix inválidos' });
+      }
+
+      const emissor=await pool.query('SELECT * FROM "Users" WHERE "Users"."CPF"=$1',[CPF])
+
+      if(!emissor.rows){
+        return res.status(404).json({ success: false, message: 'Emissor não encontrado' });
+      }
+
+      const carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.id]);
+
+      if(!carteira){
+        return res.status(404).json({ success: false, message: 'Carteiro não encontrado' });
+      }
+      
+      const Destinatario = await pool.query('SELECT DonodoInvestimento FROM "Investimento" WHERE "Investimento"."id"=$1',[id]);
+
+      if(!Destinatario.rows){
+        return res.status(404).json({ success: false, message: 'Destinatario não encontrado' });
+      }
+
+      else if(emissor.rows[0].Saldo<valor){
+        return res.status(402).json({ success: false, message: "Saldo insuficiente" });
+      }
+
+      const Destinatario_novo_saldo=emissor.rows[0].Saldo-valor
+      const Emissor_novo_saldo=Destinatario.rows[0].Saldo+valor
+      const carteiraSaldo = await pool.query('SELECT Valor FROM "Carteira" WHERE "Carteira".id =$1', [carteira]);
+      const carteira_novo_saldo=carteiraSaldo.rows[0].Valor-valor
+      
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor.rows[0].id])
+      await pool.query('UPDATE "Users" SET saldo=$1 FROM "Users" WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario.rows[0].id])
+      await pool.query('UPDATE "Carteira" SET Valor=$1 FROM "Carteira" WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
+
+      return res.status(200).json({ success: true, message: 'Investimento feito com sucesso'})
+
+
+    } catch (error) {
+      console.error('Erro na rota /compraInvestimento:', error);
+      return res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+    }
+  });
+router.get("/pieGraphic/:id",async function(req,res,next){
+    console.log(req)
+    const { id } = req.params; // pega id de req.params.id
+    const Investimento = await pool.query('SELECT "Investimento"."Porcentagem" FROM "Investimento" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    return res.status(200).json({
+        Sucess:true,
+        Data:Investimento.rows
+    })
+})
 router.put("/filter/price",async function(req,res,next){
     try {
     let { min, max } = req.body;
@@ -116,5 +196,109 @@ router.put("/filter/price",async function(req,res,next){
         });
 }
 
+})
+router.put("/NameFilter",async function(req,res,next){
+    try{
+        const {Nome}=req.body
+        if(!Nome){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Investimento"."Nome" ILIKE '%' || $1 || '%';`,[Nome]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+router.put("/OwnerFilter",async function(req,res,next){
+    try{
+        const {Nome}=req.body
+        if(!Nome){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Users"."Nome" ILIKE '%' || $1 || '%';`,[Nome]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+
+router.put("/ValueFilter",async function(req,res,next){
+    try{
+        const {valor}=req.body
+        console.log(valor)
+        const valor1 = valor[1]
+        const valor2 = valor[0]
+        console.log(valor,valor1,valor2)
+    
+        if(!valor1 | !valor2){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" >= $1  AND   "Preco" <= $2 AND "Numero" IS NOT NULL;`,[valor1, valor2]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
+})
+
+router.put("/DistrictFilter",async function(req,res,next){
+    try{
+        const {Df}=req.body
+        if(!Df){
+            const Investimento = await pool.query('SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL;');
+            return res.status(200).json({
+                Sucess:true,
+                Data:Investimento.rows
+            })
+        }
+        const Investimento = await pool.query(`SELECT "Users"."Nome" AS "DonodoInvestimento", "Investimento".* FROM "Investimento" JOIN "Users" ON "Investimento"."Emissor" = "Users"."id" WHERE "Preco" IS NOT NULL AND "Numero" IS NOT NULL AND "Investimento"."DF" = $1;`,[Df]);
+        return res.status(200).json({
+            Sucess:true,
+            Data:Investimento.rows
+        })
+    }
+    catch(e){
+        console.error(e)
+        return res.status(500).json({
+            Sucess:false,
+            message:"Erro interno"    
+        })
+    }
 })
 module.exports = router;

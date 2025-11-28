@@ -45,7 +45,7 @@
 </script>
 
 <!-- Header-->
-<header class="relative w-full">
+<header class="relative w-full divide-y-3 divide-amber-900 divide-solid">
 	<div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
 	<div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <div class="flex flex-row justify-center items-center gap-1">
@@ -74,10 +74,10 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 		<div class="grid md:grid-cols-2 gap-10 items-center">
 			<div class="animate-fade-in-up">
-                <h1 class="text-3xl md:text-5xl font-extrabold text-[#fff] dark:text-amber-100 leading-tight drop-shadow-sm">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#fff]  leading-tight drop-shadow-sm">
 					Coffebank, seu banco digital simples, seguro e sem complicação
 				</h1>
-                <p class="mt-4 text-amber-200/70 dark:text-amber-100/90 md:text-lg">
+                <p class="mt-4 text-amber-200/70 md:text-lg">
 					Organize seu dinheiro, faça transferências e invista com transparência. Uma experiência moderna com foco em você.
 				</p>
 				<div class="mt-6 flex flex-col sm:flex-row gap-3">
@@ -97,15 +97,15 @@
 					<ul class="space-y-4">
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-shield-halved text-amber-700 mt-1"></i>
-                            <span class="text-amber-900 dark:text-amber-100">Segurança de ponta e monitoramento em tempo real.</span>
+                            <span class="text-amber-500">Segurança de ponta e monitoramento em tempo real.</span>
 						</li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-mobile-screen text-amber-600 mt-1"></i>
-                            <span class="text-amber-900 dark:text-amber-100">Um app para tudo: transferências, pagamentos e investimentos.</span>
+                            <span class="text-amber-500">Um app para tudo: transferências, pagamentos e investimentos.</span>
 						</li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-piggy-bank text-amber-500 mt-1"></i>
-                            <span class="text-amber-900 dark:text-amber-100">Sem tarifas abusivas e com experiências simples e transparentes.</span>
+                            <span class="text-amber-500">Sem tarifas abusivas e com experiências simples e transparentes.</span>
 						</li>
 					</ul>
 				</div>
@@ -116,20 +116,20 @@
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 	<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="feature-card animate-fade-in-up feature-card-animated">
+        <div class="feature-card animate-fade-in-up feature-card-animated bg-amber-200/70">
             <i class="fa-solid fa-wallet text-2xl text-amber-700"></i>
-			<h3 class="mt-3 font-semibold text-amber-900 dark:text-amber-100">Conta digital completa</h3>
-            <p class="mt-1 text-sm text-amber-900/90 dark:text-amber-100/90">Guarde, mova e use seu dinheiro do seu jeito, com total liberdade.</p>
+			<h3 class="mt-3 font-semibold text-[#000]">Conta digital completa</h3>
+            <p class="mt-1 text-sm text-[#000]">Guarde, mova e use seu dinheiro do seu jeito, com total liberdade.</p>
 		</div>
-        <div class="feature-card animate-fade-in-up feature-card-animated" style="animation-delay: .05s;">
+        <div class="feature-card animate-fade-in-up feature-card-animated bg-amber-200/70" style="animation-delay: .05s;">
             <i class="fa-solid fa-money-bill-transfer text-2xl text-amber-600"></i>
-			<h3 class="mt-3 font-semibold text-amber-900 dark:text-amber-100">Transferências fáceis</h3>
-            <p class="mt-1 text-sm text-amber-900/90 dark:text-amber-100/90">Envie e receba via Pix com poucos toques, em segundos.</p>
+			<h3 class="mt-3 font-semibold text-[#000]">Transferências fáceis</h3>
+            <p class="mt-1 text-sm text-[#000]">Envie e receba via Pix com poucos toques, em segundos.</p>
 		</div>
-        <div class="feature-card animate-fade-in-up feature-card-animated" style="animation-delay: .1s;">
+        <div class="feature-card animate-fade-in-up feature-card-animated bg-amber-200/70" style="animation-delay: .1s;">
             <i class="fa-solid fa-chart-line text-2xl text-amber-700"></i>
-			<h3 class="mt-3 font-semibold text-amber-900 dark:text-amber-100">Investimentos acessíveis</h3>
-            <p class="mt-1 text-sm text-amber-900/90 dark:text-amber-100/90">Comece com pouco e acompanhe sua evolução com clareza.</p>
+			<h3 class="mt-3 font-semibold text-[#000]">Investimentos acessíveis</h3>
+            <p class="mt-1 text-sm text-[#000]">Comece com pouco e acompanhe sua evolução com clareza.</p>
 		</div>
 	</div>
 </section>
@@ -219,7 +219,6 @@
 		border: 1px solid var(--tw-prose-borders, rgba(0,0,0,0.08));
 		border-radius: 0.75rem;
 		padding: 1rem;
-    background: var(--tw-feature-bg, rgba(255,247,237,0.7));
 		backdrop-filter: saturate(120%) blur(2px);
 		transition: transform .3s ease, box-shadow .3s ease;
 	}
