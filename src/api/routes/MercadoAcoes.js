@@ -95,13 +95,15 @@ router.put('/compraInvestimento/:id',verifyToken, async function(req, res) {
         return res.status(404).json({ success: false, message: 'Emissor não encontrado' });
       }
 
-      const carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.rows[0].id]);
+      let carteira = await pool.query(`SELECT id FROM "Carteira" WHERE "Dono" = $1`,[emissor.rows[0].id]);
 
-      if(!carteira){
-        return res.status(404).json({ success: false, message: 'Carteiro não encontrado' });
+      if(!carteira.rows.length){
+        carteira=await pool.query(`INSERT INTO "Carteira" ("Dono", "Valor") VALUES ($1, 0) RETURNING id;`,[emissor.rows[0].id]);
+        console.log(carteira.rows)
       }
       
       const Destinatario = await pool.query('SELECT "Investimento"."Emissor","Investimento"."Preco","Investimento"."AreaVendida","Investimento"."Numero","Users"."Saldo" FROM "Investimento" JOIN "Users" ON "Users".id = "Investimento"."Emissor" WHERE "Investimento"."id"=$1;',[id]);
+      console.log(Destinatario.rows)
       if(!Destinatario.rows){
         return res.status(404).json({ success: false, message: 'Destinatario não encontrado' });
       }
@@ -109,15 +111,14 @@ router.put('/compraInvestimento/:id',verifyToken, async function(req, res) {
       if(Number(emissor.rows[0].Saldo)<Number(valor)*Numero){
         return res.status(402).json({ success: false, message: "Saldo insuficiente" });
       }
-
-      const Destinatario_novo_saldo=Number(emissor.rows[0].Saldo)-Number(valor)
-      const Emissor_novo_saldo=Number(Destinatario.rows[0].Saldo)+Number(valor)
-      console.log(carteira.rows)
+      const Emissor_novo_saldo=Number(emissor.rows[0].Saldo)-Number(valor)
+      const Destinatario_novo_saldo=Number(Destinatario.rows[0].Saldo)+Number(valor)
+      console.log(Emissor_novo_saldo,Destinatario_novo_saldo+Number(valor))
       const carteiraSaldo = await pool.query('SELECT "Valor" FROM "Carteira" WHERE "Carteira".id =$1', [carteira.rows[0].id]);
-      const carteira_novo_saldo=carteiraSaldo.rows[0].Valor-valor
-      console.log(Destinatario.rows[0].Saldo,"legal, o asafe é gay")
-      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2', [Emissor_novo_saldo, emissor.rows[0].id])
-      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2', [Destinatario_novo_saldo, Destinatario.rows[0].id])
+      const carteira_novo_saldo=Number(carteiraSaldo.rows[0].Valor)+Number(valor)
+      console.log(Destinatario.rows[0].Emissor)
+      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2 RETURNING *', [Emissor_novo_saldo, emissor.rows[0].id])
+      await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2 RETURNING *', [Destinatario_novo_saldo, Destinatario.rows[0].Emissor])
       await pool.query('UPDATE "Carteira" SET "Valor"=$1 WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
 
       await pool.query('INSERT INTO "CarteiraInvestimento" ("Investimento_id", "Carteira_id", "Area") VALUES ($1, $2, $3)', [id, carteira.rows[0].id, Destinatario.rows[0].AreaVendida/Destinatario.rows[0].Numero]);
@@ -135,6 +136,7 @@ router.get("/pieGraphic/:id",async function(req,res,next){
     console.log(req)
     const { id } = req.params; // pega id de req.params.id
     const Investimento = await pool.query('SELECT "Investimento"."Porcentagem" FROM "Investimento" WHERE "Investimento"."Preco" IS NOT NULL AND "Investimento"."Numero" IS NOT NULL AND "Investimento"."id" = $1;',[id]);
+    console.log(Investimento.rows)
     return res.status(200).json({
         Sucess:true,
         Data:Investimento.rows

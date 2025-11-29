@@ -62,10 +62,11 @@
     let json=await api.put('./users/SaldoCarteiraUsuario')
         console.log(json)
         let data={
-    labels: ['Não investido','Investido'],
+
+  labels: json?.data?.data?.Valor != null ? ["Investido","Aporte total"] : ["Não Investido"],
     datasets: [
       {
-        data: [json.data.data.Saldo,Number(json.data.data.Valor)],
+        data: json?.data?.data?.Valor != null ? [json.data.data.Saldo,Number(json.data.data.Valor)] : [json.data.data.Saldo],
         backgroundColor: [
           'rgba(102, 126, 234, 0.8)',
           'rgba(118, 75, 162, 0.8)'

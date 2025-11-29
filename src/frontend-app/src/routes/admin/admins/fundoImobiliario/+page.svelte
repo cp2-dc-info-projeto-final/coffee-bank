@@ -680,6 +680,7 @@
 								id="edit-nome"
 								type="text"
 								bind:value={formData.Nome}
+								
 								class="block w-full px-4 py-3 border border-gray-300 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600 transition-colors"
 								placeholder="Digite o nome do fundo"
 								required
