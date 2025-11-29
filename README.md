@@ -5,7 +5,6 @@ Projeto Final 2025 do Curso Técnico Integrado de Desenvolvimento de Sistemas - 
 **Integrantes:**
  - Asafe Domingues Marcelino  (Asafesseidon)
  - João Gabriel Pereira Lopes (João Gabriel Pereira Lopes)
- - Erick Mikael Alhadas Santos (MikaOdayaka)
  - Preferiu Não Comentar O Nome Por Privacidade E Segurança (IMadeACupcakeCode)
 
  ## Tecnologias
