@@ -12,13 +12,13 @@
     </div>
     <ul class="items-center font-medium flex p-0 mt-4 rounded-lg flex-row space-x-8 rtl:space-x-reverse">
       <li>
-        <a href="/LoginUser" class="block  px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-user relative z-11"></i></a>
+        <a href="/LoginUser" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-user relative z-11"></i></a>
       </li>
       <li>
-        <a href="/" class="block  px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-house relative z-11"></i></a>
+        <a href="/" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-house relative z-11"></i></a>
       </li>
       <li>
-        <a href="/Cadastro" class="block  px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-door-open relative z-11"></i></a>
+        <a href="/Cadastro" class="block py-2 px-3 text-white rounded-sm bg-transparent" aria-current="page"><i class="text-2xl fa-solid fa-door-open relative z-11"></i></a>
       </li>
       
     </ul>
