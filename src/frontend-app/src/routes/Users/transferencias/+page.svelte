@@ -98,6 +98,8 @@
         const resp = await api.put("/users/Name", { CPF: user.CPF }, { headers: { Authorization: `Bearer ${token}` } });
         if (resp.status === 200 && resp.data?.Name) {
           user.Name = resp.data.Name;
+          user.Saldo=resp.data.Saldo
+          console.log(resp.data.Saldo)
         }
       } catch {}
     } catch (e) {
@@ -219,16 +221,16 @@
   <div class="h-2"></div>
 </div>
 
-<section class="relative w-full">
+<section class="relative w-full flex flex-1 items-center">
   <div class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1733342660123-10ab1ece90cb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-10 z-0"></div>
-  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+  <div class="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <div class="flex items-center justify-between">
       <div class="animate-fade-in-up">
         <h1 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-sm">Transferências</h1>
         <p class="mt-1 text-amber-100/80">Envie dinheiro com agilidade e segurança via Pix.</p>
       </div>
       <div class="hidden sm:flex items-center gap-2 animate-fade-in-up" style="animation-delay:.05s;">
-        <span class="px-3 py-1 rounded-lg text-amber-900 bg-amber-100/80 border border-amber-200/70">Saldo: {formatCurrency(balance)}</span>
+        <span class="px-3 py-1 rounded-lg text-amber-900 bg-amber-100/80 border border-amber-200/70">Saldo: {user.Saldo} KGB</span>
       </div>
     </div>
 
@@ -270,7 +272,7 @@
             </button>
           </div>
         </div>
-
+        <!--
         <div class="rounded-2xl border border-amber-200/70 bg-amber-50/70 backdrop-blur p-6 shadow feature-card-animated animate-fade-in-up" style="animation-delay:.05s;">
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-semibold text-amber-900">Atividade recente</h2>
@@ -297,31 +299,31 @@
             {/if}
           </div>
         </div>
+        -->
       </div>
-
       <div class="space-y-6">
         <div class="rounded-2xl border border-amber-200/70 bg-amber-50/70 backdrop-blur p-6 shadow feature-card-animated animate-fade-in-up" style="animation-delay:.08s;">
           <div class="flex items-center justify-between">
             <h3 class="font-semibold text-amber-900">Resumo</h3>
             <i class="fa-solid fa-chart-line text-amber-700"></i>
           </div>
-          <div class="mt-4 grid grid-cols-2 gap-4">
+          <div class="mt-4 grid grid-cols-1 gap-4">
             <div class="summary-pill">
               <div class="text-xs text-amber-900/70">Saldo</div>
-              <div class="text-amber-900 font-semibold">{formatCurrency(balance)}</div>
+              <div class="text-amber-900 font-semibold">{user.Saldo} KGB</div>
             </div>
-            <div class="summary-pill">
+            <!--<div class="summary-pill">
               <div class="text-xs text-amber-900/70">Hoje</div>
-              <div class="text-amber-900 font-semibold">-{formatCurrency(todaysSpending)}</div>
+              <div class="text-amber-900 font-semibold">{todaysSpending} KGB</div>
             </div>
             <div class="summary-pill">
               <div class="text-xs text-amber-900/70">No mês</div>
-              <div class="text-amber-900 font-semibold">-{formatCurrency(monthSpending)}</div>
+              <div class="text-amber-900 font-semibold">{monthSpending} KGB</div>
             </div>
             <div class="summary-pill">
               <div class="text-xs text-amber-900/70">Transações</div>
               <div class="text-amber-900 font-semibold">{transfers.length}</div>
-            </div>
+            </div>-->
           </div>
         </div>
 

@@ -63,19 +63,13 @@
         
       })})
 </script>
-<div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center w-full md:inset-0 items-center flex" >
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[1] justify-center w-full md:inset-0 items-center flex" >
   <section class="bg-gray-900/60 w-full h-full" id="login">
     <div class="flex flex-col items-center h-full justify-center px-6 lg:py-0">
       <div class="w-full  md:mt-0 sm:max-w-md xl:p-0  itemns center">
         <div class="p-6 rounded-3xl bg-gray-800 space-y-4 md:space-y-6 sm:p-8">
           <div class="flex">
-            <h1 class="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">            
-              <button id="closeModal" type="button" on:click={Fechar} class="absolute top-3 right-3 text-gray-400 hover:text-white">
-                ✕
-              </button>
-            </h1>
             <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
-
               Login para acesso
             </h1>
           </div>
@@ -84,7 +78,7 @@
             <div>
               <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900 text-white">Seu CPF</label>
               <input type="text" name="cpf" id="cpf" placeholder="123.456.789-10"
-                class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-amber-600 focus:border-amber-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
                 required>
             </div>
 
@@ -93,32 +87,40 @@
               <label for="password" class="block mb-2 text-sm font-medium text-white">Sua Senha 5</label>
 
               <input type="password" name="password" id="password" placeholder="•••••"
-                class=" border   rounded-lg focus:ring-blue-600  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                class=" border   rounded-lg focus:ring-amber-600  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-amber-500 focus:border-amber-500"
                 required>
             </div>
 
             <!-- Checkbox Lembrar de mim -->
-            <div class="flex items-start space-x-2">
-              <input id="remember" type="checkbox"
-                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 bg-gray-700 border-gray-600 focus:ring-blue-600 ring-offset-gray-800">
-              <label for="remember" class="text-sm text-dark">Lembrar de mim</label>
+            <div class="flex items-center space-x-2">
+              <input
+              id="remember"
+  type="checkbox"
+  class="w-4 h-4 border rounded bg-gray-700 border-gray-600 ring-offset-gray-800
+         focus:ring-3 focus:ring-amber-600
+         checked:bg-amber-700 checked:ring-amber-600
+         focus:checked:bg-amber-700 focus:checked:ring-amber-600"
+/>
+
+             
+              <label for="remember" class="text-sm text-white flex items-center">Lembrar de mim</label>
             </div>
 
             <!-- Link Esqueceu a senha -->
             <div>
-              <a href="/1" class="text-sm font-medium hover:underline text-blue-500 hover:text-blue-700">Esqueceu sua senha?</a>
+              <a href="/1" class="text-sm font-medium hover:underline text-amber-500 hover:text-amber-700">Esqueceu sua senha?</a>
             </div>
 
             <!-- Botão Confirmar -->
             <button type="submit"
-              class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+              class="w-full text-white bg-amber-600 hover:bg-amber-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-600 hover:bg-amber-700 focus:ring-amber-800">
               Clique Para Confirmar
             </button>
 
             <!-- Link Criar Conta -->
             <p class="text-sm font-light text-white">
               Sem uma conta ainda?
-              <a href="/Cadastro" class="font-medium hover:underline text-blue-500 hover:text-blue-700">Crie uma aqui!</a>
+              <a href="/Cadastro" class="font-medium hover:underline text-amber-500 hover:text-amber-700">Crie uma aqui!</a>
 
             </p>
           </form>
@@ -129,7 +131,7 @@
 </div>
 <style>
   #login{
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
     }
 </style>

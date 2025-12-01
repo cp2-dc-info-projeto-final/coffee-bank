@@ -36,8 +36,7 @@ const api = axios.create({
             console.log(data)
             user.Name = data.Name
             user.Imagem=data.Image
-            console.log(user.Imagem)
-            console.log(user.Name)
+            user.Saldo=data.Saldo
             user.firstName=user.Name.split(" ")[0]
         } catch (error) {
             console.error("Error decoding token:", error);
@@ -66,7 +65,7 @@ const api = axios.create({
 
         <div class="flex items-center justify-between">
             <div class="hidden md:flex flex-row items-center px-4">
-                <img src={imagem} class="md:w-10 md:h-10 md:ml-2 md:h-20 md:w-20 md:z-11 " alt="CoffeeBank Logo" />
+                <img src={imagem} class="md:w-10 md:h-10 md:ml-2 md:h-15 md:w-15 md:z-11 " alt="CoffeeBank Logo" />
                 <p class="text-4xl text-[#ffffffff]" style="">Coffebank</p>
             </div>
             <!-- Perfil do Usuário -->
@@ -75,7 +74,7 @@ const api = axios.create({
                 <div class="relative group" on:click={Editar}>
                     <img 
                         src={user.Imagem ? user.Imagem : defaultImage} 
-                        class="w-16 h-16 rounded-full border-2 border-white/20 shadow-md object-cover transition-all duration-300 group-hover:shadow-lg group-hover:scale-105"
+                        class="w-16 h-16 rounded-full border-2 border-white/20 shadow-md object-cover transition-all duration-300 group-hover:shadow-lg group-hover:scale-110"
                         alt="Foto do usuário"
                     >
                     <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
@@ -105,7 +104,7 @@ const api = axios.create({
             </div>
 
             <!-- Ações do Usuário -->
-            <div class="flex items-center space-x-4 animate-fade-in-right">
+            <div class="flex items-center space-x-4 animate-fade-in-right mr-4">
                 <!-- Notificações (opcional) -->
                 <button class="relative p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110 group">
                     <i class="fa-solid fa-bell text-lg group-hover:animate-bounce"></i>
@@ -113,7 +112,7 @@ const api = axios.create({
                 </button>
                 <!-- Home -->
                 <button 
-                    class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-105"
+                    class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-110"
                     on:click={home}
                     aria-label="Sair da conta"
                 >
@@ -122,11 +121,11 @@ const api = axios.create({
                 </button>
                 <!-- Logout -->
                 <button 
-                    class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-105"
+                    class="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-300 group hover:scale-110"
                     on:click={logout}
                     aria-label="Sair da conta"
                 >
-                    <i class="fa-solid fa-right-from-bracket text-lg group-hover:scale-110 transition-transform duration-200"></i>
+                    <i class="fa-solid fa-right-from-bracket text-lg group-hover:scale-100 transition-transform duration-200"></i>
                     <span class="hidden md:block text-sm font-medium">Sair</span>
                 </button>
             </div>

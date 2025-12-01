@@ -410,7 +410,7 @@
                                 </div>
                                 <label for="checkbox-1" class="block cursor-pointer select-none">
                                     <div class="flex items-start gap-3 bg-amber-100/50 border border-amber-300/60 hover:border-amber-400/60 transition-colors rounded-xl p-4">
-                                        <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only">
+                                        <input id="checkbox-1" name="termos" type="checkbox" value="concordo" class="peer sr-only ">
                                         <div class="mt-0.5 h-5 w-5 rounded-md border border-amber-400 bg-white flex items-center justify-center peer-checked:bg-amber-700 peer-checked:border-amber-700 transition-colors">
                                             <svg class="h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-7.25 7.25a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L8.5 11.586l6.543-6.543a1 1 0 011.414 0z" clip-rule="evenodd" />

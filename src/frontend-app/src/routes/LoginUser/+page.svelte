@@ -8,21 +8,16 @@
         users = [...users, user];
     }
     import Nav from "../../Components/Navs/Main.svelte"
-    import Login from "../../Components/Forms/Login.svelte";
     import CardMore from "../../Components/CardMore.svelte";
     import img from "../../assets/images/OIP.jpg";
     import UserCards from "../../Components/cardsUser.svelte";
-
+    import Login from "../../Components/Forms/Login.svelte"
 </script>
-<Nav />
-<div class="flex-1 flex flex-col md:justify-center md:gap-2.5" id="Main">
-    <div class="flex md:gap-2.5 flex-col md:flex-row md:flex-wrap items-center h-full">
-        {#each users as user}
-            <UserCards user={user} />
-        {/each}
-        <CardMore on:Login={adicionarCarta}/>
-    </div>
-    
+<div class="absolute w-full" style="z-index: 200;">
+    <Nav />
+</div>
+<div class="flex-1 flex flex-col md:justify-center md:gap-2.5 relative" id="Main">
+    <Login on:login={adicionarCarta}/>
 </div>
 
 <style>

@@ -294,7 +294,7 @@ router.post('/login', async function(req, res) {
     }
     else{
       result = await pool.query(`SELECT 
-      id, "Nome", "CPF","ChavePix","Saldo","Senha5" as passwordhash,"Saldo"
+      id, "Nome", "CPF","ChavePix","Senha5" as passwordhash,"Saldo"
       FROM "Users" 
       WHERE "CPF" = $1`, [login]);
     }
@@ -346,7 +346,6 @@ router.post('/login', async function(req, res) {
       const token = jwt.sign(
         { 
           id: user.id,
-          Saldo:user.Saldo,
           CPF:user.CPF,
           role: user.role,
         }, 
@@ -441,7 +440,7 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     })
   }
   const result = await pool.query(
-    `SELECT "Nome" FROM "Users" WHERE "CPF" = $1`,
+    `SELECT "Nome","Saldo" FROM "Users" WHERE "CPF" = $1`,
     [CPF]
   )
   if(!result.rows.length){
@@ -459,7 +458,7 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     var Imagem={data:{data:null}}
     try{
       Imagem = await axios.put("http://localhost:3001/images", {
-        "path": `uploads/${id.rows[0].id}/main.png`
+        "path": `uploads/${Result.rows[0].id}/main.png`
       })
     }
     catch(e){
@@ -469,7 +468,8 @@ router.put('/Name', verifyToken, async function(req, res, next) {
       "status":200,
       "message":"Consulta realizada",
       "Image":Imagem.data.data,
-      "Name":result.rows[0].Nome
+      "Name":result.rows[0].Nome,
+      "Saldo":result.rows[0].Saldo
     }
     return res.status(200).json(response)
   }
@@ -491,6 +491,32 @@ router.put('/searchCPF',verifyToken, isAdmin, async function(req, res, next) {
     res.json({
       success: true,
       data: result.rows
+    });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+router.get('/saldo',verifyToken, async function(req, res, next) {
+  try {
+    const {id}=req.user
+    const result = await pool.query(
+      'SELECT "Saldo" FROM "Users" WHERE "id" = $1',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+    res.json({
+      success: true,
+      Saldo: result.rows[0].Saldo
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);

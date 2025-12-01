@@ -25,7 +25,7 @@
     </div>
 </button>
 {#if modal}
-    <Login on:login={login} on:Fechar={()=>{modal=!modal}}/>
+    <Login on:login={login}/>
 {/if}
 <style>
 </style>
