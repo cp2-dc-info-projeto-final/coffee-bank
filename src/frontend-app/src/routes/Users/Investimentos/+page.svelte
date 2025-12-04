@@ -19,6 +19,7 @@ if (typeof window !== 'undefined') {
             'Authorization': `Barre: ${token}`
         },
     });
+    let valor=0
     // Animações de entrada
     let chartContainerVisible = false;
     let statsVisible = false;
@@ -108,102 +109,7 @@ if (typeof window !== 'undefined') {
     let proporcaoIvestidoNinvestido=[0,0]
     let data={}
     let re=api.put('./users/SaldoCarteiraUsuario')
-    onMount(async () => {
-        setTimeout(() => {
-            chartContainerVisible = true;
-        }, 100);
-        setTimeout(() => {
-            statsVisible = true;
-        }, 300);
-        setTimeout(() => {
-            chartsVisible = true;
-        }, 500);
-    });
-
-    // Dados do gráfico de linha
-    let Linedata = {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [
-            {
-                label: 'Crescimento do Portfólio',
-                
-                data: [120, 150, 180, 90, 250, 300],
-                tension: 0.4,
-                fill: true,
-                pointRadius: 15,
-                pointBackgroundColor: 'rgba(102, 126, 234, 1)',
-                pointBorderColor: 'rgba(255, 255, 255, 1)',
-                pointBorderWidth: 2,
-                pointHoverRadius: 20,
-                backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                borderColor: 'rgba(102, 126, 234, 1)',
-                borderWidth: 3
-            }
-        ]
-    };
-
-    let Lineoptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            datalabels: {
-                color: '#fff',
-                formatter: (value: any, context: any) => {
-                    const label = context.chart.data.labels[context.dataIndex];
-                    return `${label}`;
-                },
-                font: {
-                    weight: 'bold',
-                    size: 15,
-                    color: '#fff'
-                }
-            },
-            legend: {
-                display: true,
-                labels: { 
-                    color: '#fff',
-                    font: { size: 14, weight: '500' }
-                }
-            },
-            title: {
-                display: true,
-                text: '📈 Evolução dos Investimentos',
-                color: '#fff',
-                font: { size: 18, weight: 'bold' }
-            },
-            tooltip: {
-                titleFont: { size: 14, color: '#fff' },
-                bodyFont: { size: 13, color: '#fff' },
-                padding: 12,
-                cornerRadius: 8,
-                backgroundColor: 'rgba(0, 0, 0, 0.8)'
-            }
-        },
-        scales: {
-            x: {
-                grid: { 
-                    color: 'rgba(255, 255, 255, 0.1)',
-                    drawBorder: false
-                },
-                ticks: { 
-                    color: '#fff',
-                    font: { size: 12 }
-                }
-            },
-            y: {
-                beginAtZero: true,
-                grid: { 
-                    color: 'rgba(255, 255, 255, 0.1)',
-                    drawBorder: false
-                },
-                ticks: { 
-                    color: '#fff',
-                    font: { size: 12 }
-                }
-            }
-        }
-    };
-
+    
     // Dados do gráfico de barras
     let Bardata = {
         labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
@@ -290,29 +196,15 @@ if (typeof window !== 'undefined') {
     };
 
     // Dados do segundo gráfico de linha
-    let Linedata2 = {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-        datasets: [
-            {
-                label: 'Rendimento Anual',
-                data: [8.5, 12.3, 15.7, 18.2],
-                tension: 0.4,
-                fill: true,
-                pointRadius: 15,
-                pointBackgroundColor: 'rgba(67, 206, 162, 1)',
-                pointBorderColor: 'rgba(255, 255, 255, 1)',
-                pointBorderWidth: 2,
-                pointHoverRadius: 20,
-                backgroundColor: 'rgba(67, 206, 162, 0.1)',
-                borderColor: 'rgba(67, 206, 162, 1)',
-                borderWidth: 3
-            }
-        ]
-    };
+    let MeusInvestimentos:{Preco:Number,Nome: string,NumeroDeReparticoes: Number,AreaTotal: string,AreaPossuida: string}[]=[]    
+    onMount(async () => {
+        MeusInvestimentos=(await api.get("./investment/UserInvestments"))?.data.Data
+        console.log(MeusInvestimentos)
+    });
 </script>
 <Nav/>
 
-<div class="investments-container" class:visible={chartContainerVisible}>
+<div class="investments-container" class:visible={true}>
     <!-- Header da página -->
     <div class="flex w-full justify-between">
         <button class="back-btn hover:bg-amber-950" on:click={()=>{goto("/Users")}}>
@@ -325,7 +217,7 @@ if (typeof window !== 'undefined') {
         </button>
     </div>
 
-    <div class="page-header relative" class:visible={statsVisible}>
+    <div class="page-header relative" class:visible={true}>
         <div class="header-top">
         </div>
         <h1 class="page-title">Dashboard de Investimentos</h1>
@@ -333,7 +225,7 @@ if (typeof window !== 'undefined') {
     </div>
     
     <!-- Cards de estatísticas -->
-    <div class="stats-grid" class:visible={statsVisible}>
+    <div class="stats-grid" class:visible={true}>
         <div class="stat-card">
             <div class="stat-icon">💰</div>
             <div class="stat-content">
@@ -372,7 +264,7 @@ if (typeof window !== 'undefined') {
     </div>
 
     <!-- Grid de gráficos -->
-    <div class="charts-grid" class:visible={chartsVisible}>
+    <div class="charts-grid" class:visible={true}>
         <!-- Gráfico de Pizza -->
         <div class="chart-container pie-chart">
             <div class="chart-header">
@@ -398,30 +290,7 @@ if (typeof window !== 'undefined') {
             {/if}
         </div>
 
-        <!-- Gráfico de Linha -->
-        <div class="chart-container line-chart">
-            <div class="chart-header">
-                <h3>Evolução do Portfólio</h3>
-                <div class="chart-actions">
-                    <button class="action-btn">📈</button>
-                    <button class="action-btn eye-btn" on:click={() => showLineSummary = !showLineSummary}>
-                        {showLineSummary ? '👁️' : '👁️‍🗨️'}
-                    </button>
-                </div>
-            </div>
-            <div class="chart-content">
-                <Plot type="line" data={Linedata} options={Lineoptions}/>
-            </div>
-            {#if showLineSummary}
-                <div class="summary-modal">
-                    <div class="summary-content">
-                        <h4>{getLineSummary().title}</h4>
-                        <p>{getLineSummary().summary}</p>
-                        <button class="close-btn" on:click={() => showLineSummary = false}>✕</button>
-                    </div>
-                </div>
-            {/if}
-        </div>
+        
 
         <!-- Gráfico de Barras -->
         <div class="chart-container bar-chart">
@@ -448,33 +317,65 @@ if (typeof window !== 'undefined') {
             {/if}
         </div>
 
-        <!-- Gráfico de Rendimento -->
-        <div class="chart-container line-chart">
-            <div class="chart-header">
-                <h3>Rendimento Trimestral</h3>
-                <div class="chart-actions">
-                    <button class="action-btn">📈</button>
-                    <button class="action-btn eye-btn" on:click={() => showLine2Summary = !showLine2Summary}>
-                        {showLine2Summary ? '👁️' : '👁️‍🗨️'}
-                    </button>
-                </div>
-            </div>
-            <div class="chart-content">
-                <Plot type="line" data={Linedata2} options={Lineoptions}/>
-            </div>
-            {#if showLine2Summary}
-                <div class="summary-modal">
-                    <div class="summary-content">
-                        <h4>{getLine2Summary().title}</h4>
-                        <p>{getLine2Summary().summary}</p>
-                        <button class="close-btn" on:click={() => showLine2Summary = false}>✕</button>
-                    </div>
-                </div>
-            {/if}
 
-            
-        </div>
     </div>
+
+    <div class="space-y-6 space-x-6">
+        {#each MeusInvestimentos as MeuInvestimento}
+            <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-user-tie text-white"></i>
+                </div>
+                <div>
+                    <p class="text-amber-200/70 text-sm">Nome</p>
+                    <p class="text-white font-semibold">{MeuInvestimento.Nome}</p>
+                </div>
+            </div>
+
+            <!-- Location Info -->
+            <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-map-marker-alt text-white"></i>
+                </div>
+                <div>
+                    <p class="text-green-200/70 text-sm">Número De Reparticoes</p>
+                    <p class="text-white font-semibold"> {MeuInvestimento.NumeroDeReparticoes}</p>
+                </div>
+            </div>
+
+            <!-- Area Info -->
+            <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-maximize text-white"></i>
+                </div>
+                <div>
+                    <p class="text-blue-200/70 text-sm">Área Unitária</p>
+                    <p class="text-white font-semibold">{MeuInvestimento.AreaUnitaria}m²</p>
+                </div>
+            </div>
+
+                    <!-- Area Info -->
+                    <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-maximize text-white"></i>
+                        </div>
+                        <div>
+                            <p class="text-blue-200/70 text-sm">Área Possuída</p>
+                            <p class="text-white font-semibold">{MeuInvestimento.AreaPossuida}m²</p>
+                        </div>
+                    </div>
+            <!-- Price Info -->
+            <div class="bg-gradient-to-r from-amber-600/20 to-amber-800/20 rounded-xl p-6 border border-amber-500/30">
+                <div class="text-center w-12 h-12">
+                    <p class="text-amber-200/70 text-sm mb-2">Preço por Unidade</p>
+                    <p class="text-4xl font-bold text-amber-400 mb-4">{MeuInvestimento.PrecoUnitario} KGB</p>
+                    <p class="text-gray-300 text-sm">Quantidade: 1 unidade</p>
+                </div>
+            </div>
+        {/each}
+        <!-- Owner Info -->
+    </div>
+    
         
 </div>
 

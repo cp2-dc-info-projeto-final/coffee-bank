@@ -458,11 +458,11 @@ router.put('/Name', verifyToken, async function(req, res, next) {
     var Imagem={data:{data:null}}
     try{
       Imagem = await axios.put("http://localhost:3001/images", {
-        "path": `uploads/${Result.rows[0].id}/main.png`
+        "path": `uploads/${result.rows[0].id}/main.png`
       })
     }
     catch(e){
-      console.log(e)
+      console.log(e.response.data.message)
     }
     const response={
       "status":200,

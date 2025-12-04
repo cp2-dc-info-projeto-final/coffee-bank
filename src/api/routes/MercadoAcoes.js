@@ -119,9 +119,18 @@ router.put('/compraInvestimento/:id',verifyToken, async function(req, res) {
       console.log(Destinatario.rows[0].Emissor)
       await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2 RETURNING *', [Emissor_novo_saldo, emissor.rows[0].id])
       await pool.query('UPDATE "Users" SET "Saldo"=$1 WHERE "Users"."id" =$2 RETURNING *', [Destinatario_novo_saldo, Destinatario.rows[0].Emissor])
+      
+      let acoespossuidas=await pool.query('SELECT "Area" FROM "CarteiraInvestimento" WHERE "CarteiraInvestimento"."Carteira_id" =$1 and "CarteiraInvestimento"."Investimento_id"=$2', [carteira.rows[0].id,id])
+      if (acoespossuidas.rows.length){
+        let NovaArea=Number(acoespossuidas.rows[0].Area)+Number(Destinatario.rows[0].AreaVendida/Destinatario.rows[0].Numero)
+        await pool.query('UPDATE "CarteiraInvestimento" SET "Area" = $1 WHERE "Investimento_id" = $2;', [NovaArea, id])
+      }
+      else{
+        await pool.query('INSERT INTO "CarteiraInvestimento" ("Investimento_id", "Carteira_id", "Area") VALUES ($1, $2, $3)', [id, carteira.rows[0].id, Destinatario.rows[0].AreaVendida/Destinatario.rows[0].Numero]);
+      }
+
       await pool.query('UPDATE "Carteira" SET "Valor"=$1 WHERE "Carteira"."id" =$2', [carteira_novo_saldo, carteira.rows[0].id])
 
-      await pool.query('INSERT INTO "CarteiraInvestimento" ("Investimento_id", "Carteira_id", "Area") VALUES ($1, $2, $3)', [id, carteira.rows[0].id, Destinatario.rows[0].AreaVendida/Destinatario.rows[0].Numero]);
       
 
       return res.status(200).json({ success: true, message: 'Investimento feito com sucesso'})

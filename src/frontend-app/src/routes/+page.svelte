@@ -1,5 +1,5 @@
 <script lang="ts">
-  	import { browser } from '$app/environment';
+	import { browser } from '$app/environment';
 	import { text } from "@sveltejs/kit";
     import logo from "../assets/images/coffebank_noir-removebg-preview.png";
 	import { logout } from '$lib/auth';
@@ -105,7 +105,7 @@
 						</li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-piggy-bank text-amber-500 mt-1"></i>
-                            <span class="text-amber-500">Sem tarifas abusivas e com experiências simples e transparentes.</span>
+                            <span class="text-amber-500">Com muitas tarifas abusivas, experiências simples e imposto totalmente omitido.</span>
 						</li>
 					</ul>
 				</div>

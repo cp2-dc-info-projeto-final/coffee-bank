@@ -392,4 +392,37 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
       });
     }
   });
+  router.get("/UserInvestments",verifyToken,async function(req,res,next){
+    let {id}=req.user
+    const Investimentos = await pool.query('SELECT i."Preco", i."Nome", i."Numero" as "NumeroDeReparticoes", i."AreaVendida" as "AreaTotal",ci.id , ci."Area" as "AreaPossuida" FROM "CarteiraInvestimento" ci JOIN "Investimento" i ON ci."Investimento_id" = i."id" JOIN "Carteira" c ON ci."Carteira_id" = c."id" WHERE c."Dono" = $1;',[id]);
+    /*
+        {
+            Preco: 123,
+            Nome: 'Amigo',
+            NumeroDeReparticoes: 1,
+            AreaTotal: '123',
+            AreaPossuida: '123'
+        }
+    */ 
+   console.log(Investimentos.rows)
+    let Tratamento = Investimentos.rows.map((investimento) => {
+        console.log(investimento)
+        return {
+          ValorMetro: investimento.Preco/(investimento.AreaTotal/investimento.NumeroDeReparticoes),
+          PrecoUnitario: investimento.Preco,
+          AreaUnitaria: investimento.AreaTotal/investimento.NumeroDeReparticoes,
+          Quantidade: investimento.AreaPossuida/(investimento.AreaTotal/investimento.NumeroDeReparticoes),
+          ValorTotal: (investimento.AreaPossuida/(investimento.AreaTotal/investimento.NumeroDeReparticoes))*investimento.Preco,
+          Nome:investimento.Nome,
+          AreaPossuida:investimento.AreaPossuida,
+          id:investimento.id
+        };
+      });
+    console.log(Tratamento)
+    return res.status(200).json({
+        Sucess:true,
+        Data:Tratamento
+    })
+
+})
 module.exports = router;
