@@ -338,8 +338,8 @@ if (typeof window !== 'undefined') {
                     <i class="fa-solid fa-map-marker-alt text-white"></i>
                 </div>
                 <div>
-                    <p class="text-green-200/70 text-sm">Número De Reparticoes</p>
-                    <p class="text-white font-semibold"> {MeuInvestimento.NumeroDeReparticoes}</p>
+                    <p class="text-green-200/70 text-sm">Quantidade</p>
+                    <p class="text-white font-semibold"> {MeuInvestimento.Quantidade}</p>
                 </div>
             </div>
 
@@ -363,17 +363,31 @@ if (typeof window !== 'undefined') {
                             <p class="text-blue-200/70 text-sm">Área Possuída</p>
                             <p class="text-white font-semibold">{MeuInvestimento.AreaPossuida}m²</p>
                         </div>
-                    </div>
+                    </div>                    
+
             <!-- Price Info -->
             <div class="bg-gradient-to-r from-amber-600/20 to-amber-800/20 rounded-xl p-6 border border-amber-500/30">
                 <div class="text-center w-12 h-12">
                     <p class="text-amber-200/70 text-sm mb-2">Preço por Unidade</p>
-                    <p class="text-4xl font-bold text-amber-400 mb-4">{MeuInvestimento.PrecoUnitario} KGB</p>
-                    <p class="text-gray-300 text-sm">Quantidade: 1 unidade</p>
+                    <p class="text-2xl text-amber-400 mb-4">{MeuInvestimento.PrecoUnitario} KGB</p>
                 </div>
             </div>
+            <!-- Price Info -->
+            <div class="bg-gradient-to-r from-amber-600/20 to-amber-800/20 rounded-xl p-6 border border-amber-500/30">
+                <div class="text-center w-12 h-12">
+                    <p class="text-amber-200/70 text-sm mb-2">ValorTotal</p>
+                    <p class="text-2xl text-amber-400 mb-4">{MeuInvestimento.ValorTotal} KGB</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-amber-600/20 to-amber-800/20 rounded-xl p-6 border border-amber-500/30">
+                <div class="text-center w-12 h-12">
+                    <p class="text-amber-200/70 text-sm mb-2">ValorTotal</p>
+                    <p class="text-2xl text-amber-400 mb-4">{MeuInvestimento.ValorMetro} KGB</p>
+                </div>
+            </div>
+            
         {/each}
-        <!-- Owner Info -->
     </div>
     
         
