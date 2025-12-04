@@ -29,17 +29,16 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ## Logar em uma conta de usuário
 
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus volutpat molestie justo non tincidunt. Praesent tristique, elit convallis eleifend congue, nisl ex lobortis lorem, ac gravida tellus lacus eu enim. Aliquam urna turpis, convallis id turpis et, iaculis consequat nunc. Proin elit orci, imperdiet nec tristique nec, tincidunt ut nibh. Donec dignissim urna ut erat imperdiet aliquam. Vestibulum augue leo, pellentesque malesuada egestas quis, molestie at lacus. Donec rhoncus finibus lorem, accumsan interdum sapien facilisis sit amet. Integer odio magna, sodales at varius at, dapibus vitae ante. Sed ac ullamcorper ex. Ut in metus ipsum. Duis vulputate porta mi, id venenatis massa ornare vel. Nunc ornare malesuada elit sed feugia.
+    Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login, onde terá um formulário exigindo o CPF e senha de 5 digítos da conta que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit" o usuário será logado e redirecionado a sua página home de usuário.
 
 
 ## Visualizar o saldo de uma conta
 
-In vestibulum euismod orci, vitae mollis neque luctus vel. Aliquam erat volutpat. Pellentesque nulla elit, iaculis posuere interdum a, imperdiet sollicitudin dui. Morbi consectetur cursus dictum. Etiam vel feugiat tortor, non tempor nibh. Nam eu massa libero. Donec id eleifend justo, tempus consectetur augue. Phasellus porttitor ex leo. Proin efficitur ante vel tortor tempus ornare. Cras molestie, velit non laoreet lobortis, nisl metus volutpat augue, id dictum libero ipsum a mi. Quisque eget tristique felis.
+    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no símbolo de olho ao lado de sua imagem de perfil e nome na barra de navegação, fazendo tal ação revelará o saldo na conte do usuário logado.
 
 ## Editar a conta de usuário
 
-Sed consequat, diam in imperdiet fringilla, magna metus vehicula ipsum, eu tincidunt massa dolor eget lorem. Integer pellentesque in massa in eleifend. Phasellus a interdum enim. Nullam malesuada nulla eu mi vestibulum imperdiet. Maecenas diam dolor, commodo eget commodo at, congue in libero. Morbi non erat enim. Nunc faucibus lacus urna. Aliquam erat volutpat. Aliquam ex nunc, dictum vel libero sit amet, varius pulvinar risus. Aenean tempus magna at nulla elementum, vel feugiat turpis sodales. Vestibulum viverra congue nibh sed tempor. Morbi faucibus rhoncus dictum. Vestibulum rutrum, nisi id porttitor posuere, purus leo accumsan turpis, sit amet rutrum nulla turpis sit amet ex. Sed ultricies pharetra libero, sed tempor tellus hendrerit eget. Maecenas nibh sem, accumsan ullamcorper felis sed, pharetra semper dolor. Pellentesque ornare lorem eu condimentum tincidunt.
-
+Quando estiver logado em uma conta de usuário, o usuário poderá clicar na sua foto de perfil ao lado de seu nome e saldo na barra de navegação, fazendo tal ação redirecionará o usuário a página de edição de conta onde haverá um formulário com as informações necessárias para edição da conta e um botão de "Submit"
 
 
 ## Fazer Transferências
