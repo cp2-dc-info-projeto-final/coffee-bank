@@ -6,18 +6,11 @@
  - [CDU 02](#CDU-02): Login
  - [CDU 03](#CDU-03): Transferências
  - [CDU 04](#CDU-04): Cadastro de investimentos
- - [CDU 07](#CDU-05): Cadastramento de admins
- - [CDU 08](#CDU-06): Exclusão de admins
- - [CDU 09](#CDU-07): Editar Administradores
- - [CDU 10](#cdu-10): Alterar Senha
- - [CDU 11](#cdu-11): Buscar e Consultar Usuários
- - [CDU 12](#cdu-12): Criação de Automatização de Pagamentos
- - [CDU 13](#cdu-13): Supervisionamento do saldo
- - [CDU 14](#cdu-14): Realização de Emprestimos
- - [CDU 15](#cdu-15): Vizualização de Categoria da Unidade Monetária
- - [CDU 16](#cdu-16): Investimentos
- - [CDU 17](#cdu-17): Excluir Categoria de Unidade Monetária
- - [CDU 18](#cdu-18): Editar categoria de Unidade Monetária
+ - [CDU 05](#CDU-05): Cadastramento de admins
+ - [CDU 06](#CDU-06): Exclusão de admins
+ - [CDU 07](#CDU-07): Editar Administradores
+ - [CDU 18](#cdu-08): Buscar e Consultar Usuários
+ - [CDU 16](#cdu-09): Investimentos
 
 ## Lista dos Atores
  - User
@@ -514,7 +507,7 @@ Excluir Admin
 6. Usuário irá pressionar a opção de Cancelar.
 7. O sistema irá redirecionar o usuário para a página de Edição de Perfil.
 
-### CDU 11
+### CDU 08
 Buscar e consultar usuários
 
 #### Atores
