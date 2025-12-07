@@ -394,7 +394,7 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
   });
   router.get("/UserInvestments",verifyToken,async function(req,res,next){
     let {id}=req.user
-    const Investimentos = await pool.query('SELECT i."Preco", i."Nome", i."Numero" as "NumeroDeReparticoes", i."AreaVendida" as "AreaTotal",ci.id , ci."Area" as "AreaPossuida" FROM "CarteiraInvestimento" ci JOIN "Investimento" i ON ci."Investimento_id" = i."id" JOIN "Carteira" c ON ci."Carteira_id" = c."id" WHERE c."Dono" = $1;',[id]);
+    const Investimentos = await pool.query('SELECT i."Preco", i."Nome", i."Numero" as "NumeroDeReparticoes", i."AreaVendida" as "AreaTotal",i.id , ci."Area" as "AreaPossuida" FROM "CarteiraInvestimento" ci JOIN "Investimento" i ON ci."Investimento_id" = i."id" JOIN "Carteira" c ON ci."Carteira_id" = c."id" WHERE c."Dono" = $1;',[id]);
     /*
         {
             Preco: 123,
@@ -404,9 +404,11 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
             AreaPossuida: '123'
         }
     */ 
-   console.log(Investimentos.rows)
+    let AreaTotal=0
+    valormetromedio=0
     let Tratamento = Investimentos.rows.map((investimento) => {
-        console.log(investimento)
+        AreaTotal+=investimento.AreaPossuida
+        valormetromedio+=investimento.Preco/(investimento.AreaTotal/investimento.NumeroDeReparticoes)
         return {
           ValorMetro: investimento.Preco/(investimento.AreaTotal/investimento.NumeroDeReparticoes),
           PrecoUnitario: investimento.Preco,
@@ -418,10 +420,16 @@ router.delete('/:id', verifyToken, isAdmin, async function(req, res, next) {
           id:investimento.id
         };
       });
+    valormetromedio=Number((valormetromedio/Investimentos.rows.length).toFixed(2));
     console.log(Tratamento)
     return res.status(200).json({
         Sucess:true,
-        Data:Tratamento
+        Data:{
+            AreaTotal:AreaTotal,
+            valormetromedio:valormetromedio,
+            AreaMedia:Number(AreaTotal/Investimentos.rows.length).toFixed(2),
+            Rows:Tratamento
+        }
     })
 
 })

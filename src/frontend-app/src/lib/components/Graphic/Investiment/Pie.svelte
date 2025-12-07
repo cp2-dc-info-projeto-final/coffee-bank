@@ -63,10 +63,10 @@
         console.log(json)
         let data={
 
-  labels: json?.data?.data?.Valor != null ? ["Investido","Aporte total"] : ["Não Investido"],
+  labels: json?.data?.data?.Valor != null ? ["Investido","Não investido"] : ["Não Investido"],
     datasets: [
       {
-        data: json?.data?.data?.Valor != null ? [json.data.data.Saldo,Number(json.data.data.Valor)] : [json.data.data.Saldo],
+        data: json?.data?.data?.Valor != null ? [Number(json.data.data.Valor),json.data.data.Saldo] : [json.data.data.Saldo],
         backgroundColor: [
           'rgba(102, 126, 234, 0.8)',
           'rgba(118, 75, 162, 0.8)'
