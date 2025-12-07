@@ -17,7 +17,7 @@
  - Admin
 
 ## Diagrama de Casos de Uso
-![Diagrama de Casos de Uso](diagramas/CasosDeUsoTechBank.draw.io.png)
+![Diagrama de Casos de Uso](diagramas/CasosDeUsoTechBank.drawio.png)
 
 ## Descrição dos Casos de Uso
 
