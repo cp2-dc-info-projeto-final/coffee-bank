@@ -350,7 +350,7 @@ Excluir Admin
 #### Fluxo Principal
    1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
    2. O admin clicará no botão.
-   3. uma confirmaçãp.
+   3. O sistema requisitará a confirmação.
    4. O admin clicará no botão de confirmar.
    5. O sistema terminará a conta do admin, além de exibir ao admin que está efetuando a deleção uma mensagem de exclusão efetuada.
 
@@ -370,7 +370,7 @@ Excluir Admin
 - Admin
 
 #### Fluxo Principal
-1. O sistem fornecerá, na página de gerenciamento um botão "Editar" ao lado de cada admin listado.  
+1. O sistem fornecerá, na página de gerenciamento de administradores um botão "Editar" ao lado de cada admin listado.  
 2. Ao clicar, o sistema exigirá a senha de 12 digítos do administrador. 
 3. O Admin colocará sua senha.
 4. O sistema irá validar a senha do administrador, e  imediatamente exibirá um modal/formulário com campos para nome e conta.
@@ -380,23 +380,14 @@ Excluir Admin
 #### Fluxo Alternativo
 ##### CFA-1: Cancelamento de Edição
 
-###### FA-1: Cancalemento de Edição de Senha
-1. Usuário entrará nas Edições selecionando a opção de Editar Perfil.
-2. Sistema redicionará usuário para a página de Edição de Perfil, mostrando as segiuntes opções:
-   - Troca de Ícone
-   - Troca de Senha
-   - Troca de Email
-   - Troca de Nome
-3. Em quaisquer escolha do usuário, dentre estas opções, sistema estará mostando um campo onde deverá ser fornecido a Senha do usuário
-4. Caso a Senha for Inválida, sistema estará retornando o mesmo campo sinalizando Credenciais Inválidas em vermelho, pressionando o usuário à repetir a senha Válida para prosseguir.
-5. Caso a senha for Válida, sistema estará fechando este campo e abrindo outro, mostrando a Troca que solicita (Ícone, Senha ou Email)
-   - Caso Email, será solicitado o novo Email, depois um botão de Confirmação e um de Cancelar ao lado.
-   - Caso Nome, será solicitado o novo Nome, depois um botão de Confirmação e um de Cancelar ao lado.
-   - Caso Senha, será solicitado nova Senha, depois um botão de Confirmação e um de Cancelar ao lado.
-   - Caso Ícone, será solicitado um arquivo (png, jpg, wbem) ou uma foto, onde usuário deve entregar acessibilidade da câmera.
-      2. Entregue o arquivo, ou a foto retirada, aparecerá um botão de Confirmação e um de Cancelar ao lado.
-6. Usuário irá pressionar a opção de Cancelar.
-7. O sistema irá redirecionar o usuário para a página de Edição de Perfil.
+###### FA-1: Cancelamento de Edição
+
+1. O sistem fornecerá, na página de gerenciamento de administradores um botão "Editar" ao lado de cada admin listado.  
+2. Ao clicar, o sistema exigirá a senha de 12 digítos do administrador. 
+3. O Admin colocará sua senha.
+4. O sistema irá validar a senha do administrador, e  imediatamente exibirá um modal/formulário com campos para nome e conta.
+5. O Admin clicará no botão de voltar
+6. O sistema irá redirecionar o administrador para a página inicial de administradores.
 
 ### CDU 08
 Buscar e consultar usuários
@@ -405,11 +396,9 @@ Buscar e consultar usuários
 - Admin
 
 #### Fluxo Principal
-1. O sistema fornecerá um botão de gerenciamento de usuário
+1. O sistema fornecerá um botão de gerenciamento de usuários na página inicial de administradores
 2. O Admin clicará no botão de gerenciamento
-3. O sistema requisitará a senha de 12 caracteres
-4. O Admin digitará a senha
-5. O sistema validará a senha e redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
+5. O sistema redicionará o admin á página de gerenciamento de usuários, onde será exibido todos os usuários do sistema, além de um campo para pesquisa de usuários.
 6. O admin digitará o nome do usuário que ele deseja achar.
 7. O sistema validará os dados e exibirá ás informações desse usuário.
 
@@ -420,31 +409,35 @@ Investimentos em cafezais
 - User
 
 #### Fluxo Principal
-1. O sistema fornecerá um botão de investimentos na página principal.
+1. O sistema fornecerá um botão de investimentos na página principal de usuários.
 2. O usuário apertará no botão.
-3. O sistema ajeitará essas informações na página de investimentos. 
-4. O usuário será redirecionado a página de investimentos com todos os investimentos possíveis dele realizar.
-5. O usuário selecionará um investimento.
-6. O usuário será redirecionado a página do investimento selecionado onde haverá:
+3. O usuário será redirecionado a página de investimentos com todos os investimentos feitos onde possui um botaão para o mercado de investimentos.
+4. O usuário clicará no botão
+5. O sistema ajeitará essas informações na página de investimentos. 
+6. O usuário será redirecionado a página de investimentos com todos os investimentos possíveis dele realizar.
+7. O usuário selecionará um investimento.
+8. O usuário será redirecionado a página do investimento selecionado onde haverá:
     - O valor de cada fundo imobiliário.
     - O tamanho da propriedade.
     - O tamanho a ser dividido entre os fundos.
-    - O aluguel em percentual que será pago aos investidores.
-    - O nome da propiedade.
-    - O numero da conta para a qual o valor será transferido.
+    - O CPF da conta para a qual o valor será transferido.
     - O nome do fundo.
     - Nome do propietário
     - O distrito federal que se localiza a fazenda
     - Um botão de investir.
-7. O usuário apertará no botão.
-8. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
-9. O usuário fornecerá a senha
+10. O usuário apertará no botão.
+11. O sistema fornecerá um campo onde será requisitado a senha de 7 digítos do usuário
+12. O usuário fornecerá a senha
+13. O sistema validará os dados e fará o investimento no fundo indicado
 
 #### Fluxo Alternativo
 ##### CFA-1: Dados Errados
 
 ###### FA-1: Senha Incorreta 
-1. O usuário clicou no botão de investimentos.  
+1. O sistema fornecerá um botão de investimentos na página principal de usuários.
+2. O usuário apertará no botão.
+3. O usuário será redirecionado a página de investimentos com todos os investimentos feitos onde possui um botão para o mercado de investimentos.
+4. O usuário clicará no botão
 2. O sistema redirecionou para a página de investimentos.  
 3. O usuário selecionou um investimento.  
 4. O usuário acessou a página do investimento selecionado.  
@@ -453,10 +446,3 @@ Investimentos em cafezais
 7. O usuário digitou uma senha incorreta.  
 8. O sistema exibiu: "Senha inválida. Tente novamente."
 
-##### CFA-1: Alteração de Rota
-
-###### FA-1: Investimento Bloqueado Temporariamente 
-1. O usuário digitou a senha correta. 
-2. O sistema pediu a senha de 7 dígitos.   
-3. O usuário tentou investir várias vezes.  
-4. O sistema exibiu: "Você não pode investir várias vezes em um mesmo fundo." 
