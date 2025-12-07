@@ -9,8 +9,8 @@
  - [CDU 05](#CDU-05): Cadastramento de admins
  - [CDU 06](#CDU-06): Exclusão de admins
  - [CDU 07](#CDU-07): Editar Administradores
- - [CDU 18](#cdu-08): Buscar e Consultar Usuários
- - [CDU 16](#cdu-09): Investimentos
+ - [CDU 08](#cdu-08): Buscar e Consultar Usuários
+ - [CDU 09](#cdu-09): Investimentos
 
 ## Lista dos Atores
  - User
@@ -285,172 +285,63 @@ Cadastramento de Admins
 - Admin
 
 #### Fluxo Principal
-1. O sistema providenciará um botão para cadastro de novos admins.
+1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
 2. O admin clicará no botão para cadastrar outros admins.
-3. O sistema exigirá a senha de 12 caracteres do admin.
-4. O admin digitará a senha.
-5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+3. O sistema redirecionará p admin pra a página de cadastro de admins, além de fornecer um formulário com os campos:
     - nome do novo admin
-    - numero da conta do novo admin
     - cpf do novo admin 
-6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
-7. O sistema fornecerá um botão de confirmar cadastro.
-8. O admin clicará no botão de confirmar cadastro.
-9. O sistema pedirá a senha de 12 dígitos.
-10. O admin digitará a senha de 12 dígitos.
-11. O sistema validará a senha e gerará uma senha de 12 digítos aleatória para o novo admin, além de exibi-lá ao admin.
+4. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
+5. O sistema fornecerá um botão de confirmar cadastro.
+6. O admin clicará no botão de confirmar cadastro.
+7. O sistema irá gerar uma senha de 12 digítos aleatória para o novo admin, além de exibi-lá ao admin.
 
 #### Fluxos Alternativos
 
 ##### CFA-1: Alteração de Rotas
 ###### FA-1: Cancelamento Cadastro de Admin
-1. O sistema providenciará um botão para cadastro de novos admins.
+1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
 2. O admin clicará no botão para cadastrar outros admins.
-3. O sistema exigirá a senha de 12 caracteres do admin.
-4. O admin digitará a senha.
-5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
-6. O usuário clicará no botão
-7. O sistema redirecionará o usuário para a página principal de admins
-
-###### FA-2: Cancelamento da Senha Para Acessar o Cancelamento
-1. O sistema providenciará um botão para cadastro de novos admins.
-2. O admin clicará no botão para cadastrar outros admins.
-3. O sistema exigirá a senha de 12 caracteres do admin e fornecerá um botão de cancelar.
+3. O sistema redirecionará o admin para a página de cadastro de admins, além de fornecer um botão de cancelamento
 4. O usuário clicará no botão
-5. O sistema redirecionará o usuário para a pagina principal de admins
-###### FA-3: cancelamento de formulário
-1. O sistema providenciará um botão para cadastro de novos admins.
+5. O sistema redirecionará o usuário para a página principal de admins
+
+###### FA-2: cancelamento de formulário
+1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
 2. O admin clicará no botão para cadastrar outros admins.
-3. O sistema exigirá a senha de 12 caracteres do admin.
-4. O admin digitará a senha.
-5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+3. O sistema redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
     - nome do novo admin
-    - numero da conta do novo admin
     - cpf do novo admin
-6. O sistema colocará um botão de voltar
-7. O usuário apertará para voltra
-8. O sistema redirecionará o usuário para a página inicial de admins
-###### FA4: cancelamento da senha final
-1. O sistema providenciará um botão para cadastro de novos admins.
-2. O admin clicará no botão para cadastrar outros admins.
-3. O sistema exigirá a senha de 12 caracteres do admin.
-4. O admin digitará a senha.
-5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
-    - nome do novo admin
-    - numero da conta do novo admin
-    - cpf do novo admin
-6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
-7. O sistema fornecerá um botão de confirmar cadastro.
-8. O admin clicará no botão de confirmar cadastro.
-9. O sistema pedirá a senha de 12 dígitos.
-10. O sistema fornecerá um botão de voltar.
-11. O usuário clicará no botão
-12. O sistema fechará o campo de senhas
+4. O sistema exibirá um botão de voltar
+5. O usuário apertará para voltar
+6. O sistema redirecionará o usuário para a página inicial de admins
+
 ##### CFA-2: Erro de dados
 ###### FA-1 dados invalidos
-   1. O sistema providenciará um botão para cadastro de novos admins.
+   1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
    2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin.
-   4. O admin digitará a senha.
-   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+   3. O sistema redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
       - nome do novo admin
-      - numero da conta do novo admin
       - cpf do novo admin
-   6. O usuário deixará algum campo nulo
-   7. O sistema validará e retornará que o campo está vazio
+   4. O usuário deixará algum campo nulo
+   5. O sistema validará e retornará que o campo está vazio
 ###### FA-2 dados errados
-   1. O sistema providenciará um botão para cadastro de novos admins.
+   1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
    2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin.
-   4. O admin digitará a senha.
-   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+   3. O sistema redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
       - nome do novo admin
-      - numero da conta do novo admin
       - cpf do novo admin
-   6. O usuário deixará algum campo errado
-   7. O sistema validará e retornará que o campo está errado
+   4. O usuário deixará algum campo errado
+   5. O sistema validará e retornará que o campo está errado
 ###### FA-3 dados já cadastrado
-   1. O sistema providenciará um botão para cadastro de novos admins.
+   1. O sistema exibirá um botão para cadastro de novos admins na página de admins.
    2. O admin clicará no botão para cadastrar outros admins.
-   3. O sistema exigirá a senha de 12 caracteres do admin.
-   4. O admin digitará a senha.
-   5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
+   3. O sistema redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
       - nome do novo admin
-      - numero da conta do novo admin
       - cpf do novo admin
-   6. O usuário deixará algum campo com valores já cadastrados
-   7. O sistema validará e retornará que o campo está com um valor cadastrado
-##### CFA-3: Erro de autenticação
-   ###### FA-1: Senha de acesso nula
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin não digitará a senha.
-      5. O sistema fornecerá o botão de confirmar senha
-      5. O usuário clicará em enviar senha
-      6. O sistema validará e retornará que a senha é nula.
-   ###### FA-2: Senha de acesso inválida
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin digitará a senha de forma inválida.
-      5. O sistema fornecerá o botão de confirmar senha
-      5. O usuário clicará em enviar senha
-      6. O sistema validará e retornará que a senha é inválida.
-   ###### FA-3: Senha de acesso errada
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin digitará a senha errada.
-      5. O sistema fornecerá o botão de confirmar senha
-      5. O usuário clicará em enviar senha
-      6. O sistema validará e retornará que a senha está errada.
-   ###### FA-4: senha de confirmação nula
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin digitará a senha.
-      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
-         - nome do novo admin
-         - numero da conta do novo admin
-         - cpf do novo admin
-      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
-      7. O sistema fornecerá um botão de confirmar cadastro.
-      8. O admin clicará no botão de confirmar cadastro.
-      9. O sistema pedirá a senha de 12 dígitos.
-      10. O admin não digitará a senha de 12 dígitos e clicará em confirmar.
-      11. O sistema validará e dirá que a senha está nula.
-   ###### FA-5: senha de confirmação errada
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin digitará a senha.
-      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
-         - nome do novo admin
-         - numero da conta do novo admin
-         - cpf do novo admin
-      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
-      7. O sistema fornecerá um botão de confirmar cadastro.
-      8. O admin clicará no botão de confirmar cadastro.
-      9. O sistema pedirá a senha de 12 dígitos.
-      10. O admin digitará a senha de 12 dígitos errada e clicará em confirmar.
-      11. O sistema validará e dirá que a senha está errada.
-   ###### FA-6: senha de confirmação inválida
-      1. O sistema providenciará um botão para cadastro de novos admins.
-      2. O admin clicará no botão para cadastrar outros admins.
-      3. O sistema exigirá a senha de 12 caracteres do admin.
-      4. O admin digitará a senha.
-      5. O sistema validará a senha e redirecionará o admin para a página de cadastro de admins, além de fornecer um formulário com os campos:
-         - nome do novo admin
-         - numero da conta do novo admin
-         - cpf do novo admin
-      6. O admin completará os campos do formulário com as informações do novo admin que será cadastrado.
-      7. O sistema fornecerá um botão de confirmar cadastro.
-      8. O admin clicará no botão de confirmar cadastro.
-      9. O sistema pedirá a senha de 12 dígitos.
-      10. O admin não digitará a senha de 12 dígitos e clicará em confirmar.
-      11. O sistema validará e dirá que a senha está inválida.
-### CDU 06
+   4. O usuário deixará algum campo com valores já cadastrados
+   5. O sistema validará e retornará que o campo está com um valor cadastrado
+   6.  
+### CDU 08
 Excluir Admin
 
 #### Atores
@@ -569,3 +460,184 @@ Investimentos em cafezais
 2. O sistema pediu a senha de 7 dígitos.   
 3. O usuário tentou investir várias vezes.  
 4. O sistema exibiu: "Você não pode investir várias vezes em um mesmo fundo." 
+
+### CDU 17
+   Excluir categoria de unidade monetária
+
+#### Atores
+   - User
+
+#### Fluxo Principal
+1. O sistema irá fornecer um botão de categorização da unidade monetária.
+2. O usuário irá clicar nesse botão.
+3. O sistema requisitará a senha de 5 dígitos.
+4. O usuário digitará  a senha.
+5. O sistema validará a senha.
+6. O sistema redirecionará o usuário para a página de categorização monetária.
+7. O sistema fornecerá um botão de gerenciar categorias.
+8. O usuário clicará nesse botão.
+9. O usuário será redirecionado para a página de gerenciamento de categorias.
+10. O sistema exibirá as categorias em lista com um botão de excluir.
+11. O usuário clicará no botão de excluir.
+12. O sistema excluirá aquela automatização.
+13. O sistema exibirá os dados cadastrados.
+
+#### Fluxo Alternativo
+##### CFA-1: Dados Errados
+
+###### FA-1: Senha Incorreta
+1. O usuário clica no botão de categorização.  
+2. O sistema solicita a senha de 5 dígitos.  
+3. O usuário insere uma senha incorreta.  
+4. O sistema exibe uma mensagem: *"Senha inválida. Tente novamente."*  
+5. O usuário tenta novamente.  
+6. Após 3 tentativas, o sistema bloqueia temporariamente o acesso e exibe: *"Sistema temporariamente indisponível para categorização."*  
+7. O usuário aguarda 5 minutos para tentar novamente.  
+
+###### FA-2: Permissão Negada
+1. O usuário acessa o sistema.  
+2. O usuário clica no botão de categorização.  
+3. O sistema solicita a senha.  
+4. O usuário insere a senha correta.  
+5. O sistema valida a senha e verifica as permissões.  
+6. O sistema detecta que o usuário não possui permissão para categorização.  
+7. O sistema exibe: *"Você não tem permissão para acessar esta funcionalidade."*  
+8. O usuário é redirecionado para outra página.  
+
+###### FA-3: Categoria Não Encontrada  
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe uma lista vazia.  
+3. O usuário clica no botão de excluir.  
+4. O sistema exibe: "Não há categorias para excluir."  
+5. O usuário é redirecionado para a página inicial.  
+
+##### CFA-1: Erro Interno
+
+###### FA-1: Falha ao Excluir Categoria
+1. O usuário acessa a página de gerenciamento de categorias.  
+2. O sistema exibe a lista de categorias.  
+3. O usuário seleciona uma categoria e clicou no botão de excluir.  
+4. O sistema tenta excluir a categoria.  
+5. Ocorre um erro no banco de dados (ex.: violação de chave estrangeira).  
+6. O sistema exibe: "Erro ao excluir a categoria. A categoria está vinculada a dados existentes."
+7. O usuário volta à página principal.  
+
+### CDU 18
+   Editar Categoria de Unidade Monetária
+
+#### Atores
+   - User
+
+#### Fluxo Principal
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário.
+   14. O Sistema fornecerá o botão de confimar.
+   15. O usuário clicará no botão.
+   16. O sistema fará as alterações
+   17. O sistema voltará a lista de categorias.
+#### Fluxos alternaltivos
+##### CFA-1: alteração de rota
+###### FA-1: Cancelação da senha para entrar na rota
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O Sistema fornecerá um botão para voltar.
+   5. O usuário clicará no botão para voltar.
+   6. O sistema fechará aquele campo.
+###### FA-2: Cancelação da senha para entrar na rota
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de voltar
+   8. O usuário clicará no botão.
+   9. O sistema redirecionará o usuário para a página principal
+###### FA-3: cancelamento do form de edição
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O sistema fornecerá também um botão de voltar
+   14. O usuário voltará para a página de gerenciamento de categorias
+##### CFA-2: Erro de autenticação
+   ###### FA-1: senha incorreta
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário digitará  a senha incorreta.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está incorreta.
+   ###### FA-2: senha nula
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário não digitará a senha.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está nula.
+   ###### FA-2: senha inválida
+      1. O sistema irá fornecer um botão de categorização da unidade monetária.
+      2. O usuário irá clicar nesse botão.
+      3. O sistema requisitará a senha de 5 dígitos.
+      4. O usuário digitará a senha inválida.
+      5. O sistema validará a senha.
+      6. O sistema retornará que a senha está inválida.
+##### CFA-3: erro de dados:
+###### FA-1: dados nulos
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário com algum dado nulo.
+   14. O sistema retornará que o campo está vazio
+###### FA-2: dados inválidos
+   1. O sistema irá fornecer um botão de categorização da unidade monetária.
+   2. O usuário irá clicar nesse botão.
+   3. O sistema requisitará a senha de 5 dígitos.
+   4. O usuário digitará  a senha.
+   5. O sistema validará a senha.
+   6. O sistema redirecionará o usuário para a página de categorização monetária.
+   7. O sistema fornecerá um botão de gerenciar categorias.
+   8. O usuário clicará nesse botão.
+   9. O usuário será redirecionado para a página de gerenciamento de categorias.
+   10. O sistema exibirá as categorias em lista com um botão de editar.
+   11. O usuário clicará no botão de editar.
+   12. O sistema fornecerá um formulário com os valores:
+      - Nome da categoria.
+      - porcentual que ela representa.
+   13. O usuário preencherá o formulário com algum dado inválido.
+   14. O sistema retornará que o campo está inválido.
