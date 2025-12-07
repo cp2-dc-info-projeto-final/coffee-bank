@@ -142,7 +142,7 @@ if (typeof window !== 'undefined') {
             <div class="stat-icon"><i class="fa-solid fa-sack-dollar text-white"></i></div>
             <div class="stat-content">
                 <h3>Valor Total</h3>
-                <p class="stat-value">{Number(json?.data?.data?.Valor)} KGB</p>
+                <p class="stat-value">{Number(json?.data?.data?.Valor)? Number(json?.data?.data?.Valor) :0} KGB</p>
             </div>
         </div>
         
@@ -150,7 +150,7 @@ if (typeof window !== 'undefined') {
             <div class="stat-icon"><i class="fa-solid fa-money-bill-wheat text-white"></i></div>
             <div class="stat-content">
                 <h3>Valor médio do metro</h3>
-                <p class="stat-value">{InfromacoesGeraisMeusInvestimentos.valormetromedio} KGB</p>
+                <p class="stat-value">{Number(InfromacoesGeraisMeusInvestimentos.valormetromedio)? Number(InfromacoesGeraisMeusInvestimentos.valormetromedio) :0} KGB</p>
             </div>
         </div>
         
@@ -166,7 +166,7 @@ if (typeof window !== 'undefined') {
             <div class="stat-icon"><i class="fa-solid fa-maximize text-white"></i></div>
             <div class="stat-content">
                 <h3>area média</h3>
-                <p class="stat-value">{Number(InfromacoesGeraisMeusInvestimentos.AreaMedia)}m²</p>
+                <p class="stat-value">{ Number(InfromacoesGeraisMeusInvestimentos.AreaMedia)? Number(InfromacoesGeraisMeusInvestimentos.AreaMedia) :0}m²</p>
             </div>
         </div>
     </div>
