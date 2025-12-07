@@ -457,80 +457,27 @@ Cadastramento de Admins
       9. O sistema pedirá a senha de 12 dígitos.
       10. O admin não digitará a senha de 12 dígitos e clicará em confirmar.
       11. O sistema validará e dirá que a senha está inválida.
-### CDU 08
+### CDU 06
 Excluir Admin
 
 #### Atores
 - Admin
 
 #### Fluxo Principal
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin escreverá a senha.
-5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
-6. O admin clicará no botão de apagar o admin desejado.
-7. O sistema requisitará a senha de 12 dígitos
-8. O admin escreverá sua senha.
-9. O sistema validará os dados e terminará a conta do admin, além de exibir ao admin que está efetuando a deleção uma mensagem de exclusão efetuada.
+   1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
+   2. O admin clicará no botão.
+   3. uma confirmaçãp.
+   4. O admin clicará no botão de confirmar.
+   5. O sistema terminará a conta do admin, além de exibir ao admin que está efetuando a deleção uma mensagem de exclusão efetuada.
 
 #### Fluxo alternativo
-##### CFA-1: Dados errados
-
-###### FA-1: Senha diferente da do admin 1
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin colocará a senha errada.
-5. O sistema requisitará ao admin a senha correta.
-
-###### FA-2: Senha diferente da do admin 2
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin escreverá a senha.
-5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
-6. O admin clicará no botão de apagar o admin desejado.
-7. O sistema requisitará a senha de 12 dígitos
-8. O admin colocará a senha errada.
-9. O sistema requisitará ao admin a senha correta.
-
-###### FA-3: Campo senha vazio 1
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin não inserirá nenhuma informação.
-5. O sistema requisitará ao admin que coloque a senha.
-
-###### FA-4: Campo senha vazio 2
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin escreverá a senha.
-5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
-6. O admin clicará no botão de apagar o admin desejado.
-7. O sistema requisitará a senha de 12 dígitos
-8. O admin não inserirá nenhuma informação.
-9. O sistema requisitará ao admin que coloque a senha.
-
-##### CFA-2: Alteração de rota
+##### CFA-1: Alteração de rota
 ###### FA-1: Abortação de operação 1
 1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
 2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
+3. O sistema requisitará a confirmação.
 4. O admin clicará o botão cancelar.
-5. O sistema redirecionará o admin para a página inicial.
-
-###### FA-2: Abortação de operação 2
-1. O sistema fornecerá um botão para apagar outros admin na pagina inical de admin.
-2. O admin clicará no botão.
-3. O sistema requisitará a senha de 12 dígitos.
-4. O admin escreverá a senha.
-5. O sistema validará a senha e redicionará o admin para página de redirecionamento de admins, onde exibirá todos os admins com um botão de exclusão de conta ao lado.
-6. O admin clicará no botão de apagar o admin desejado.
-7. O sistema requisitará a senha de 12 dígitos
-8. O admin clicará o botão cancelar.
-9. O sistema abortará a operação atual e redirecionará o admin para a página inicial.
+5. O sistema fechará o modal.
 
 ### CDU 09 
 - Editar Administradores
