@@ -57,7 +57,20 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ## Fazer Transferências
 
+![Home do usuário](screenshots/UserMainPage.jpg)
+
+    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Transferências", ao lado esquerdo do botão "Investimentos", realizando tal ação direcionará o usuário a página de transferências, onde haverá um campo pedindo ovalor da trnasferência e outro exigindo a chave pix do destinatário e um botão chamado "transferir", que ao clicar após ter inserido ás informações nos campos acima, a transferência é realizada.
+
+![Página de Transferências](screenshots/TransactionPage.jpg)
+
 ## Visualizar Fundo Imobiliários
+
+![Home do usuário](screenshots/UserMainPage.jpg)
+
+    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário e todos os investimentos feitos por ele.
+
+![Página de Investimentos](screenshots/InvestmentPage.jpg)
+
 
 ## Fazer Investimentos em Fundo Imobiliários
 
