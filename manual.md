@@ -9,7 +9,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
  - [Visualizar o saldo de uma conta]
  - [Editar a conta de usuário]
  - [Fazer Transferências]
- - [Visualizar Fundo Imobiliários]
+ - [Visualizar Fundo Imobiliários](usuários)
  - [Fazer Investimentos em Fundo Imobiliários]
  - [Visualizar Investimentos feitos]
  - [Logar em uma conta de administrador]
@@ -18,6 +18,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
  - [Criar uma conta de administrador]
  - [Excluir usuários]
  - [Criar um Fundo Imobiliário]
+  - [Visualizar Fundo Imobiliários](admin)
  - [Editar um Fundo Imobiliário]
 
  
@@ -63,18 +64,34 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Página de Transferências](screenshots/TransactionPage.jpg)
 
-## Visualizar Fundo Imobiliários
+## Visualizar Fundo Imobiliários(usuários)
+
+![Home do usuário](screenshots/UserMainPage.jpg)
+
+    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário, além de um botâo com o nome mercado, onde ao clicar redirecionará  o usuário a página de "Mercado de Investimentos", onde está exibido todos os fundos atualmente a venda.
+
+![Página de Investimentos](screenshots/InvestmentPage.jpg)
+
+![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.jpg)
+
+## Fazer Investimentos em Fundo Imobiliários
+
+![Home do usuário](screenshots/UserMainPage.jpg)
+
+    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário, além de um botâo com o nome mercado, onde ao clicar redirecionará  o usuário a página de "Mercado de Investimentos", onde está exibido todos os fundos atualmente a venda, ao clicar em um fundo da escolha do usuário, será aberta um modal contendo as informações básicas do fundo e um botão "Investir", que ao clicar redicionará o usuário a página daquele fundo com mais informações do fundo e um campo para senha de 6 dígitos e um botão "Investir", qur ao clicar após preencher a senha realizará o investimento nese fundo.
+
+![Página de Investimentos](screenshots/InvestmentPage.jpg)
+
+![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.jpg)
+
+
+## Visualizar Investimentos feitos
 
 ![Home do usuário](screenshots/UserMainPage.jpg)
 
     Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário e todos os investimentos feitos por ele.
 
 ![Página de Investimentos](screenshots/InvestmentPage.jpg)
-
-
-## Fazer Investimentos em Fundo Imobiliários
-
-## Visualizar Investimentos feitos
 
 ## Logar em uma conta de administrador
 
@@ -87,5 +104,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 ## Excluir usuários
 
 ## Criar um Fundo Imobiliário
+
+## Visualizar um Fundo Imobiliário(admin)
 
 ## Editar um Fundo Imobiliário
