@@ -103,33 +103,64 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Página inicial](screenshots/AdminPageLogin.jpg)
 
-
 ## Visualizar usuários
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
+
+![Home de administradores](screenshots/AdministrationUsers.jpg)
 
 
 ## Visualizar administradores
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de administradores](screenshots/AdminPageAdminList.jpg)
+
 
 ## Criar uma conta de administrador
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Modal de criação de administradores](screenshots/CreateAdminModal.jpg)
+
+
 ## Excluir usuários
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
+
+![Gerenciamento de usyários](screenshots/AdministrationUsers.jpg)
+![Modal de confirmação de deleção de usuários](screenshots/ConfirmUserDeleteModal.jpg)
 
 ## Criar um Fundo Imobiliário
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Home de administradores](screenshots/AdminPageCreateFundo.jpg)
+
+
 ## Visualizar um Fundo Imobiliário(admin)
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
+
+
+
 ## Editar um Fundo Imobiliário
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
+
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
+![Home de administradores](screenshots/FundoEdit.jpg)
+
+## Deletar um Fundo Imobiliário
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
