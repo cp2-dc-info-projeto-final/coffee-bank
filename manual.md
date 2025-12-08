@@ -153,12 +153,14 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
-![Home de administradores](screenshots/AdminPageCreateFundo.jpg)
+![Página de criação de Fundo Imobiliários](screenshots/AdminPageCreateFundoImob.jpg)
 
 
 ## Visualizar um Fundo Imobiliário(admin)
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
+
+    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Criar Fundo", onde ao clicar redicionará o admin a página de criação de Fundo Imobiliários, onde há os campos necessários para criação do fundo e um botão chamado "Submit", que ao clicar após ter preenchido os campos, o sistema criará um fundo imobiliário com às informações fornecidas.
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
@@ -171,7 +173,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
-![Home de administradores](screenshots/FundoEdit.jpg)
+![Edição de Fundo Imobiliário](screenshots/FundoEdit.jpg)
 
 ## Deletar um Fundo Imobiliário
 
