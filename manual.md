@@ -124,6 +124,8 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores além de suas contas, também são exibidas variadas informações sobre a atividade dos administradores.
+
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Lista de administradores](screenshots/AdminPageAdminList.jpg)
 
@@ -131,6 +133,8 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 ## Criar uma conta de administrador
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
+
+    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores, além de um botão chamado "Criar Admin" no lado esquerdo da página de administradores, ao clicar o um modal será aberto contendo um campo exigindo um CPF e um botão chamado "Submit", ao apertar o botão após ter inserido o CPF uma conta de admin será criada e sua senha de 12 dígitos criada aleatoriamente será exibida para o administrador anotar.
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Modal de criação de administradores](screenshots/CreateAdminModal.jpg)
