@@ -107,8 +107,18 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
-![Home de administradores](screenshots/AdministrationUsers.jpg)
+    Quando estiver logado como administrador aperte no botão "Usuários" no lado esquerdo da página home de admin, ao clicar o administrador será redirecionado a página de gerenciamento de usuários onde todas as contas de usuário são exibidos.
 
+![Gerenciamento de usuários](screenshots/AdministrationUsers.jpg)
+
+## Excluir usuários
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
+    Quando estiver logado como administrador aperte no botão "Usuários" no lado esquerdo da página home de admin, ao clicar o administrador será redirecionado a página de gerenciamento de usuários onde todas as contas de usuário são exibidos juntamente de um botão de excluir ao lado de cada conta, ao clicar o botão um modal aparecerá para confirmação de deleção de conta de usuário, se confirmar a conta é terminada.
+
+![Gerenciamento de usuários](screenshots/AdministrationUsers.jpg)
+![Modal de confirmação de deleção de usuários](screenshots/ConfirmUserDeleteModal.jpg)
 
 ## Visualizar administradores
 
@@ -124,14 +134,6 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Modal de criação de administradores](screenshots/CreateAdminModal.jpg)
-
-
-## Excluir usuários
-
-![Home de administradores](screenshots/AdminPageHome.jpg)
-
-![Gerenciamento de usyários](screenshots/AdministrationUsers.jpg)
-![Modal de confirmação de deleção de usuários](screenshots/ConfirmUserDeleteModal.jpg)
 
 ## Criar um Fundo Imobiliário
 
