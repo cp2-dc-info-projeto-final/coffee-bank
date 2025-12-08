@@ -18,22 +18,22 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
  - [Criar uma conta de administrador]
  - [Excluir usuários]
  - [Criar um Fundo Imobiliário]
-  - [Visualizar Fundo Imobiliários](admin)
+ - [Visualizar Fundo Imobiliários](admin)
  - [Editar um Fundo Imobiliário]
 
  
 
 ## Criar uma conta de usuário 
 
-   ![Página inicial](screenshots/HomePage.jpg)
+![Página inicial](screenshots/HomePage.jpg)
 
 Quando estiver na página de cadastro, o usuário poderá preencher o formulário e clicar no botão "Submit", localizado abaixo dos campos do formulário. Ao realizar tal ação um usuário com as informações providenciadas será criado.
 
-    ![Página de Cadastro](screenshots/RegistrationPage.jpg)
+![Página de Cadastro](screenshots/RegistrationPage.jpg)
 
 ## Logar em uma conta de usuário
 
-   ![Página inicial](screenshots/HomePage.jpg)
+![Página inicial](screenshots/HomePage.jpg)
 
 Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login, onde terá um formulário exigindo o CPF e senha de 5 digítos da conta que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit" o usuário será logado e redirecionado a sua página home de usuário.
 
