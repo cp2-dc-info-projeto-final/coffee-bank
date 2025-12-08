@@ -120,16 +120,6 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 ![Gerenciamento de usuários](screenshots/AdministrationUsers.jpg)
 ![Modal de confirmação de deleção de usuários](screenshots/ConfirmUserDeleteModal.jpg)
 
-## Visualizar administradores
-
-![Home de administradores](screenshots/AdminPageHome.jpg)
-
-    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores além de suas contas, também são exibidas variadas informações sobre a atividade dos administradores.
-
-![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
-![Lista de administradores](screenshots/AdminPageAdminList.jpg)
-
-
 ## Criar uma conta de administrador
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
@@ -138,6 +128,25 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
 ![Modal de criação de administradores](screenshots/CreateAdminModal.jpg)
+
+## Visualizar administradores
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
+    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Lista de Admins", onde ao clicar redicionará o admin a página de lista de Admins, onde são exibidas as contas de cada administrador no sistema.
+
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de administradores](screenshots/AdminPageAdminList.jpg)
+
+## Excluir administradores
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
+    Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Lista de Admins", onde ao clicar redicionará o admin a página de lista de Admins, onde são exibidas as contas de cada administrador no sistema juntamente com um botão de excluir ao lado de suas respectivas contas.
+
+![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
+![Lista de administradores](screenshots/AdminPageAdminList.jpg)
+
 
 ## Criar um Fundo Imobiliário
 
