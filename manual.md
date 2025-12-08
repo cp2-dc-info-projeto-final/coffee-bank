@@ -40,19 +40,19 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ## Visualizar o saldo de uma conta
 
-    ![Home do usuário](screenshot/UserMainPage.jpg)
+![Home do usuário](screenshot/UserMainPage.jpg)
     
     Quando estiver logado em uma conta de usuário, o usuário poderá clicar no símbolo de olho ao lado de sua imagem de perfil e nome na barra de navegação, fazendo tal ação revelará o saldo na conte do usuário logado.
 
-    ![Barra de navegação do usuário](screenshot/UserNav.png)
+![Barra de navegação do usuário](screenshot/UserNav.png)
 
 ## Editar a conta de usuário
 
-    ![Home do usuário](screenshot/UserMainPage.jpg)
+![Home do usuário](screenshot/UserMainPage.jpg)
 
     Quando estiver logado em uma conta de usuário, o usuário poderá clicar na sua foto de perfil ao lado de seu nome e saldo na barra de navegação, fazendo tal ação redirecionará o usuário a página de edição de conta onde haverá um formulário com as informações necessárias para edição da conta e um botão de "Submit", que ao clicar após ter preenchido todas as informações com as novas editará a conta do usuário.
 
-    ![Barra de navegação do usuário](screenshot/UserNav.png)
+![Barra de navegação do usuário](screenshot/UserNav.png)
 
 
 ## Fazer Transferências
