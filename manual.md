@@ -174,8 +174,9 @@ Quando estiver logado como administrador aperte no botão "Administradores" no l
 
 ![Home de administradores](screenshots/AdminPageHome.jpg)
 
+Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Editar Fundo", onde ao clicar redicionará o admin a página de edição de Fundo Imobiliários, onde há cada fundo existente no sistema e um botão de editar ao lado dele, que ao clicar abrirá um modal contendo os campos necessários para edição do fundo e um botão chamado "Submit", que ao clicar após ter preenchido os campos, o sistema atualizará o fundo imobiliário escolhido com às informações fornecidas.
+
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
-![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
 ![Edição de Fundo Imobiliário](screenshots/FundoEdit.jpg)
 
 ## Deletar um Fundo Imobiliário
