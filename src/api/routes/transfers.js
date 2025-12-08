@@ -3,7 +3,7 @@ var router = express.Router();
 var ValidationCPF=require("../Functions/CPFValidation")
 const pool = require('../db/config');
 const { verifyToken } = require('../middlewares/auth');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 //Transferência de saldo entre usuários
 router.put('/trasferencia',verifyToken, async function(req, res) {

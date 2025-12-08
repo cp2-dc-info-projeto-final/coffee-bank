@@ -2,7 +2,7 @@ var express = require('express');
 var {verifyToken,isAdmin}=require("../middlewares/auth")
 var router = express.Router();
 const pool = require('../db/config');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const ValidationCPF = require('../Functions/CPFValidation');
 const jwt = require('jsonwebtoken');
 // Função para gerar senha aleatória de 12 dígitos
