@@ -24,16 +24,16 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ## Criar uma conta de usuário 
 
-    ![Página inicial](screenshot/HomePage.jpg)
+   ![Página inicial](screenshot/HomePage.jpg)
 
-    Quando estiver na página de cadastro, o usuário poderá preencher o formulário e clicar no botão "Submit", localizado abaixo dos campos do formulário. Ao realizar tal ação um usuário com as informações providenciadas será criado.
+   Quando estiver na página de cadastro, o usuário poderá preencher o formulário e clicar no botão "Submit", localizado abaixo dos campos do formulário. Ao realizar tal ação um usuário com as informações providenciadas será criado.
 
 
 ## Logar em uma conta de usuário
 
-    ![Página inicial](screenshot/HomePage.jpg)
+   ![Página inicial](screenshot/HomePage.jpg)
 
-    Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login, onde terá um formulário exigindo o CPF e senha de 5 digítos da conta que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit" o usuário será logado e redirecionado a sua página home de usuário.
+   Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login, onde terá um formulário exigindo o CPF e senha de 5 digítos da conta que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit" o usuário será logado e redirecionado a sua página home de usuário.
 
 
 
@@ -42,7 +42,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Home do usuário](screenshot/UserMainPage.jpg)
     
-    Quando estiver logado em uma conta de usuário, o usuário poderá clicar no símbolo de olho ao lado de sua imagem de perfil e nome na barra de navegação, fazendo tal ação revelará o saldo na conte do usuário logado.
+   Quando estiver logado em uma conta de usuário, o usuário poderá clicar no símbolo de olho ao lado de sua imagem de perfil e nome na barra de navegação, fazendo tal ação revelará o saldo na conte do usuário logado.
 
 ![Barra de navegação do usuário](screenshot/UserNav.png)
 
@@ -50,7 +50,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ![Home do usuário](screenshot/UserMainPage.jpg)
 
-    Quando estiver logado em uma conta de usuário, o usuário poderá clicar na sua foto de perfil ao lado de seu nome e saldo na barra de navegação, fazendo tal ação redirecionará o usuário a página de edição de conta onde haverá um formulário com as informações necessárias para edição da conta e um botão de "Submit", que ao clicar após ter preenchido todas as informações com as novas editará a conta do usuário.
+   Quando estiver logado em uma conta de usuário, o usuário poderá clicar na sua foto de perfil ao lado de seu nome e saldo na barra de navegação, fazendo tal ação redirecionará o usuário a página de edição de conta onde haverá um formulário com as informações necessárias para edição da conta e um botão de "Submit", que ao clicar após ter preenchido todas as informações com as novas editará a conta do usuário.
 
 ![Barra de navegação do usuário](screenshot/UserNav.png)
 
