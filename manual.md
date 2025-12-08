@@ -29,6 +29,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
    Quando estiver na página de cadastro, o usuário poderá preencher o formulário e clicar no botão "Submit", localizado abaixo dos campos do formulário. Ao realizar tal ação um usuário com as informações providenciadas será criado.
 
+    ![Página de Cadastro](screenshots/RegistrationPage.jpg)
 
 ## Logar em uma conta de usuário
 
@@ -36,7 +37,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
    Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login, onde terá um formulário exigindo o CPF e senha de 5 digítos da conta que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit" o usuário será logado e redirecionado a sua página home de usuário.
 
-
+![Página inicial](screenshots/UserLoginPage.jpg)
 
 
 ## Visualizar o saldo de uma conta
@@ -62,7 +63,7 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
     Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Transferências", ao lado esquerdo do botão "Investimentos", realizando tal ação direcionará o usuário a página de transferências, onde haverá um campo pedindo ovalor da trnasferência e outro exigindo a chave pix do destinatário e um botão chamado "transferir", que ao clicar após ter inserido ás informações nos campos acima, a transferência é realizada.
 
-![Página de Transferências](screenshots/TransactionPage.jpg)
+![Página de Transferências](screenshots/TransferPage.jpg)
 
 ## Visualizar Fundo Imobiliários(usuários)
 
@@ -83,7 +84,8 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 ![Página de Investimentos](screenshots/InvestmentPage.jpg)
 
 ![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.jpg)
-
+![Modal do Fundo Imobiliário](screenshots/FundoModal.jpg)
+![Página de Fundo Imobiliário](screenshots/InvestmentFundoPage.jpg)
 
 ## Visualizar Investimentos feitos
 
@@ -95,16 +97,39 @@ O projeto CoffeeBank é um banco voltado para o mercado de cultivação de café
 
 ## Logar em uma conta de administrador
 
+ ![Página inicial](screenshots/HomePage.jpg)
+
+   Quando estiver na página inicial da aplicação, o usuário poderá clicar no botão "Entrar como Admin", localizado no topo da página, nas barras de navegação. Ao realizar tal ação o usuário será redirecionado a página de login de administrador, onde terá um formulário exigindo o CPF e senha de 12 digítos da conta de administrador que o usuário deseja logar, ao providenciar as informações e apertar o botão "Submit", o usuário será logado como administrador e redirecionado a página home de admin.
+
+![Página inicial](screenshots/AdminPageLogin.jpg)
+
+
 ## Visualizar usuários
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
 
 ## Visualizar administradores
 
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
+
 ## Criar uma conta de administrador
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
 
 ## Excluir usuários
 
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
 ## Criar um Fundo Imobiliário
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
 
 ## Visualizar um Fundo Imobiliário(admin)
 
+![Home de administradores](screenshots/AdminPageHome.jpg)
+
 ## Editar um Fundo Imobiliário
+
+![Home de administradores](screenshots/AdminPageHome.jpg)
