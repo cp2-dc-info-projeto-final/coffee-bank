@@ -73,7 +73,7 @@ Quando estiver logado em uma conta de usuário, o usuário poderá clicar no bot
 
 ![Página de Investimentos](screenshots/InvestmentPage.jpg)
 
-![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.jpg)
+![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.png)
 
 ## Fazer Investimentos em Fundo Imobiliários
 
@@ -83,9 +83,9 @@ Quando estiver logado em uma conta de usuário, o usuário poderá clicar no bot
 
 ![Página de Investimentos](screenshots/InvestmentPage.jpg)
 
-![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.jpg)
-![Modal do Fundo Imobiliário](screenshots/FundoModal.jpg)
-![Página de Fundo Imobiliário](screenshots/InvestmentFundoPage.jpg)
+![Página de Mercado de Investimentos](screenshots/InvestmentMarketPage.png)
+![Modal do Fundo Imobiliário](screenshots/FundoModal.png)
+![Página de Fundo Imobiliário](screenshots/InvestmentFundoPage.png)
 
 ## Visualizar Investimentos feitos
 
@@ -93,7 +93,7 @@ Quando estiver logado em uma conta de usuário, o usuário poderá clicar no bot
 
 Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário e todos os investimentos feitos por ele.
 
-![Página de Investimentos](screenshots/InvestmentPage.jpg)
+![Página de Investimentos](screenshots/InvestmentPage.png)
 
 ## Logar em uma conta de administrador
 
@@ -166,7 +166,7 @@ Quando estiver logado como administrador aperte no botão "Administradores" no l
 Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Criar Fundo", onde ao clicar redicionará o admin a página de criação de Fundo Imobiliários, onde há os campos necessários para criação do fundo e um botão chamado "Submit", que ao clicar após ter preenchido os campos, o sistema criará um fundo imobiliário com às informações fornecidas.
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
-![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
+![Lista de Fundos](screenshots/AdminPageFundoList.png)
 
 
 
@@ -186,4 +186,4 @@ Quando estiver logado como administrador aperte no botão "Administradores" no l
 Quando estiver logado como administrador aperte no botão "Administradores" no lado esquerdo da página home de admin, ao clicar, o administrador será redirecionado a página de administradores onde haverá um dashboard geral com informações dos administradores e um botão do lado esquerdo da página chamado "Criar Fundo", onde ao clicar redicionará o admin a página de criação de Fundo Imobiliários, onde há os campos necessários para criação do fundo e um botão chamado "Submit", que ao clicar após ter preenchido os campos, o sistema criará um fundo imobiliário com às informações fornecidas e um botão de excluir ao lado dos respectivos fundos, que ao clicar terminará aquele fundo e todos os investimentos relacionados.
 
 ![Dashboard de administradores](screenshots/AdminPageAdmin.jpg)
-![Lista de Fundos](screenshots/AdminPageFundoList.jpg)
+![Lista de Fundos](screenshots/AdminPageFundoList.png)
