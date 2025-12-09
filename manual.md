@@ -93,7 +93,7 @@ Quando estiver logado em uma conta de usuário, o usuário poderá clicar no bot
 
 Quando estiver logado em uma conta de usuário, o usuário poderá clicar no botão "Investimentos", ao lado direito do botão "Transferências", realizando tal ação direcionará o usuário a página de investimentos, onde haverá informações gerais sobre investimentos feitos pelo usuário e todos os investimentos feitos por ele.
 
-![Página de Investimentos](screenshots/InvestmentPage.png)
+![Página de Investimentos](screenshots/InvestmentPage.jpg)
 
 ## Logar em uma conta de administrador
 
